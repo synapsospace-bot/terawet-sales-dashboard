@@ -1245,7 +1245,7 @@ class LeadFinderService:
                 "email": email,
                 "culture": culture,
                 "country": cfg['country'],
-                "country_code": cfg_code
+                "country_code": cfg['code']
             })
 
         return batch
