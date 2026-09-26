@@ -272,92 +272,172 @@ class LeadDataService:
 
     def _detect_language(self, city: str, address: str, website: str, phone: str = "", email: str = "", name: str = "") -> str:
         """
-        Deep multi-factor language detection for TeraWet leads.
-        Properly identifies Bulgarian leads (Latin/Cyrillic cities like Plovdiv, +359 phones, .bg domains),
-        Greek leads (+30, .gr, Greek alphabet, Greek regions), Romanian, Spanish, etc.
+        Deep multi-factor language detection for TeraWet leads across 10 European target markets:
+        Bulgaria (bg), Greece (el), Romania (ro), Hungary (hu), Italy (it),
+        Slovenia (sl), Slovakia (sk), France (fr), Austria (de), Spain (es).
         """
         text = f"{name} {city} {address} {website} {email}".lower()
         phone_clean = re.sub(r'[\s\-\(\)\.]', '', phone)
+        web_clean = (website or "").lower().strip()
+        email_clean = (email or "").lower().strip()
 
-        # 1. Phone country codes
-        if phone_clean.startswith("+359") or phone_clean.startswith("00359") or phone_clean.startswith("359"):
+        # 1. Phone country codes (Direct, infallible indicator)
+        if phone_clean.startswith(("+359", "00359", "359")):
             return "bg"
-        if phone_clean.startswith("+30") or phone_clean.startswith("0030") or phone_clean.startswith("30"):
+        if phone_clean.startswith(("+30", "0030", "30")):
             return "el"
-        if phone_clean.startswith("+40") or phone_clean.startswith("0040") or phone_clean.startswith("40"):
+        if phone_clean.startswith(("+40", "0040", "40")):
             return "ro"
-        if phone_clean.startswith("+34") or phone_clean.startswith("0034") or phone_clean.startswith("34"):
-            return "es"
-        if phone_clean.startswith("+39") or phone_clean.startswith("0039") or phone_clean.startswith("39"):
+        if phone_clean.startswith(("+36", "0036", "36")):
+            return "hu"
+        if phone_clean.startswith(("+39", "0039", "39")):
             return "it"
+        if phone_clean.startswith(("+386", "00386", "386")):
+            return "sl"
+        if phone_clean.startswith(("+421", "00421", "421")):
+            return "sk"
+        if phone_clean.startswith(("+33", "0033", "33")):
+            return "fr"
+        if phone_clean.startswith(("+43", "0043", "43")):
+            return "de"
+        if phone_clean.startswith(("+34", "0034", "34")):
+            return "es"
 
-        # 2. Domain / TLD / Provider matching
-        if any(ext in text for ext in [".bg", "@abv.bg", "@mail.bg", "@dir.bg", "@gbg.bg"]):
+        # 2. Domain / TLD / Email provider matching
+        def _has_tld(tld: str) -> bool:
+            return email_clean.endswith(tld) or bool(re.search(rf'{re.escape(tld)}(/|\?|$)', web_clean))
+
+        if any(ext in text for ext in ["@abv.bg", "@mail.bg", "@dir.bg", "@gbg.bg"]) or _has_tld(".bg"):
             return "bg"
-        if any(ext in text for ext in [".gr", ".el"]):
+        if _has_tld(".gr") or _has_tld(".el"):
             return "el"
-        if any(ext in text for ext in [".ro"]):
+        if _has_tld(".ro"):
             return "ro"
-        if any(ext in text for ext in [".es"]):
+        if _has_tld(".hu"):
+            return "hu"
+        if _has_tld(".it"):
+            return "it"
+        if _has_tld(".si"):
+            return "sl"
+        if _has_tld(".sk"):
+            return "sk"
+        if _has_tld(".fr"):
+            return "fr"
+        if _has_tld(".at"):
+            return "de"
+        if _has_tld(".es"):
             return "es"
 
         # 3. Greek Alphabet Characters
-        if any(c in text for c in "αβγδεζηθικλμνξοπρστυφχψω"):
+        if any(c in text for c in "αβγδεζηθικλμνξοπρστυφχψωάέήίόύώ"):
             return "el"
 
-        # 4. Bulgarian Cities & Keywords (both Latin and Cyrillic)
+        # 4. Cyrillic Characters (Bulgarian target market)
+        if any(c in text for c in "абвгдежзийклмнопрстуфхцчшщъьюя"):
+            return "bg"
+
+        # 5. Country & Regional City Keywords
+        # Hungary
+        hu_keywords = [
+            "hungary", "magyarország", "magyar", "budapest", "debrecen", "szeged", "miskolc", "pécs", "győr",
+            "kecskemét", "székesfehérvár", "eger", "tokaj", "villány", "balaton", "sopron", "szekszárd",
+            "bács-kiskun", "szabolcs", "nyíregyháza", "cegléd", "gönc", "badacsony", "mád"
+        ]
+        if any(k in text for k in hu_keywords):
+            return "hu"
+
+        # Slovenia
+        sl_keywords = [
+            "slovenia", "slovenija", "ljubljana", "maribor", "kranj", "celje", "koper", "novo mesto",
+            "velenje", "nova gorica", "krško", "brda", "vipava", "goriška brda", "šentjernej", "ptuj",
+            "ormož", "ajdovščina", "slovenska istra", "dobrovo", "bizeljsko", "posavje"
+        ]
+        if any(k in text for k in sl_keywords):
+            return "sl"
+
+        # Slovakia
+        sk_keywords = [
+            "slovakia", "slovensko", "bratislava", "košice", "prešov", "žilina", "banská bystrica", "nitra",
+            "trnava", "martin", "trenčín", "poprad", "tokajská", "malokarpatská", "pezinok", "modra",
+            "dunajská streda", "dunajská lužná", "komárno", "strekov", "piešťany", "levice", "malá tŕňa"
+        ]
+        if any(k in text for k in sk_keywords):
+            return "sk"
+
+        # Italy
+        it_keywords = [
+            "italy", "italia", "roma", "rome", "milano", "milan", "napoli", "torino", "palermo", "bologna",
+            "firenze", "florence", "verona", "bari", "catania", "venezia", "toscana", "puglia", "sicilia",
+            "veneto", "piemonte", "chianti", "barolo", "prosecco", "modena", "emilia-romagna", "foggia",
+            "salento", "taranto", "langhe", "marsala", "montalcino", "etna", "pistoia", "cesena"
+        ]
+        if any(k in text for k in it_keywords):
+            return "it"
+
+        # France
+        fr_keywords = [
+            "france", "paris", "marseille", "lyon", "toulouse", "nice", "nantes", "montpellier", "strasbourg",
+            "bordeaux", "gironde", "reims", "bourgogne", "provence", "champagne", "languedoc", "rhone",
+            "rhône", "alsace", "cognac", "avignon", "nimes", "perpignan", "saint-émilion", "vaucluse",
+            "cavaillon", "minervois", "beaune", "arboriculture"
+        ]
+        if any(k in text for k in fr_keywords):
+            return "fr"
+
+        # Austria
+        de_keywords = [
+            "austria", "österreich", "oesterreich", "wien", "vienna", "graz", "linz", "salzburg", "innsbruck",
+            "klagenfurt", "wachau", "burgenland", "steiermark", "niederösterreich", "krems", "neusiedl",
+            "gols", "gamlitz", "kamptal", "langenlois", "weinviertel", "retz", "weiz", "tulln"
+        ]
+        if any(k in text for k in de_keywords):
+            return "de"
+
+        # Romania
+        ro_keywords = [
+            "romania", "românia", "bucuresti", "bucharest", "cluj", "timisoara", "iasi", "constanta",
+            "craiova", "brasov", "oradea", "vrancea", "focsani", "focșani", "dealu mare", "prahova",
+            "cotnari", "murfatlar", "recas", "recaș", "drăgășani", "dragasani", "panciu", "voinesti"
+        ]
+        if any(k in text for k in ro_keywords):
+            return "ro"
+
+        # Spain
+        es_keywords = [
+            "spain", "españa", "espana", "madrid", "barcelona", "valencia", "sevilla", "seville", "zaragoza",
+            "malaga", "murcia", "cordoba", "córdoba", "jerez", "andalucia", "andalucía", "rioja", "la mancha",
+            "alicante", "almeria", "almería", "jaen", "jaén", "ubeda", "úbeda", "tomelloso", "cieza", "el ejido"
+        ]
+        if any(k in text for k in es_keywords):
+            return "es"
+
+        # Bulgarian Cities & Keywords
         bg_keywords = [
             "bulgaria", "българия", "българ",
-            "plovdiv", "пловдив", "sofia", "софия", "varna", "варна", "burgas", "bourgas", "бургас",
-            "stara zagora", "стара загора", "ruse", "rousse", "русе", "pleven", "плевен",
-            "sliven", "сливен", "dobrich", "добрич", "shumen", "шумен", "pernik", "перник",
-            "haskovo", "хасково", "yambol", "ямбол", "pazardzhik", "пазарджик",
-            "blagoevgrad", "благоевград", "veliko tarnovo", "търново", "gabrovo", "габрово",
-            "vratsa", "враца", "vidin", "видин", "asenovgrad", "асеновград",
-            "kazanlak", "казанлък", "kyustendil", "кюстендил", "kardzhali", "кърджали",
-            "montana", "монтана", "dimitrovgrad", "димитровград", "lovech", "ловеч",
-            "silistra", "силистра", "targovishte", "търговище", "razgrad", "разград",
-            "smolyan", "смолян", "brestovitsa", "брестовица", "ustina", "устина",
-            "momin prohod", "момин проход", "pomorie", "поморие", "nesebar", "несебър",
-            "sozopol", "созопол", "karlovo", "карлово", "sopot", "сопот",
-            "sandanski", "сандански", "petrich", "петрич", "bansko", "банско",
-            "razlog", "разлог", "gotse delchev", "гоце делчев", "chirpan", "чирпан",
-            "karnobat", "карнобат", "balchik", "балчик", "kavarna", "каварна",
-            "svishtov", "свищов", "gorna oryahovitsa", "горна оряховица",
-            "sevlievo", "севлиево", "troyan", "троян", "panagyurishte", "панагюрище",
-            "peshtera", "пещера", "velingrad", "велинград", "septemvri", "септември",
-            "harmanli", "харманли", "svilengrad", "свиленград", "любимец", "lyubimets",
-            "suhindol", "сухиндол", "огняново", "ognyanovo", "първомай", "parvomay", "parvomai"
+            "plovdiv", "sofia", "varna", "burgas", "bourgas", "stara zagora", "ruse", "rousse", "pleven",
+            "sliven", "dobrich", "shumen", "pernik", "haskovo", "yambol", "pazardzhik", "blagoevgrad",
+            "veliko tarnovo", "gabrovo", "vratsa", "vidin", "asenovgrad", "kazanlak", "kyustendil",
+            "kardzhali", "montana", "dimitrovgrad", "lovech", "silistra", "targovishte", "razgrad",
+            "smolyan", "brestovitsa", "ustina", "pomorie", "nesebar", "sozopol", "karlovo", "sandanski",
+            "petrich", "bansko", "razlog", "gotse delchev", "chirpan", "karnobat", "balchik", "svishtov",
+            "gorna oryahovitsa", "sevlievo", "troyan", "panagyurishte", "peshtera", "velingrad", "septemvri",
+            "harmanli", "svilengrad", "lyubimets", "suhindol", "ognyanovo", "parvomay"
         ]
         if any(k in text for k in bg_keywords):
             return "bg"
 
-        # 5. Cyrillic Characters (Bulgarian target market)
-        if any(c in text for c in "абвгдежзийклмнопрстуфхцчшщъьюя"):
-            return "bg"
-
-        # 6. Greek Cities & Regions (Latin)
+        # Greek Cities & Regions
         gr_keywords = [
             "greece", "hellas", "ellada", "athens", "athina", "thessaloniki", "larissa", "larisa",
             "patras", "patra", "heraklion", "irakleio", "chania", "rethymno", "rhodes", "rodos",
             "kalamata", "corinth", "korinthos", "sparta", "sparti", "trikala", "karditsa",
-            "volos", "halkidiki", "chalkidiki", "kassandra", "kassandreia", "sithonia",
-            "drama", "kavala", "naoussa", "nemea", "argos", "messinia", "peloponnese",
-            "thessaly", "crete", "mati", "marathoussa", "monopigado", "epanomi", "petralona"
+            "volos", "halkidiki", "chalkidiki", "kassandra", "sithonia", "drama", "kavala",
+            "naoussa", "nemea", "argos", "messinia", "peloponnese", "thessaly", "crete", "epanomi"
         ]
         if any(k in text for k in gr_keywords):
             return "el"
 
-        # 7. Romanian / Spanish keywords
-        ro_keywords = ["romania", "bucuresti", "bucharest", "cluj", "timisoara", "iasi", "constanta", "craiova", "brasov"]
-        if any(k in text for k in ro_keywords):
-            return "ro"
-
-        es_keywords = ["spain", "españa", "madrid", "barcelona", "valencia", "sevilla", "seville", "zaragoza", "malaga", "murcia", "cordoba", "jerez", "andalucia"]
-        if any(k in text for k in es_keywords):
-            return "es"
-
-        return "bg" if ("bulgar" in text or "bg" in text) else "el"
+        return "bg" if ("bulgar" in text or ".bg" in text) else "el"
 
     def mark_draft_created(self, lead: Dict[str, Any], draft_id: str, subject: str, body_plain: str):
         email = lead.get("email", "")

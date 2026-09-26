@@ -13,10 +13,12 @@ SUPPORTED_LANGUAGES = {
     "es": "Spanish (Español)",
     "it": "Italian (Italiano)",
     "fr": "French (Français)",
-    "pt": "Portuguese (Português)",
-    "hr": "Croatian (Hrvatski)",
+    "de": "German / Austrian (Deutsch)",
+    "hu": "Hungarian (Magyar)",
     "sl": "Slovenian (Slovenščina)",
     "sk": "Slovak (Slovenčina)",
+    "pt": "Portuguese (Português)",
+    "hr": "Croatian (Hrvatski)",
     "sr": "Serbian (Српски)",
     "en": "English"
 }
@@ -119,11 +121,13 @@ class TerawetAgentBrain:
             "el": "Εάν δεν επιθυμείτε να λαμβάνετε περαιτέρω επαγγελματικές ενημερώσεις, παρακαλούμε απαντήστε με 'Διαγραφή'.",
             "es": "Para no recibir más comunicaciones profesionales B2B, responda con 'Baja'.",
             "it": "Per disiscriversi da future comunicazioni B2B, risponda 'Cancellami'.",
-            "fr": "Pour vous désinscrire de ces communications, répondez 'Désinscription'.",
+            "fr": "Pour vous désinscrire de ces communications professionnelles, répondez 'Désinscription'.",
+            "de": "Wenn Sie keine weiteren fachlichen Mitteilungen erhalten möchten, antworten Sie bitte mit 'Abmelden'.",
+            "hu": "Amennyiben nem kíván több szakmai megkeresést kapni, kérjük, válaszoljon a 'Leiratkozás' szóval.",
+            "sl": "Za odjavo od strokovnih obvestil odgovorite z 'Odjava'.",
+            "sk": "Ak si neželáte dostávať ďalšie odborné správy, odpovedzte 'Odhlásiť'.",
             "pt": "Para cancelar a subscrição, responda com 'Remover'.",
             "hr": "Ako ne želite primati daljnje poruke, odgovorite s 'Odjava'.",
-            "sl": "Za odjavo od obvestil odgovorite z 'Odjava'.",
-            "sk": "Ak si neželáte dostávať ďalšie správy, odpovedzte 'Odhlásiť'.",
             "en": "If you prefer not to receive future communications, please reply with 'Unsubscribe'."
         }
         optout_text = optouts.get(lang, optouts["en"])
@@ -264,40 +268,96 @@ class TerawetAgentBrain:
             "transform_local_en": "Building an active underground reservoir that reduces watering cycles by 50% for 7 to 10 years."
         }
 
+    def _get_crop_dosage(self, niche: str, lang: str) -> str:
+        """Returns agronomic dosage recommendations customized by crop niche and language."""
+        dosages = {
+            "vineyard": {
+                "el": "<strong>Για Αμπελώνες:</strong> 10–15 g TERAWET® T400 στη ριζόσφαιρα κάθε πρέμνου (ή κατά τη φύτευση) εξασφαλίζουν συνεχή διαθεσιμότητα υγρασίας χωρίς υπερβολική βλαστική ανάπτυξη. Αποτρέπεται το θερμικό σοκ, ενισχύεται η σύνθεση ανθοκυανών, ομοιόμορφος δείκτης Brix και σταθερή οξύτητα.",
+                "bg": "<strong>За лозови масиви:</strong> 10–15 г ТЕРАУЕТ Т400 в кореновата зона осигуряват постоянен воден буфер. Предотвратява пригора на гроздето, гарантира едри зърна, отличен захарен градус и стабилен добив.",
+                "ro": "<strong>Pentru Podgorii & Viță de Vie:</strong> 10–15 g TERAWET® T400 în zona radiculară a fiecărui butuc. Menține umiditatea optimă, previne stresul termic și arsurile pe boabe, asigurând o acumulare echilibrată de zaharuri (Brix) și aciditate constantă.",
+                "es": "<strong>Para Viñedos:</strong> 10–15 g de TERAWET® T400 en la rizosfera de cada cepa. Garantiza disponibilidad continua de agua sin exceso vegetativo, evita el golpe de calor, protege el racimo y mantiene una acidez equilibrada y óptimo grado Brix.",
+                "it": "<strong>Per Vigneti:</strong> 10–15 g di TERAWET® T400 nella rizosfera di ciascuna vite. Assicura una riserva idrica costante evitando lo stress da calore, previene la scottatura dei grappoli e garantisce un grado Brix ottimale e acidità equilibrata.",
+                "fr": "<strong>Pour les Vignobles:</strong> 10–15 g de TERAWET® T400 dans la zone racinaire de chaque pied de vigne. Garantit une hydratation continue sans vigueur végétative excessive, évite le blocage thermique et préserve l'équilibre sucres/acidité.",
+                "de": "<strong>Für Weingärten:</strong> 10–15 g TERAWET® T400 im Wurzelbereich jedes Rebstockes. Gewährleistet kontinuierliche Feuchtigkeit ohne übermäßiges vegetatives Wachstum, verhindert Hitzestress und Traubenbrand und sichert optimale Brix-Werte und Säureharmonie.",
+                "hu": "<strong>Szőlőültetvényekhez:</strong> Tőkénként 10–15 g TERAWET® T400 a gyökérzónába dolgozva. Folyamatos nedvességet biztosít felesleges lombozatnövekedés nélkül, megelőzi a hőségsokkot és a bogyófonnyadást, fenntartva az optimális cukorfokot és savszerkezetet.",
+                "sl": "<strong>Za Vinograde:</strong> 10–15 g TERAWET® T400 v koreninsko območje vsake trte. Zagotavlja stalen vodni vir brez prekomerne bujnosti, preprečuje toplotni šok ter zagotavlja optimalno sladkorno stopnjo in stabilne kisline.",
+                "sk": "<strong>Pre Vinohrady:</strong> 10–15 g TERAWET® T400 do koreňovej zóny každého klu viniča. Zabezpečuje stálu dostupnosť vlahy, chráni pred úpalom a vädnutím strapcov, pričom udržiava optimálnu cukornatosť a vyvážené kyseliny.",
+                "en": "<strong>For Vineyards:</strong> 10–15 g TERAWET® T400 applied directly to the root zone of each vine locks in moisture for 7–10 years. Prevents thermal shutdown, protects grape bunches, and secures optimal Brix and balanced acidity."
+            },
+            "nursery": {
+                "el": "<strong>Για Φυτώρια & Νέες Φυτεύσεις:</strong> Εμβάπτιση των γυμνών ριζών σε πάστα γέλης TERAWET® T100 (5–8 g/L νερού) εγγυάται <strong>100% επιτυχία ριζοβολίας</strong> χωρίς μεταφυτευτικό σοκ. Για υποστρώματα σε γλάστρες, η ενσωμάτωση T400 (1.5–2 kg/m³) μειώνει τη συχνότητα ποτίσματος κατά 60%.",
+                "bg": "<strong>За разсадници и нови насаждения:</strong> Потапянето на корените в гел-паста ТЕРАУЕТ Т100 (5–8 г/л вода) гарантира <strong>100% прихващане на фиданките</strong>. В субстрати за саксии Т400 съкращава поливките с 60%.",
+                "ro": "<strong>Pentru Pepiniere & Plantații Noi:</strong> Înmuierea rădăcinilor nude în pastă de gel TERAWET® T100 (5–8 g/L apă) garantează <strong>prindere de 100%</strong> fără șoc de transplantare. În substraturi pentru ghivece, T400 reduce udările cu 60%.",
+                "es": "<strong>Para Viveros y Nuevas Plantaciones:</strong> La inmersión de raíces desnudas en pasta de gel TERAWET® T100 (5–8 g/L de agua) asegura un <strong>100% de prendimiento</strong> sin estrés post-trasplante. En sustratos de maceta, T400 reduce el riego en un 60%.",
+                "it": "<strong>Per Vivai e Nuovi Impianti:</strong> L'immersione delle radici nude nella pasta gel TERAWET® T100 (5–8 g/L d'acqua) garantisce il <strong>100% di attecchimento</strong> senza shock da trapianto. Nei substrati per vasi, T400 riduce le irrigazioni del 60%.",
+                "fr": "<strong>Pour les Pépinières & Jeunes Plantations:</strong> Le pralinage des racines nues dans la pâte de gel TERAWET® T100 (5–8 g/L d'eau) assure <strong>100% de reprise racinaire</strong> sans choc de transplantation. En pots, T400 espace les arrosages de 60%.",
+                "de": "<strong>Für Baumschulen & Neupflanzungen:</strong> Das Eintauchen nackter Wurzeln in TERAWET® T100 Gel-Paste (5–8 g/L Wasser) garantiert <strong>100% Anwachserfolg</strong> ohne Pflanzschock. In Substraten senkt T400 die Gießintervalle um 60%.",
+                "hu": "<strong>Faiskoláknak & Új Telepítéseknek:</strong> A szabadgyökerű csemeték TERAWET® T100 gélpasztába (5–8 g/L víz) mártása <strong>100%-os megeredést</strong> biztosít ültetési sokk nélkül. Konténeres nevelésnél a T400 60%-kal csökkenti az öntözési fordulót.",
+                "sl": "<strong>Za Drevesnice in Nove Nasade:</strong> Pomakanje golih korenin v gelasto pasto TERAWET® T100 (5–8 g/L vode) zagotavlja <strong>100% ukoreninjenje</strong> brez presaditvenega šoka. V substratih T400 zmanjša pogostost zalivanja za 60%.",
+                "sk": "<strong>Pre Ovocné a Lesné Škôlky:</strong> Namáčanie voľnokorenných sadeníc do gélovej pasty TERAWET® T100 (5–8 g/L vody) garantuje <strong>100% ujatie</strong> bez presadzovacieho šoku. V substrátoch T400 znižuje frekvenciu polievania o 60%.",
+                "en": "<strong>For Nurseries & Transplanting:</strong> Dipping bare roots in TERAWET® T100 gel paste (5–8 g/L water) secures <strong>100% root establishment</strong> with zero transplant shock. For pot substrates, T400 reduces irrigation frequency by over 60%."
+            },
+            "orchard": {
+                "el": "<strong>Για Ελαιώνες & Δενδρώδεις:</strong> 15–25 g TERAWET® T400 ανά δέντρο στη ζώνη των απορροφητικών ριζιδίων. Αποτρέπει την καλοκαιρινή καρπόπτωση, εξασφαλίζει μεγαλύτερη καλίμπρα καρπών και σταθερή ανθοφορία την επόμενη σεζόν.",
+                "bg": "<strong>За овощни градини и маслини:</strong> 15–25 г ТЕРАУЕТ Т400 на дърво в активната коренова зона. Спира окапването на завръза в юлските жеги и гарантира едър, качествен плод.",
+                "ro": "<strong>Pentru Livezi & Pomi Fructiferi:</strong> 15–25 g TERAWET® T400 per pom în zona rădăcinilor absorbante. Oprește căderea prematură a fructelor în caniculă și asigură un calibru comercial superior.",
+                "es": "<strong>Para Olivares y Frutales:</strong> 15–25 g de TERAWET® T400 por árbol en la zona radicular activa. Evita la caída prematura de fruto durante las olas de calor de verano y maximiza el calibre y el rendimiento graso.",
+                "it": "<strong>Per Uliveti e Frutteti:</strong> 15–25 g di TERAWET® T400 per albero nella zona delle radici assorbenti. Blocca la cascola estiva dei frutticini durante le ondate di calore e favorisce calibri superiori.",
+                "fr": "<strong>Pour Vergers & Oliveraies:</strong> 15–25 g de TERAWET® T400 par arbre au niveau des racines actives. Empêche la chute physiologique des fruits sous forte chaleur et améliore le calibre commercial.",
+                "de": "<strong>Für Obstbau & Baumkulturen:</strong> 15–25 g TERAWET® T400 pro Baum im aktiven Feinwurzelbereich. Stoppt vorzeitigen Fruchtfall bei Sommerhitze und sichert erstklassige Fruchtkaliber.",
+                "hu": "<strong>Gyümölcsösöknek & Olajfáknak:</strong> Fánként 15–25 g TERAWET® T400 az aktív hajszálgyökerekhez juttatva. Megállítja a júliusi-augusztusi gyümölcshullást a kánikulában, és garantálja a nagyobb méretet.",
+                "sl": "<strong>Za Sadovnjake in Oljčnike:</strong> 15–25 g TERAWET® T400 na drevo v območje aktivnih korenin. Preprečuje odpadanje plodičev med poletnimi vročinskimi valovi in povečuje debelino plodov.",
+                "sk": "<strong>Pre Ovocné Sady a Olivovníky:</strong> 15–25 g TERAWET® T400 na strom v zóne aktívnych koreňov. Zastavuje predčasný letný opad plodov počas horúčav a zvyšuje ich veľkosť a trhovú kvalitu.",
+                "en": "<strong>For Orchards & Olive Groves:</strong> 15–25 g TERAWET® T400 per tree in the active feeder root zone. Prevents premature fruit shedding during heatwaves, ensuring superior fruit caliber and oil accumulation."
+            },
+            "general_agro": {
+                "el": "<strong>Για Υπαίθριες & Θερμοκηπιακές Καλλιέργειες:</strong> 2–3 kg TERAWET® T400 ανά στρέμμα (1000 m²) ή 10–15 g ανά φυτό. Δημιουργεί ένα ενεργό υδροστρώμα διάρκειας 7–10 ετών, μειώνοντας την κατανάλωση νερού και λιπασμάτων στο μισό.",
+                "bg": "<strong>За зеленчуци, полски и оранжерийни култури:</strong> 2–3 кг ТЕРАУЕТ Т400 на декар или 10–15 г под корен. Осигурява балансирано хранене и съкращава поливните норми с над 50%.",
+                "ro": "<strong>Pentru Legume & Culturi de Câmp:</strong> 2–3 kg TERAWET® T400 la 1.000 m² (sau 10–15 g per plantă). Formează un rezervor subteran activ timp de 7–10 ani, reducând la jumătate apa și îngrășămintele.",
+                "es": "<strong>Para Hortalizas y Extensivos:</strong> 2–3 kg de TERAWET® T400 por 1.000 m² (o 10–15 g por planta). Crea un colchón hídrico activo durante 7–10 años que reduce el consumo de agua y fertilizantes a la mitad.",
+                "it": "<strong>Per Orticoltura e Pieno Campo:</strong> 2–3 kg di TERAWET® T400 per 1.000 m² (oppure 10–15 g per pianta). Forma un cuscinetto idrico attivo per 7–10 anni, dimezzando consumi di acqua ed elettricità.",
+                "fr": "<strong>Pour Maraîchage & Plein Champ:</strong> 2–3 kg de TERAWET® T400 pour 1 000 m² (ou 10–15 g par plant). Crée une réserve d'humidité souterraine active pendant 7 à 10 ans, divisant par deux les besoins en eau et en engrais.",
+                "de": "<strong>Für Gemüse- & Feldkulturen:</strong> 2–3 kg TERAWET® T400 pro 1.000 m² (oder 10–15 g pro Pflanze). Schafft ein aktives, 7–10 Jahre haltbares Wasserdepot im Boden und halbiert den Bewässerungs- und Düngerbedarf.",
+                "hu": "<strong>Zöldség- és Szántóföldi Kultúrákhoz:</strong> 2–3 kg TERAWET® T400 / 1000 m² (vagy 10–15 g/tő). 7–10 éven át aktív földalatti vízpufferként működik, több mint 50%-kal csökkentve az öntözési- és tápanyag-költségeket.",
+                "sl": "<strong>Za Vrtnarstvo in Poljedelstvo:</strong> 2–3 kg TERAWET® T400 na 1.000 m² (ali 10–15 g na rastlino). Ustvari aktiven 7–10 letni vodni blažilec v tleh, ki prepolovi porabo vode in gnojil.",
+                "sk": "<strong>Pre Zeleninárstvo a Poľné Plodiny:</strong> 2–3 kg TERAWET® T400 na 1 000 m² (alebo 10–15 g na rastlinu). Vytvára v pôde aktívny podzemný vodný vankúš na 7–10 rokov a znižuje spotrebu vody a hnojív na polovicu.",
+                "en": "<strong>For Commercial Crops & Greenhouses:</strong> 2–3 kg TERAWET® T400 per 1,000 m² (or 10–15 g per root). Forms an active 7–10 year moisture cushion, halving water and fertilizer demands."
+            }
+        }
+        niche_dict = dosages.get(niche, dosages["general_agro"])
+        return niche_dict.get(lang, niche_dict.get("en", ""))
+
     def _detect_crop_niche(self, lead: Dict[str, str]) -> Dict[str, str]:
         """Classifies crop/segment for targeted agronomic recommendations."""
         text = f"{lead.get('crops', '')} {lead.get('category', '')} {lead.get('company_name', '')}".lower()
 
-        if any(k in text for k in ['οινοποι', 'αμπελ', 'κρασ', 'winery', 'vineyard', 'wine', 'винарна', 'лозя']):
-            return {
-                "niche": "vineyard",
-                "dosage_el": "<strong>Για Αμπελώνες:</strong> 10–15 g TERAWET® T400 στη ριζόσφαιρα κάθε πρέμνου (ή κατά τη φύτευση) εξασφαλίζουν συνεχή διαθεσιμότητα υγρασίας χωρίς υπερβολική βλαστική ανάπτυξη. Αποτρέπεται το θερμικό σοκ, ενισχύεται η σύνθεση ανθοκυανών, ομοιόμορφος δείκτης Brix και σταθερή οξύτητα.",
-                "dosage_bg": "<strong>За лозови масиви:</strong> 10–15 г ТЕРАУЕТ Т400 в кореновата зона осигуряват постоянен воден буфер. Предотвратява пригора на гроздето, гарантира едри зърна, отличен захарен градус и стабилен добив.",
-                "dosage_en": "<strong>For Vineyards:</strong> 10–15 g TERAWET® T400 applied directly to the root zone of each vine locks in moisture for 7–10 years. Prevents thermal shutdown, protects grape bunches, and secures optimal Brix and balanced acidity."
-            }
+        if any(k in text for k in [
+            'οινοποι', 'αμπελ', 'κρασ', 'winery', 'vineyard', 'wine', 'винарна', 'лозя',
+            'cantina', 'vigneto', 'viticol', 'domaine', 'château', 'chateau', 'vignoble',
+            'weingut', 'winzer', 'borászat', 'boraszat', 'pincészet', 'pinceszet', 'vinograd',
+            'klet', 'vinárstvo', 'vinarstvo', 'bodega', 'viñedo', 'vinedo', 'crama', 'podgori'
+        ]):
+            niche = "vineyard"
+        elif any(k in text for k in [
+            'φυτώρι', 'nursery', 'разсадник', 'garden center', 'κηποτεχν', 'landscape',
+            'vivaio', 'pépinière', 'pepiniere', 'baumschule', 'faiskola', 'drevesnica',
+            'škôlka', 'skolka', 'vivero', 'pepinier', 'arboretum'
+        ]):
+            niche = "nursery"
+        elif any(k in text for k in [
+            'ελαι', 'olive', 'οπωρ', 'orchard', 'δένδρ', 'овощ', 'ябъл', 'череш', 'прасков',
+            'frutteto', 'oliveto', 'verger', 'oliveraie', 'obstbau', 'gyümölcs', 'gyumolcs',
+            'olajbogyó', 'sadovnjak', 'oljka', 'ovocn', 'frutales', 'olivar', 'livad', 'citrus'
+        ]):
+            niche = "orchard"
+        else:
+            niche = "general_agro"
 
-        if any(k in text for k in ['φυτώρι', 'nursery', 'разсадник', 'garden center', 'κηποτεχν', 'landscape', 'κήπο']):
-            return {
-                "niche": "nursery",
-                "dosage_el": "<strong>Για Φυτώρια & Νέες Φυτεύσεις:</strong> Εμβάπτιση των γυμνών ριζών σε πάστα γέλης TERAWET® T100 (5–8 g/L νερού) εγγυάται <strong>100% επιτυχία ριζοβολίας</strong> χωρίς μεταφυτευτικό σοκ. Για υποστρώματα σε γλάστρες, η ενσωμάτωση T400 (1.5–2 kg/m³) μειώνει τη συχνότητα ποτίσματος κατά 60%.",
-                "dosage_bg": "<strong>За разсадници и нови насаждения:</strong> Потапянето на корените в гел-паста ТЕРАУЕТ Т100 (5–8 г/л вода) гарантира <strong>100% прихващане на фиданките</strong>. В субстрати за саксии Т400 съкращава поливките с 60%.",
-                "dosage_en": "<strong>For Nurseries & Transplanting:</strong> Dipping bare roots in TERAWET® T100 gel paste (5–8 g/L water) secures <strong>100% root establishment</strong> with zero transplant shock. For pot substrates, T400 reduces irrigation frequency by over 60%."
-            }
-
-        if any(k in text for k in ['ελαι', 'olive', 'οπωρ', 'orchard', 'δένδρ', 'овощ', 'ябъл', 'череш', 'прасков', 'εσπεριδ', 'citrus']):
-            return {
-                "niche": "orchard",
-                "dosage_el": "<strong>Για Ελαιώνες & Δενδρώδεις:</strong> 15–25 g TERAWET® T400 ανά δέντρο στη ζώνη των απορροφητικών ριζιδίων. Αποτρέπει την καλοκαιρινή καρπόπτωση, εξασφαλίζει μεγαλύτερη καλίμπρα καρπών και σταθερή ανθοφορία την επόμενη σεζόν.",
-                "dosage_bg": "<strong>За овощни градини и маслини:</strong> 15–25 г ТЕРАУЕТ Т400 на дърво в активната коренова зона. Спира окапването на завръза в юлските жеги и гарантира едър, качествен плод.",
-                "dosage_en": "<strong>For Orchards & Olive Groves:</strong> 15–25 g TERAWET® T400 per tree in the active feeder root zone. Prevents premature fruit shedding during heatwaves, ensuring superior fruit caliber and oil accumulation."
-            }
-
-        # Default / Vegetables / Field / Agro suppliers
         return {
-            "niche": "general_agro",
-            "dosage_el": "<strong>Για Υπαίθριες & Θερμοκηπιακές Καλλιέργειες:</strong> 2–3 kg TERAWET® T400 ανά στρέμμα (1000 m²) ή 10–15 g ανά φυτό. Δημιουργεί ένα ενεργό υδροστρώμα διάρκειας 7–10 ετών, μειώνοντας την κατανάλωση νερού και λιπασμάτων στο μισό.",
-            "dosage_bg": "<strong>За зеленчуци, полски и оранжерийни култури:</strong> 2–3 кг ТЕРАУЕТ Т400 на декар или 10–15 г под корен. Осигурява балансирано хранене и съкращава поливните норми с над 50%.",
-            "dosage_en": "<strong>For Commercial Crops & Greenhouses:</strong> 2–3 kg TERAWET® T400 per 1,000 m² (or 10–15 g per root). Forms an active 7–10 year moisture cushion, halving water and fertilizer demands."
+            "niche": niche,
+            "dosage_el": self._get_crop_dosage(niche, "el"),
+            "dosage_bg": self._get_crop_dosage(niche, "bg"),
+            "dosage_en": self._get_crop_dosage(niche, "en")
         }
 
     def _build_system_prompt(self, lang: str) -> str:
@@ -373,7 +433,7 @@ Return JSON with subject, body_html, body_plain."""
         return data.get("subject", ""), data.get("body_html", ""), data.get("body_plain", "")
 
     def _generate_with_template(self, lead: Dict[str, str], lang: str, variant: int = 0) -> Tuple[str, str, str]:
-        company = (lead.get("company_name") or "Company").strip()
+        company = (lead.get("company_name") or lead.get("name") or "Company").strip()
         contact = (lead.get("contact_person") or "").strip()
         crops = (lead.get("crops") or lead.get("category") or "αγροτικές καλλιέργειες").strip()
         site = "https://www.tera-wet.com"
@@ -552,95 +612,587 @@ Return JSON with subject, body_html, body_plain."""
         # -------------------------------------------------------------
         elif lang == "ro":
             contact_greeting = f"Stimate colectiv al companiei {company}" if not contact or contact in ["Team", "Admin"] else f"Stimate d-le/d-nă {contact}"
-            reg_display = reg_info["region_name_en"]
-            pain_text = reg_info["pain_en"]
+            reg_display = reg_info.get("region_name_en", "în regiunea dumneavoastră")
+            trans_local = reg_info.get("transform_local_en", "Reducerea ciclurilor de pompare cu 50% pentru 7-10 ani.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "ro")
 
-            subject = f"Soluție completă împotriva secetei: Reducerea apei cu 50% și protecția culturilor pentru {company}"
+            if v_mode == 1:
+                subject = f"Reducerea costurilor de pompare cu 50% și siguranța recoltei pentru {company}"
+            elif v_mode == 2:
+                subject = f"Protecție împotriva caniculei (+40°C) și maximizarea calității recoltei pentru {company}"
+            else:
+                subject = f"Economie de 50% la apa de irigații și protecție împotriva secetei pentru {company}"
 
             body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
 
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-Vă contactăm în legătură cu exploatația agricolă a companiei <strong>{company}</strong> ({crops}). În contextul secetelor severe, al scăderii pânzei freatice și al facturilor uriașe de energie pentru irigații, culturile se confruntă cu un stres termic major.
+Vă contactăm în legătură cu exploatația agricolă a companiei <strong>{company}</strong> ({crops}). În contextul secetelor prelungite, al scăderii dramatice a pânzei freatice și al costurilor ridicate cu energia pentru pompare, irigarea convențională pierde până la <strong>40%–50% din apă</strong> prin evaporare rapidă la suprafață și levigare profundă.
 </p>
 
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-Vă prezentăm tehnologia dovedită <strong>TERAWET-ORIGINAL®</strong> – polimer superabsorbant reticulat pe bază de <strong>potasiu</strong> (ecologic, non-toxic, fără sodiu dăunător) cu <strong>25 de ani de experiență în Europa</strong> (VANKO 97 EOOD).
+Pentru a rezolva definitiv această provocare, vă prezentăm tehnologia dovedită <strong>TERAWET-ORIGINAL®</strong> – polimer superabsorbant reticulat pe bază de <strong>potasiu</strong> (ecologic, non-toxic, fără sodiu dăunător) cu <strong>25 de ani de experiență în Europa</strong> (VANKO 97 EOOD).
 </p>
 
 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
   <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Transformările Pozitive pentru Ferma Dumneavoastră:</h3>
   <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
-    <li><strong>💧 Reducerea consumului de apă cu peste 50%–60%:</strong> Granulele rețin de 400 de ori greutatea lor în apă la nivelul rădăcinii (15–40 cm).</li>
-    <li><strong>⚡ Economie de 50% la energia pentru pompare:</strong> Mai puține ore de funcționare a pompelor și prelungirea duratei de viață a utilajelor.</li>
-    <li><strong>🧪 Peste 30%–40% economie la îngrășăminte:</strong> Substanțele nutritive nu mai sunt levigate în adâncime.</li>
-    <li><strong>🍇 Eliminarea stresului termic & recolte mai mari:</strong> Fără avortarea florilor, calibru uniform și indice Brix optim.</li>
-    <li><strong>🌱 Rata de prindere de 100% la transplantare:</strong> Cu pasta de rădăcină T100.</li>
-    <li><strong>⏳ Durată activă de 7 până la 10 ANI în sol:</strong> Amortizare completă încă din primul an de utilizare.</li>
+    <li><strong>💧 Reducerea consumului de apă cu peste 50%–60%:</strong> Granulele absorb și rețin de până la 400 de ori greutatea lor în apă, creând un <em>rezervor subteran inteligent</em> chiar la nivelul rădăcinilor (15–40 cm).</li>
+    <li><strong>⚡ Până la 50% economie la energia pentru pompare:</strong> {trans_local} Reducerea orelor de funcționare a pompelor protejează forajele și scade masiv facturile de energie.</li>
+    <li><strong>🧪 Peste 30%–40% economie la îngrășăminte hidrosolubile:</strong> Substanțele nutritive N-P-K rămân fixate în matricea hidrogelului în loc să fie levigate în solul profund.</li>
+    <li><strong>🍇 Eliminarea stresului termic & recolte superioare:</strong> Previne avortarea florilor și căderea fructelor în caniculă, menținând un calibru comercial ridicat și indice Brix optim.</li>
+    <li><strong>🌱 Rată de prindere de 100% la transplantare:</strong> Utilizarea pastei de rădăcină T100 elimină complet șocul de transplantare al puieților.</li>
+    <li><strong>⏳ Durată activă de 7 până la 10 ANI în sol:</strong> O singură aplicare este suficientă pentru un deceniu, cu amortizare încă din primul sezon.</li>
   </ul>
 </div>
 
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-Disponibil în saci profesionali de <strong>25 kg (360 €)</strong> și pachete de test de <strong>1 kg</strong>. Puteți comanda online direct pe:
+<strong>Ambalaje Profesionale & Comandă Online Directă:</strong><br>
+TERAWET-ORIGINAL este disponibil în saci profesionali de <strong>25 kg (360 €)</strong> pentru suprafețe agricole și pachete de <strong>1 kg</strong> pentru teste. Puteți comanda direct online pe site-ul nostru oficial:
 </p>
 
-<p style="margin: 24px 0 28px 0;">
-  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block;">👉 Comandați online pe {site}</a>
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Comandați online pe {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Suntem la dispoziția dumneavoastră pentru calcularea dozelor exacte și a randamentului investiției (ROI) pentru hectarele dumneavoastră.
 </p>"""
 
             body_plain = f"""{contact_greeting},
-TERAWET-ORIGINAL® reduce necesarul de apă de irigare cu 50%-60% timp de 7-10 ani:
-- Economie de 50% la pomparea apei;
-- 30%-40% economie la îngrășăminte N-P-K;
-- 100% rată de prindere la plantare cu gelul T100.
-Saci de 25 kg (360 €) și 1 kg.
-Comenzi online: {site}"""
+
+În atenția fermei {company} ({crops}):
+Irigarea tradițională pierde 40%-50% din apă prin evaporare și levigare.
+
+TERAWET-ORIGINAL® (polimer superabsorbant pe bază de potasiu, 25 ani experiență în UE):
+- 💧 Reducere cu 50%-60% a consumului de apă de irigații;
+- ⚡ 50% economie la energia pentru pompare;
+- 🧪 Peste 30%-40% economie la îngrășăminte N-P-K;
+- 🍇 Eliminarea stresului termic și protecția recoltei la +40°C;
+- 🌱 100% rată de prindere a puieților cu gelul T100;
+- ⏳ 7 până la 10 ANI activ în sol după o singură aplicare.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Ambalaje: saci de 25 kg (360 €) și 1 kg.
+👉 Comenzi online: {site}"""
 
         # -------------------------------------------------------------
         # 4. SPANISH COPYWRITER TEMPLATE
         # -------------------------------------------------------------
         elif lang == "es":
             contact_greeting = f"Estimado equipo de {company}" if not contact or contact in ["Team", "Admin"] else f"Estimado/a {contact}"
-            reg_display = reg_info["region_name_en"]
+            reg_display = reg_info.get("region_name_en", "en su zona agrícola")
+            trans_local = reg_info.get("transform_local_en", "Reducción de ciclos de bombeo en un 50% durante 7 a 10 años.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "es")
 
-            subject = f"50% de ahorro en agua de riego y blindaje frente a la sequía para {company}"
+            if v_mode == 1:
+                subject = f"Reducción del 50% en costes de bombeo y electricidad para {company}"
+            elif v_mode == 2:
+                subject = f"Protección contra olas de calor (+40°C) y rendimiento asegurado para {company}"
+            else:
+                subject = f"50% de ahorro en agua de riego y blindaje frente a la sequía para {company}"
 
             body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
 
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-Nos ponemos en contacto respecto a la explotación de <strong>{company}</strong> ({crops}). Ante las crecientes restricciones hídricas, olas de calor extremo y el elevado coste energético del bombeo, la gestión eficiente del agua es el factor decisivo para la rentabilidad de su cultivo.
+Nos ponemos en contacto con motivo de la actividad agrícola de <strong>{company}</strong> ({crops}). Con las restricciones hídricas cada vez más severas, el descenso de los acuíferos y el desorbitado coste energético del bombeo, el riego convencional pierde entre el <strong>40% y el 50% del agua</strong> por evaporación y lixiviación antes de que llegue a la raíz.
 </p>
 
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-<strong>TERAWET-ORIGINAL®</strong> es un polímero superabsorbente reticulado a base de <strong>potasio</strong> (100% ecológico, sin sodio) con <strong>25 años de trayectoria europea</strong> (VANKO 97 EOOD).
+Para aportar una solución definitiva, les presentamos <strong>TERAWET-ORIGINAL®</strong> – polímero superabsorbente reticulado a base de <strong>potasio</strong> (100% ecológico, sin sodio perjudicial) con <strong>25 años de trayectoria contrastada en Europa</strong> (VANKO 97 EOOD).
 </p>
 
 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
   <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Transformaciones Positivas para su Explotación:</h3>
   <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
-    <li><strong>💧 Ahorro superior al 50%–60% en agua de riego:</strong> Retiene 400 veces su peso en agua en la zona radicular (15–40 cm).</li>
-    <li><strong>⚡ Reducción del 50% en facturas eléctricas de bombeo:</strong> Menos horas de pozo y menor desgaste de bombas.</li>
-    <li><strong>🧪 Ahorro de más del 30% en fertilizantes solubles:</strong> Evita la lixiviación hacia aguas profundas.</li>
-    <li><strong>🍇 Eliminación del estrés térmico y caída de fruto:</strong> Mayor calibre comercial y maduración homogénea.</li>
-    <li><strong>🌱 100% de éxito en trasplante y nuevas plantaciones:</strong> Con la pasta radicular T100.</li>
-    <li><strong>⏳ Vida útil activa de 7 a 10 AÑOS en suelo:</strong> Una sola aplicación rentable desde la 1ª campaña.</li>
+    <li><strong>💧 Ahorro superior al 50%–60% en agua de riego:</strong> Los gránulos absorben y retienen hasta 400 veces su peso en agua, creando un <em>depósito subterráneo inteligente</em> en la rizosfera (15–40 cm).</li>
+    <li><strong>⚡ Reducción del 50% en facturas eléctricas de bombeo:</strong> {trans_local} Menos horas de pozo, menor desgaste de motores y protección activa de los sondeos.</li>
+    <li><strong>🧪 Ahorro de más del 30%–40% en fertilizantes hidrosolubles:</strong> Los nutrientes N-P-K quedan retenidos en el hidrogel en lugar de lavarse hacia capas profundas.</li>
+    <li><strong>🍇 Blindaje térmico y eliminación de la caída de fruto:</strong> Evita el estrés hídrico por encima de 40°C, asegurando calibre comercial óptimo y grado Brix constante.</li>
+    <li><strong>🌱 100% de éxito en trasplante y nuevas plantaciones:</strong> Con la pasta radicular T100, se elimina completamente la mortandad de plantones.</li>
+    <li><strong>⏳ Vida útil activa de 7 a 10 AÑOS en suelo:</strong> Una sola aplicación mantiene su eficacia durante una década, amortizándose desde la 1ª campaña.</li>
   </ul>
 </div>
 
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
 <p style="font-size: 15px; line-height: 1.6; color: #334155;">
-Disponible en sacos profesionales de <strong>25 kg (360 €)</strong> y paquetes de <strong>1 kg</strong>. Pedidos directos online:
+<strong>Formatos Profesionales y Pedido Directo Online:</strong><br>
+TERAWET-ORIGINAL se suministra en sacos profesionales de <strong>25 kg (360 €)</strong> para fincas comerciales y en envases de <strong>1 kg</strong> para ensayos. Puede cursar su pedido directamente online en nuestra web oficial:
 </p>
 
-<p style="margin: 24px 0 28px 0;">
-  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block;">👉 Pedir online en {site}</a>
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Pedir online en {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Estamos a su entera disposición para calcular la dosis por hectárea y el retorno de inversión (ROI) estimado para sus cultivos.
 </p>"""
 
             body_plain = f"""{contact_greeting},
-TERAWET-ORIGINAL® ahorra más del 50% de agua de riego durante 7 a 10 años.
-Sacos de 25 kg (360 €) y 1 kg.
-Pedidos online: {site}"""
+
+Respecto a la explotación de {company} ({crops}):
+El riego convencional pierde 40%-50% del agua por evaporación y lixiviación.
+
+TERAWET-ORIGINAL® (polímero de potasio certificado, 25 años en Europa):
+- 💧 50%-60% de reducción en consumo de agua;
+- ⚡ 50% de ahorro en bombeo y energía eléctrica;
+- 🧪 30%-40% de ahorro en fertilizantes N-P-K;
+- 🍇 Protección frente a golpes de calor (>40°C) y retención del fruto;
+- 🌱 100% de prendimiento de plantas con gel radicular T100;
+- ⏳ 7 a 10 AÑOS de actividad en el suelo con 1 sola aplicación.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Formatos: sacos de 25 kg (360 €) y 1 kg.
+👉 Pedidos online: {site}"""
 
         # -------------------------------------------------------------
-        # 5. ENGLISH / INTERNATIONAL FALLBACK
+        # 5. ITALIAN COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "it":
+            contact_greeting = f"Gentile team di {company}" if not contact or contact in ["Team", "Admin"] else f"Gentile {contact}"
+            reg_display = reg_info.get("region_name_en", "nella vostra area agricola")
+            trans_local = reg_info.get("transform_local_en", "Riduzione del 50% delle ore di pompaggio per 7-10 anni.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "it")
+
+            if v_mode == 1:
+                subject = f"Riduzione del 50% sui costi di pompaggio ed energia per {company}"
+            elif v_mode == 2:
+                subject = f"Protezione contro ondate di calore (+40°C) e resa garantita per {company}"
+            else:
+                subject = f"Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per {company}"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Vi contattiamo in merito all'attività agricola di <strong>{company}</strong> ({crops}). Con la crescente carenza idrica, il calo delle falde e l'impennata delle bollette elettriche per il pompaggio, l'irrigazione tradizionale perde fino al <strong>40%–50% dell'acqua</strong> per rapida evaporazione e percolazione profonda prima dell'assorbimento radicale.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Per offrire una soluzione definitiva, presentiamo <strong>TERAWET-ORIGINAL®</strong> – polimero superassorbente reticolato a base di <strong>potassio</strong> (100% ecologico, non tossico, senza sodio dannoso) con <strong>25 anni di comprovata esperienza sul campo in Europa</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Le Trasformazioni Positive per la Vostra Azienda Agricola:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 Taglio del 50%–60% del consumo d'acqua:</strong> I granuli assorbono e trattengono fino a 400 volte il proprio peso in acqua, creando un <em>bacino idrico sotterraneo intelligente</em> nella rizosfera (15–40 cm).</li>
+    <li><strong>⚡ Fino al 50% di risparmio su elettricità e carburante per pompe:</strong> {trans_local} Minori ore di funzionamento dei pozzi, salvaguardia dei motori e drastico taglio delle spese energetiche.</li>
+    <li><strong>🧪 Oltre il 30%–40% di risparmio sui fertilizzanti idrosolubili:</strong> Gli elementi N-P-K rimangono trattenuti nella matrice dell'idrogel invece di disperdersi nelle falde.</li>
+    <li><strong>🍇 Eliminazione dello stress termico e blocco della cascola:</strong> Difesa attiva contro temperature estreme (+40°C), garantendo calibri commerciali elevati e grado Brix ottimale.</li>
+    <li><strong>🌱 100% di attecchimento per le giovani piante:</strong> L'immersione radicale nella pasta gel T100 elimina ogni shock da trapianto.</li>
+    <li><strong>⏳ Da 7 a 10 ANNI di efficacia continua nel suolo:</strong> Una sola applicazione garantisce l'effetto per un decennio, ripagandosi fin dal primo ciclo produttivo.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Formati Professionali e Ordine Online Diretto:</strong><br>
+TERAWET-ORIGINAL è disponibile in sacchi professionali da <strong>25 kg (360 €)</strong> per superfici commerciali e confezioni da <strong>1 kg</strong> per campi prova. Potete ordinare direttamente online sul nostro sito ufficiale:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Ordina online su {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Siamo a completa disposizione per elaborare un piano di dosaggio personalizzato per i vostri ettari e stimare il ritorno sull'investimento (ROI).
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+In merito all'azienda agricola {company} ({crops}):
+L'irrigazione tradizionale disperde fino al 40%-50% dell'acqua per evaporazione e percolazione.
+
+TERAWET-ORIGINAL® (superassorbente ecologico a base di potassio, 25 anni in Europa):
+- 💧 50%-60% di riduzione del consumo idrico;
+- ⚡ 50% di risparmio sui costi di pompaggio ed elettricità;
+- 🧪 30%-40% di risparmio su fertilizzanti N-P-K;
+- 🍇 Protezione totale da stress termico (+40°C) e cascola dei frutti;
+- 🌱 100% attecchimento delle piantine con gel T100;
+- ⏳ 7-10 ANNI di attività nel terreno con 1 sola applicazione.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Confezioni: sacchi da 25 kg (360 €) e 1 kg.
+👉 Ordini online: {site}"""
+
+        # -------------------------------------------------------------
+        # 6. FRENCH COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "fr":
+            contact_greeting = f"Chère équipe de {company}" if not contact or contact in ["Team", "Admin"] else f"Cher/Chère {contact}"
+            reg_display = reg_info.get("region_name_en", "dans votre région")
+            trans_local = reg_info.get("transform_local_en", "Réduction de 50% des heures de pompage pendant 7 à 10 ans.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "fr")
+
+            if v_mode == 1:
+                subject = f"Réduction de 50% des coûts d'énergie de pompage pour {company}"
+            elif v_mode == 2:
+                subject = f"Protection contre les canicules (+40°C) et récolte sécurisée pour {company}"
+            else:
+                subject = f"50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour {company}"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Nous nous permettons de vous contacter au sujet de l'exploitation de <strong>{company}</strong> ({crops}). Face aux restrictions préfectorales croissantes, à la baisse critique des nappes phréatiques et à l'envolée des coûts énergétiques de pompage, l'irrigation conventionnelle perd près de <strong>40% à 50% de l'eau apportée</strong> par évaporation rapide et lessivage profond.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Pour apporter une réponse durable et éprouvée, nous vous présentons <strong>TERAWET-ORIGINAL®</strong> – polymère superabsorbant réticulé à base de <strong>potassium</strong> (écologique, sans sodium) fort de <strong>25 ans d'expérience sur le terrain en Europe</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Les Bénéfices Concrets pour Votre Exploitation :</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 Réduction de plus de 50%–60% des apports d'eau :</strong> Les granulés captent et retiennent jusqu'à 400 fois leur poids en eau, créant une <em>véritable réserve souterraine active</em> au niveau racinaire (15–40 cm).</li>
+    <li><strong>⚡ Jusqu'à 50% d'économie sur les dépenses de pompage :</strong> {trans_local} Préservation des forages et réduction majeure des factures d'électricité et de carburant.</li>
+    <li><strong>🧪 Plus de 30%–40% d'engrais N-P-K préservés :</strong> Les éléments nutritifs solubles sont captés dans l'hydrogel et protégés du lessivage vers le sous-sol.</li>
+    <li><strong>🍇 Zéro stress thermique & maintien de la nouaison :</strong> Protection totale au-delà de 40°C, éliminant la chute prématurée des fruits et assurant un calibre homogène et un Brix idéal.</li>
+    <li><strong>🌱 100% de reprise racinaire sur jeunes plantations :</strong> Le pralinage dans le gel T100 élimine tout choc de repiquage.</li>
+    <li><strong>⏳ 7 à 10 ANS d'action continue dans le sol :</strong> Une seule incorporation assure une décennie d'efficacité, amortie dès la première saison.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Conditionnements Professionnels & Commande en Ligne :</strong><br>
+TERAWET-ORIGINAL est disponible en sacs professionnels de <strong>25 kg (360 €)</strong> pour les parcelles agricoles et en sachets tests de <strong>1 kg</strong>. Vous pouvez commander directement en ligne sur notre site officiel :
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Commander en ligne sur {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Nous restons à votre entière disposition pour calculer le dosage par hectare et le retour sur investissement (ROI) pour votre exploitation.
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+Concernant l'exploitation de {company} ({crops}):
+L'arrosage conventionnel perd 40%-50% d'eau par évaporation et lessivage.
+
+TERAWET-ORIGINAL® (superabsorbant potassique certifié, 25 ans d'expérience en Europe):
+- 💧 Réduction de 50%-60% des besoins en eau d'irrigation;
+- ⚡ 50% d'économie sur l'énergie et les heures de pompage;
+- 🧪 Plus de 30%-40% d'engrais N-P-K préservés;
+- 🍇 Élimination du stress thermique et protection de la nouaison;
+- 🌱 100% de reprise racinaire des plants avec le gel T100;
+- ⏳ 7 à 10 ANS d'action continue en sol avec 1 seule application.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Conditionnements: sacs de 25 kg (360 €) et 1 kg.
+👉 Commandes en ligne: {site}"""
+
+        # -------------------------------------------------------------
+        # 7. GERMAN / AUSTRIAN COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "de":
+            contact_greeting = f"Sehr geehrtes Team von {company}" if not contact or contact in ["Team", "Admin"] else f"Sehr geehrte/r Frau/Herr {contact}"
+            reg_display = reg_info.get("region_name_en", "in Ihrer Region")
+            trans_local = reg_info.get("transform_local_en", "50% weniger Pumpstunden über 7 bis 10 Jahre hinweg.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "de")
+
+            if v_mode == 1:
+                subject = f"50% weniger Strom- und Pumpkosten für {company}"
+            elif v_mode == 2:
+                subject = f"Schutz vor Hitzewellen (+40°C) und gesicherte Erträge für {company}"
+            else:
+                subject = f"50% Bewässerungswasser sparen & Trockenschutz für {company}"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+wir wenden uns an Sie bezüglich der landwirtschaftlichen Flächen von <strong>{company}</strong> ({crops}). Angesichts sinkender Grundwasserspiegel, strenger Bewässerungsauflagen und steigender Energiekosten verliert die herkömmliche Bewässerung bis zu <strong>40%–50% des Wassers</strong> durch Oberflächenverdunstung und Versickerung unterhalb des Wurzelbereichs.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Um dieses Problem nachhaltig zu lösen, stellen wir Ihnen <strong>TERAWET-ORIGINAL®</strong> vor – ein zertifiziertes, ökologisches <strong>Kalium</strong>-Superabsorber-Polymer (frei von schädlichem Natrium) mit <strong>25 Jahren Praxiserfahrung in Europa</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Die Messbaren Vorteile für Ihren Betrieb:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 50%–60% Einsparung von Bewässerungswasser:</strong> Das Granulat nimmt das bis zu 400-fache seines Eigengewichts an Wasser auf und bildet ein <em>aktives unterirdisches Feuchtigkeitsdepot</em> direkt an den Wurzeln (15–40 cm).</li>
+    <li><strong>⚡ Bis zu 50% weniger Strom- und Kraftstoffkosten für Pumpen:</strong> {trans_local} Reduziert die Laufzeiten der Pumpenaggregate, schützt Brunnen und senkt Betriebskosten massiv.</li>
+    <li><strong>🧪 Über 30%–40% Einsparung bei N-P-K Düngemitteln:</strong> Nährstoffe werden im Hydrogel gebunden und nicht mehr ungenutzt ins Grundwasser ausgewaschen.</li>
+    <li><strong>🍇 Kein Hitzestress & Vermeidung von Fruchtfall:</strong> Aktiver Schutz bei Temperaturen über 40°C, verhindert Blüten- und Fruchtverlust und sichert erstklassige Kaliber und optimale Zuckerwerte (Brix).</li>
+    <li><strong>🌱 100% Anwachserfolg bei Neuanpflanzungen:</strong> Die T100 Wurzelpaste schützt Jungpflanzen vollständig vor dem Pflanzschock.</li>
+    <li><strong>⏳ 7 bis 10 JAHRE kontinuierlich im Boden aktiv:</strong> Eine einzige Einarbeitung wirkt ein ganzes Jahrzehnt und amortisiert sich bereits in der ersten Saison.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Profi-Gebinde & Direkte Online-Bestellung:</strong><br>
+TERAWET-ORIGINAL ist in professionellen <strong>25 kg Säcken (360 €)</strong> für landwirtschaftliche Nutzflächen sowie in <strong>1 kg</strong> Probepackungen erhältlich. Sie können direkt online über unsere offizielle Webseite bestellen:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Online bestellen unter {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Gerne berechnen wir für Sie die exakte Dosierung pro Hektar und die erwartete Rentabilität (ROI) für Ihre Kulturen.
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+Bezüglich des Betriebs von {company} ({crops}):
+Bei konventioneller Bewässerung gehen 40%-50% des Wassers durch Verdunstung und Versickerung verloren.
+
+TERAWET-ORIGINAL® (zertifizierter Kalium-Superabsorber, 25 Jahre Erfahrung in der EU):
+- 💧 50%-60% weniger Bewässerungswasser;
+- ⚡ 50% Ersparnis bei Pump- und Stromkosten;
+- 🧪 30%-40% Einsparung bei N-P-K Düngemitteln;
+- 🍇 Beseitigung von Hitzestress (+40°C) und Fruchtfall;
+- 🌱 100% Anwachsquote von Jungpflanzen mit T100 Gel;
+- ⏳ 7 bis 10 JAHRE Wirkungsdauer im Boden mit 1 Anwendung.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Gebinde: 25 kg Säcke (360 €) & 1 kg Packungen.
+👉 Online bestellen: {site}"""
+
+        # -------------------------------------------------------------
+        # 8. HUNGARIAN COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "hu":
+            contact_greeting = f"Tisztelt {company} Csapata!" if not contact or contact in ["Team", "Admin"] else f"Tisztelt {contact}!"
+            reg_display = reg_info.get("region_name_en", "az Önök térségében")
+            trans_local = reg_info.get("transform_local_en", "50%-kal kevesebb szivattyúzási üzemóra 7-10 éven át.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "hu")
+
+            if v_mode == 1:
+                subject = f"Akár 50% szivattyúzási energiamegtakarítás a(z) {company} számára"
+            elif v_mode == 2:
+                subject = f"Hőséghullámok elleni védelem és garantált termésbiztonság a(z) {company} részére"
+            else:
+                subject = f"50% öntözővíz megtakarítás és aszály elleni védelem a(z) {company} részére"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting}</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Megkeresésünk oka a(z) <strong>{company}</strong> gazdálkodási tevékenysége ({crops}). A visszatérő aszályos időszakok, a csökkenő talajvízszint és a magas öntözési áramköltségek mellett a hagyományos öntözés során az <strong>öntözővíz 40%–50%-a elvész</strong> a gyors felületi párolgás és a mélybe szivárgás miatt.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+A probléma tartós megoldására bemutatjuk a <strong>TERAWET-ORIGINAL®</strong> technológiát – prémium minőségű, környezetbarát <strong>kálium</strong> alapú szuperabszorbens talajkondicionálót (nem tartalmaz káros nátriumot), <strong>25 éves európai szántóföldi tapasztalattal</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Pozitív Változások az Önök Gazdaságában:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 50%–60% öntözővíz megtakarítás:</strong> A szemcsék saját tömegük 400-szorosát kötik meg vízben, <em>aktív földalatti víztározót</em> képezve közvetlenül a gyökérzónában (15–40 cm mélységben).</li>
+    <li><strong>⚡ Akár 50% szivattyúzási és áramköltség-csökkenés:</strong> {trans_local} Kevesebb szivattyú-üzemóra, a kutak és berendezések kímélése, közvetlen megtakarítás.</li>
+    <li><strong>🧪 Több mint 30%–40% műtrágya megtakarítás:</strong> Az N-P-K tápanyagok a hidrogél hálóban maradnak, nem mosódnak ki a mélyebb rétegekbe.</li>
+    <li><strong>🍇 Hőségsokk és gyümölcshullás megszüntetése:</strong> Hatékony védelem 40°C feletti kánikulában, optimális bogyóméret és stabil Brix-cukorfok.</li>
+    <li><strong>🌱 100%-os megeredési arány új telepítéseknél:</strong> A T100 gyökérmártó paszta megakadályozza a csemeték pusztulását.</li>
+    <li><strong>⏳ 7–10 ÉV aktív élettartam a talajban:</strong> Egyetlen kijuttatás egy teljes évtizedre elegendő nedvességvédelmet nyújt, és már az 1. szezonban megtérül.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Professzionális Kiszerelés & Közvetlen Online Rendelés:</strong><br>
+A TERAWET-ORIGINAL professzionális <strong>25 kg-os zsákokban (360 €)</strong> kapható üzemi felületekre, valamint <strong>1 kg-os</strong> próbacsomagban. Megrendelését közvetlenül leadhatja hivatalos weboldalunkon:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Rendeljen online a {site} oldalon</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Készséggel kiszámítjuk a pontos hektáronkénti adagolást és a várható megtérülést (ROI) az Önök ültetvényeire.
+</p>"""
+
+            body_plain = f"""{contact_greeting}
+
+A(z) {company} ({crops}) gazdálkodása kapcsán:
+A hagyományos öntözés során a víz 40%-50%-a párolgással és elszivárgással elvész.
+
+TERAWET-ORIGINAL® (kálium alapú szuperabszorbens, 25 év tapasztalat az EU-ban):
+- 💧 50%-60% öntözővíz megtakarítás;
+- ⚡ 50% szivattyúzási és energiamegtakarítás;
+- 🧪 30%-40% műtrágya megtakarítás (nincs kimosódás);
+- 🍇 Védelem a 40°C feletti hőséghullámok és gyümölcshullás ellen;
+- 🌱 100%-os csemete-megeredés a T100 géllel;
+- ⏳ 7-10 ÉV aktív hatás a talajban 1etlen kezeléssel.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Kiszerelés: 25 kg-os zsákok (360 €) és 1 kg-os tesztcsomag.
+👉 Online rendelés: {site}"""
+
+        # -------------------------------------------------------------
+        # 9. SLOVENIAN COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "sl":
+            contact_greeting = f"Spoštovana ekipa {company}" if not contact or contact in ["Team", "Admin"] else f"Spoštovani {contact}"
+            reg_display = reg_info.get("region_name_en", "na vašem območju")
+            trans_local = reg_info.get("transform_local_en", "50% manj obratovalnih ur črpalk za 7 do 10 let.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "sl")
+
+            if v_mode == 1:
+                subject = f"50% nižji stroški črpanja vode in zaščita pridelka za {company}"
+            elif v_mode == 2:
+                subject = f"Zaščita kmetijskih površin pred vročinskimi valovi (+40°C) za {company}"
+            else:
+                subject = f"50% prihranek vode pri namakanju in zaščita pred sušo za {company}"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Obračamo se na vas glede kmetijske dejavnosti podjetja <strong>{company}</strong> ({crops}). Zaradi vse daljših sušnih obdobij, upadanja podtalnice in visokih stroškov električne energije pri črpanju se pri klasičnem namakanju izgubi do <strong>40%–50% vode</strong> zaradi hitrega izhlapevanja in pronicanja v globino.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Za trajno rešitev vam predstavljamo <strong>TERAWET-ORIGINAL®</strong> – certificiran ekološki zamreženi <strong>kalijev</strong> superabsorbent (brez natrija) s <strong>25 leti dokazanih izkušenj v Evropi</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Pozitivne Spremembe za Vašo Kmetijsko Dejavnost:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 Zmanjšanje porabe vode za 50%–60%:</strong> Granule vsrkajo do 400-kratnik lastne teže v vodi in ustvarijo <em>podzemni vodni rezervoar</em> neposredno v koreninski coni (15–40 cm).</li>
+    <li><strong>⚡ Do 50% prihranka pri energiji za črpanje:</strong> {trans_local} Manj obratovalnih ur črpalnih agregatov varuje vrtine in drastično znižuje stroške.</li>
+    <li><strong>🧪 Več kot 30%–40% prihranka pri gnojilih N-P-K:</strong> Hranila ostanejo ujeta v hidrogelu, namesto da se izpirajo v podtalnico.</li>
+    <li><strong>🍇 Odprava toplotnega stresa in zaščita pridelka:</strong> Ohranja nastavek plodov v vročini nad 40°C, zagotavlja odlično debelino in optimalno sladkorno stopnjo (Brix).</li>
+    <li><strong>🌱 100% ukoreninjenje mladih sadik:</strong> Pomakanje korenin v gel T100 prepreči presaditveni šok.</li>
+    <li><strong>⏳ 7 do 10 LET aktivnega delovanja v tleh:</strong> En sam vnos zadostuje za celo desetletje in se povrne že v prvi sezoni.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Profesionalna Pakiranja & Spletno Naročilo:</strong><br>
+TERAWET-ORIGINAL je dobavljiv v profesionalnih vrečah po <strong>25 kg (360 €)</strong> za kmetijske površine ter v poskusnih pakiranjih po <strong>1 kg</strong>. Naročilo lahko oddate neposredno prek spleta:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Naročite prek spleta na {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Z veseljem vam pripravimo natančen izračun odmerka na hektar in oceno donosnosti naložbe (ROI).
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+Glede kmetijske dejavnosti {company} ({crops}):
+Pri običajnem namakanju se izgubi 40%-50% vode zaradi izhlapevanja in izpiranja.
+
+TERAWET-ORIGINAL® (kalijev superabsorbent, 25 let izkušenj v EU):
+- 💧 50%-60% prihranek vode pri namakanju;
+- ⚡ 50% nižji stroški črpanja in električne energije;
+- 🧪 30%-40% prihranka pri vodotopnih N-P-K gnojilih;
+- 🍇 Zaščita pred toplotnim stresom (+40°C) in ohranitev pridelka;
+- 🌱 100% ukoreninjenje sadik s pasto T100;
+- ⏳ 7 do 10 LET delovanja v tleh z enim vnosom.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Pakiranje: 25 kg vreče (360 €) in 1 kg.
+👉 Naročila prek spleta: {site}"""
+
+        # -------------------------------------------------------------
+        # 10. SLOVAK COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "sk":
+            contact_greeting = f"Vážený tím spoločnosti {company}" if not contact or contact in ["Team", "Admin"] else f"Vážený/á {contact}"
+            reg_display = reg_info.get("region_name_en", "vo vašom regióne")
+            trans_local = reg_info.get("transform_local_en", "50% zníženie prevádzkových hodín čerpadiel na 7 až 10 rokov.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "sk")
+
+            if v_mode == 1:
+                subject = f"Zníženie nákladov na čerpanie vody o 50% pre {company}"
+            elif v_mode == 2:
+                subject = f"Ochrana pred horúčavami nad 40°C a stabilná úroda pre {company}"
+            else:
+                subject = f"50% úspora závlahovej vody a ochrana pred suchom pre {company}"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Obraciame sa na Vás v súvislosti s pestovateľskou činnosťou spoločnosti <strong>{company}</strong> ({crops}). V dôsledku opakujúcich sa období sucha, poklesu spodných vôd a rastúcich nákladov na energie sa pri konvenčnej závlahe stráca až <strong>40%–50% vody</strong> rýchlym výparom a gravitačným priesakom mimo koreňovej zóny.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Na trvalé vyriešenie tohto problému Vám predstavujeme <strong>TERAWET-ORIGINAL®</strong> – certifikovaný ekologický sieťovaný <strong>draselný</strong> superabsorbent (bez škodlivého sodíka) s <strong>25-ročnou overenou praxou v Európe</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Pozitívne Zmeny pre Vaše Hospodárstvo:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 Zníženie spotreby vody o viac ako 50%–60%:</strong> Granuly absorbujú až 400-násobok svojej hmotnosti vo vode a vytvárajú <em>podzemný vodný rezervoár</em> priamo v koreňovej zóne (15–40 cm).</li>
+    <li><strong>⚡ Až 50% úspora elektrickej energie a paliva pri čerpaní:</strong> {trans_local} Menej motohodín čerpadiel šetrí studne a znižuje prevádzkové náklady.</li>
+    <li><strong>🧪 Viac ako 30%–40% úspora N-P-K hnojív:</strong> Živiny zostávajú viazané v hydrogéli a nevyplavujú sa do spodných vôd.</li>
+    <li><strong>🍇 Eliminácia teplotného šoku a opadávania plodov:</strong> Spoľahlivá ochrana pri teplotách nad 40°C, zabezpečenie vysokej trhovej kvality a optimálnej cukornatosti (Brix).</li>
+    <li><strong>🌱 100% ujatie mladých výsadieb:</strong> Koreňová gélová pasta T100 eliminuje straty pri výsadbe sadeníc.</li>
+    <li><strong>⏳ 7 až 10 ROKOV aktívneho účinku v pôde:</strong> Jednorazová aplikácia postačuje na celé desaťročie s návratnosťou už v 1. sezóne.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Profesionálne Balenia & Priama Online Objednávka:</strong><br>
+TERAWET-ORIGINAL dodávame v profesionálnych <strong>25 kg vreciach (360 €)</strong> pre poľnohospodárske plochy a v <strong>1 kg</strong> testovacích baleniach. Objednávku môžete zadať priamo online na našom webe:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Objednávajte online na {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Radi pre Vás pripravíme presný prepočet dávkovania na hektár a kalkuláciu návratnosti investície (ROI).
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+K hospodáreniu spoločnosti {company} ({crops}):
+Pri bežnom zavlažovaní sa stráca 40%-50% vody výparom a priesakom.
+
+TERAWET-ORIGINAL® (draselný superabsorbent, 25 rokov praxe v EÚ):
+- 💧 50%-60% úspora závlahovej vody;
+- ⚡ 50% zníženie nákladov na čerpanie vody;
+- 🧪 30%-40% úspora N-P-K hnojív pred vyplavením;
+- 🍇 Ochrana pred horúčavami (+40°C) a opadávaním plodov;
+- 🌱 100% ujatie sadeníc s pastou T100;
+- ⏳ 7 až 10 ROKOV účinku v pôde po 1 aplikácii.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Balenie: 25 kg vrecia (360 €) a 1 kg balenia.
+👉 Online objednávka: {site}"""
+
+        # -------------------------------------------------------------
+        # 11. ENGLISH / INTERNATIONAL FALLBACK
         # -------------------------------------------------------------
         else:
             contact_greeting = f"Dear {company} Team" if not contact or contact in ["Team", "Admin"] else f"Dear {contact}"
@@ -649,7 +1201,12 @@ Pedidos online: {site}"""
             trans_local = reg_info["transform_local_en"]
             dosage_text = crop_info["dosage_en"]
 
-            subject = f"50% Irrigation Water Savings & Drought Immunity for {company} ({reg_display})"
+            if v_mode == 1:
+                subject = f"50% Lower Pump Electricity & Fuel Costs for {company} ({reg_display})"
+            elif v_mode == 2:
+                subject = f"Protection against +40°C Heatwaves and Secured Yield for {company} ({reg_display})"
+            else:
+                subject = f"50% Irrigation Water Savings & Drought Immunity for {company} ({reg_display})"
 
             body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
 

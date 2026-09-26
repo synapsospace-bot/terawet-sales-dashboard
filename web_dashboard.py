@@ -616,15 +616,28 @@ function renderTable() {
 function updateModalMeta(lead) {
   const t = I18N[currentLang];
   let langDisplay = (lead.language || 'bg').toUpperCase();
-  if (lead.language === 'bg') langDisplay = (currentLang === 'bg' ? 'Български (BG)' : 'Болгарська (BG)');
-  else if (lead.language === 'el') langDisplay = (currentLang === 'bg' ? 'Гръцки (EL)' : 'Грецька (EL)');
-  else if (lead.language === 'es') langDisplay = (currentLang === 'bg' ? 'Испански (ES)' : 'Іспанська (ES)');
+  const langMap = {
+    bg: currentLang === 'bg' ? 'Български (BG)' : 'Болгарська (BG)',
+    el: currentLang === 'bg' ? 'Гръцки (EL)' : 'Грецька (EL)',
+    ro: currentLang === 'bg' ? 'Румънски (RO)' : 'Румунська (RO)',
+    es: currentLang === 'bg' ? 'Испански (ES)' : 'Іспанська (ES)',
+    it: currentLang === 'bg' ? 'Италиански (IT)' : 'Італійська (IT)',
+    fr: currentLang === 'bg' ? 'Френски (FR)' : 'Французька (FR)',
+    de: currentLang === 'bg' ? 'Немски / Австрия (DE)' : 'Німецька / Австрія (DE)',
+    hu: currentLang === 'bg' ? 'Унгарски (HU)' : 'Угорська (HU)',
+    sl: currentLang === 'bg' ? 'Словенски (SL)' : 'Словенська (SL)',
+    sk: currentLang === 'bg' ? 'Словашки (SK)' : 'Словацька (SK)',
+    en: 'English (EN)'
+  };
+  if (lead.language && langMap[lead.language]) {
+    langDisplay = langMap[lead.language];
+  }
 
   document.getElementById('modalMeta').innerHTML = `
     <strong>${t.modalEmail}</strong> ${lead.email || '—'} &nbsp;|&nbsp; 
     <strong>${t.modalCity}</strong> ${lead.city || '—'} &nbsp;|&nbsp; 
     <strong>${t.modalLang}</strong> ${langDisplay} &nbsp;|&nbsp; 
-    <strong>${t.modalSite}</strong> <a href="https://tera-wet.com" target="_blank" style="color: var(--primary); font-weight:600;">tera-wet.com</a>
+    <strong>${t.modalSite}</strong> <a href="https://www.tera-wet.com" target="_blank" style="color: var(--primary); font-weight:600;">www.tera-wet.com</a>
   `;
 }
 
