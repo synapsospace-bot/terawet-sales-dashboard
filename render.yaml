@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: terawet-sales-dashboard
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python web_dashboard.py
+    plan: free
+    region: frankfurt # Low latency to Europe / Bulgaria / Ukraine
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DATA_SOURCE
+        value: google_sheets
+      - key: GOOGLE_SHEET_URL
+        value: https://docs.google.com/spreadsheets/d/1E5w61jpITa3DgnmnhbJBmLhllTVLabUYYZMlke4CljY/edit?usp=sharing
+      - key: GOOGLE_SHEET_WEBHOOK_URL
+        value: https://script.google.com/macros/s/AKfycbz9d3g4YBnYRPaVeIeS9IkRzc2a9D5hMBpEWu4l1zVRoUqgDCxcDHBB4k3Ul13tddvS/exec
+      - key: EMAIL_USER
+        value: synapso.space@gmail.com
+      - key: EMAIL_APP_PASSWORD
+        value: obfo jhej jupq muaf
+      - key: SENDER_NAME
+        value: "Dmytro Bendyk | TERAWET-ORIGINAL"
+      - key: SENDER_COMPANY
+        value: "TERAWET-ORIGINAL / ВАНКО 97 ЕООД"
+      - key: SENDER_PHONE
+        value: "+359 888 516501"
+      - key: SENDER_WEBSITE
+        value: "https://www.tera-wet.com"
+      - key: CONTACT_EMAIL
+        value: "terawet.original@gmail.com"

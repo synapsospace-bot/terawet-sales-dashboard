@@ -1,0 +1,222 @@
+{
+  "name": "TeraWet B2B Lead Sales Agent & Gmail Drafts",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-1",
+      "name": "Manual Trigger / Schedule",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "sheetId": "={{ $env.GOOGLE_SHEET_ID }}",
+        "range": "Leads!A:M",
+        "options": {
+          "headerRow": 1
+        }
+      },
+      "id": "google-sheets-read",
+      "name": "Read NEW Leads from Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "value2": "NEW"
+            }
+          ]
+        }
+      },
+      "id": "filter-new-leads",
+      "name": "Filter Only Status == NEW",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Knowledge Base extract and Prompt preparation\nconst lead = $input.item.json;\nconst lang = (lead.language || \"en\").toLowerCase();\n\nconst prompt = `You are a Senior B2B Agricultural Sales Specialist for TERAWET\u00ae (represented by VANKO 97 EOOD, Sofia, Bulgaria - 25 years in soil hydration and superabsorbent polymers).\n\nTARGET LEAD:\n- Company: ${lead.company_name}\n- Country: ${lead.country}\n- Crops/Niche: ${lead.crops}\n- Contact Person: ${lead.contact_person || \"Agronomist\"}\n- Language: ${lang}\n\nPRODUCT FACTS:\n- Active in soil for 7-10 years with single application.\n- Saves >50% irrigation water, >30% fertilizer.\n- 100% sapling survival with T100 paste (5-8g/L).\n- 2kg/dekar for field/vegetables; 10-15g under tree/vine root.\n\nTASK:\nWrite a polite, professional, agronomist-to-agronomist cold email in ${lang}.\nReturn JSON strictly: { \"subject\": \"...\", \"body_html\": \"<p>...</p>\" }`;\n\nreturn {\n  json: {\n    ...lead,\n    ai_prompt: prompt\n  }\n};\n"
+      },
+      "id": "prepare-ai-prompt",
+      "name": "Prepare Knowledge & Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "user",
+              "content": "={{ $json.ai_prompt }}"
+            }
+          ]
+        },
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "openai-generate-pitch",
+      "name": "OpenAI - Generate Pitch",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst aiResponse = JSON.parse($input.item.json.message.content);\nconst lead = $(\"prepare-ai-prompt\").item.json;\n\nreturn {\n  json: {\n    ...lead,\n    subject: aiResponse.subject,\n    body_html: aiResponse.body_html\n  }\n};\n"
+      },
+      "id": "parse-ai-response",
+      "name": "Parse AI Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "to": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.body_html }}",
+        "isHtml": true
+      },
+      "id": "gmail-create-draft",
+      "name": "Gmail: Create Draft (Human Review)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1560,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "sheetId": "={{ $env.GOOGLE_SHEET_ID }}",
+        "range": "Leads!A:M",
+        "keyRow": 1,
+        "matchField": "email",
+        "fields": {
+          "status": "DRAFT_CREATED",
+          "draft_id": "={{ $json.id }}",
+          "generated_subject": "={{ $json.subject }}"
+        }
+      },
+      "id": "google-sheets-update",
+      "name": "Update Status in Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1780,
+        280
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger / Schedule": {
+      "main": [
+        [
+          {
+            "node": "Read NEW Leads from Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read NEW Leads from Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Filter Only Status == NEW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Only Status == NEW": {
+      "main": [
+        [
+          {
+            "node": "Prepare Knowledge & Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Knowledge & Prompt": {
+      "main": [
+        [
+          {
+            "node": "OpenAI - Generate Pitch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI - Generate Pitch": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Output": {
+      "main": [
+        [
+          {
+            "node": "Gmail: Create Draft (Human Review)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail: Create Draft (Human Review)": {
+      "main": [
+        [
+          {
+            "node": "Update Status in Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
