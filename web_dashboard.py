@@ -97,7 +97,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     color: var(--text);
   }
 
-  .container { max-width: 1400px; margin: 28px auto; padding: 0 24px; }
+  .container { max-width: 1560px; width: 98%; margin: 20px auto; padding: 0 16px; }
 
   .stats-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
@@ -146,18 +146,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   .table-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    overflow-x: auto; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
   table { width: 100%; border-collapse: collapse; text-align: left; }
   th {
-    background: #f8fafc; padding: 14px 18px; font-size: 12px; font-weight: 600;
+    background: #f8fafc; padding: 11px 12px; font-size: 11px; font-weight: 600;
     color: var(--muted); border-bottom: 1px solid var(--border); text-transform: uppercase;
+    letter-spacing: 0.03em; white-space: nowrap;
   }
-  td { padding: 14px 18px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tr:hover td { background: #f8fafc; }
 
   .badge-status {
-    display: inline-block; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+    display: inline-block; padding: 3px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600;
+    white-space: nowrap;
   }
   .status-yellow { background: var(--warning-bg); color: var(--warning-text); }
   .status-green { background: var(--success-bg); color: var(--success-text); }
@@ -258,14 +260,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <table>
       <thead>
         <tr>
-          <th style="width: 50px;">#</th>
-          <th data-i18n="thCompany">Компанія</th>
-          <th data-i18n="thCountry" style="width: 140px;">Країна</th>
-          <th data-i18n="thCity">Місто / Локація</th>
-          <th data-i18n="thCategory">Категорія</th>
-          <th data-i18n="thEmail">Email</th>
-          <th data-i18n="thStatus">Статус</th>
-          <th style="text-align: right;" data-i18n="thActions">Дії</th>
+          <th style="width: 38px; text-align: center;">#</th>
+          <th data-i18n="thCompany" style="width: 200px; max-width: 220px;">Компанія</th>
+          <th data-i18n="thCountry" style="width: 115px; white-space: nowrap;">Країна</th>
+          <th data-i18n="thCity" style="width: 125px;">Місто / Локація</th>
+          <th data-i18n="thCategory" style="width: 130px;">Категорія</th>
+          <th data-i18n="thEmail" style="width: 175px;">Email</th>
+          <th data-i18n="thStatus" style="width: 140px; white-space: nowrap;">Статус</th>
+          <th style="text-align: right; width: 135px; white-space: nowrap;" data-i18n="thActions">Дії</th>
         </tr>
       </thead>
       <tbody id="leadsTableBody">
@@ -593,11 +595,11 @@ function renderTable() {
       statusText = t.statusSent;
     }
 
-    let actionButtons = `<button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>`;
+    let actionButtons = `<button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; white-space: nowrap;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>`;
     if (s.includes('🟡') || s.includes('DRAFT_CREATED')) {
       actionButtons = `
-        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 12px; color: #166534; border-color: #86efac; background: #f0fdf4; margin-right: 6px;" onclick="markSent(${lead.row_number}, '${lead.email || ''}')" title="${t.markSentTitle}">${t.btnMarkSent}</button>
-        <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>
+        <button class="btn btn-secondary" style="padding: 5px 8px; font-size: 12px; color: #166534; border-color: #86efac; background: #f0fdf4; margin-right: 4px; white-space: nowrap;" onclick="markSent(${lead.row_number}, '${lead.email || ''}')" title="${t.markSentTitle}">${t.btnMarkSent}</button>
+        <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; white-space: nowrap;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>
       `;
     }
 
@@ -607,14 +609,14 @@ function renderTable() {
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td style="color: var(--muted); font-size: 13px;">${lead.row_number}</td>
-      <td><strong>${lead.company_name}</strong></td>
+      <td style="color: var(--muted); font-size: 12px; text-align: center;">${lead.row_number}</td>
+      <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${lead.company_name || ''}"><strong>${lead.company_name}</strong></td>
       <td><span style="font-weight: 500; font-size: 13px; white-space: nowrap;">${countryDisplay}</span></td>
-      <td>${lead.city || '—'}</td>
-      <td><span style="font-size: 13px; color: var(--muted);">${lead.category || '—'}</span></td>
-      <td><code>${lead.email || '—'}</code></td>
-      <td><span class="badge-status ${badgeClass}">${statusText}</span></td>
-      <td style="text-align: right;">
+      <td style="max-width: 125px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${lead.city || ''}">${lead.city || '—'}</td>
+      <td style="max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${lead.category || ''}"><span style="font-size: 12px; color: var(--muted);">${lead.category || '—'}</span></td>
+      <td style="max-width: 175px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${lead.email || ''}"><code style="font-size: 12px;">${lead.email || '—'}</code></td>
+      <td style="white-space: nowrap;"><span class="badge-status ${badgeClass}">${statusText}</span></td>
+      <td style="text-align: right; white-space: nowrap;">
         ${actionButtons}
       </td>
     `;
