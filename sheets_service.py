@@ -302,6 +302,10 @@ class LeadDataService:
             return "de"
         if phone_clean.startswith(("+34", "0034", "34")):
             return "es"
+        if phone_clean.startswith(("+381", "00381", "381")):
+            return "sr"
+        if phone_clean.startswith(("+385", "00385", "385")):
+            return "hr"
 
         # 2. Domain / TLD / Email provider matching
         def _has_tld(tld: str) -> bool:
@@ -327,16 +331,47 @@ class LeadDataService:
             return "de"
         if _has_tld(".es"):
             return "es"
+        if _has_tld(".rs"):
+            return "sr"
+        if _has_tld(".hr"):
+            return "hr"
 
         # 3. Greek Alphabet Characters
         if any(c in text for c in "αβγδεζηθικλμνξοπρστυφχψωάέήίόύώ"):
             return "el"
 
-        # 4. Cyrillic Characters (Bulgarian target market)
+        # 4. Serbian specific Cyrillic
+        if any(c in text for c in "ђјљњћџ"):
+            return "sr"
+
+        # 5. Cyrillic Characters (Bulgarian target market)
         if any(c in text for c in "абвгдежзийклмнопрстуфхцчшщъьюя"):
+            if any(k in text for k in ["србиј", "београд", "нови сад", "војводин", "чачак", "нишу", "топол"]):
+                return "sr"
             return "bg"
 
-        # 5. Country & Regional City Keywords
+        # 6. Country & Regional City Keywords
+        # Serbia
+        sr_keywords = [
+            "serbia", "srbija", "србија", "beograd", "belgrade", "novi sad", "нови сад", "vojvodina",
+            "војводина", "fruška gora", "fruska gora", "фрушка гора", "subotica", "суботица", "šumadija",
+            "sumadija", "шумадија", "topola", "топола", "negotin", "неготин", "župa", "zupa", "жупа",
+            "aleksandrovac", "александровац", "čačak", "cacak", "чачак", "smederevo", "смедерево",
+            "pančevo", "pancevo", "панчево", "kruševac", "krusevac", "крушевац", "sremski karlovci"
+        ]
+        if any(k in text for k in sr_keywords):
+            return "sr"
+
+        # Croatia
+        hr_keywords = [
+            "croatia", "hrvatska", "zagreb", "split", "rijeka", "osijek", "istra", "istria", "poreč",
+            "porec", "rovinj", "motovun", "pelješac", "peljesac", "dingač", "dingac", "kutjevo",
+            "slavonija", "baranja", "ilok", "zadar", "šibenik", "sibenik", "neretva", "opuzen",
+            "metković", "metkovic", "vukovar", "kaštela", "kastela", "lučko"
+        ]
+        if any(k in text for k in hr_keywords):
+            return "hr"
+
         # Hungary
         hu_keywords = [
             "hungary", "magyarország", "magyar", "budapest", "debrecen", "szeged", "miskolc", "pécs", "győr",

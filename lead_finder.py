@@ -599,6 +599,7 @@ def _slugify(text: str) -> str:
         'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д':'d', 'е':'e', 'ж':'zh', 'з':'z', 'и':'i', 'й':'y',
         'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u',
         'ф':'f', 'х':'h', 'ц':'ts', 'ч':'ch', 'ш':'sh', 'щ':'sht', 'ъ':'a', 'ь':'y', 'ю':'yu', 'я':'ya',
+        'ђ':'dj', 'ј':'j', 'љ':'lj', 'њ':'nj', 'ћ':'c', 'џ':'dz',
         'α':'a', 'β':'v', 'γ':'g', 'δ':'d', 'ε':'e', 'ζ':'z', 'η':'i', 'θ':'th', 'ι':'i', 'κ':'k',
         'λ':'l', 'μ':'m', 'ν':'n', 'ξ':'x', 'ο':'o', 'π':'p', 'ρ':'r', 'σ':'s', 'ς':'s', 'τ':'t',
         'υ':'y', 'φ':'f', 'χ':'ch', 'ψ':'ps', 'ω':'o', 'ά':'a', 'έ':'e', 'ή':'i', 'ί':'i', 'ό':'o',
@@ -990,6 +991,82 @@ ES_ARCHETYPES = [
     }
 ]
 
+SR_ARCHETYPES = [
+    {
+        'category': 'Винарија & Виногради',
+        'names': [
+            'Винарија Фрушка Гора', 'Карловачки Виногради', 'Винарија Жупа Елит', 'Неготинска Крајина Вина',
+            'Шумадијски Виногради Топола', 'Винарија Палић Тероар', 'Вина Смедерево Резерва', 'Винарија Венчац'
+        ],
+        'locations': [
+            ('Сремски Карловци / Фрушка Гора', 'Трг Бранка Радичевића', '21205', '+381 21', 'Виногради Грашца, Прокупца и Бермета на падинама Фрушке Горе'),
+            ('Александровац / Жупа', 'Јагодинска', '37230', '+381 37', 'Аутохтони Прокупац и Тамјаника у Жупском виногорју'),
+            ('Неготин / Рогљево', 'Крајинска', '19300', '+381 19', 'Сунчани положаји Неготинске Крајине и Црна Тамјаника'),
+            ('Топола / Опленац', 'Краља Петра I', '34310', '+381 34', 'Шумадијски виногради, Шардоне и Совињон Блан')
+        ]
+    },
+    {
+        'category': 'Воћњаци & Производња воћа',
+        'names': [
+            'Чачак Фрут Агро', 'Смедеревски Воћњаци', 'Суботица Пешчара Плод', 'Агро Воће Морава',
+            'Гроцка Плантаже Воћа', 'Шумадија Елит Воће'
+        ],
+        'locations': [
+            ('Чачак', 'Булевар Ослобођења', '32000', '+381 32', 'Интензивни засади шљиве Стенлеј, чачанске лепотице и јабука'),
+            ('Суботица', 'Сегедински пут', '24000', '+381 24', 'Пешчарски засади јабука и вишања са израженим дефицитом влаге'),
+            ('Смедерево', 'Колубарска', '11300', '+381 26', 'Брежуљкасти воћњаци брескве, нектарине и јабука')
+        ]
+    },
+    {
+        'category': 'Расадник & Агроцентри',
+        'names': [
+            'Расадник Нови Сад Плант', 'Дренова Воћни Калемови', 'Агро Расадник Шабац'
+        ],
+        'locations': [
+            ('Нови Сад', 'Темерински пут', '21000', '+381 21', 'Сертификоване саднице воћа, лозни калемови и подлоге'),
+            ('Крушевац / Дренова', 'Дреновачки пут', '37000', '+381 37', 'Традиционална производња воћних и лозних садница високе отпорности')
+        ]
+    }
+]
+
+HR_ARCHETYPES = [
+    {
+        'category': 'Vinarija & Vinogradi',
+        'names': [
+            'Vinarija Istra Terroir', 'Podrumi Kutjevo Zlatni', 'Pelješac Dingač Vina', 'Vinogradi Baranja Ilok',
+            'Kozlović Brijeg Vina', 'Dalmatinski Vinogradi Babić', 'Poreč Vina Laguna', 'Vinarija Motovun Hills'
+        ],
+        'locations': [
+            ('Motovun / Istra', 'Kanal', '52424', '+385 52', 'Vinogradi Istarske Malvazije i Terana na bijeloj zemlji'),
+            ('Kutjevo / Slavonija', 'Kralja Tomislava', '34340', '+385 34', 'Zlatna dolina Vallis Aurea, vrhunska Graševina i Pinot crni'),
+            ('Potomje / Pelješac', 'Dingač put', '20244', '+385 20', 'Strmi osunčani položaji Dingač i Postup, autohtoni Plavac mali'),
+            ('Ilok / Srijem', 'Trg Nikole Iločkog', '32236', '+385 32', 'Iločki Traminac i Graševina na obroncima Fruške gore uz Dunav')
+        ]
+    },
+    {
+        'category': 'Voćnjaci & Maslinici',
+        'names': [
+            'Neretva Mandarine Agro', 'Maslinici Istra Gold', 'Dalmacija Eko Maslina', 'Slavonski Voćnjaci Đakovo',
+            'Ravni Kotari Voće', 'Kvarnerski Maslinici Krk'
+        ],
+        'locations': [
+            ('Opuzen / Dolina Neretve', 'Zagrebačka', '20355', '+385 20', 'Plantaže mandarina i citrusa uz rijeku Neretvu s ljetnim sušama'),
+            ('Zadar / Ravni Kotari', 'Bokanjačka cesta', '23000', '+385 23', 'Ekološki maslinici oblice, smokve i bajami na krškom tlu'),
+            ('Poreč / Tar', 'Istarska ulica', '52440', '+385 52', 'Maslinici autohtonih sorti bjelica i buža pod stalnim vjetrom i žegom')
+        ]
+    },
+    {
+        'category': 'Rasadnik & Vrtni Centri',
+        'names': [
+            'Rasadnik Istra Bilje', 'Agro Rasadnik Slavonija', 'Dalmatinski Rasadnik Kaštela'
+        ],
+        'locations': [
+            ('Zagreb / Lučko', 'Puškarićeva', '10250', '+385 1', 'Certificirane sadnice voća, vinove loze i kontejnersko bilje'),
+            ('Kaštela / Split', 'Cesta dr. Franje Tuđmana', '21216', '+385 21', 'Mediteranski rasadnik maslina, agruma i sušootpornih kultura')
+        ]
+    }
+]
+
 COUNTRY_CONFIGS = [
     {
         "code": "RO",
@@ -1062,6 +1139,24 @@ COUNTRY_CONFIGS = [
         "email_prefix": "info",
         "archetypes": ES_ARCHETYPES,
         "suffixes": ["S.L.", "Bodegas", "Agrícola", "Finca", "Bio", "Viñedos", "Hacienda", "Frutas"]
+    },
+    {
+        "code": "SR",
+        "country": "Србија",
+        "lang": "sr",
+        "tld": ".rs",
+        "email_prefix": "office",
+        "archetypes": SR_ARCHETYPES,
+        "suffixes": ["д.о.о.", "Агро", "Винарија", "Еко", "Резерва", "Тероар", "Плус", "Голд"]
+    },
+    {
+        "code": "HR",
+        "country": "Hrvatska",
+        "lang": "hr",
+        "tld": ".hr",
+        "email_prefix": "info",
+        "archetypes": HR_ARCHETYPES,
+        "suffixes": ["d.o.o.", "Agro", "Vina", "Bio", "Podrumi", "OPG", "Gold", "Select"]
     },
     {
         "code": "BG",

@@ -627,6 +627,8 @@ function updateModalMeta(lead) {
     hu: currentLang === 'bg' ? 'Унгарски (HU)' : 'Угорська (HU)',
     sl: currentLang === 'bg' ? 'Словенски (SL)' : 'Словенська (SL)',
     sk: currentLang === 'bg' ? 'Словашки (SK)' : 'Словацька (SK)',
+    sr: currentLang === 'bg' ? 'Сръбски (SR)' : 'Сербська (SR)',
+    hr: currentLang === 'bg' ? 'Хърватски (HR)' : 'Хорватська (HR)',
     en: 'English (EN)'
   };
   if (lead.language && langMap[lead.language]) {
