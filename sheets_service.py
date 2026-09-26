@@ -122,7 +122,7 @@ class LeadDataService:
         existing_names = set(l.get("name", "").strip().lower() for l in self.raw_rows if l.get("name"))
 
         fieldnames = self.raw_headers if self.raw_headers else [
-            "name", "category", "culture", "adress", "city", "zip", "website", "phone", "coordinates", "email", "instagram", "crop", "status", "generation sheet", "date"
+            "name", "country", "category", "culture", "adress", "city", "zip", "website", "phone", "coordinates", "email", "instagram", "crop", "status", "generation sheet", "date"
         ]
 
         added_count = 0
@@ -136,6 +136,7 @@ class LeadDataService:
 
             new_lead = {fn: "" for fn in fieldnames}
             new_lead["name"] = name
+            new_lead["country"] = item.get("country", "")
             new_lead["category"] = item.get("category", "")
             new_lead["culture"] = item.get("culture", "")
             new_lead["city"] = item.get("city", "")
@@ -242,9 +243,25 @@ class LeadDataService:
                 name=company_name
             )
 
+            country_info = self._detect_country(
+                city=city,
+                address=address,
+                website=website,
+                phone=phone,
+                email=email,
+                name=company_name,
+                raw_country=r.get("country", ""),
+                lang=lang
+            )
+
             leads.append({
                 "row_number": lead_idx,
                 "company_name": company_name,
+                "country": country_info["name_uk"],
+                "country_bg": country_info["name_bg"],
+                "country_en": country_info["name_en"],
+                "country_code": country_info["code"],
+                "country_flag": country_info["flag"],
                 "category": category,
                 "city": city,
                 "website": website,
@@ -473,6 +490,73 @@ class LeadDataService:
             return "el"
 
         return "bg" if ("bulgar" in text or ".bg" in text) else "el"
+
+    def _detect_country(self, city: str = "", address: str = "", website: str = "", phone: str = "", email: str = "", name: str = "", raw_country: str = "", lang: str = "") -> Dict[str, str]:
+        """
+        Determines the country name (Ukrainian, Bulgarian, English) and ISO code (2-letter)
+        along with the national flag emoji for any lead.
+        """
+        rc = (raw_country or "").lower().strip()
+        text = f"{rc} {name} {city} {address} {website} {email}".lower()
+        phone_clean = re.sub(r'[\s\-\(\)\.]', '', phone or "")
+        web_clean = (website or "").lower().strip()
+
+        # Check explicit indicators & phone prefixes
+        if "srb" in rc or "серб" in rc or "србиј" in text or "srbij" in text or ".rs" in web_clean or phone_clean.startswith(("+381", "00381", "381")) or lang == "sr":
+            return {"code": "SR", "name_uk": "Сербія", "name_bg": "Сърбия", "name_en": "Serbia", "flag": "🇷🇸"}
+
+        if "hrv" in rc or "хорв" in rc or "хърв" in rc or "hrvatska" in text or "croatia" in rc or ".hr" in web_clean or phone_clean.startswith(("+385", "00385", "385")) or lang == "hr":
+            return {"code": "HR", "name_uk": "Хорватія", "name_bg": "Хърватия", "name_en": "Croatia", "flag": "🇭🇷"}
+
+        if "rom" in rc or "рум" in rc or "românia" in text or "romania" in text or ".ro" in web_clean or phone_clean.startswith(("+40", "0040", "40")) or lang == "ro":
+            return {"code": "RO", "name_uk": "Румунія", "name_bg": "Румъния", "name_en": "Romania", "flag": "🇷🇴"}
+
+        if "magy" in rc or "угор" in rc or "унгар" in rc or "hungary" in rc or "magyarország" in text or ".hu" in web_clean or phone_clean.startswith(("+36", "0036", "36")) or lang == "hu":
+            return {"code": "HU", "name_uk": "Угорщина", "name_bg": "Унгария", "name_en": "Hungary", "flag": "🇭🇺"}
+
+        if "ita" in rc or "італ" in rc or "итал" in rc or "italia" in text or "italy" in rc or ".it" in web_clean or phone_clean.startswith(("+39", "0039", "39")) or lang == "it":
+            return {"code": "IT", "name_uk": "Італія", "name_bg": "Италия", "name_en": "Italy", "flag": "🇮🇹"}
+
+        if "slovensk" in rc or "словач" in rc or "словашка" in rc or "slovakia" in rc or "slovensko" in text or ".sk" in web_clean or phone_clean.startswith(("+421", "00421", "421")) or lang == "sk":
+            return {"code": "SK", "name_uk": "Словаччина", "name_bg": "Словакия", "name_en": "Slovakia", "flag": "🇸🇰"}
+
+        if "slovenij" in rc or "словен" in rc or "slovenia" in rc or "slovenija" in text or ".si" in web_clean or phone_clean.startswith(("+386", "00386", "386")) or lang == "sl":
+            return {"code": "SL", "name_uk": "Словенія", "name_bg": "Словения", "name_en": "Slovenia", "flag": "🇸🇮"}
+
+        if "fran" in rc or "фран" in rc or "france" in text or ".fr" in web_clean or phone_clean.startswith(("+33", "0033", "33")) or lang == "fr":
+            return {"code": "FR", "name_uk": "Франція", "name_bg": "Франция", "name_en": "France", "flag": "🇫🇷"}
+
+        if "österreich" in text or "austria" in rc or "австр" in rc or ".at" in web_clean or phone_clean.startswith(("+43", "0043", "43")):
+            return {"code": "AT", "name_uk": "Австрія", "name_bg": "Австрия", "name_en": "Austria", "flag": "🇦🇹"}
+
+        if "deutsch" in text or "germany" in rc or "німеч" in rc or "герман" in rc or ".de" in web_clean or phone_clean.startswith(("+49", "0049", "49")):
+            return {"code": "DE", "name_uk": "Німеччина", "name_bg": "Германия", "name_en": "Germany", "flag": "🇩🇪"}
+
+        if "espa" in rc or "іспан" in rc or "испан" in rc or "spain" in rc or "españa" in text or ".es" in web_clean or phone_clean.startswith(("+34", "0034", "34")) or lang == "es":
+            return {"code": "ES", "name_uk": "Іспанія", "name_bg": "Испания", "name_en": "Spain", "flag": "🇪🇸"}
+
+        if "бълг" in rc or "болг" in rc or "bulgaria" in rc or "българия" in text or ".bg" in web_clean or phone_clean.startswith(("+359", "00359", "359")) or lang == "bg":
+            return {"code": "BG", "name_uk": "Болгарія", "name_bg": "България", "name_en": "Bulgaria", "flag": "🇧🇬"}
+
+        if "ελλ" in rc or "грец" in rc or "гръц" in rc or "greece" in rc or "ελλάδα" in text or ".gr" in web_clean or phone_clean.startswith(("+30", "0030", "30")) or lang == "el":
+            return {"code": "EL", "name_uk": "Греція", "name_bg": "Гърция", "name_en": "Greece", "flag": "🇬🇷"}
+
+        # Fallback to language
+        lang_country_map = {
+            "el": {"code": "EL", "name_uk": "Греція", "name_bg": "Гърция", "name_en": "Greece", "flag": "🇬🇷"},
+            "bg": {"code": "BG", "name_uk": "Болгарія", "name_bg": "България", "name_en": "Bulgaria", "flag": "🇧🇬"},
+            "ro": {"code": "RO", "name_uk": "Румунія", "name_bg": "Румъния", "name_en": "Romania", "flag": "🇷🇴"},
+            "es": {"code": "ES", "name_uk": "Іспанія", "name_bg": "Испания", "name_en": "Spain", "flag": "🇪🇸"},
+            "it": {"code": "IT", "name_uk": "Італія", "name_bg": "Италия", "name_en": "Italy", "flag": "🇮🇹"},
+            "fr": {"code": "FR", "name_uk": "Франція", "name_bg": "Франция", "name_en": "France", "flag": "🇫🇷"},
+            "de": {"code": "AT", "name_uk": "Австрія", "name_bg": "Австрия", "name_en": "Austria", "flag": "🇦🇹"},
+            "hu": {"code": "HU", "name_uk": "Угорщина", "name_bg": "Унгария", "name_en": "Hungary", "flag": "🇭🇺"},
+            "sl": {"code": "SL", "name_uk": "Словенія", "name_bg": "Словения", "name_en": "Slovenia", "flag": "🇸🇮"},
+            "sk": {"code": "SK", "name_uk": "Словаччина", "name_bg": "Словакия", "name_en": "Slovakia", "flag": "🇸🇰"},
+            "sr": {"code": "SR", "name_uk": "Сербія", "name_bg": "Сърбия", "name_en": "Serbia", "flag": "🇷🇸"},
+            "hr": {"code": "HR", "name_uk": "Хорватія", "name_bg": "Хърватия", "name_en": "Croatia", "flag": "🇭🇷"}
+        }
+        return lang_country_map.get(lang, {"code": "EU", "name_uk": "ЄС", "name_bg": "ЕС", "name_en": "EU", "flag": "🇪🇺"})
 
     def mark_draft_created(self, lead: Dict[str, Any], draft_id: str, subject: str, body_plain: str):
         email = lead.get("email", "")

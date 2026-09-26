@@ -260,6 +260,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <tr>
           <th style="width: 50px;">#</th>
           <th data-i18n="thCompany">Компанія</th>
+          <th data-i18n="thCountry" style="width: 140px;">Країна</th>
           <th data-i18n="thCity">Місто / Локація</th>
           <th data-i18n="thCategory">Категорія</th>
           <th data-i18n="thEmail">Email</th>
@@ -268,7 +269,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </tr>
       </thead>
       <tbody id="leadsTableBody">
-        <tr><td colspan="7" id="leadsTableLoading" style="text-align: center; padding: 40px; color: var(--muted);" data-i18n="loadingContacts">Завантаження контактів...</td></tr>
+        <tr><td colspan="8" id="leadsTableLoading" style="text-align: center; padding: 40px; color: var(--muted);" data-i18n="loadingContacts">Завантаження контактів...</td></tr>
       </tbody>
     </table>
   </div>
@@ -305,7 +306,7 @@ const I18N = {
     statReview: "🟡 Чернетки на перевірці в Gmail",
     statPending: "⚪ Очікують створення чернетки",
     statSent: "✅ Листи відправлено",
-    searchPlaceholder: "🔍 Пошук за назвою, містом, email...",
+    searchPlaceholder: "🔍 Пошук за назвою, країною, містом, email...",
     btnGenBatch: "⚡ Створити наступні 5 чернеток у Gmail",
     btnFindLeads: "🔍 Знайти 20–30 лідів",
     btnSyncSent: "📥 Перевірити відправлені в Gmail",
@@ -317,6 +318,7 @@ const I18N = {
     tabSent: "✅ Відправлені",
     thNum: "#",
     thCompany: "Компанія",
+    thCountry: "Країна",
     thCity: "Місто / Локація",
     thCategory: "Категорія",
     thEmail: "Email",
@@ -331,6 +333,7 @@ const I18N = {
     emptySearch: "Нічого не знайдено",
     loadingContacts: "Завантаження контактів...",
     modalTitleDefault: "Перегляд чернетки",
+    modalCountry: "Країна:",
     modalEmail: "Email:",
     modalCity: "Місто:",
     modalLang: "Мова:",
@@ -371,7 +374,7 @@ const I18N = {
     statReview: "🟡 Чернови за проверка в Gmail",
     statPending: "⚪ Чакащи създаване на чернова",
     statSent: "✅ Изпратени писма",
-    searchPlaceholder: "🔍 Търсене по име, град, имейл...",
+    searchPlaceholder: "🔍 Търсене по име, държава, град, имейл...",
     btnGenBatch: "⚡ Създай следващите 5 чернови в Gmail",
     btnFindLeads: "🔍 Намери 20–30 лийда",
     btnSyncSent: "📥 Провери изпратените в Gmail",
@@ -383,6 +386,7 @@ const I18N = {
     tabSent: "✅ Изпратени",
     thNum: "#",
     thCompany: "Компания",
+    thCountry: "Държава",
     thCity: "Град / Локация",
     thCategory: "Категория",
     thEmail: "Имейл",
@@ -397,6 +401,7 @@ const I18N = {
     emptySearch: "Няма намерени резултати",
     loadingContacts: "Зареждане на контакти...",
     modalTitleDefault: "Преглед на чернова",
+    modalCountry: "Държава:",
     modalEmail: "Имейл:",
     modalCity: "Град:",
     modalLang: "Език:",
@@ -551,7 +556,7 @@ function renderTable() {
   if (!tbody) return;
 
   if (!isDataLoaded) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--muted);">${t.loadingContacts}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 40px; color: var(--muted);">${t.loadingContacts}</td></tr>`;
     return;
   }
 
@@ -562,7 +567,7 @@ function renderTable() {
   const filtered = leadsData.filter(l => {
     if (!l) return false;
     const s = (l.status) ? String(l.status) : '';
-    const matchText = ((l.company_name || '') + " " + (l.city || '') + " " + (l.email || '') + " " + (l.category || '')).toLowerCase().includes(q);
+    const matchText = ((l.company_name || '') + " " + (l.country || '') + " " + (l.country_bg || '') + " " + (l.country_code || '') + " " + (l.city || '') + " " + (l.email || '') + " " + (l.category || '')).toLowerCase().includes(q);
     if (!matchText) return false;
 
     if (activeFilter === 'pending') return l.email && !s.includes('🟡') && !s.includes('✅');
@@ -572,7 +577,7 @@ function renderTable() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">${t.emptySearch}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 30px; color: var(--muted);">${t.emptySearch}</td></tr>`;
     return;
   }
 
@@ -596,11 +601,15 @@ function renderTable() {
       `;
     }
 
+    const flag = lead.country_flag || '';
+    const countryName = (currentLang === 'bg') ? (lead.country_bg || lead.country || '—') : (lead.country || '—');
+    const countryDisplay = flag ? `${flag} ${countryName}` : countryName;
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td style="color: var(--muted); font-size: 13px;">${lead.row_number}</td>
       <td><strong>${lead.company_name}</strong></td>
+      <td><span style="font-weight: 500; font-size: 13px; white-space: nowrap;">${countryDisplay}</span></td>
       <td>${lead.city || '—'}</td>
       <td><span style="font-size: 13px; color: var(--muted);">${lead.category || '—'}</span></td>
       <td><code>${lead.email || '—'}</code></td>
@@ -635,9 +644,14 @@ function updateModalMeta(lead) {
     langDisplay = langMap[lead.language];
   }
 
+  const flag = lead.country_flag || '';
+  const countryName = (currentLang === 'bg') ? (lead.country_bg || lead.country || '—') : (lead.country || '—');
+  const countryDisplay = flag ? `${flag} ${countryName}` : countryName;
+
   document.getElementById('modalMeta').innerHTML = `
-    <strong>${t.modalEmail}</strong> ${lead.email || '—'} &nbsp;|&nbsp; 
+    <strong>${t.modalCountry}</strong> ${countryDisplay} &nbsp;|&nbsp; 
     <strong>${t.modalCity}</strong> ${lead.city || '—'} &nbsp;|&nbsp; 
+    <strong>${t.modalEmail}</strong> ${lead.email || '—'} &nbsp;|&nbsp; 
     <strong>${t.modalLang}</strong> ${langDisplay} &nbsp;|&nbsp; 
     <strong>${t.modalSite}</strong> <a href="https://www.tera-wet.com" target="_blank" style="color: var(--primary); font-weight:600;">www.tera-wet.com</a>
   `;
@@ -916,7 +930,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
             leads = self.data_service.get_all_leads()
             output = io.StringIO()
             writer = csv.writer(output)
-            writer.writerow(["ID", "Компанія", "Категорія", "Місто", "Мова", "Email", "Телефон", "Сайт", "Статус", "Дата", "Тема листа"])
+            writer.writerow(["ID", "Компанія", "Країна", "Категорія", "Місто", "Мова", "Email", "Телефон", "Сайт", "Статус", "Дата", "Тема листа"])
             for l in leads:
                 email = l.get("email", "").strip().lower()
                 cached = self.data_service.state.get(email, {})
@@ -926,6 +940,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 writer.writerow([
                     l.get("row_number", ""),
                     l.get("company_name", ""),
+                    f"{l.get('country_flag', '')} {l.get('country', '')}".strip(),
                     l.get("category", ""),
                     l.get("city", ""),
                     l.get("language", "").upper(),

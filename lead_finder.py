@@ -1243,7 +1243,9 @@ class LeadFinderService:
                 "website": website,
                 "phone": phone,
                 "email": email,
-                "culture": culture
+                "culture": culture,
+                "country": cfg['country'],
+                "country_code": cfg_code
             })
 
         return batch
