@@ -506,15 +506,17 @@ function setLanguage(lang) {
 
 let isDataLoaded = false;
 
-async function loadData() {
+async function loadData(silent = false) {
   try {
-    const res = await fetch('/api/leads');
+    const res = await fetch('/api/leads?_t=' + Date.now(), { cache: 'no-store' });
     leadsData = await res.json();
     isDataLoaded = true;
     updateStats();
     renderTable();
   } catch (e) {
-    showToast((I18N[currentLang] || I18N.uk).toastErrorLoad);
+    if (!silent) {
+      showToast((I18N[currentLang] || I18N.uk).toastErrorLoad);
+    }
   }
 }
 
@@ -748,7 +750,7 @@ async function refreshData() {
   const t = I18N[currentLang];
   showToast(t.toastRefreshStart);
   try {
-    await fetch('/api/refresh');
+    await fetch('/api/refresh?_t=' + Date.now(), { cache: 'no-store' });
   } catch (e) {}
   await loadData();
   showToast(t.toastRefreshDone);
@@ -758,7 +760,7 @@ async function syncSent() {
   const t = I18N[currentLang];
   showToast(t.toastSyncStart);
   try {
-    const res = await fetch('/api/sync_sent');
+    const res = await fetch('/api/sync_sent?_t=' + Date.now(), { cache: 'no-store' });
     const data = await res.json();
     if (data.success) {
       showToast(t.toastSyncDone.replace('{n}', data.updated));
@@ -850,6 +852,11 @@ function showToast(msg) {
 setLanguage(currentLang);
 loadData();
 
+// Auto-refresh data silently every 20s so sent emails update automatically without page reloads
+setInterval(() => {
+  loadData(true);
+}, 20000);
+
 </script>
 </body>
 </html>
@@ -880,6 +887,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
             leads = self.data_service.get_all_leads()
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
             self.end_headers()
             self.wfile.write(json.dumps(leads, ensure_ascii=False).encode("utf-8"))
 
@@ -1095,6 +1106,9 @@ class DashboardHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
             self.end_headers()
             self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
         except (BrokenPipeError, ConnectionResetError):
@@ -1127,15 +1141,15 @@ def _daily_lead_search_scheduler():
         time.sleep(30)
 
 def _periodic_background_syncer():
-    """Silently syncs live Google Sheet & Gmail sent emails in background every 4 minutes without blocking UI."""
-    time.sleep(10)
+    """Silently syncs live Google Sheet & Gmail sent emails in background every 45 seconds without blocking UI."""
+    time.sleep(5)
     while True:
         try:
             DashboardHandler.data_service._sync_live_sheet()
             DashboardHandler.data_service.sync_sent_emails(DashboardHandler.draft_service)
         except Exception as e:
             logger.debug(f"Background syncer notice: {e}")
-        time.sleep(240)
+        time.sleep(45)
 
 class RobustThreadingHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
