@@ -274,3 +274,75 @@ class GmailDraftService:
 
         return results
 
+    def get_draft_recipients(self, limit: int = 100) -> Dict[str, Dict[str, Any]]:
+        """
+        Scans Gmail's Drafts folder via IMAP to find emails currently awaiting review.
+        Returns a dict mapping lowercase recipient email -> {subject, to_raw}.
+        """
+        if self.mode != "imap":
+            return {}
+
+        import email
+        from email.header import decode_header
+        import re
+
+        results = {}
+        try:
+            imap = imaplib.IMAP4_SSL("imap.gmail.com")
+            imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+
+            status, folder_list = imap.list()
+            drafts_folder = '[Gmail]/Drafts'
+            if status == 'OK':
+                for folder_entry in folder_list:
+                    line = folder_entry.decode('utf-8', errors='ignore')
+                    if '\\Drafts' in line:
+                        parts = line.split(' "/" ')
+                        if len(parts) > 1:
+                            drafts_folder = parts[-1].strip('"')
+                            break
+
+            status, _ = imap.select(f'"{drafts_folder}"', readonly=True)
+            if status != 'OK':
+                imap.logout()
+                return {}
+
+            status, messages = imap.search(None, 'ALL')
+            if status == 'OK' and messages and messages[0]:
+                msg_ids = messages[0].split()
+                recent_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
+                for mid in reversed(recent_ids):
+                    try:
+                        res, data = imap.fetch(mid, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
+                        if res == 'OK' and data and data[0] and isinstance(data[0], tuple):
+                            raw_header = data[0][1].decode('utf-8', errors='ignore')
+                            msg = email.message_from_string(raw_header)
+                            to_raw = msg.get('To', '')
+                            found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
+
+                            raw_subj = msg.get('Subject', '')
+                            decoded_parts = decode_header(raw_subj)
+                            subj_str = ""
+                            for p, enc in decoded_parts:
+                                if isinstance(p, bytes):
+                                    subj_str += p.decode(enc or 'utf-8', errors='ignore')
+                                else:
+                                    subj_str += str(p)
+
+                            for em in found_emails:
+                                if em not in results:
+                                    results[em] = {
+                                        "subject": subj_str.strip(),
+                                        "to_raw": to_raw
+                                    }
+                    except Exception as e:
+                        logger.debug(f"Error reading draft message {mid}: {e}")
+
+            imap.logout()
+            logger.info(f"Scanned Drafts folder. Found {len(results)} active drafts.")
+        except Exception as e:
+            logger.error(f"Error fetching draft messages via IMAP: {e}")
+
+        return results
+
+

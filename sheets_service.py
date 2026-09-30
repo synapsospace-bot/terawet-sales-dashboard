@@ -229,6 +229,13 @@ class LeadDataService:
             # Merge with local state
             key = email.lower() if email else f"row_{lead_idx}"
             cached = self.state.get(key, {})
+            if not cached and email:
+                for em in re.findall(r'[\w\.-]+@[\w\.-]+', email.lower()):
+                    if em in self.state:
+                        cached = self.state[em]
+                        break
+            if not cached:
+                cached = self.state.get(f"row_{lead_idx}", {})
 
             status = cached.get("status") or r.get("status", "").strip() or "⚪ Очікує"
             gen_sheet = cached.get("generation_sheet") or r.get("generation sheet", "").strip()
@@ -279,12 +286,20 @@ class LeadDataService:
     def get_new_leads(self) -> List[Dict[str, Any]]:
         all_leads = self.get_all_leads()
         new_leads = []
+        seen_emails = set()
         for l in all_leads:
-            if not l["email"]:
+            raw_em = l.get("email", "").strip()
+            if not raw_em:
                 continue
-            st = l["status"]
-            if "🟡" not in st and "✅" not in st and "DRAFT_CREATED" not in st:
-                new_leads.append(l)
+            st = l.get("status", "")
+            if "🟡" in st or "✅" in st or "DRAFT_CREATED" in st:
+                continue
+            em_list = tuple(sorted(re.findall(r'[\w\.-]+@[\w\.-]+', raw_em.lower())))
+            if em_list and em_list in seen_emails:
+                continue
+            if em_list:
+                seen_emails.add(em_list)
+            new_leads.append(l)
         return new_leads
 
     def _detect_language(self, city: str, address: str, website: str, phone: str = "", email: str = "", name: str = "") -> str:
@@ -559,18 +574,24 @@ class LeadDataService:
         return lang_country_map.get(lang, {"code": "EU", "name_uk": "ЄС", "name_bg": "ЕС", "name_en": "EU", "flag": "🇪🇺"})
 
     def mark_draft_created(self, lead: Dict[str, Any], draft_id: str, subject: str, body_plain: str):
-        email = lead.get("email", "")
+        raw_email = lead.get("email", "").strip()
         row_num = lead.get("row_number", 0)
         today = datetime.now().strftime("%Y-%m-%d")
 
-        key = email if email else f"row_{row_num}"
-        self.state[key] = {
+        cached_data = {
             "status": "🟡 Чернетка на перевірці",
             "draft_id": draft_id,
             "date": today,
             "subject": subject,
             "generation_sheet": f"Subject: {subject}\n\n{body_plain}"
         }
+        if raw_email:
+            self.state[raw_email.lower()] = cached_data
+            for em in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email.lower()):
+                self.state[em] = cached_data
+        if row_num:
+            self.state[f"row_{row_num}"] = cached_data
+
         self._save_state()
         logger.info(f"Updated lead {lead.get('company_name')} -> '🟡 Чернетка на перевірці' in local database.")
         self.export_updated_csv()
@@ -591,6 +612,11 @@ class LeadDataService:
             email = row_copy.get("email", "").strip().lower()
             key = email if email else f"row_{lead_num}"
             cached = self.state.get(key)
+            if not cached and email:
+                for em in re.findall(r'[\w\.-]+@[\w\.-]+', email):
+                    if em in self.state:
+                        cached = self.state[em]
+                        break
 
             if cached:
                 row_copy["status"] = cached.get("status", row_copy.get("status", ""))
@@ -609,38 +635,88 @@ class LeadDataService:
 
     def sync_sent_emails(self, gmail_service: Any) -> int:
         """
-        Queries sent emails from Gmail IMAP and updates lead status to '✅ Лист відправлено'.
+        Synchronizes lead statuses against both Gmail Sent Mail and Gmail Drafts folders.
+        1. Multi-email support: splits comma/semicolon-separated addresses.
+        2. Draft sync: detects active drafts directly from Gmail.
+        3. Sent sync: detects actually sent emails and sets status to '✅ Лист відправлено'.
         """
         if not gmail_service or not hasattr(gmail_service, "get_sent_recipients"):
             return 0
 
-        sent_recipients = gmail_service.get_sent_recipients(limit=250)
-        if not sent_recipients:
+        updated_count = 0
+        today = datetime.now().strftime("%Y-%m-%d")
+
+        # 1. Fetch Drafts from Gmail
+        draft_recipients = {}
+        if hasattr(gmail_service, "get_draft_recipients"):
+            try:
+                draft_recipients = gmail_service.get_draft_recipients(limit=100)
+            except Exception as e:
+                logger.warning(f"Notice getting draft recipients: {e}")
+
+        # 2. Fetch Sent Emails from Gmail
+        sent_recipients = {}
+        try:
+            sent_recipients = gmail_service.get_sent_recipients(limit=250)
+        except Exception as e:
+            logger.warning(f"Notice getting sent recipients: {e}")
+
+        if not sent_recipients and not draft_recipients:
             return 0
 
-        updated_count = 0
         all_leads = self.get_all_leads()
 
         for lead in all_leads:
-            email = lead.get("email", "").strip().lower()
-            if not email:
+            raw_email = lead.get("email", "").strip()
+            if not raw_email:
                 continue
 
-            if email in sent_recipients:
-                current_status = lead.get("status", "")
-                if "✅" not in current_status:
-                    sent_info = sent_recipients[email]
-                    today = datetime.now().strftime("%Y-%m-%d")
-                    key = email
+            lead_emails = [e.lower() for e in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email)]
+            if not lead_emails:
+                continue
 
-                    cached = self.state.get(key, {})
-                    cached["status"] = "✅ Лист відправлено"
-                    cached["date"] = today
-                    if "subject" not in cached and sent_info.get("subject"):
-                        cached["subject"] = sent_info["subject"]
-                    self.state[key] = cached
+            current_status = lead.get("status", "")
+            lead_row = lead.get("row_number")
+
+            # Check if SENT
+            matched_sent = next((e for e in lead_emails if e in sent_recipients), None)
+            if matched_sent:
+                if "✅" not in current_status:
+                    sent_info = sent_recipients[matched_sent]
+                    cached_data = {
+                        "status": "✅ Лист відправлено",
+                        "date": today,
+                        "subject": sent_info.get("subject", "")
+                    }
+                    self.state[raw_email.lower()] = cached_data
+                    if lead_row:
+                        self.state[f"row_{lead_row}"] = cached_data
+                    for em in lead_emails:
+                        self.state[em] = cached_data
+
                     updated_count += 1
-                    logger.info(f"Detected sent email to {email}! Status -> '✅ Лист відправлено'")
+                    logger.info(f"Detected sent email for {lead.get('company_name')} ({matched_sent})! Status -> '✅ Лист відправлено'")
+                continue
+
+            # Check if DRAFT in Gmail
+            matched_draft = next((e for e in lead_emails if e in draft_recipients), None)
+            if matched_draft:
+                if "✅" not in current_status and "🟡" not in current_status:
+                    draft_info = draft_recipients[matched_draft]
+                    cached_data = {
+                        "status": "🟡 Чернетка на перевірці",
+                        "date": today,
+                        "subject": draft_info.get("subject", ""),
+                        "generation_sheet": f"Subject: {draft_info.get('subject', '')}"
+                    }
+                    self.state[raw_email.lower()] = cached_data
+                    if lead_row:
+                        self.state[f"row_{lead_row}"] = cached_data
+                    for em in lead_emails:
+                        self.state[em] = cached_data
+
+                    updated_count += 1
+                    logger.info(f"Detected active Gmail draft for {lead.get('company_name')} ({matched_draft})! Status -> '🟡 Чернетка на перевірці'")
 
         if updated_count > 0:
             self._save_state()
@@ -655,6 +731,10 @@ class LeadDataService:
         cached["status"] = new_status
         cached["date"] = today
         self.state[key] = cached
+        if "@" in key:
+            self.state[key.lower()] = cached
+            for em in re.findall(r'[\w\.-]+@[\w\.-]+', key.lower()):
+                self.state[em] = cached
         self._save_state()
         self.export_updated_csv()
 
