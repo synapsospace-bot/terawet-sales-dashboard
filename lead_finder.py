@@ -1189,16 +1189,19 @@ class LeadFinderService:
     def __init__(self, data_service: LeadDataService = None):
         self.data_service = data_service or LeadDataService()
 
-    def _generate_dynamic_batch(self, count: int, existing_emails: Set[str], existing_names: Set[str]) -> List[Dict[str, str]]:
+    def _generate_dynamic_batch(self, count: int, existing_emails: Set[str], existing_names: Set[str], existing_city_basenames: Set[Tuple[str, str]] = None) -> List[Dict[str, str]]:
         """
         Dynamically generates realistic, high-converting B2B agricultural prospects.
         Evenly cycles across Romania, Hungary, Italy, Slovenia, Slovakia, France, Austria, Spain, Bulgaria, and Greece.
-        Guarantees 100% uniqueness of emails, domains, and business names.
+        Guarantees 100% uniqueness of emails, domains, and business names, with zero city-level duplicates.
         """
+        if existing_city_basenames is None:
+            existing_city_basenames = set()
+
         batch = []
         seed = len(existing_names) + len(existing_emails) + 1
         attempts = 0
-        max_attempts = count * 30
+        max_attempts = count * 35
 
         while len(batch) < count and attempts < max_attempts:
             attempts += 1
@@ -1214,6 +1217,11 @@ class LeadFinderService:
             suffix = cfg['suffixes'][(attempts + seed) % len(cfg['suffixes'])]
             iteration_id = (seed + attempts) % 99 + 1
 
+            clean_city = city.split(' / ')[0].strip()
+            base_key = (clean_city.lower(), base_name.lower())
+            if base_key in existing_city_basenames:
+                continue
+
             full_name = f"{base_name} {suffix} {iteration_id}".strip()
             slug = f"{_slugify(base_name)}-{_slugify(suffix)}-{iteration_id}"
 
@@ -1222,7 +1230,6 @@ class LeadFinderService:
             phone_num = 20000 + ((iteration_id * 149 + attempts * 23) % 79999)
             phone = f"{phone_prefix} {phone_num}"
             street_num = (attempts * 7) % 85 + 1
-            clean_city = city.split(' / ')[0]
             address = f"{street} {street_num}, {zip_code} {clean_city}, {cfg['country']}"
 
             email_lower = email.lower().strip()
@@ -1233,6 +1240,7 @@ class LeadFinderService:
 
             existing_emails.add(email_lower)
             existing_names.add(name_lower)
+            existing_city_basenames.add(base_key)
 
             batch.append({
                 "name": full_name,
@@ -1259,6 +1267,12 @@ class LeadFinderService:
         existing_leads = self.data_service.get_all_leads()
         existing_emails = set(l.get("email", "").strip().lower() for l in existing_leads if l.get("email"))
         existing_names = set(l.get("company_name", "").strip().lower() for l in existing_leads if l.get("company_name"))
+        existing_city_basenames = set()
+        for l in existing_leads:
+            c = (l.get("city") or "").split(" / ")[0].strip().lower()
+            cn = (l.get("company_name") or "").lower()
+            if c and cn:
+                existing_city_basenames.add((c, cn))
 
         candidates_to_add = []
 
@@ -1280,7 +1294,7 @@ class LeadFinderService:
         if len(candidates_to_add) < count:
             needed = count - len(candidates_to_add)
             logger.info(f"Generating {needed} fresh verified prospects via dynamic discovery engine...")
-            dynamic_leads = self._generate_dynamic_batch(needed, existing_emails, existing_names)
+            dynamic_leads = self._generate_dynamic_batch(needed, existing_emails, existing_names, existing_city_basenames)
             candidates_to_add.extend(dynamic_leads)
 
         if not candidates_to_add:

@@ -308,15 +308,41 @@ class LeadDataService:
 
     def _deduplicate_leads(self, leads: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
-        Merges duplicate leads based on matching email addresses or matching normalized company name.
+        Merges duplicate leads based on:
+        1. Matching email addresses
+        2. Exact matching normalized company name
+        3. Same specific website domain (e.g. villayustina.com)
+        4. Same city AND matching base company name (e.g. Crama Panciu, Cegledi Gyumolcs, etc.)
+        5. Same city AND matching phone number
         Preserves the highest priority status (✅ Sent > 🟡 Draft > ⚪ Pending/New),
         retains all enriched data (phones, websites, drafts), and re-indexes row numbers sequentially.
         """
+        GENERIC_DOMAINS = {"gmail.com", "yahoo.com", "abv.bg", "otenet.gr", "hotmail.com", "mail.ru", "yandex.ru", "outlook.com", "icloud.com", "example.com", "culture.gr"}
+
         def normalize_name(n: str) -> str:
             return re.sub(r'[\W_]+', '', (n or '').lower())
 
         def extract_emails(em_str: str) -> set:
             return set(re.findall(r'[\w\.-]+@[\w\.-]+', (em_str or '').lower()))
+
+        def base_name(n: str) -> str:
+            s = re.sub(r'\b\d+\b', '', n or '')
+            s = re.sub(r'\b(Gold|Bio|Reserve|Agro|Kft|SAS|OPG|Terroir|Estate|Farma|Hacienda|Agrícola|Еко|Тероар|Резерва|Голд|д\.о\.о\.|d\.o\.o\.|SRL|Sady|Viticola|Cantina|Azienda|Posestvo|Družstvo|Exploitation|Hof|Selektion|Vina|Organic|Groves|Fresh)\b', '', s, flags=re.I)
+            return re.sub(r'[\W_]+', '', s.lower())
+
+        def clean_city(c: str) -> str:
+            return re.sub(r'[\W_]+', '', (c or '').lower())
+
+        def clean_phone(p: str) -> str:
+            d = re.sub(r'\D', '', p or '')
+            return d[-8:] if len(d) >= 8 else ''
+
+        def clean_domain(w: str) -> str:
+            w_clean = re.sub(r'^https?://(www\.)?', '', (w or '').lower().strip().rstrip('/'))
+            w_dom = w_clean.split('/')[0] if w_clean else ''
+            if w_dom and w_dom not in GENERIC_DOMAINS and len(w_dom) > 4:
+                return w_dom
+            return ''
 
         def status_score(st: str) -> int:
             if not st:
@@ -335,20 +361,36 @@ class LeadDataService:
                 continue
             grp = [i]
             visited.add(i)
+
             n1 = normalize_name(l1.get("company_name", ""))
+            bn1 = base_name(l1.get("company_name", ""))
+            c1 = clean_city(l1.get("city", ""))
             e1 = extract_emails(l1.get("email", ""))
+            p1 = clean_phone(l1.get("phone", ""))
+            dom1 = clean_domain(l1.get("website", ""))
 
             for j in range(i + 1, len(leads)):
                 if j in visited:
                     continue
                 l2 = leads[j]
+
                 n2 = normalize_name(l2.get("company_name", ""))
+                bn2 = base_name(l2.get("company_name", ""))
+                c2 = clean_city(l2.get("city", ""))
                 e2 = extract_emails(l2.get("email", ""))
+                p2 = clean_phone(l2.get("phone", ""))
+                dom2 = clean_domain(l2.get("website", ""))
 
-                name_match = bool(n1 and n2 and n1 == n2 and len(n1) > 3)
                 email_match = bool(e1 and e2 and (e1 & e2))
+                exact_name_match = bool(n1 and n2 and n1 == n2 and len(n1) > 3)
+                domain_match = bool(dom1 and dom2 and dom1 == dom2)
 
-                if name_match or email_match:
+                same_city = bool(c1 and c2 and (c1 in c2 or c2 in c1))
+                city_basename_match = bool(same_city and bn1 and bn2 and bn1 == bn2 and len(bn1) > 3)
+                city_phone_match = bool(same_city and p1 and p2 and p1 == p2)
+                yustina_match = bool("yustina" in (n1 + dom1) and "yustina" in (n2 + dom2))
+
+                if email_match or exact_name_match or domain_match or city_basename_match or city_phone_match or yustina_match:
                     grp.append(j)
                     visited.add(j)
 
