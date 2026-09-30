@@ -877,7 +877,15 @@ class DashboardHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path == "/" or path == "/index.html":
+        if path in ("/healthz", "/ping", "/api/health"):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(b'{"status":"ok","uptime":"running"}')
+            return
+
+        elif path == "/" or path == "/index.html":
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
@@ -1151,6 +1159,30 @@ def _periodic_background_syncer():
             logger.debug(f"Background syncer notice: {e}")
         time.sleep(45)
 
+def _render_keepalive_pinger():
+    """
+    Self-pings the public Render service URL every 9 minutes.
+    Outgoing HTTPS to https://terawet-sales-dashboard.onrender.com routes through Render's external edge router,
+    registering active incoming HTTP traffic and preventing Render free tier from sleeping after 15 minutes.
+    """
+    time.sleep(30)
+    public_url = os.environ.get("RENDER_EXTERNAL_URL") or "https://terawet-sales-dashboard.onrender.com"
+    health_url = f"{public_url.rstrip('/')}/healthz"
+    logger.info(f"Render keep-alive pinger initialized for: {health_url}")
+
+    while True:
+        try:
+            req = urllib.request.Request(
+                health_url,
+                headers={"User-Agent": "TeraWet-KeepAlive/1.0"}
+            )
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                status_code = resp.getcode()
+                logger.info(f"Keep-alive self-ping successful (HTTP {status_code})")
+        except Exception as e:
+            logger.debug(f"Keep-alive self-ping notice: {e}")
+        time.sleep(540)  # Ping every 9 minutes (well within the 15-minute idle cutoff)
+
 class RobustThreadingHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
     daemon_threads = True
@@ -1165,6 +1197,9 @@ def start_server():
 
     sync_thread = threading.Thread(target=_periodic_background_syncer, daemon=True)
     sync_thread.start()
+
+    keepalive_thread = threading.Thread(target=_render_keepalive_pinger, daemon=True)
+    keepalive_thread.start()
 
     while True:
         try:

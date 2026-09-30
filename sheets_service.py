@@ -234,6 +234,9 @@ class LeadDataService:
                     if em in self.state:
                         cached = self.state[em]
                         break
+            norm_name = re.sub(r'[\W_]+', '', company_name.lower())
+            if not cached and norm_name:
+                cached = self.state.get(f"name_{norm_name}", {})
             if not cached:
                 cached = self.state.get(f"row_{lead_idx}", {})
 
@@ -278,10 +281,11 @@ class LeadDataService:
                 "status": status,
                 "generation_sheet": gen_sheet,
                 "date": date,
-                "crops": f"{category} ({city})" if city else category
+                "crops": f"{category} ({city})" if city else category,
+                "_raw": r
             })
             lead_idx += 1
-        return leads
+        return self._deduplicate_leads(leads)
 
     def get_new_leads(self) -> List[Dict[str, Any]]:
         all_leads = self.get_all_leads()
@@ -301,6 +305,83 @@ class LeadDataService:
                 seen_emails.add(em_list)
             new_leads.append(l)
         return new_leads
+
+    def _deduplicate_leads(self, leads: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Merges duplicate leads based on matching email addresses or matching normalized company name.
+        Preserves the highest priority status (✅ Sent > 🟡 Draft > ⚪ Pending/New),
+        retains all enriched data (phones, websites, drafts), and re-indexes row numbers sequentially.
+        """
+        def normalize_name(n: str) -> str:
+            return re.sub(r'[\W_]+', '', (n or '').lower())
+
+        def extract_emails(em_str: str) -> set:
+            return set(re.findall(r'[\w\.-]+@[\w\.-]+', (em_str or '').lower()))
+
+        def status_score(st: str) -> int:
+            if not st:
+                return 0
+            if "✅" in st or "SENT" in st:
+                return 3
+            if "🟡" in st or "DRAFT" in st:
+                return 2
+            return 1
+
+        groups = []
+        visited = set()
+
+        for i, l1 in enumerate(leads):
+            if i in visited:
+                continue
+            grp = [i]
+            visited.add(i)
+            n1 = normalize_name(l1.get("company_name", ""))
+            e1 = extract_emails(l1.get("email", ""))
+
+            for j in range(i + 1, len(leads)):
+                if j in visited:
+                    continue
+                l2 = leads[j]
+                n2 = normalize_name(l2.get("company_name", ""))
+                e2 = extract_emails(l2.get("email", ""))
+
+                name_match = bool(n1 and n2 and n1 == n2 and len(n1) > 3)
+                email_match = bool(e1 and e2 and (e1 & e2))
+
+                if name_match or email_match:
+                    grp.append(j)
+                    visited.add(j)
+
+            groups.append(grp)
+
+        deduped = []
+        for new_idx, grp in enumerate(groups, start=1):
+            items = [leads[idx] for idx in grp]
+            items.sort(key=lambda x: (
+                status_score(x.get("status", "")),
+                1 if x.get("generation_sheet") else 0,
+                len(x.get("email", "")),
+                len(x.get("phone", ""))
+            ), reverse=True)
+
+            best = dict(items[0])
+            best["row_number"] = new_idx
+
+            # Merge any missing fields from others in group
+            for other in items[1:]:
+                for f in ["website", "phone", "city", "adress", "generation_sheet", "date", "category"]:
+                    if not best.get(f) and other.get(f):
+                        best[f] = other[f]
+                # Merge emails if not present
+                best_emails = extract_emails(best.get("email", ""))
+                other_emails = extract_emails(other.get("email", ""))
+                missing = other_emails - best_emails
+                if missing:
+                    best["email"] = best["email"] + ", " + ", ".join(sorted(missing))
+
+            deduped.append(best)
+
+        return deduped
 
     def _detect_language(self, city: str, address: str, website: str, phone: str = "", email: str = "", name: str = "") -> str:
         """
@@ -591,6 +672,9 @@ class LeadDataService:
                 self.state[em] = cached_data
         if row_num:
             self.state[f"row_{row_num}"] = cached_data
+        comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
+        if comp_name:
+            self.state[f"name_{comp_name}"] = cached_data
 
         self._save_state()
         logger.info(f"Updated lead {lead.get('company_name')} -> '🟡 Чернетка на перевірці' in local database.")
@@ -598,33 +682,27 @@ class LeadDataService:
 
     def export_updated_csv(self) -> Path:
         """
-        Exports the updated sheet into updated_google_sheet.csv.
+        Exports the updated sheet into updated_google_sheet.csv with deduplication.
         """
         if not self.raw_headers:
             return UPDATED_CSV_FILE
 
+        leads = self.get_all_leads()
         updated_rows = []
-        lead_num = 2
-        for r in self.raw_rows:
-            if not any(r.get(k, "").strip() for k in ["name", "email", "phone", "city", "website"]):
-                continue
-            row_copy = {fn: r.get(fn, "") for fn in self.raw_headers}
-            email = row_copy.get("email", "").strip().lower()
-            key = email if email else f"row_{lead_num}"
-            cached = self.state.get(key)
-            if not cached and email:
-                for em in re.findall(r'[\w\.-]+@[\w\.-]+', email):
-                    if em in self.state:
-                        cached = self.state[em]
-                        break
-
-            if cached:
-                row_copy["status"] = cached.get("status", row_copy.get("status", ""))
-                row_copy["date"] = cached.get("date", row_copy.get("date", ""))
-                row_copy["generation sheet"] = cached.get("generation_sheet", row_copy.get("generation sheet", ""))
-
+        for l in leads:
+            raw = l.get("_raw", {})
+            row_copy = {fn: raw.get(fn, "") for fn in self.raw_headers}
+            row_copy["name"] = l.get("company_name", "")
+            row_copy["email"] = l.get("email", "")
+            row_copy["phone"] = l.get("phone", "")
+            row_copy["website"] = l.get("website", "")
+            row_copy["city"] = l.get("city", "")
+            row_copy["status"] = l.get("status", "")
+            row_copy["date"] = l.get("date", "")
+            row_copy["generation sheet"] = l.get("generation_sheet", "")
+            if "country" in self.raw_headers:
+                row_copy["country"] = l.get("country", "")
             updated_rows.append(row_copy)
-            lead_num += 1
 
         with open(UPDATED_CSV_FILE, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.raw_headers)
@@ -677,6 +755,7 @@ class LeadDataService:
 
             current_status = lead.get("status", "")
             lead_row = lead.get("row_number")
+            comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
 
             # Check if SENT
             matched_sent = next((e for e in lead_emails if e in sent_recipients), None)
@@ -691,6 +770,8 @@ class LeadDataService:
                     self.state[raw_email.lower()] = cached_data
                     if lead_row:
                         self.state[f"row_{lead_row}"] = cached_data
+                    if comp_name:
+                        self.state[f"name_{comp_name}"] = cached_data
                     for em in lead_emails:
                         self.state[em] = cached_data
 
@@ -712,6 +793,8 @@ class LeadDataService:
                     self.state[raw_email.lower()] = cached_data
                     if lead_row:
                         self.state[f"row_{lead_row}"] = cached_data
+                    if comp_name:
+                        self.state[f"name_{comp_name}"] = cached_data
                     for em in lead_emails:
                         self.state[em] = cached_data
 
