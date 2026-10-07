@@ -852,10 +852,10 @@ function showToast(msg) {
 setLanguage(currentLang);
 loadData();
 
-// Auto-refresh data silently every 20s so sent emails update automatically without page reloads
+// Auto-refresh data silently every 60s so sent emails update automatically without overloading the server
 setInterval(() => {
   loadData(true);
-}, 20000);
+}, 60000);
 
 </script>
 </body>
@@ -904,6 +904,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         elif path == "/api/refresh":
             try:
+                self.data_service.invalidate_cache()
                 self.data_service._sync_live_sheet()
             except Exception as e:
                 logger.warning(f"Refresh live sheet notice: {e}")
@@ -1149,15 +1150,15 @@ def _daily_lead_search_scheduler():
         time.sleep(30)
 
 def _periodic_background_syncer():
-    """Silently syncs live Google Sheet & Gmail sent emails in background every 45 seconds without blocking UI."""
-    time.sleep(5)
+    """Silently syncs live Google Sheet & Gmail sent emails in background every 2 minutes without blocking UI."""
+    time.sleep(10)
     while True:
         try:
             DashboardHandler.data_service._sync_live_sheet()
             DashboardHandler.data_service.sync_sent_emails(DashboardHandler.draft_service)
         except Exception as e:
             logger.debug(f"Background syncer notice: {e}")
-        time.sleep(45)
+        time.sleep(120)
 
 def _render_keepalive_pinger():
     """

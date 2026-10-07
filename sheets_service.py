@@ -3,6 +3,7 @@ import io
 import re
 import json
 import logging
+import threading
 import urllib.request
 from typing import List, Dict, Any, Tuple
 from pathlib import Path
@@ -22,6 +23,8 @@ class LeadDataService:
     """
 
     def __init__(self):
+        self._lock = threading.Lock()
+        self._cached_leads = None
         self.sheet_url = config.GOOGLE_SHEET_URL
         self.state = self._load_state()
         self.raw_headers = []
@@ -36,6 +39,10 @@ class LeadDataService:
         except Exception as e:
             logger.warning(f"Startup sheet sync warning: {e}")
 
+    def invalidate_cache(self):
+        with self._lock:
+            self._cached_leads = None
+
     def _load_local_csv(self):
         if UPDATED_CSV_FILE.exists():
             try:
@@ -48,6 +55,7 @@ class LeadDataService:
                         r for r in rows
                         if any(r.get(k, "").strip() for k in ["name", "email", "phone", "city", "website"])
                     ]
+                    self.invalidate_cache()
                     logger.info(f"Loaded {len(self.raw_rows)} valid rows from local CSV cache.")
             except Exception as e:
                 logger.error(f"Failed to load local CSV fallback: {e}")
@@ -66,6 +74,7 @@ class LeadDataService:
         return {}
 
     def _save_state(self):
+        self.invalidate_cache()
         with open(STATE_FILE, "w", encoding="utf-8") as f:
             json.dump(self.state, f, ensure_ascii=False, indent=2)
 
@@ -106,6 +115,7 @@ class LeadDataService:
 
     def reload(self):
         """Forces a clean reload of local CSV and imported leads."""
+        self.invalidate_cache()
         self._load_local_csv()
         self._merge_imported_leads()
 
@@ -159,6 +169,7 @@ class LeadDataService:
 
         if added_count > 0:
             self._save_imported_leads(current_imported)
+            self.invalidate_cache()
             self.export_updated_csv()
             logger.info(f"Appended {added_count} imported leads to active memory & disk.")
 
@@ -197,11 +208,14 @@ class LeadDataService:
                 merged_rows.append(imp)
 
             if merged_rows:
-                if new_headers:
-                    self.raw_headers = new_headers
-                self.raw_rows = merged_rows
-                logger.info(f"Synced live sheet: {len(valid_sheet_rows)} sheet leads + {len(imported_leads)} imported leads ({len(self.raw_rows)} total).")
-                self.export_updated_csv()
+                # Only write to CSV and bust cache if the data actually changed
+                if self.raw_rows != merged_rows or (new_headers and new_headers != self.raw_headers):
+                    if new_headers:
+                        self.raw_headers = new_headers
+                    self.raw_rows = merged_rows
+                    self.invalidate_cache()
+                    logger.info(f"Synced live sheet: {len(valid_sheet_rows)} sheet leads + {len(imported_leads)} imported leads ({len(self.raw_rows)} total).")
+                    self.export_updated_csv()
         except Exception as e:
             logger.warning(f"Live Google Sheet sync notice (retaining {len(self.raw_rows)} cached rows): {e}")
             if not self.raw_rows:
@@ -209,83 +223,90 @@ class LeadDataService:
                 self._merge_imported_leads()
 
     def get_all_leads(self) -> List[Dict[str, Any]]:
-        leads = []
-        lead_idx = 2
-        for r in self.raw_rows:
-            email = r.get("email", "").strip()
-            name = r.get("name", "").strip()
-            category = r.get("category", "").strip() or r.get("culture", "").strip()
-            city = r.get("city", "").strip()
-            website = r.get("website", "").strip()
-            phone = r.get("phone", "").strip()
-            address = r.get("adress", "").strip() or r.get("address", "").strip()
+        with self._lock:
+            if self._cached_leads is not None:
+                return [dict(x) for x in self._cached_leads]
 
-            # Skip ghost rows that contain no meaningful identifying data
-            if not any([name, email, phone, city, website]):
-                continue
+            leads = []
+            lead_idx = 2
+            for r in self.raw_rows:
+                email = r.get("email", "").strip()
+                name = r.get("name", "").strip()
+                category = r.get("category", "").strip() or r.get("culture", "").strip()
+                city = r.get("city", "").strip()
+                website = r.get("website", "").strip()
+                phone = r.get("phone", "").strip()
+                address = r.get("adress", "").strip() or r.get("address", "").strip()
 
-            company_name = name or "Valued Partner"
+                # Skip ghost rows that contain no meaningful identifying data
+                if not any([name, email, phone, city, website]):
+                    continue
 
-            # Merge with local state
-            key = email.lower() if email else f"row_{lead_idx}"
-            cached = self.state.get(key, {})
-            if not cached and email:
-                for em in re.findall(r'[\w\.-]+@[\w\.-]+', email.lower()):
-                    if em in self.state:
-                        cached = self.state[em]
-                        break
-            norm_name = re.sub(r'[\W_]+', '', company_name.lower())
-            if not cached and norm_name:
-                cached = self.state.get(f"name_{norm_name}", {})
-            if not cached:
-                cached = self.state.get(f"row_{lead_idx}", {})
+                company_name = name or "Valued Partner"
 
-            status = cached.get("status") or r.get("status", "").strip() or "⚪ Очікує"
-            gen_sheet = cached.get("generation_sheet") or r.get("generation sheet", "").strip()
-            date = cached.get("date") or r.get("date", "").strip()
+                # Merge with local state
+                key = email.lower() if email else f"row_{lead_idx}"
+                cached = self.state.get(key, {})
+                if not cached and email:
+                    for em in re.findall(r'[\w\.-]+@[\w\.-]+', email.lower()):
+                        if em in self.state:
+                            cached = self.state[em]
+                            break
+                norm_name = re.sub(r'[\W_]+', '', company_name.lower())
+                if not cached and norm_name:
+                    cached = self.state.get(f"name_{norm_name}", {})
+                if not cached:
+                    cached = self.state.get(f"row_{lead_idx}", {})
 
-            lang = self._detect_language(
-                city=city,
-                address=address,
-                website=website,
-                phone=phone,
-                email=email,
-                name=company_name
-            )
+                status = cached.get("status") or r.get("status", "").strip() or "⚪ Очікує"
+                gen_sheet = cached.get("generation_sheet") or r.get("generation sheet", "").strip()
+                date = cached.get("date") or r.get("date", "").strip()
 
-            country_info = self._detect_country(
-                city=city,
-                address=address,
-                website=website,
-                phone=phone,
-                email=email,
-                name=company_name,
-                raw_country=r.get("country", ""),
-                lang=lang
-            )
+                lang = self._detect_language(
+                    city=city,
+                    address=address,
+                    website=website,
+                    phone=phone,
+                    email=email,
+                    name=company_name
+                )
 
-            leads.append({
-                "row_number": lead_idx,
-                "company_name": company_name,
-                "country": country_info["name_uk"],
-                "country_bg": country_info["name_bg"],
-                "country_en": country_info["name_en"],
-                "country_code": country_info["code"],
-                "country_flag": country_info["flag"],
-                "category": category,
-                "city": city,
-                "website": website,
-                "phone": phone,
-                "email": email,
-                "language": lang,
-                "status": status,
-                "generation_sheet": gen_sheet,
-                "date": date,
-                "crops": f"{category} ({city})" if city else category,
-                "_raw": r
-            })
-            lead_idx += 1
-        return self._deduplicate_leads(leads)
+                country_info = self._detect_country(
+                    city=city,
+                    address=address,
+                    website=website,
+                    phone=phone,
+                    email=email,
+                    name=company_name,
+                    raw_country=r.get("country", ""),
+                    lang=lang
+                )
+
+                leads.append({
+                    "row_number": lead_idx,
+                    "company_name": company_name,
+                    "country": country_info["name_uk"],
+                    "country_bg": country_info["name_bg"],
+                    "country_en": country_info["name_en"],
+                    "country_code": country_info["code"],
+                    "country_flag": country_info["flag"],
+                    "category": category,
+                    "city": city,
+                    "website": website,
+                    "phone": phone,
+                    "email": email,
+                    "language": lang,
+                    "status": status,
+                    "generation_sheet": gen_sheet,
+                    "date": date,
+                    "crops": f"{category} ({city})" if city else category,
+                    "_raw": r
+                })
+                lead_idx += 1
+
+            deduped = self._deduplicate_leads(leads)
+            self._cached_leads = deduped
+            return [dict(x) for x in deduped]
 
     def get_new_leads(self) -> List[Dict[str, Any]]:
         all_leads = self.get_all_leads()
@@ -353,33 +374,46 @@ class LeadDataService:
                 return 2
             return 1
 
+        # Precompute features once per lead to avoid expensive regexes in O(N^2) comparison loop
+        features = []
+        for l in leads:
+            c_name = l.get("company_name", "")
+            features.append({
+                "n": normalize_name(c_name),
+                "bn": base_name(c_name),
+                "c": clean_city(l.get("city", "")),
+                "e": extract_emails(l.get("email", "")),
+                "p": clean_phone(l.get("phone", "")),
+                "dom": clean_domain(l.get("website", ""))
+            })
+
         groups = []
         visited = set()
 
-        for i, l1 in enumerate(leads):
+        for i in range(len(leads)):
             if i in visited:
                 continue
             grp = [i]
             visited.add(i)
 
-            n1 = normalize_name(l1.get("company_name", ""))
-            bn1 = base_name(l1.get("company_name", ""))
-            c1 = clean_city(l1.get("city", ""))
-            e1 = extract_emails(l1.get("email", ""))
-            p1 = clean_phone(l1.get("phone", ""))
-            dom1 = clean_domain(l1.get("website", ""))
+            f1 = features[i]
+            n1 = f1["n"]
+            bn1 = f1["bn"]
+            c1 = f1["c"]
+            e1 = f1["e"]
+            p1 = f1["p"]
+            dom1 = f1["dom"]
 
             for j in range(i + 1, len(leads)):
                 if j in visited:
                     continue
-                l2 = leads[j]
-
-                n2 = normalize_name(l2.get("company_name", ""))
-                bn2 = base_name(l2.get("company_name", ""))
-                c2 = clean_city(l2.get("city", ""))
-                e2 = extract_emails(l2.get("email", ""))
-                p2 = clean_phone(l2.get("phone", ""))
-                dom2 = clean_domain(l2.get("website", ""))
+                f2 = features[j]
+                n2 = f2["n"]
+                bn2 = f2["bn"]
+                c2 = f2["c"]
+                e2 = f2["e"]
+                p2 = f2["p"]
+                dom2 = f2["dom"]
 
                 email_match = bool(e1 and e2 and (e1 & e2))
                 exact_name_match = bool(n1 and n2 and n1 == n2 and len(n1) > 3)
@@ -410,13 +444,14 @@ class LeadDataService:
             best["row_number"] = new_idx
 
             # Merge any missing fields from others in group
-            for other in items[1:]:
+            for other_idx in grp[1:]:
+                other = leads[other_idx]
                 for f in ["website", "phone", "city", "adress", "generation_sheet", "date", "category"]:
                     if not best.get(f) and other.get(f):
                         best[f] = other[f]
                 # Merge emails if not present
-                best_emails = extract_emails(best.get("email", ""))
-                other_emails = extract_emails(other.get("email", ""))
+                best_emails = features[grp[0]]["e"]
+                other_emails = features[other_idx]["e"]
                 missing = other_emails - best_emails
                 if missing:
                     best["email"] = best["email"] + ", " + ", ".join(sorted(missing))
