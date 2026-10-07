@@ -816,7 +816,15 @@ class LeadDataService:
         except Exception as e:
             logger.warning(f"Notice getting sent recipients: {e}")
 
-        if not sent_recipients and not draft_recipients:
+        # 3. Fetch Bounced Emails from Gmail (Mailer-Daemon delivery failures)
+        bounced_recipients = {}
+        if hasattr(gmail_service, "get_bounced_recipients"):
+            try:
+                bounced_recipients = gmail_service.get_bounced_recipients(limit=150)
+            except Exception as e:
+                logger.warning(f"Notice getting bounced recipients: {e}")
+
+        if not sent_recipients and not draft_recipients and not bounced_recipients:
             return 0
 
         all_leads = self.get_all_leads()
@@ -834,10 +842,32 @@ class LeadDataService:
             lead_row = lead.get("row_number")
             comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
 
-            # Check if SENT
+            # Priority 1: Check if BOUNCED (Mailer-Daemon delivery failure: address does not exist)
+            matched_bounced = next((e for e in lead_emails if e in bounced_recipients), None)
+            if matched_bounced:
+                if "❌" not in current_status:
+                    bounce_info = bounced_recipients[matched_bounced]
+                    cached_data = {
+                        "status": "❌ Помилка доставки (Email не існує)",
+                        "date": today,
+                        "subject": bounce_info.get("reason", "Gmail: Адреса не знайдена")
+                    }
+                    self.state[raw_email.lower()] = cached_data
+                    if lead_row:
+                        self.state[f"row_{lead_row}"] = cached_data
+                    if comp_name:
+                        self.state[f"name_{comp_name}"] = cached_data
+                    for em in lead_emails:
+                        self.state[em] = cached_data
+
+                    updated_count += 1
+                    logger.info(f"Detected BOUNCED email for {lead.get('company_name')} ({matched_bounced})! Status -> '❌ Помилка доставки (Email не існує)'")
+                continue
+
+            # Priority 2: Check if SENT
             matched_sent = next((e for e in lead_emails if e in sent_recipients), None)
             if matched_sent:
-                if "✅" not in current_status:
+                if "✅" not in current_status and "❌" not in current_status:
                     sent_info = sent_recipients[matched_sent]
                     cached_data = {
                         "status": "✅ Лист відправлено",
@@ -856,10 +886,10 @@ class LeadDataService:
                     logger.info(f"Detected sent email for {lead.get('company_name')} ({matched_sent})! Status -> '✅ Лист відправлено'")
                 continue
 
-            # Check if DRAFT in Gmail
+            # Priority 3: Check if DRAFT in Gmail
             matched_draft = next((e for e in lead_emails if e in draft_recipients), None)
             if matched_draft:
-                if "✅" not in current_status and "🟡" not in current_status:
+                if "✅" not in current_status and "🟡" not in current_status and "❌" not in current_status:
                     draft_info = draft_recipients[matched_draft]
                     cached_data = {
                         "status": "🟡 Чернетка на перевірці",
@@ -883,6 +913,60 @@ class LeadDataService:
             self.export_updated_csv()
 
         return updated_count
+
+    def verify_all_leads_domains(self) -> int:
+        """
+        Runs DNS MX verification across all leads in database.
+        Marks dead domains with status '⚠️ Недійсний email (Домен не існує)'
+        (only for leads that aren't already confirmed sent or bounced).
+        Returns count of newly flagged leads.
+        """
+        from email_verifier import EmailVerifierService
+        verifier = EmailVerifierService()
+
+        all_leads = self.get_all_leads()
+        flagged_count = 0
+        today = datetime.now().strftime("%Y-%m-%d")
+
+        for lead in all_leads:
+            raw_email = lead.get("email", "").strip()
+            if not raw_email:
+                continue
+
+            current_status = lead.get("status", "")
+            # Don't touch leads that are confirmed sent or already flagged as bounced/invalid
+            if "✅" in current_status or "❌" in current_status or "⚠️" in current_status:
+                continue
+
+            lead_emails = [e.lower() for e in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email)]
+            if not lead_emails:
+                continue
+
+            is_valid, reason = verifier.verify_email(lead_emails[0])
+            if not is_valid:
+                lead_row = lead.get("row_number")
+                comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
+                cached_data = {
+                    "status": "⚠️ Недійсний email (Домен не існує)",
+                    "date": today,
+                    "subject": reason
+                }
+                self.state[raw_email.lower()] = cached_data
+                if lead_row:
+                    self.state[f"row_{lead_row}"] = cached_data
+                if comp_name:
+                    self.state[f"name_{comp_name}"] = cached_data
+                for em in lead_emails:
+                    self.state[em] = cached_data
+
+                flagged_count += 1
+
+        if flagged_count > 0:
+            self._save_state()
+            self.export_updated_csv()
+            logger.info(f"Flagged {flagged_count} leads with invalid/dead email domains.")
+
+        return flagged_count
 
     def mark_status(self, key: str, new_status: str):
         """Manually overrides status for a lead key."""

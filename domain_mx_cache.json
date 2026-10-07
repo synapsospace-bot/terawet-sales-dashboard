@@ -1,0 +1,450 @@
+{
+  "winerykaramitros.gr": {
+    "has_mx": false,
+    "reason": "Домен winerykaramitros.gr не існує (NXDOMAIN)"
+  },
+  "tsiligilis.gr": {
+    "has_mx": false,
+    "reason": "Домен tsiligilis.gr не існує (NXDOMAIN)"
+  },
+  "fytoriavasiliadis.gr": {
+    "has_mx": false,
+    "reason": "Домен fytoriavasiliadis.gr не існує (NXDOMAIN)"
+  },
+  "zagorin.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail2.zagorin.gr",
+      "zagorin.gr"
+    ]
+  },
+  "dougos.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.dougos.gr"
+    ]
+  },
+  "tsiamisplants.gr": {
+    "has_mx": false,
+    "reason": "Домен tsiamisplants.gr не існує (NXDOMAIN)"
+  },
+  "lyrarakis.com": {
+    "has_mx": true,
+    "mx": [
+      "alt1.aspmx.l.google.com",
+      "alt3.aspmx.l.google.com"
+    ]
+  },
+  "manousakiswinery.com": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "kostakis-plants.gr": {
+    "has_mx": false,
+    "reason": "Домен kostakis-plants.gr не існує (NXDOMAIN)"
+  },
+  "douloufakis.wine": {
+    "has_mx": true,
+    "mx": [
+      "mail.douloufakis.wine"
+    ]
+  },
+  "botanical-park.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx1.migadu.com",
+      "aspmx2.migadu.com"
+    ]
+  },
+  "biolea.gr": {
+    "has_mx": true,
+    "mx": [
+      "dedi9241.your-server.de"
+    ]
+  },
+  "skouras.gr": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "palivouestate.gr": {
+    "has_mx": false,
+    "reason": "Домен palivouestate.gr не існує (NXDOMAIN)"
+  },
+  "kalamata-olives-papadopoulos.gr": {
+    "has_mx": false,
+    "reason": "Домен kalamata-olives-papadopoulos.gr не існує (NXDOMAIN)"
+  },
+  "fytoriaspartis.gr": {
+    "has_mx": false,
+    "reason": "Домен fytoriaspartis.gr не існує (NXDOMAIN)"
+  },
+  "semeliestate.gr": {
+    "has_mx": true,
+    "mx": [
+      "semeliestate-gr.mail.protection.outlook.com"
+    ]
+  },
+  "domaine-lazaridi.gr": {
+    "has_mx": true,
+    "mx": [
+      "domainelazaridi-gr01i.mail.protection.outlook.com"
+    ]
+  },
+  "ktima-pavlidis.gr": {
+    "has_mx": true,
+    "mx": [
+      "mymail.myip.gr"
+    ]
+  },
+  "kiryianni.gr": {
+    "has_mx": true,
+    "mx": [
+      "kiryianni-gr.mail.protection.outlook.com"
+    ]
+  },
+  "fytoriamakedonias.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx.zoho.eu",
+      "mx3.zoho.eu"
+    ]
+  },
+  "portocarras.com": {
+    "has_mx": true,
+    "mx": [
+      "portocarras-com.mail.protection.outlook.com"
+    ]
+  },
+  "bessavalley.com": {
+    "has_mx": true,
+    "mx": [
+      "bessavalley.com"
+    ]
+  },
+  "villayustina.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.tomika-metal.bg"
+    ]
+  },
+  "chateaukolarovo.com": {
+    "has_mx": false,
+    "reason": "Домен chateaukolarovo.com не існує (NXDOMAIN)"
+  },
+  "zagreus.org": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "aspmx2.googlemail.com"
+    ]
+  },
+  "alvear.es": {
+    "has_mx": true,
+    "mx": [
+      "mx01.axentio.cloud"
+    ]
+  },
+  "viverossevilla.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.viverossevilla.com"
+    ]
+  },
+  "barbadillo.com": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt4.aspmx.l.google.com"
+    ]
+  },
+  "orobailen.com": {
+    "has_mx": true,
+    "mx": [
+      "fmail1.seguridad.innovasur.com"
+    ]
+  },
+  "hernandorena.com": {
+    "has_mx": true,
+    "mx": [
+      "hernandorena-com.mail.protection.outlook.com"
+    ]
+  },
+  "damianitza.bg": {
+    "has_mx": true,
+    "mx": [
+      "vmail4.styxsolutions.net"
+    ]
+  },
+  "minkovbrothers.bg": {
+    "has_mx": true,
+    "mx": [
+      "mail.minkovbrothers.bg"
+    ]
+  },
+  "katarzyna.bg": {
+    "has_mx": true,
+    "mx": [
+      "mx.katarzyna.bg"
+    ]
+  },
+  "burgozone.bg": {
+    "has_mx": true,
+    "mx": [
+      "mail.burgozone.bg"
+    ]
+  },
+  "medivalley.bg": {
+    "has_mx": false,
+    "reason": "Домен medivalley.bg не існує (NXDOMAIN)"
+  },
+  "todoroff-wines.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.todoroff-wines.com"
+    ]
+  },
+  "bassarea.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (bassarea.com)"
+    ]
+  },
+  "rupelwine.com": {
+    "has_mx": false,
+    "reason": "Домен rupelwine.com не існує (NXDOMAIN)"
+  },
+  "copsa.bg": {
+    "has_mx": true,
+    "mx": [
+      "mail.copsa.bg"
+    ]
+  },
+  "kortenwinery.com": {
+    "has_mx": false,
+    "reason": "Домен kortenwinery.com не має MX/A записів для пошти"
+  },
+  "manastira-bg.com": {
+    "has_mx": false,
+    "reason": "Домен manastira-bg.com не існує (NXDOMAIN)"
+  },
+  "tsarevbrod.com": {
+    "has_mx": true,
+    "mx": [
+      "tsarevbrod.com"
+    ]
+  },
+  "svishtov-winery.com": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "thrace-fruit.bg": {
+    "has_mx": false,
+    "reason": "Домен thrace-fruit.bg не існує (NXDOMAIN)"
+  },
+  "dobrudja-agro.bg": {
+    "has_mx": false,
+    "reason": "Домен dobrudja-agro.bg не існує (NXDOMAIN)"
+  },
+  "bulgarfruit.bg": {
+    "has_mx": false,
+    "reason": "Домен bulgarfruit.bg не існує (NXDOMAIN)"
+  },
+  "bibliachora.gr": {
+    "has_mx": true,
+    "mx": [
+      "ALT4.ASPMX.L.GOOGLE.COM",
+      "alt2.ASPMX.L.GOOGLE.COM"
+    ]
+  },
+  "alpha-estate.com": {
+    "has_mx": true,
+    "mx": [
+      "alphaestate-com01c.mail.protection.outlook.com"
+    ]
+  },
+  "boutari.gr": {
+    "has_mx": true,
+    "mx": [
+      "boutari-gr.mail.protection.outlook.com"
+    ]
+  },
+  "kostelenos.gr": {
+    "has_mx": false,
+    "reason": "Домен kostelenos.gr не існує (NXDOMAIN)"
+  },
+  "fytoria-olympos.gr": {
+    "has_mx": false,
+    "reason": "Домен fytoria-olympos.gr не існує (NXDOMAIN)"
+  },
+  "cavino.gr": {
+    "has_mx": true,
+    "mx": [
+      "cavino-gr.mail.protection.outlook.com"
+    ]
+  },
+  "sliven-elit-plod-gold-11.bg": {
+    "has_mx": false,
+    "reason": "Домен sliven-elit-plod-gold-11.bg не існує (NXDOMAIN)"
+  },
+  "kalamata-bio-olives-organic-68.gr": {
+    "has_mx": false,
+    "reason": "Домен kalamata-bio-olives-organic-68.gr не існує (NXDOMAIN)"
+  },
+  "pomi-fructiferi-voinesti-crama-2.ro": {
+    "has_mx": false,
+    "reason": "Домен pomi-fructiferi-voinesti-crama-2.ro не існує (NXDOMAIN)"
+  },
+  "sadovnjaki-vipava-frut-bio-5.si": {
+    "has_mx": false,
+    "reason": "Домен sadovnjaki-vipava-frut-bio-5.si не існує (NXDOMAIN)"
+  },
+  "bodegasriojanas.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.bodegasriojanas.com"
+    ]
+  },
+  "bodegasmuga.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "bodegasbilbainas.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1-eu1.ppe-hosted.com",
+      "mx2-eu1.ppe-hosted.com"
+    ]
+  },
+  "marquesderiscal.com": {
+    "has_mx": true,
+    "mx": [
+      "marquesderiscal-com.mail.protection.outlook.com"
+    ]
+  },
+  "antinorici.it": {
+    "has_mx": false,
+    "reason": "Домен antinorici.it не існує (NXDOMAIN)"
+  },
+  "frescobaldi.it": {
+    "has_mx": true,
+    "mx": [
+      "frescobaldi-it.mail.protection.outlook.com"
+    ]
+  },
+  "banfi.it": {
+    "has_mx": true,
+    "mx": [
+      "matika.esvacloud.com"
+    ]
+  },
+  "marchesibarolo.com": {
+    "has_mx": true,
+    "mx": [
+      "marchesibarolo-com.mail.protection.outlook.com"
+    ]
+  },
+  "planeta.it": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "alt4.aspmx.l.google.com"
+    ]
+  },
+  "mastroberardino.com": {
+    "has_mx": true,
+    "mx": [
+      "mastroberardino-com.mail.protection.outlook.com"
+    ]
+  },
+  "chapoutier.com": {
+    "has_mx": true,
+    "mx": [
+      "chapoutier-com.mail.protection.outlook.com"
+    ]
+  },
+  "louisjadot.com": {
+    "has_mx": true,
+    "mx": [
+      "mx-mibc-fr-08.mailinblack.com"
+    ]
+  },
+  "podrumradovanovic.rs": {
+    "has_mx": true,
+    "mx": [
+      "podrumradovanovic.rs"
+    ]
+  },
+  "vinarijazvonkobogdan.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.vinarijazvonkobogdan.com",
+      "mail.officeshoes.rs"
+    ]
+  },
+  "badel1862.hr": {
+    "has_mx": true,
+    "mx": [
+      "badel1862-hr.mail.protection.outlook.com"
+    ]
+  },
+  "vina-laguna.hr": {
+    "has_mx": false,
+    "reason": "Домен vina-laguna.hr не існує (NXDOMAIN)"
+  },
+  "midalidare.bg": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "aspmx4.googlemail.com"
+    ]
+  },
+  "damascena.net": {
+    "has_mx": true,
+    "mx": [
+      "damascena.net"
+    ]
+  },
+  "recaswine.ro": {
+    "has_mx": true,
+    "mx": [
+      "antispam.itps.ro"
+    ]
+  },
+  "jidvei.ro": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "cotnari.ro": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "gerovassiliou.gr": {
+    "has_mx": true,
+    "mx": [
+      "gerovassiliou-gr.mail.protection.outlook.com"
+    ]
+  },
+  "castillodecanena.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.google.com"
+    ]
+  }
+}

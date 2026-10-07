@@ -239,33 +239,38 @@ class GmailDraftService:
             if status == 'OK' and messages and messages[0]:
                 msg_ids = messages[0].split()
                 recent_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
-                for mid in reversed(recent_ids):
+                chunk_size = 50
+                for i in range(0, len(recent_ids), chunk_size):
+                    chunk = recent_ids[i:i + chunk_size]
+                    id_str = ','.join(m.decode('utf-8', errors='ignore') for m in chunk)
                     try:
-                        res, data = imap.fetch(mid, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
-                        if res == 'OK' and data and data[0] and isinstance(data[0], tuple):
-                            raw_header = data[0][1].decode('utf-8', errors='ignore')
-                            msg = email.message_from_string(raw_header)
-                            to_raw = msg.get('To', '')
-                            found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
+                        res, data = imap.fetch(id_str, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
+                        if res == 'OK' and data:
+                            for item in data:
+                                if isinstance(item, tuple) and len(item) >= 2:
+                                    raw_header = item[1].decode('utf-8', errors='ignore')
+                                    msg = email.message_from_string(raw_header)
+                                    to_raw = msg.get('To', '')
+                                    found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
 
-                            raw_subj = msg.get('Subject', '')
-                            decoded_parts = decode_header(raw_subj)
-                            subj_str = ""
-                            for p, enc in decoded_parts:
-                                if isinstance(p, bytes):
-                                    subj_str += p.decode(enc or 'utf-8', errors='ignore')
-                                else:
-                                    subj_str += p
+                                    raw_subj = msg.get('Subject', '')
+                                    decoded_parts = decode_header(raw_subj)
+                                    subj_str = ""
+                                    for p, enc in decoded_parts:
+                                        if isinstance(p, bytes):
+                                            subj_str += p.decode(enc or 'utf-8', errors='ignore')
+                                        else:
+                                            subj_str += p
 
-                            date_str = msg.get('Date', '')
-                            for em in found_emails:
-                                if em not in results:
-                                    results[em] = {
-                                        "date": date_str,
-                                        "subject": subj_str.strip()
-                                    }
+                                    date_str = msg.get('Date', '')
+                                    for em in found_emails:
+                                        if em not in results:
+                                            results[em] = {
+                                                "date": date_str,
+                                                "subject": subj_str.strip()
+                                            }
                     except Exception as e:
-                        logger.debug(f"Error reading message {mid}: {e}")
+                        logger.debug(f"Error reading sent message batch: {e}")
 
             imap.logout()
             logger.info(f"Scanned Sent folder. Found {len(results)} sent recipients.")
@@ -311,37 +316,106 @@ class GmailDraftService:
             if status == 'OK' and messages and messages[0]:
                 msg_ids = messages[0].split()
                 recent_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
-                for mid in reversed(recent_ids):
+                chunk_size = 50
+                for i in range(0, len(recent_ids), chunk_size):
+                    chunk = recent_ids[i:i + chunk_size]
+                    id_str = ','.join(m.decode('utf-8', errors='ignore') for m in chunk)
                     try:
-                        res, data = imap.fetch(mid, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
-                        if res == 'OK' and data and data[0] and isinstance(data[0], tuple):
-                            raw_header = data[0][1].decode('utf-8', errors='ignore')
-                            msg = email.message_from_string(raw_header)
-                            to_raw = msg.get('To', '')
-                            found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
+                        res, data = imap.fetch(id_str, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
+                        if res == 'OK' and data:
+                            for item in data:
+                                if isinstance(item, tuple) and len(item) >= 2:
+                                    raw_header = item[1].decode('utf-8', errors='ignore')
+                                    msg = email.message_from_string(raw_header)
+                                    to_raw = msg.get('To', '')
+                                    found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
 
-                            raw_subj = msg.get('Subject', '')
-                            decoded_parts = decode_header(raw_subj)
-                            subj_str = ""
-                            for p, enc in decoded_parts:
-                                if isinstance(p, bytes):
-                                    subj_str += p.decode(enc or 'utf-8', errors='ignore')
-                                else:
-                                    subj_str += str(p)
+                                    raw_subj = msg.get('Subject', '')
+                                    decoded_parts = decode_header(raw_subj)
+                                    subj_str = ""
+                                    for p, enc in decoded_parts:
+                                        if isinstance(p, bytes):
+                                            subj_str += p.decode(enc or 'utf-8', errors='ignore')
+                                        else:
+                                            subj_str += str(p)
 
-                            for em in found_emails:
-                                if em not in results:
-                                    results[em] = {
-                                        "subject": subj_str.strip(),
-                                        "to_raw": to_raw
-                                    }
+                                    for em in found_emails:
+                                        if em not in results:
+                                            results[em] = {
+                                                "subject": subj_str.strip(),
+                                                "to_raw": to_raw
+                                            }
                     except Exception as e:
-                        logger.debug(f"Error reading draft message {mid}: {e}")
+                        logger.debug(f"Error reading draft message batch: {e}")
 
             imap.logout()
             logger.info(f"Scanned Drafts folder. Found {len(results)} active drafts.")
         except Exception as e:
             logger.error(f"Error fetching draft messages via IMAP: {e}")
+
+        return results
+
+    def get_bounced_recipients(self, limit: int = 150) -> Dict[str, Dict[str, Any]]:
+        """
+        Scans Gmail's INBOX via IMAP for delivery failure notifications from Mailer-Daemon.
+        Extracts the failed recipient email addresses.
+        Returns a dict mapping lowercase bounced email -> {reason, date}.
+        """
+        if self.mode != "imap":
+            return {}
+
+        import email
+        import re
+
+        results = {}
+        try:
+            imap = imaplib.IMAP4_SSL("imap.gmail.com")
+            imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+
+            status, _ = imap.select("INBOX", readonly=True)
+            if status != 'OK':
+                imap.logout()
+                return {}
+
+            status, messages = imap.search(None, '(OR FROM "mailer-daemon" FROM "Mail Delivery Subsystem")')
+            if status == 'OK' and messages and messages[0]:
+                msg_ids = messages[0].split()
+                recent_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
+                chunk_size = 25
+                for i in range(0, len(recent_ids), chunk_size):
+                    chunk = recent_ids[i:i + chunk_size]
+                    id_str = ','.join(m.decode('utf-8', errors='ignore') for m in chunk)
+                    try:
+                        res, data = imap.fetch(id_str, '(BODY.PEEK[HEADER] BODY.PEEK[TEXT])')
+                        if res == 'OK' and data:
+                            for item in data:
+                                if isinstance(item, tuple) and len(item) >= 2:
+                                    part_text = item[1].decode('utf-8', errors='ignore')
+                                    failed_headers = re.findall(r'X-Failed-Recipients:\s*([\w\.-]+@[\w\.-]+)', part_text, re.IGNORECASE)
+                                    all_emails = re.findall(r'[\w\.-]+@[\w\.-]+', part_text.lower())
+
+                                    my_email = config.EMAIL_USER.lower() if config.EMAIL_USER else ""
+                                    filtered_candidates = [
+                                        e for e in (failed_headers + all_emails)
+                                        if e != my_email and 'google' not in e and 'mailer-daemon' not in e and not e.endswith('.google.com') and not e.endswith('.gmail.com')
+                                    ]
+
+                                    date_match = re.search(r'Date:\s*(.+)', part_text, re.IGNORECASE)
+                                    date_str = date_match.group(1).strip() if date_match else ""
+
+                                    for em in filtered_candidates:
+                                        if em not in results:
+                                            results[em] = {
+                                                "reason": "Gmail: Адреса не знайдена (Bounce)",
+                                                "date": date_str
+                                            }
+                    except Exception as e:
+                        logger.debug(f"Error parsing bounce message batch: {e}")
+
+            imap.logout()
+            logger.info(f"Scanned INBOX for bounces. Found {len(results)} bounced email addresses.")
+        except Exception as e:
+            logger.error(f"Error fetching bounced messages via IMAP: {e}")
 
         return results
 

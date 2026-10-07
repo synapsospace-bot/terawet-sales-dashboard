@@ -168,6 +168,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .status-yellow { background: var(--warning-bg); color: var(--warning-text); }
   .status-green { background: var(--success-bg); color: var(--success-text); }
   .status-gray { background: #f1f5f9; color: var(--muted); }
+  .status-red { background: #fee2e2; color: #991b1b; }
+  .status-orange { background: #fef3c7; color: #92400e; }
 
   /* Modal */
   .modal {
@@ -235,6 +237,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <div class="stat-title" data-i18n="statSent">✅ Листи відправлено</div>
       <div class="stat-val" id="stat-sent" style="color: #16a34a;">0</div>
     </div>
+    <div class="stat-card" style="border-left: 4px solid #ef4444;">
+      <div class="stat-title" data-i18n="statInvalid">❌ Недійсні / Bounces</div>
+      <div class="stat-val" id="stat-invalid" style="color: #dc2626;">0</div>
+    </div>
   </div>
 
   <!-- Actions -->
@@ -247,6 +253,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <button class="btn btn-secondary" id="btnStartSearch" data-i18n="btnStartSearch" onclick="startLeadSearch(25)" style="border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;">▶️ Запустити пошук лідів</button>
       <button class="btn btn-danger" id="btnStopSearch" data-i18n="btnStopSearch" onclick="stopLeadSearch()" style="display: none; font-weight: 600;">⏹️ Припинити пошук</button>
       <button class="btn btn-secondary" data-i18n="btnSyncSent" onclick="syncSent()" style="border-color: #86efac; color: #166534; background: #f0fdf4;">📥 Перевірити відправлені в Gmail</button>
+      <button class="btn btn-secondary" id="btnVerifyEmails" data-i18n="btnVerifyEmails" onclick="verifyAllEmails()" style="border-color: #fca5a5; color: #991b1b; background: #fef2f2; font-weight: 600;">🛡️ Перевірити валідність пошт</button>
       <button class="btn btn-secondary" data-i18n="btnRefresh" onclick="refreshData()">🔄 Оновити дані</button>
       <a href="/download/updated_csv" class="btn btn-download" data-i18n="btnDownloadCsv" download="updated_google_sheet.csv">📥 Завантажити CSV для таблиці</a>
     </div>
@@ -267,6 +274,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <button class="tab-btn" data-filter="pending" data-i18n="tabPending" onclick="setFilter('pending', this)">⚪ Очікують опрацювання</button>
     <button class="tab-btn" data-filter="review" data-i18n="tabReview" onclick="setFilter('review', this)">🟡 Чернетки на перевірці</button>
     <button class="tab-btn" data-filter="sent" data-i18n="tabSent" onclick="setFilter('sent', this)">✅ Відправлені</button>
+    <button class="tab-btn" data-filter="invalid" data-i18n="tabInvalid" onclick="setFilter('invalid', this)">❌ Недійсні / Bounces</button>
   </div>
 
   <!-- Leads Table -->
@@ -322,6 +330,7 @@ const I18N = {
     statReview: "🟡 Чернетки на перевірці в Gmail",
     statPending: "⚪ Очікують створення чернетки",
     statSent: "✅ Листи відправлено",
+    statInvalid: "❌ Недійсні / Bounces",
     searchPlaceholder: "🔍 Пошук за назвою, країною, містом, email...",
     btnGenBatch: "⚡ Створити наступні 5 чернеток у Gmail",
     btnStartSearch: "▶️ Запустити пошук лідів",
@@ -329,12 +338,14 @@ const I18N = {
     btnFindLeads: "▶️ Запустити пошук лідів",
     searchRunningStatus: "🔍 Триває активний пошук нових агро-лідів... Ви можете припинити його у будь-який момент.",
     btnSyncSent: "📥 Перевірити відправлені в Gmail",
+    btnVerifyEmails: "🛡️ Перевірити валідність пошт",
     btnRefresh: "🔄 Оновити дані",
     btnDownloadCsv: "📥 Завантажити CSV для таблиці",
     tabAll: "Всі ліди",
     tabPending: "⚪ Очікують опрацювання",
     tabReview: "🟡 Чернетки на перевірці",
     tabSent: "✅ Відправлені",
+    tabInvalid: "❌ Недійсні / Bounces",
     thNum: "#",
     thCompany: "Компанія",
     thCountry: "Країна",
@@ -346,6 +357,8 @@ const I18N = {
     statusPending: "⚪ Очікує",
     statusReview: "🟡 Чернетка на перевірці",
     statusSent: "✅ Відправлено",
+    statusBounced: "❌ Помилка доставки",
+    statusInvalidDomain: "⚠️ Недійсний email",
     btnView: "👁️ Переглянути",
     btnMarkSent: "✓ Надіслано",
     markSentTitle: "Позначити відправленим",
@@ -360,6 +373,8 @@ const I18N = {
     modalClose: "Закрити",
     modalRegenBtn: "🔄 Перегенерувати текст",
     modalActionBtn: "Створити чернетку в Gmail",
+    modalEmailInvalidBtn: "🚫 Відправка неможлива (Email не існує)",
+    modalEmailInvalidAlert: "⚠️ УВАГА: Ця адреса недійсна або відхилена поштовим сервером Gmail (домен або скринька не існує)! Створення чернетки заблоковано для захисту рейтингу відправника.",
     subjectPrefix: "📌 Тема листа:",
     subjectRegenPrefix: "📌 Оновлена тема:",
     modalPitchLoading: "⏳ Формую персоналізовану пропозицію з урахуванням регіону...",
@@ -376,6 +391,8 @@ const I18N = {
     toastSyncStart: "🔍 Сканую папку 'Надіслані' в Gmail...",
     toastSyncDone: "✅ Синхронізовано! Оновлено відправлених: {n}",
     toastSyncFail: "Не вдалося синхронізувати",
+    toastVerifyStart: "🛡️ Перевіряю пошти через DNS MX та звіти про помилки Gmail...",
+    toastVerifyDone: "✅ Перевірку завершено! Оновлено та зафіксовано недійсних/відхилених: {n}",
     toastMarkSentSuccess: "✅ Статус оновлено: 'Лист відправлено'!",
     toastMarkSentFail: "Помилка оновлення статусу.",
     toastRegenStart: "⏳ Перегенеровую текст листа (новий ракурс)...",
@@ -397,6 +414,7 @@ const I18N = {
     statReview: "🟡 Чернови за проверка в Gmail",
     statPending: "⚪ Чакащи създаване на чернова",
     statSent: "✅ Изпратени писма",
+    statInvalid: "❌ Невалидни / Bounces",
     searchPlaceholder: "🔍 Търсене по име, държава, град, имейл...",
     btnGenBatch: "⚡ Създай следващите 5 чернови в Gmail",
     btnStartSearch: "▶️ Стартирай търсене на лийдове",
@@ -404,12 +422,14 @@ const I18N = {
     btnFindLeads: "▶️ Стартирай търсене на лийдове",
     searchRunningStatus: "🔍 Активно търсене на нови агро лийдове... Можете да го спрете по всяко време.",
     btnSyncSent: "📥 Провери изпратените в Gmail",
+    btnVerifyEmails: "🛡️ Провери валидност на имейли",
     btnRefresh: "🔄 Обнови данните",
     btnDownloadCsv: "📥 Изтегли CSV за таблицата",
     tabAll: "Всички лийдове",
     tabPending: "⚪ Чакащи обработка",
     tabReview: "🟡 Чернови за проверка",
     tabSent: "✅ Изпратени",
+    tabInvalid: "❌ Невалидни / Bounces",
     thNum: "#",
     thCompany: "Компания",
     thCountry: "Държава",
@@ -421,6 +441,8 @@ const I18N = {
     statusPending: "⚪ Чакащ",
     statusReview: "🟡 Чернова за проверка",
     statusSent: "✅ Изпратено",
+    statusBounced: "❌ Недоставен имейл",
+    statusInvalidDomain: "⚠️ Невалиден имейл",
     btnView: "👁️ Преглед",
     btnMarkSent: "✓ Изпратено",
     markSentTitle: "Маркирай като изпратено",
@@ -435,6 +457,8 @@ const I18N = {
     modalClose: "Затвори",
     modalRegenBtn: "🔄 Прегенерирай текста",
     modalActionBtn: "Създай чернова в Gmail",
+    modalEmailInvalidBtn: "🚫 Изпращането е блокирано (Имейлът не съществува)",
+    modalEmailInvalidAlert: "⚠️ ВНИМАНИЕ: Този имейл е невалиден или отхвърлен от Gmail (домейнът или пощенската кутия не съществува)! Създаването на чернова е блокирано за защита на репутацията на подателя.",
     subjectPrefix: "📌 Относно (Тема):",
     subjectRegenPrefix: "📌 Обновена тема:",
     modalPitchLoading: "⏳ Генериране на персонализирано предложение според региона...",
@@ -451,6 +475,8 @@ const I18N = {
     toastSyncStart: "🔍 Сканиране на папка 'Изпратени' в Gmail...",
     toastSyncDone: "✅ Синхронизирано! Обновени изпратени: {n}",
     toastSyncFail: "Синхронизацията беше неуспешна",
+    toastVerifyStart: "🛡️ Проверка на имейли чрез DNS MX и доклади за грешки от Gmail...",
+    toastVerifyDone: "✅ Проверката завърши! Открити и отбелязани невалидни: {n}",
     toastMarkSentSuccess: "✅ Статусът е обновен: 'Писмото е изпратено'!",
     toastMarkSentFail: "Грешка при обновяване на статуса.",
     toastRegenStart: "⏳ Прегенериране на текста на писмото (нов ъгъл)...",
@@ -556,11 +582,15 @@ function updateStats() {
   }).length;
   const sent = leadsData.filter(l => {
     const s = (l && l.status) ? String(l.status) : '';
-    return s.includes('✅');
+    return s.includes('✅') && !s.includes('❌');
+  }).length;
+  const invalid = leadsData.filter(l => {
+    const s = (l && l.status) ? String(l.status) : '';
+    return s.includes('❌') || s.includes('⚠️');
   }).length;
   const pending = leadsData.filter(l => {
     const s = (l && l.status) ? String(l.status) : '';
-    return l && l.email && !s.includes('🟡') && !s.includes('✅');
+    return l && l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️');
   }).length;
 
   const stTotal = document.getElementById('stat-total');
@@ -571,6 +601,8 @@ function updateStats() {
   if (stSent) stSent.innerText = sent;
   const stPend = document.getElementById('stat-pending');
   if (stPend) stPend.innerText = pending;
+  const stInv = document.getElementById('stat-invalid');
+  if (stInv) stInv.innerText = invalid;
 }
 
 function setFilter(filter, btn) {
@@ -602,9 +634,10 @@ function renderTable() {
     const matchText = ((l.company_name || '') + " " + (l.country || '') + " " + (l.country_bg || '') + " " + (l.country_code || '') + " " + (l.city || '') + " " + (l.email || '') + " " + (l.category || '')).toLowerCase().includes(q);
     if (!matchText) return false;
 
-    if (activeFilter === 'pending') return l.email && !s.includes('🟡') && !s.includes('✅');
+    if (activeFilter === 'pending') return l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️');
     if (activeFilter === 'review') return s.includes('🟡') || s.includes('DRAFT_CREATED');
-    if (activeFilter === 'sent') return s.includes('✅');
+    if (activeFilter === 'sent') return s.includes('✅') && !s.includes('❌');
+    if (activeFilter === 'invalid') return s.includes('❌') || s.includes('⚠️');
     return true;
   });
 
@@ -617,7 +650,13 @@ function renderTable() {
     const s = (lead && lead.status) ? String(lead.status) : '';
     let badgeClass = 'status-gray';
     let statusText = t.statusPending;
-    if (s.includes('🟡') || s.includes('DRAFT_CREATED')) {
+    if (s.includes('❌')) {
+      badgeClass = 'status-red';
+      statusText = t.statusBounced;
+    } else if (s.includes('⚠️')) {
+      badgeClass = 'status-orange';
+      statusText = t.statusInvalidDomain;
+    } else if (s.includes('🟡') || s.includes('DRAFT_CREATED')) {
       badgeClass = 'status-yellow';
       statusText = t.statusReview;
     } else if (s.includes('✅')) {
@@ -722,9 +761,30 @@ async function viewLead(rowNumber) {
     }
   }
 
+  const s = (lead && lead.status) ? String(lead.status) : '';
+  const isInvalid = s.includes('❌') || s.includes('⚠️');
   const actBtn = document.getElementById('modalActionBtn');
-  actBtn.innerText = t.modalActionBtn;
-  actBtn.onclick = () => generateSingle(lead.row_number);
+
+  if (isInvalid) {
+    const banner = `
+      <div style="margin-bottom: 14px; padding: 12px 16px; background: #fee2e2; border-left: 4px solid #ef4444; border-radius: 6px; font-weight: 600; color: #991b1b; font-size: 13.5px; line-height: 1.5;">
+        ${t.modalEmailInvalidAlert}
+      </div>
+    `;
+    const curHtml = document.getElementById('modalBody').innerHTML;
+    document.getElementById('modalBody').innerHTML = banner + curHtml;
+    actBtn.disabled = true;
+    actBtn.style.opacity = '0.5';
+    actBtn.style.cursor = 'not-allowed';
+    actBtn.innerText = t.modalEmailInvalidBtn;
+    actBtn.onclick = null;
+  } else {
+    actBtn.disabled = false;
+    actBtn.style.opacity = '1';
+    actBtn.style.cursor = 'pointer';
+    actBtn.innerText = t.modalActionBtn;
+    actBtn.onclick = () => generateSingle(lead.row_number);
+  }
 }
 
 function closeModal() {
@@ -798,6 +858,28 @@ async function syncSent() {
     }
   } catch (e) {
     showToast(t.toastNetError);
+  }
+}
+
+async function verifyAllEmails() {
+  const t = I18N[currentLang];
+  showToast(t.toastVerifyStart);
+  const btn = document.getElementById('btnVerifyEmails');
+  if (btn) btn.disabled = true;
+  try {
+    const res = await fetch('/api/verify_emails?_t=' + Date.now(), { cache: 'no-store' });
+    const data = await res.json();
+    if (data.success) {
+      const count = (data.bounced_updated || 0) + (data.invalid_flagged || 0);
+      showToast(t.toastVerifyDone.replace('{n}', count));
+      await loadData();
+    } else {
+      showToast(t.toastError + (data.error || ""));
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
 
@@ -1095,6 +1177,21 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 logger.error(f"Sync sent error: {e}")
                 self.send_json({"success": False, "error": str(e)})
 
+        elif path == "/api/verify_emails":
+            try:
+                bounced = self.data_service.sync_sent_emails(self.draft_service)
+                invalid = self.data_service.verify_all_leads_domains()
+                leads = self.data_service.get_all_leads()
+                self.send_json({
+                    "success": True,
+                    "bounced_updated": bounced,
+                    "invalid_flagged": invalid,
+                    "total_leads": len(leads)
+                })
+            except Exception as e:
+                logger.error(f"Error in verify_emails: {e}", exc_info=True)
+                self.send_json({"success": False, "error": str(e)})
+
         elif path == "/api/preview":
             query = urllib.parse.parse_qs(parsed.query)
             try:
@@ -1275,6 +1372,21 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 key = email.strip().lower() if email else f"row_{row_num}"
                 self.data_service.mark_status(key, new_status)
                 self.send_json({"success": True})
+
+            elif path == "/api/verify_emails":
+                try:
+                    bounced = self.data_service.sync_sent_emails(self.draft_service)
+                    invalid = self.data_service.verify_all_leads_domains()
+                    leads = self.data_service.get_all_leads()
+                    self.send_json({
+                        "success": True,
+                        "bounced_updated": bounced,
+                        "invalid_flagged": invalid,
+                        "total_leads": len(leads)
+                    })
+                except Exception as e:
+                    logger.error(f"Error in verify_emails: {e}", exc_info=True)
+                    self.send_json({"success": False, "error": str(e)})
             else:
                 self.send_error(404)
         except (BrokenPipeError, ConnectionResetError):
