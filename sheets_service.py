@@ -737,6 +737,9 @@ class LeadDataService:
         if "espa" in rc or "іспан" in rc or "испан" in rc or "spain" in rc or "españa" in text or ".es" in web_clean or phone_clean.startswith(("+34", "0034", "34")) or lang == "es":
             return {"code": "ES", "name_uk": "Іспанія", "name_bg": "Испания", "name_en": "Spain", "flag": "🇪🇸"}
 
+        if "portug" in rc or "португ" in rc or "portugal" in text or ".pt" in web_clean or phone_clean.startswith(("+351", "00351", "351")) or lang == "pt":
+            return {"code": "PT", "name_uk": "Португалія", "name_bg": "Португалия", "name_en": "Portugal", "flag": "🇵🇹"}
+
         if "бълг" in rc or "болг" in rc or "bulgaria" in rc or "българия" in text or ".bg" in web_clean or phone_clean.startswith(("+359", "00359", "359")) or lang == "bg":
             return {"code": "BG", "name_uk": "Болгарія", "name_bg": "България", "name_en": "Bulgaria", "flag": "🇧🇬"}
 

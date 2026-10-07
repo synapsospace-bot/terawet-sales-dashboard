@@ -773,14 +773,14 @@
     "subject": "Gmail: Адреса не знайдена (Bounce)"
   },
   "elit_plants@abv.bg": {
-    "status": "✅ Лист відправлено",
+    "status": "❌ Помилка доставки (Email не існує)",
     "date": "2026-10-07",
-    "subject": "50% икономия на вода и сигурен добив в условия на суша за Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery) (в Тракийската низина и Южна България)"
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
   },
   "name_овощенразсадникелитпловдивelitagronursery": {
-    "status": "✅ Лист відправлено",
+    "status": "❌ Помилка доставки (Email не існує)",
     "date": "2026-10-07",
-    "subject": "50% икономия на вода и сигурен добив в условия на суша за Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery) (в Тракийската низина и Южна България)"
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
   },
   "info@zagreus.org": {
     "status": "✅ Лист відправлено",
@@ -1446,5 +1446,235 @@
     "status": "⚠️ Недійсний email (Домен не існує)",
     "date": "2026-10-07",
     "subject": "Домен sadovnjaki-vipava-frut-bio-5.si не існує (NXDOMAIN)"
+  },
+  "sales@svishtov-winery.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Винарна Свищов (Winery Svishtov) (в Средиземноморския басейн)"
+  },
+  "name_винарнасвищовwinerysvishtov": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Винарна Свищов (Winery Svishtov) (в Средиземноморския басейн)"
+  },
+  "info@bodegasriojanas.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Riojanas S.A."
+  },
+  "name_bodegasriojanassa": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Riojanas S.A."
+  },
+  "informacion@bodegasmuga.com": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_bodegasmuga": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "info@bodegasbilbainas.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Bilbaínas (Viña Pomal)"
+  },
+  "name_bodegasbilbaínasviñapomal": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Bilbaínas (Viña Pomal)"
+  },
+  "marquesderiscal@marquesderiscal.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Herederos del Marqués de Riscal"
+  },
+  "name_herederosdelmarquésderiscal": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Herederos del Marqués de Riscal"
+  },
+  "info@castillodecanena.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Castillo de Canena Olive Estate"
+  },
+  "name_castillodecanenaoliveestate": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Castillo de Canena Olive Estate"
+  },
+  "info@frescobaldi.it": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Marchesi Frescobaldi"
+  },
+  "name_marchesifrescobaldi": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Marchesi Frescobaldi"
+  },
+  "banfi@banfi.it": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Castello Banfi Montalcino"
+  },
+  "name_castellobanfimontalcino": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Castello Banfi Montalcino"
+  },
+  "marchesibarolo@marchesibarolo.com": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_marchesidibarolo": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "planeta@planeta.it": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Planeta Vini Sicilia"
+  },
+  "name_planetavinisicilia": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Planeta Vini Sicilia"
+  },
+  "segreteria@mastroberardino.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Mastroberardino Vigneti"
+  },
+  "name_mastroberardinovigneti": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Mastroberardino Vigneti"
+  },
+  "info@donnafugata.it": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Donnafugata Vini di Sicilia"
+  },
+  "name_donnafugatavinidisicilia": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Donnafugata Vini di Sicilia"
+  },
+  "info@sassicaia.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Tenuta San Guido (Sassicaia)"
+  },
+  "name_tenutasanguidosassicaia": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Tenuta San Guido (Sassicaia)"
+  },
+  "chapoutier@chapoutier.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Maison M. Chapoutier"
+  },
+  "name_maisonmchapoutier": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Maison M. Chapoutier"
+  },
+  "jadot@louisjadot.com": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_maisonlouisjadot": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "office@podrumradovanovic.rs": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% уштеда воде за наводњавање и заштита од суше за Podrum Radovanović (across the Mediterranean basin)"
+  },
+  "name_podrumradovanović": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% уштеда воде за наводњавање и заштита од суше за Podrum Radovanović (across the Mediterranean basin)"
+  },
+  "office@vinarijazvonkobogdan.com": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% уштеда воде за наводњавање и заштита од суше за Винарија Звонко Богдан (у Србији (Војводина / Шумадија / Неготин))"
+  },
+  "name_винаријазвонкобогдан": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% уштеда воде за наводњавање и заштита од суше за Винарија Звонко Богдан (у Србији (Војводина / Шумадија / Неготин))"
+  },
+  "kontakt@badel1862.hr": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_badel1862dd": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "office@midalidare.bg": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Мидалидаре Естейт (Midalidare Estate) (в Тракийската низина и Южна България)"
+  },
+  "name_мидалидареестейтmidalidareestate": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Мидалидаре Естейт (Midalidare Estate) (в Тракийската низина и Южна България)"
+  },
+  "office@damascena.net": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Дамасцена (Damascena Rose & Lavender) (в Средиземноморския басейн)"
+  },
+  "name_дамасценаdamascenaroselavender": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "50% икономия на вода и сигурен добив в условия на суша за Дамасцена (Damascena Rose & Lavender) (в Средиземноморския басейн)"
+  },
+  "office@recaswine.ro": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Economie de 50% la apa de irigații și protecție împotriva secetei pentru Cramele Recaș"
+  },
+  "name_cramelerecaș": {
+    "status": "✅ Лист відправлено",
+    "date": "2026-10-07",
+    "subject": "Economie de 50% la apa de irigații și protecție împotriva secetei pentru Cramele Recaș"
+  },
+  "office@jidvei.ro": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_jidveipodgoriatârnave": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "cotnari@cotnari.ro": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
+  },
+  "name_cotnaripodgoriaclasică": {
+    "status": "❌ Помилка доставки (Email не існує)",
+    "date": "2026-10-07",
+    "subject": "Gmail: Адреса не знайдена (Bounce)"
   }
 }
