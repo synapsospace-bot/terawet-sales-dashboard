@@ -270,8 +270,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   <!-- Filter Tabs -->
   <div class="filter-tabs">
-    <button class="tab-btn active" data-filter="all" data-i18n="tabAll" onclick="setFilter('all', this)">Всі ліди</button>
-    <button class="tab-btn" data-filter="pending" data-i18n="tabPending" onclick="setFilter('pending', this)">⚪ Очікують опрацювання</button>
+    <button class="tab-btn active" data-filter="pending" data-i18n="tabPending" onclick="setFilter('pending', this)">⚪ Очікують опрацювання</button>
+    <button class="tab-btn" data-filter="all" data-i18n="tabAll" onclick="setFilter('all', this)">Всі ліди</button>
     <button class="tab-btn" data-filter="review" data-i18n="tabReview" onclick="setFilter('review', this)">🟡 Чернетки на перевірці</button>
     <button class="tab-btn" data-filter="sent" data-i18n="tabSent" onclick="setFilter('sent', this)">✅ Відправлені</button>
     <button class="tab-btn" data-filter="invalid" data-i18n="tabInvalid" onclick="setFilter('invalid', this)">❌ Недійсні / Bounces</button>
@@ -507,7 +507,7 @@ try {
 } catch (e) {}
 
 let leadsData = [];
-let activeFilter = 'all';
+let activeFilter = 'pending';
 let currentViewingRow = null;
 
 function setLanguage(lang) {
@@ -603,6 +603,18 @@ function updateStats() {
   if (stPend) stPend.innerText = pending;
   const stInv = document.getElementById('stat-invalid');
   if (stInv) stInv.innerText = invalid;
+
+  const dict = I18N[currentLang] || I18N.uk;
+  const bPend = document.querySelector('.tab-btn[data-filter="pending"]');
+  if (bPend) bPend.innerHTML = `${dict.tabPending} <span style="background:#0284c7;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${pending}</span>`;
+  const bAll = document.querySelector('.tab-btn[data-filter="all"]');
+  if (bAll) bAll.innerHTML = `${dict.tabAll} <span style="background:rgba(0,0,0,0.07);padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:600;margin-left:5px;">${total}</span>`;
+  const bRev = document.querySelector('.tab-btn[data-filter="review"]');
+  if (bRev) bRev.innerHTML = `${dict.tabReview} <span style="background:#ca8a04;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${review}</span>`;
+  const bSent = document.querySelector('.tab-btn[data-filter="sent"]');
+  if (bSent) bSent.innerHTML = `${dict.tabSent} <span style="background:#16a34a;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${sent}</span>`;
+  const bInv = document.querySelector('.tab-btn[data-filter="invalid"]');
+  if (bInv) bInv.innerHTML = `${dict.tabInvalid} <span style="background:#dc2626;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${invalid}</span>`;
 }
 
 function setFilter(filter, btn) {
@@ -639,6 +651,19 @@ function renderTable() {
     if (activeFilter === 'sent') return s.includes('✅') && !s.includes('❌');
     if (activeFilter === 'invalid') return s.includes('❌') || s.includes('⚠️');
     return true;
+  });
+
+  // Sort so actionable leads (pending or draft review) appear at the top
+  filtered.sort((a, b) => {
+    const sa = (a && a.status) ? String(a.status) : '';
+    const sb = (b && b.status) ? String(b.status) : '';
+    const rank = (s) => {
+      if (s.includes('🟡') || s.includes('DRAFT_CREATED')) return 1;
+      if (!s.includes('✅') && !s.includes('❌') && !s.includes('⚠️')) return 2;
+      if (s.includes('✅')) return 3;
+      return 4;
+    };
+    return rank(sa) - rank(sb);
   });
 
   if (filtered.length === 0) {

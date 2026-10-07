@@ -1553,12 +1553,22 @@ class LeadFinderService:
             if len(candidates_to_add) >= count:
                 break
 
-        # 2. If pool is exhausted or insufficient, fulfill count dynamically
+        # 2. If pool is exhausted or insufficient, fulfill count dynamically with DNS MX verification
         if len(candidates_to_add) < count and not (stop_event and stop_event.is_set()):
             needed = count - len(candidates_to_add)
-            logger.info(f"Generating {needed} fresh verified prospects via dynamic discovery engine...")
-            dynamic_leads = self._generate_dynamic_batch(needed, existing_emails, existing_names, existing_city_basenames, stop_event=stop_event)
-            candidates_to_add.extend(dynamic_leads)
+            logger.info(f"Checking {needed} dynamic candidate prospects via DNS MX verification...")
+            dynamic_leads = self._generate_dynamic_batch(needed * 2, existing_emails, existing_names, existing_city_basenames, stop_event=stop_event)
+            for cand in dynamic_leads:
+                if stop_event and stop_event.is_set():
+                    break
+                cand_email = cand.get("email", "").strip().lower()
+                is_valid, reason = self.verifier.verify_email(cand_email)
+                if is_valid:
+                    candidates_to_add.append(cand)
+                    if len(candidates_to_add) >= count:
+                        break
+                else:
+                    logger.debug(f"Rejected unverified domain {cand_email}: {reason}")
 
         if not candidates_to_add:
             logger.info("No new unique leads discovered or search was aborted.")

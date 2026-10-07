@@ -446,5 +446,456 @@
     "mx": [
       "smtp.google.com"
     ]
+  },
+  "terrascapes.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx3.zoho.eu",
+      "mx.zoho.eu"
+    ]
+  },
+  "designgreen.gr": {
+    "has_mx": true,
+    "mx": [
+      "designgreen.gr"
+    ]
+  },
+  "tzikaswinery.gr": {
+    "has_mx": true,
+    "mx": [
+      "tzikaswinery.gr"
+    ]
+  },
+  "moschopoliswines.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.moschopoliswines.gr"
+    ]
+  },
+  "akrathoswinery.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.akrathoswinery.com"
+    ]
+  },
+  "konstantarawines.com": {
+    "has_mx": true,
+    "mx": [
+      "mail2.konstantarawines.com",
+      "mail.konstantarawines.com"
+    ]
+  },
+  "spyropouloswinery.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.spyropouloswinery.gr"
+    ]
+  },
+  "petrawine.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail2.petrawine.gr",
+      "petrawine.gr"
+    ]
+  },
+  "familyfarm.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.familyfarm.gr"
+    ]
+  },
+  "hydro-electrica.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.example.com",
+      "smtp.google.com"
+    ]
+  },
+  "pyrgosmystra.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.pyrgosmystra.com",
+      "mail2.pyrgosmystra.com"
+    ]
+  },
+  "culture.gr": {
+    "has_mx": true,
+    "mx": [
+      "culture-gr.mail.protection.outlook.com"
+    ]
+  },
+  "green-leaf.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.green-leaf.gr"
+    ]
+  },
+  "mosaicartgreece.com": {
+    "has_mx": true,
+    "mx": [
+      "fallbackmx.spamexperts.eu",
+      "lastmx.spamexperts.net"
+    ]
+  },
+  "myocide.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx1.hostinger.com",
+      "mx2.hostinger.com"
+    ]
+  },
+  "genariapartments-ilia.gr": {
+    "has_mx": true,
+    "mx": [
+      "ALT4.ASPMX.L.GOOGLE.COM",
+      "ALT3.ASPMX.L.GOOGLE.COM"
+    ]
+  },
+  "perikipou.gr": {
+    "has_mx": true,
+    "mx": [
+      "perikipou-gr.mail.protection.outlook.com"
+    ]
+  },
+  "fitoriakritis.gr": {
+    "has_mx": true,
+    "mx": [
+      "alt4.aspmx.l.google.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "kakogiannakis.gr": {
+    "has_mx": true,
+    "mx": [
+      "kakogiannakis.gr"
+    ]
+  },
+  "floraplant.gr": {
+    "has_mx": true,
+    "mx": [
+      "blizzard.mxrouting.net",
+      "blizzard-relay.mxrouting.net"
+    ]
+  },
+  "antonisgarden.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx10.antispam.mailspamprotection.com",
+      "mx30.antispam.mailspamprotection.com"
+    ]
+  },
+  "bendida.eu": {
+    "has_mx": true,
+    "mx": [
+      "bendida.eu"
+    ]
+  },
+  "yamantievs.com": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "lagar.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "example.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "filipopolis-esteyt-gold-1.bg": {
+    "has_mx": false,
+    "reason": "Домен filipopolis-esteyt-gold-1.bg не існує (NXDOMAIN)"
+  },
+  "ktima-koroneikis-gold-2.gr": {
+    "has_mx": false,
+    "reason": "Домен ktima-koroneikis-gold-2.gr не існує (NXDOMAIN)"
+  },
+  "rozov-razsadnik-kazanlak-eood-3.bg": {
+    "has_mx": false,
+    "reason": "Домен rozov-razsadnik-kazanlak-eood-3.bg не існує (NXDOMAIN)"
+  },
+  "ampelones-thessalias-bio-4.gr": {
+    "has_mx": false,
+    "reason": "Домен ampelones-thessalias-bio-4.gr не існує (NXDOMAIN)"
+  },
+  "dobrudzha-kaysiya-rezerva-5.bg": {
+    "has_mx": false,
+    "reason": "Домен dobrudzha-kaysiya-rezerva-5.bg не існує (NXDOMAIN)"
+  },
+  "geoponika-fytoria-larisas-gold-12.gr": {
+    "has_mx": false,
+    "reason": "Домен geoponika-fytoria-larisas-gold-12.gr не існує (NXDOMAIN)"
+  },
+  "besa-vali-lozya-eood-13.bg": {
+    "has_mx": false,
+    "reason": "Домен besa-vali-lozya-eood-13.bg не існує (NXDOMAIN)"
+  },
+  "maniatikoi-elaiones-groves-26.gr": {
+    "has_mx": false,
+    "reason": "Домен maniatikoi-elaiones-groves-26.gr не існує (NXDOMAIN)"
+  },
+  "bulgarplant-agro-rezerva-15.bg": {
+    "has_mx": false,
+    "reason": "Домен bulgarplant-agro-rezerva-15.bg не існує (NXDOMAIN)"
+  },
+  "ampelones-thessalias-groves-16.gr": {
+    "has_mx": false,
+    "reason": "Домен ampelones-thessalias-groves-16.gr не існує (NXDOMAIN)"
+  },
+  "dobrudzha-kaysiya-esteyt-17.bg": {
+    "has_mx": false,
+    "reason": "Домен dobrudzha-kaysiya-esteyt-17.bg не існує (NXDOMAIN)"
+  },
+  "thessalia-fruit-agro-organic-18.gr": {
+    "has_mx": false,
+    "reason": "Домен thessalia-fruit-agro-organic-18.gr не існує (NXDOMAIN)"
+  },
+  "dolina-na-trakite-teroar-19.bg": {
+    "has_mx": false,
+    "reason": "Домен dolina-na-trakite-teroar-19.bg не існує (NXDOMAIN)"
+  },
+  "siteia-olive-gold-reserve-20.gr": {
+    "has_mx": false,
+    "reason": "Домен siteia-olive-gold-reserve-20.gr не існує (NXDOMAIN)"
+  },
+  "agrotsentar-vereya-gold-21.bg": {
+    "has_mx": false,
+    "reason": "Домен agrotsentar-vereya-gold-21.bg не існує (NXDOMAIN)"
+  },
+  "ktima-pineioy-gold-22.gr": {
+    "has_mx": false,
+    "reason": "Домен ktima-pineioy-gold-22.gr не існує (NXDOMAIN)"
+  },
+  "pazardzhik-agro-sad-eood-23.bg": {
+    "has_mx": false,
+    "reason": "Домен pazardzhik-agro-sad-eood-23.bg не існує (NXDOMAIN)"
+  },
+  "agrokipia-irakleioy-bio-24.gr": {
+    "has_mx": false,
+    "reason": "Домен agrokipia-irakleioy-bio-24.gr не існує (NXDOMAIN)"
+  },
+  "struma-vali-rezerva-25.bg": {
+    "has_mx": false,
+    "reason": "Домен struma-vali-rezerva-25.bg не існує (NXDOMAIN)"
+  },
+  "zelen-svyat-razsadnik-esteyt-27.bg": {
+    "has_mx": false,
+    "reason": "Домен zelen-svyat-razsadnik-esteyt-27.bg не існує (NXDOMAIN)"
+  },
+  "oinopoiia-paggaioy-organic-28.gr": {
+    "has_mx": false,
+    "reason": "Домен oinopoiia-paggaioy-organic-28.gr не існує (NXDOMAIN)"
+  },
+  "struma-ekzotik-frut-teroar-29.bg": {
+    "has_mx": false,
+    "reason": "Домен struma-ekzotik-frut-teroar-29.bg не існує (NXDOMAIN)"
+  },
+  "fytoria-thessalias-reserve-30.gr": {
+    "has_mx": false,
+    "reason": "Домен fytoria-thessalias-reserve-30.gr не існує (NXDOMAIN)"
+  },
+  "rozov-razsadnik-kazanlak-gold-51.bg": {
+    "has_mx": false,
+    "reason": "Домен rozov-razsadnik-kazanlak-gold-51.bg не існує (NXDOMAIN)"
+  },
+  "oinopoieio-meteoron-gold-52.gr": {
+    "has_mx": false,
+    "reason": "Домен oinopoieio-meteoron-gold-52.gr не існує (NXDOMAIN)"
+  },
+  "trakiya-frut-eood-53.bg": {
+    "has_mx": false,
+    "reason": "Домен trakiya-frut-eood-53.bg не існує (NXDOMAIN)"
+  },
+  "kritika-fytoria-elias-bio-54.gr": {
+    "has_mx": false,
+    "reason": "Домен kritika-fytoria-elias-bio-54.gr не існує (NXDOMAIN)"
+  },
+  "svilengrad-vayn-rezerva-55.bg": {
+    "has_mx": false,
+    "reason": "Домен svilengrad-vayn-rezerva-55.bg не існує (NXDOMAIN)"
+  },
+  "fitosad-hemus-esteyt-57.bg": {
+    "has_mx": false,
+    "reason": "Домен fitosad-hemus-esteyt-57.bg не існує (NXDOMAIN)"
+  },
+  "ktima-archaias-nemeas-organic-58.gr": {
+    "has_mx": false,
+    "reason": "Домен ktima-archaias-nemeas-organic-58.gr не існує (NXDOMAIN)"
+  },
+  "sliven-elit-plod-teroar-59.bg": {
+    "has_mx": false,
+    "reason": "Домен sliven-elit-plod-teroar-59.bg не існує (NXDOMAIN)"
+  },
+  "imathia-fresh-peaches-reserve-60.gr": {
+    "has_mx": false,
+    "reason": "Домен imathia-fresh-peaches-reserve-60.gr не існує (NXDOMAIN)"
+  },
+  "orfey-vayns-gold-61.bg": {
+    "has_mx": false,
+    "reason": "Домен orfey-vayns-gold-61.bg не існує (NXDOMAIN)"
+  },
+  "chalkidiki-green-olives-gold-62.gr": {
+    "has_mx": false,
+    "reason": "Домен chalkidiki-green-olives-gold-62.gr не існує (NXDOMAIN)"
+  },
+  "agrosad-trakiya-eood-63.bg": {
+    "has_mx": false,
+    "reason": "Домен agrosad-trakiya-eood-63.bg не існує (NXDOMAIN)"
+  },
+  "ampelones-thessalias-bio-64.gr": {
+    "has_mx": false,
+    "reason": "Домен ampelones-thessalias-bio-64.gr не існує (NXDOMAIN)"
+  },
+  "dobrudzha-kaysiya-rezerva-65.bg": {
+    "has_mx": false,
+    "reason": "Домен dobrudzha-kaysiya-rezerva-65.bg не існує (NXDOMAIN)"
+  },
+  "pineios-plants-groves-66.gr": {
+    "has_mx": false,
+    "reason": "Домен pineios-plants-groves-66.gr не існує (NXDOMAIN)"
+  },
+  "sveti-georgi-esteyt-67.bg": {
+    "has_mx": false,
+    "reason": "Домен sveti-georgi-esteyt-67.bg не існує (NXDOMAIN)"
+  },
+  "dunavski-razsadnik-teroar-69.bg": {
+    "has_mx": false,
+    "reason": "Домен dunavski-razsadnik-teroar-69.bg не існує (NXDOMAIN)"
+  },
+  "ktima-pineioy-reserve-70.gr": {
+    "has_mx": false,
+    "reason": "Домен ktima-pineioy-reserve-70.gr не існує (NXDOMAIN)"
+  },
+  "pazardzhik-agro-sad-gold-71.bg": {
+    "has_mx": false,
+    "reason": "Домен pazardzhik-agro-sad-gold-71.bg не існує (NXDOMAIN)"
+  },
+  "fytoria-peloponnisoy-gold-72.gr": {
+    "has_mx": false,
+    "reason": "Домен fytoria-peloponnisoy-gold-72.gr не існує (NXDOMAIN)"
+  },
+  "vereya-selektsiya-eood-73.bg": {
+    "has_mx": false,
+    "reason": "Домен vereya-selektsiya-eood-73.bg не існує (NXDOMAIN)"
+  },
+  "lozov-razsadnik-septemvri-rezerva-75.bg": {
+    "has_mx": false,
+    "reason": "Домен lozov-razsadnik-septemvri-rezerva-75.bg не існує (NXDOMAIN)"
+  },
+  "pannonia-plant-faiskola-boraszat-3.hu": {
+    "has_mx": false,
+    "reason": "Домен pannonia-plant-faiskola-boraszat-3.hu не існує (NXDOMAIN)"
+  },
+  "barolo-vigneti-d-alba-bio-4.it": {
+    "has_mx": false,
+    "reason": "Домен barolo-vigneti-d-alba-bio-4.it не існує (NXDOMAIN)"
+  },
+  "skolka-trnava-plant-plant-6.sk": {
+    "has_mx": false,
+    "reason": "Домен skolka-trnava-plant-plant-6.sk не існує (NXDOMAIN)"
+  },
+  "maniatikoi-elaiones-groves-35.gr": {
+    "has_mx": false,
+    "reason": "Домен maniatikoi-elaiones-groves-35.gr не існує (NXDOMAIN)"
+  },
+  "sveti-georgi-rezerva-34.bg": {
+    "has_mx": false,
+    "reason": "Домен sveti-georgi-rezerva-34.bg не існує (NXDOMAIN)"
+  },
+  "agro-rasadnik-slavonija-agro-33.hr": {
+    "has_mx": false,
+    "reason": "Домен agro-rasadnik-slavonija-agro-33.hr не існує (NXDOMAIN)"
+  },
+  "grotska-plantazhe-voca-d-o-o-32.rs": {
+    "has_mx": false,
+    "reason": "Домен grotska-plantazhe-voca-d-o-o-32.rs не існує (NXDOMAIN)"
+  },
+  "vinedos-de-la-mancha-frutas-31.es": {
+    "has_mx": false,
+    "reason": "Домен vinedos-de-la-mancha-frutas-31.es не існує (NXDOMAIN)"
+  },
+  "gartenbau-tullnerfeld-winzer-30.at": {
+    "has_mx": false,
+    "reason": "Домен gartenbau-tullnerfeld-winzer-30.at не існує (NXDOMAIN)"
+  },
+  "arboriculture-tarn-et-garonne-agri-29.fr": {
+    "has_mx": false,
+    "reason": "Домен arboriculture-tarn-et-garonne-agri-29.fr не існує (NXDOMAIN)"
+  },
+  "juznoslovenske-vina-strekov-sady-28.sk": {
+    "has_mx": false,
+    "reason": "Домен juznoslovenske-vina-strekov-sady-28.sk не існує (NXDOMAIN)"
+  },
+  "stajerska-drevesnica-celje-agro-27.si": {
+    "has_mx": false,
+    "reason": "Домен stajerska-drevesnica-celje-agro-27.si не існує (NXDOMAIN)"
+  },
+  "frantoio-etruria-gold-tenuta-26.it": {
+    "has_mx": false,
+    "reason": "Домен frantoio-etruria-gold-tenuta-26.it не існує (NXDOMAIN)"
+  },
+  "matrai-szolobirtok-pinceszet-25.hu": {
+    "has_mx": false,
+    "reason": "Домен matrai-szolobirtok-pinceszet-25.hu не існує (NXDOMAIN)"
+  },
+  "pepiniera-pomicola-iasi-srl-24.ro": {
+    "has_mx": false,
+    "reason": "Домен pepiniera-pomicola-iasi-srl-24.ro не існує (NXDOMAIN)"
+  },
+  "chalkidiki-green-olives-reserve-23.gr": {
+    "has_mx": false,
+    "reason": "Домен chalkidiki-green-olives-reserve-23.gr не існує (NXDOMAIN)"
+  },
+  "sakar-vayns-teroar-22.bg": {
+    "has_mx": false,
+    "reason": "Домен sakar-vayns-teroar-22.bg не існує (NXDOMAIN)"
+  },
+  "grotska-plantazhe-voca-rezerva-20.rs": {
+    "has_mx": false,
+    "reason": "Домен grotska-plantazhe-voca-rezerva-20.rs не існує (NXDOMAIN)"
+  },
+  "bodega-jerezana-solera-finca-19.es": {
+    "has_mx": false,
+    "reason": "Домен bodega-jerezana-solera-finca-19.es не існує (NXDOMAIN)"
+  },
+  "maniatikoi-elaiones-bio-14.gr": {
+    "has_mx": false,
+    "reason": "Домен maniatikoi-elaiones-bio-14.gr не існує (NXDOMAIN)"
+  },
+  "kalamata-bio-olives-groves-56.gr": {
+    "has_mx": false,
+    "reason": "Домен kalamata-bio-olives-groves-56.gr не існує (NXDOMAIN)"
+  },
+  "chalkidiki-green-olives-bio-74.gr": {
+    "has_mx": false,
+    "reason": "Домен chalkidiki-green-olives-bio-74.gr не існує (NXDOMAIN)"
+  },
+  "agro-rasadnik-slavonija-opg-21.hr": {
+    "has_mx": false,
+    "reason": "Домен agro-rasadnik-slavonija-opg-21.hr не існує (NXDOMAIN)"
+  },
+  "tormaresca.net": {
+    "has_mx": false,
+    "reason": "Домен tormaresca.net не існує (NXDOMAIN)"
+  },
+  "donnafugata.it": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "aspmx3.googlemail.com"
+    ]
+  },
+  "sassicaia.com": {
+    "has_mx": true,
+    "mx": [
+      "esva.openlan.it"
+    ]
   }
 }

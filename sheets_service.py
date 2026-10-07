@@ -188,24 +188,37 @@ class LeadDataService:
             new_headers = reader.fieldnames or []
             sheet_rows = list(reader)
 
-            # Filter out empty ghost rows from Google Sheet
-            valid_sheet_rows = [
-                r for r in sheet_rows
-                if any(r.get(k, "").strip() for k in ["name", "email", "phone", "city", "website"])
-            ]
+            # Filter out empty ghost rows and known bounced/dead leads from Google Sheet
+            clean_sheet_rows = []
+            for r in sheet_rows:
+                if not any(r.get(k, "").strip() for k in ["name", "email", "phone", "city", "website"]):
+                    continue
+                em = r.get("email", "").strip().lower()
+                st = self.state.get(em, {}).get("status", "")
+                if "❌" in st or "⚠️" in st:
+                    continue
+                clean_sheet_rows.append(r)
 
-            # Merge with locally discovered leads so they are NEVER erased by live sync
+            # Merge with locally discovered verified leads so they are NEVER erased by live sync
             imported_leads = self._load_imported_leads()
-            existing_emails = set(r.get("email", "").strip().lower() for r in valid_sheet_rows if r.get("email"))
-            existing_names = set(r.get("name", "").strip().lower() for r in valid_sheet_rows if r.get("name"))
+            existing_emails = set(r.get("email", "").strip().lower() for r in clean_sheet_rows if r.get("email"))
+            existing_names = set(r.get("name", "").strip().lower() for r in clean_sheet_rows if r.get("name"))
 
-            merged_rows = list(valid_sheet_rows)
+            merged_rows = list(clean_sheet_rows)
             for imp in imported_leads:
                 imp_email = imp.get("email", "").strip().lower()
                 imp_name = imp.get("name", "").strip().lower()
-                if (imp_email and imp_email in existing_emails) or (imp_name and imp_name in existing_names):
+                if not imp_email:
+                    continue
+                st = self.state.get(imp_email, {}).get("status", "")
+                if "❌" in st or "⚠️" in st:
+                    continue
+                if (imp_email in existing_emails) or (imp_name and imp_name in existing_names):
                     continue
                 merged_rows.append(imp)
+                existing_emails.add(imp_email)
+                if imp_name:
+                    existing_names.add(imp_name)
 
             if merged_rows:
                 # Only write to CSV and bust cache if the data actually changed
@@ -214,7 +227,7 @@ class LeadDataService:
                         self.raw_headers = new_headers
                     self.raw_rows = merged_rows
                     self.invalidate_cache()
-                    logger.info(f"Synced live sheet: {len(valid_sheet_rows)} sheet leads + {len(imported_leads)} imported leads ({len(self.raw_rows)} total).")
+                    logger.info(f"Synced live sheet: {len(clean_sheet_rows)} sheet leads + {len(imported_leads)} imported leads ({len(self.raw_rows)} total).")
                     self.export_updated_csv()
         except Exception as e:
             logger.warning(f"Live Google Sheet sync notice (retaining {len(self.raw_rows)} cached rows): {e}")
@@ -222,9 +235,9 @@ class LeadDataService:
                 self._load_local_csv()
                 self._merge_imported_leads()
 
-    def get_all_leads(self) -> List[Dict[str, Any]]:
+    def get_all_leads(self, include_bounced: bool = False) -> List[Dict[str, Any]]:
         with self._lock:
-            if self._cached_leads is not None:
+            if self._cached_leads is not None and not include_bounced:
                 return [dict(x) for x in self._cached_leads]
 
             leads = []
@@ -238,14 +251,16 @@ class LeadDataService:
                 phone = r.get("phone", "").strip()
                 address = r.get("adress", "").strip() or r.get("address", "").strip()
 
-                # Skip ghost rows that contain no meaningful identifying data
+                # Skip ghost rows, test addresses, or rows without valid emails
                 if not any([name, email, phone, city, website]):
+                    continue
+                if not email or "example.com" in email.lower() or "test@" in email.lower():
                     continue
 
                 company_name = name or "Valued Partner"
 
-                # Merge with local state
-                key = email.lower() if email else f"row_{lead_idx}"
+                # Merge with local state strictly by verified email or normalized company name
+                key = email.lower()
                 cached = self.state.get(key, {})
                 if not cached and email:
                     for em in re.findall(r'[\w\.-]+@[\w\.-]+', email.lower()):
@@ -255,10 +270,18 @@ class LeadDataService:
                 norm_name = re.sub(r'[\W_]+', '', company_name.lower())
                 if not cached and norm_name:
                     cached = self.state.get(f"name_{norm_name}", {})
-                if not cached:
-                    cached = self.state.get(f"row_{lead_idx}", {})
 
-                status = cached.get("status") or r.get("status", "").strip() or "⚪ Очікує"
+                raw_status = cached.get("status") or r.get("status", "").strip()
+                if not raw_status or raw_status.strip().upper() in ("NEW", "PENDING"):
+                    status = "⚪ Очікує відправки"
+                else:
+                    status = raw_status.strip()
+
+                # Exclude bounced/dead leads so only deliverable active prospects appear on dashboard
+                if not include_bounced and ("❌" in status or "⚠️" in status):
+                    lead_idx += 1
+                    continue
+
                 gen_sheet = cached.get("generation_sheet") or r.get("generation sheet", "").strip()
                 date = cached.get("date") or r.get("date", "").strip()
 
@@ -418,6 +441,12 @@ class LeadDataService:
                 email_match = bool(e1 and e2 and (e1 & e2))
                 exact_name_match = bool(n1 and n2 and n1 == n2 and len(n1) > 3)
                 domain_match = bool(dom1 and dom2 and dom1 == dom2)
+
+                # Safety guard: if both leads have distinct email addresses with zero overlap,
+                # never merge them unless they share the exact company domain
+                if e1 and e2 and not (e1 & e2):
+                    if not domain_match:
+                        continue
 
                 same_city = bool(c1 and c2 and (c1 in c2 or c2 in c1))
                 city_basename_match = bool(same_city and bn1 and bn2 and bn1 == bn2 and len(bn1) > 3)
@@ -747,8 +776,6 @@ class LeadDataService:
             self.state[raw_email.lower()] = cached_data
             for em in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email.lower()):
                 self.state[em] = cached_data
-        if row_num:
-            self.state[f"row_{row_num}"] = cached_data
         comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
         if comp_name:
             self.state[f"name_{comp_name}"] = cached_data
@@ -853,8 +880,6 @@ class LeadDataService:
                         "subject": bounce_info.get("reason", "Gmail: Адреса не знайдена")
                     }
                     self.state[raw_email.lower()] = cached_data
-                    if lead_row:
-                        self.state[f"row_{lead_row}"] = cached_data
                     if comp_name:
                         self.state[f"name_{comp_name}"] = cached_data
                     for em in lead_emails:
@@ -875,8 +900,6 @@ class LeadDataService:
                         "subject": sent_info.get("subject", "")
                     }
                     self.state[raw_email.lower()] = cached_data
-                    if lead_row:
-                        self.state[f"row_{lead_row}"] = cached_data
                     if comp_name:
                         self.state[f"name_{comp_name}"] = cached_data
                     for em in lead_emails:
@@ -898,8 +921,6 @@ class LeadDataService:
                         "generation_sheet": f"Subject: {draft_info.get('subject', '')}"
                     }
                     self.state[raw_email.lower()] = cached_data
-                    if lead_row:
-                        self.state[f"row_{lead_row}"] = cached_data
                     if comp_name:
                         self.state[f"name_{comp_name}"] = cached_data
                     for em in lead_emails:
@@ -952,8 +973,6 @@ class LeadDataService:
                     "subject": reason
                 }
                 self.state[raw_email.lower()] = cached_data
-                if lead_row:
-                    self.state[f"row_{lead_row}"] = cached_data
                 if comp_name:
                     self.state[f"name_{comp_name}"] = cached_data
                 for em in lead_emails:
