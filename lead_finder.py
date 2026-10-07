@@ -1189,7 +1189,7 @@ class LeadFinderService:
     def __init__(self, data_service: LeadDataService = None):
         self.data_service = data_service or LeadDataService()
 
-    def _generate_dynamic_batch(self, count: int, existing_emails: Set[str], existing_names: Set[str], existing_city_basenames: Set[Tuple[str, str]] = None) -> List[Dict[str, str]]:
+    def _generate_dynamic_batch(self, count: int, existing_emails: Set[str], existing_names: Set[str], existing_city_basenames: Set[Tuple[str, str]] = None, stop_event: Any = None) -> List[Dict[str, str]]:
         """
         Dynamically generates realistic, high-converting B2B agricultural prospects.
         Evenly cycles across Romania, Hungary, Italy, Slovenia, Slovakia, France, Austria, Spain, Bulgaria, and Greece.
@@ -1204,6 +1204,10 @@ class LeadFinderService:
         max_attempts = count * 35
 
         while len(batch) < count and attempts < max_attempts:
+            if stop_event and stop_event.is_set():
+                logger.info("Dynamic batch generation aborted by user stop_event.")
+                break
+
             attempts += 1
             # Round-robin cycle across all 10 European target countries
             cfg = COUNTRY_CONFIGS[len(batch) % len(COUNTRY_CONFIGS)]
@@ -1258,10 +1262,11 @@ class LeadFinderService:
 
         return batch
 
-    def find_and_import_leads(self, count: int = 25) -> int:
+    def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
         """
         Discovers new leads from candidate pool or dynamic discovery engine
         and appends them to active database.
+        Supports graceful abort via stop_event.
         Returns count of newly imported leads.
         """
         existing_leads = self.data_service.get_all_leads()
@@ -1278,6 +1283,10 @@ class LeadFinderService:
 
         # 1. Harvest from static pool first if any remain unimported
         for cand in CANDIDATE_LEADS_POOL:
+            if stop_event and stop_event.is_set():
+                logger.info("Harvesting from static pool aborted by user stop_event.")
+                break
+
             cand_email = cand.get("email", "").strip().lower()
             cand_name = cand.get("name", "").strip().lower()
 
@@ -1291,14 +1300,14 @@ class LeadFinderService:
                 break
 
         # 2. If pool is exhausted or insufficient, fulfill count dynamically
-        if len(candidates_to_add) < count:
+        if len(candidates_to_add) < count and not (stop_event and stop_event.is_set()):
             needed = count - len(candidates_to_add)
             logger.info(f"Generating {needed} fresh verified prospects via dynamic discovery engine...")
-            dynamic_leads = self._generate_dynamic_batch(needed, existing_emails, existing_names, existing_city_basenames)
+            dynamic_leads = self._generate_dynamic_batch(needed, existing_emails, existing_names, existing_city_basenames, stop_event=stop_event)
             candidates_to_add.extend(dynamic_leads)
 
         if not candidates_to_add:
-            logger.info("No new unique leads could be discovered.")
+            logger.info("No new unique leads discovered or search was aborted.")
             return 0
 
         # 3. Import through data_service to keep memory, disk JSON, and CSV synchronized

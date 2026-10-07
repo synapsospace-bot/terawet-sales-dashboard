@@ -8,6 +8,7 @@ from datetime import datetime
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import urllib.parse
 from pathlib import Path
+from typing import Tuple, Dict, Any, Optional
 import os
 import config
 from sheets_service import LeadDataService, UPDATED_CSV_FILE
@@ -127,6 +128,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .btn-secondary:hover { background: #e2e8f0; }
   .btn-download { background: #0284c7; color: #fff; }
   .btn-download:hover { background: #0369a1; }
+  .btn-danger { background: #fef2f2; color: #b91c1c; border: 1px solid #f87171; }
+  .btn-danger:hover { background: #fee2e2; border-color: #ef4444; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
   .search-box {
     display: flex; gap: 12px; width: 100%; max-width: 450px;
@@ -240,11 +244,21 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </div>
     <div class="btn-group">
       <button class="btn btn-primary" data-i18n="btnGenBatch" onclick="generateBatch(5)">⚡ Створити наступні 5 чернеток у Gmail</button>
-      <button class="btn btn-secondary" data-i18n="btnFindLeads" onclick="findNewLeadsNow()" style="border-color: #38bdf8; color: #0369a1; background: #f0f9ff;">🔍 Знайти 20–30 лідів</button>
+      <button class="btn btn-secondary" id="btnStartSearch" data-i18n="btnStartSearch" onclick="startLeadSearch(25)" style="border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;">▶️ Запустити пошук лідів</button>
+      <button class="btn btn-danger" id="btnStopSearch" data-i18n="btnStopSearch" onclick="stopLeadSearch()" style="display: none; font-weight: 600;">⏹️ Припинити пошук</button>
       <button class="btn btn-secondary" data-i18n="btnSyncSent" onclick="syncSent()" style="border-color: #86efac; color: #166534; background: #f0fdf4;">📥 Перевірити відправлені в Gmail</button>
       <button class="btn btn-secondary" data-i18n="btnRefresh" onclick="refreshData()">🔄 Оновити дані</button>
       <a href="/download/updated_csv" class="btn btn-download" data-i18n="btnDownloadCsv" download="updated_google_sheet.csv">📥 Завантажити CSV для таблиці</a>
     </div>
+  </div>
+
+  <!-- Search Active Status Bar -->
+  <div id="searchStatusBar" style="display: none; align-items: center; justify-content: space-between; margin-top: -12px; margin-bottom: 22px; padding: 12px 20px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #0369a1; font-weight: 600;">
+      <span style="display: inline-block; width: 14px; height: 14px; border: 2px solid #0284c7; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+      <span id="searchStatusText">🔍 Пошук нових лідів активний...</span>
+    </div>
+    <button class="btn btn-danger" data-i18n="btnStopSearch" onclick="stopLeadSearch()" style="padding: 6px 14px; font-size: 12.5px;">⏹️ Припинити пошук</button>
   </div>
 
   <!-- Filter Tabs -->
@@ -310,7 +324,10 @@ const I18N = {
     statSent: "✅ Листи відправлено",
     searchPlaceholder: "🔍 Пошук за назвою, країною, містом, email...",
     btnGenBatch: "⚡ Створити наступні 5 чернеток у Gmail",
-    btnFindLeads: "🔍 Знайти 20–30 лідів",
+    btnStartSearch: "▶️ Запустити пошук лідів",
+    btnStopSearch: "⏹️ Припинити пошук",
+    btnFindLeads: "▶️ Запустити пошук лідів",
+    searchRunningStatus: "🔍 Триває активний пошук нових агро-лідів... Ви можете припинити його у будь-який момент.",
     btnSyncSent: "📥 Перевірити відправлені в Gmail",
     btnRefresh: "🔄 Оновити дані",
     btnDownloadCsv: "📥 Завантажити CSV для таблиці",
@@ -364,8 +381,12 @@ const I18N = {
     toastRegenStart: "⏳ Перегенеровую текст листа (новий ракурс)...",
     toastRegenSuccess: "✨ Текст успішно перегенеровано! Для створення чернетки натисніть зелену кнопку.",
     toastRegenFail: "Помилка перегенерації: ",
-    toastFindStart: "🔍 Шукаю та імпортую 20–30 нових агро-лідів...",
+    toastFindStart: "🔍 Шукаю та імпортую нових агро-лідів...",
     toastFindSuccess: "🎉 Знайдено та імпортовано {n} нових лідів!",
+    toastSearchStart: "🚀 Пошук лідів успішно запущено у фоновому режимі!",
+    toastSearchStopRequested: "⏹️ Відправлено сигнал зупинки пошуку...",
+    toastSearchStopped: "⏹️ Пошук лідів припинено! Збережено лідів: {n}",
+    toastSearchFinished: "🎉 Пошук завершено! Додано {n} нових лідів!",
   },
   bg: {
     appTitle: "TERAWET-ORIGINAL Команден Център",
@@ -378,7 +399,10 @@ const I18N = {
     statSent: "✅ Изпратени писма",
     searchPlaceholder: "🔍 Търсене по име, държава, град, имейл...",
     btnGenBatch: "⚡ Създай следващите 5 чернови в Gmail",
-    btnFindLeads: "🔍 Намери 20–30 лийда",
+    btnStartSearch: "▶️ Стартирай търсене на лийдове",
+    btnStopSearch: "⏹️ Спри търсенето",
+    btnFindLeads: "▶️ Стартирай търсене на лийдове",
+    searchRunningStatus: "🔍 Активно търсене на нови агро лийдове... Можете да го спрете по всяко време.",
     btnSyncSent: "📥 Провери изпратените в Gmail",
     btnRefresh: "🔄 Обнови данните",
     btnDownloadCsv: "📥 Изтегли CSV за таблицата",
@@ -432,8 +456,12 @@ const I18N = {
     toastRegenStart: "⏳ Прегенериране на текста на писмото (нов ъгъл)...",
     toastRegenSuccess: "✨ Текстът е успешно прегенериран! За създаване на чернова натиснете зеления бутон.",
     toastRegenFail: "Грешка при прегенериране: ",
-    toastFindStart: "🔍 Търсене и импортиране на 20–30 нови агро лийда...",
+    toastFindStart: "🔍 Търсене и импортиране на нови агро лийдове...",
     toastFindSuccess: "🎉 Намерени и импортирани {n} нови лийда!",
+    toastSearchStart: "🚀 Търсенето е стартирано във фонов режим!",
+    toastSearchStopRequested: "⏹️ Изпратена заявка за спиране...",
+    toastSearchStopped: "⏹️ Търсенето е спряно! Запазени лийдове: {n}",
+    toastSearchFinished: "🎉 Търсенето завърши! Добавени {n} нови лийда!",
   }
 };
 
@@ -820,26 +848,95 @@ async function regenerateLeadText() {
   }
 }
 
-async function findNewLeadsNow() {
-  const t = I18N[currentLang];
-  showToast(t.toastFindStart);
+let searchPollTimer = null;
+
+async function startLeadSearch(count = 25) {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastSearchStart);
+  updateSearchUI(true, t.searchRunningStatus);
+
   try {
-    const res = await fetch('/api/find_leads', {
+    const res = await fetch('/api/search/start', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({count: 25})
+      body: JSON.stringify({count: count})
     });
     const data = await res.json();
-    if (data.success) {
-      showToast(t.toastFindSuccess.replace('{n}', data.imported));
-      await loadData();
-    } else {
-      showToast(t.toastError + (data.error || ""));
+    if (!data.success) {
+      showToast((t.toastError || "Помилка: ") + (data.error || data.message || ""));
+      updateSearchUI(false);
+      return;
     }
+    startSearchPolling();
+  } catch (e) {
+    showToast(t.toastNetError);
+    updateSearchUI(false);
+  }
+}
+
+async function stopLeadSearch() {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastSearchStopRequested);
+  try {
+    await fetch('/api/search/stop', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+    // Immediately check status
+    setTimeout(checkSearchStatus, 300);
   } catch (e) {
     showToast(t.toastNetError);
   }
 }
+
+function startSearchPolling() {
+  if (searchPollTimer) clearInterval(searchPollTimer);
+  searchPollTimer = setInterval(checkSearchStatus, 1500);
+}
+
+async function checkSearchStatus() {
+  const t = I18N[currentLang] || I18N.uk;
+  try {
+    const res = await fetch('/api/search/status?_t=' + Date.now(), { cache: 'no-store' });
+    const data = await res.json();
+
+    if (data.is_running) {
+      updateSearchUI(true, data.message || t.searchRunningStatus);
+      if (!searchPollTimer) startSearchPolling();
+    } else {
+      if (searchPollTimer) {
+        clearInterval(searchPollTimer);
+        searchPollTimer = null;
+      }
+      updateSearchUI(false);
+
+      if (data.status === 'stopped') {
+        showToast(t.toastSearchStopped.replace('{n}', data.found_count || 0));
+        await loadData();
+      } else if (data.status === 'completed') {
+        showToast(t.toastSearchFinished.replace('{n}', data.found_count || 0));
+        await loadData();
+      } else if (data.status === 'error') {
+        showToast((t.toastError || "Помилка: ") + (data.message || ""));
+      }
+    }
+  } catch (e) {}
+}
+
+function updateSearchUI(isRunning, msgText = '') {
+  const btnStart = document.getElementById('btnStartSearch');
+  const btnStop = document.getElementById('btnStopSearch');
+  const statusBar = document.getElementById('searchStatusBar');
+  const statusText = document.getElementById('searchStatusText');
+
+  if (btnStart) btnStart.style.display = isRunning ? 'none' : 'inline-flex';
+  if (btnStop) btnStop.style.display = isRunning ? 'inline-flex' : 'none';
+  if (statusBar) statusBar.style.display = isRunning ? 'flex' : 'none';
+  if (statusText && msgText) statusText.innerText = msgText;
+}
+
+// Alias for backwards compatibility
+const findNewLeadsNow = () => startLeadSearch(25);
 
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -851,6 +948,7 @@ function showToast(msg) {
 // Init
 setLanguage(currentLang);
 loadData();
+checkSearchStatus();
 
 // Auto-refresh data silently every 60s so sent emails update automatically without overloading the server
 setInterval(() => {
@@ -862,11 +960,86 @@ setInterval(() => {
 </html>
 """
 
+class LeadSearchController:
+    """
+    Thread-safe controller for starting, monitoring, and stopping background lead discovery.
+    Provides non-blocking execution so the web dashboard remains fast and responsive.
+    """
+    def __init__(self, finder_service: LeadFinderService):
+        self.finder_service = finder_service
+        self.is_running = False
+        self.stop_event = threading.Event()
+        self.current_thread = None
+        self.lock = threading.Lock()
+        self.last_status = "idle"  # "idle", "running", "stopped", "completed", "error"
+        self.found_count = 0
+        self.target_count = 0
+        self.message = ""
+
+    def start_search(self, count: int = 25) -> Tuple[bool, str]:
+        with self.lock:
+            if self.is_running:
+                return False, "Пошук лідів уже триває"
+            self.is_running = True
+            self.stop_event.clear()
+            self.found_count = 0
+            self.target_count = count
+            self.last_status = "running"
+            self.message = "Пошук лідів запущено..."
+            self.current_thread = threading.Thread(target=self._run_search, args=(count,), daemon=True)
+            self.current_thread.start()
+            logger.info(f"🚀 Lead search worker started for target count={count}")
+            return True, "Пошук нових лідів успішно запущено"
+
+    def stop_search(self) -> Tuple[bool, str]:
+        with self.lock:
+            if not self.is_running:
+                return False, "Пошук наразі не виконується"
+            self.stop_event.set()
+            self.message = "Зупинка пошуку..."
+            logger.info("🛑 Stop lead search requested by user.")
+            return True, "Запит на зупинку пошуку надіслано"
+
+    def _run_search(self, count: int):
+        try:
+            logger.info(f"▶️ Starting lead discovery for up to {count} prospects...")
+            imported = self.finder_service.find_and_import_leads(
+                count=count,
+                stop_event=self.stop_event
+            )
+            with self.lock:
+                self.found_count = imported
+                if self.stop_event.is_set():
+                    self.last_status = "stopped"
+                    self.message = f"Пошук зупинено користувачем. Додано нових лідів: {imported}"
+                else:
+                    self.last_status = "completed"
+                    self.message = f"Пошук успішно завершено! Додано нових лідів: {imported}"
+        except Exception as e:
+            logger.error(f"Error during controlled lead search: {e}", exc_info=True)
+            with self.lock:
+                self.last_status = "error"
+                self.message = f"Помилка пошуку: {e}"
+        finally:
+            with self.lock:
+                self.is_running = False
+
+    def get_status(self) -> dict:
+        with self.lock:
+            return {
+                "is_running": self.is_running,
+                "status": self.last_status,
+                "found_count": self.found_count,
+                "target_count": self.target_count,
+                "message": self.message
+            }
+
 class DashboardHandler(BaseHTTPRequestHandler):
     data_service = LeadDataService()
     agent_brain = TerawetAgentBrain()
     draft_service = GmailDraftService()
     finder_service = LeadFinderService(data_service=data_service)
+    search_controller = LeadSearchController(finder_service=finder_service)
 
     def do_HEAD(self):
         self.send_response(200)
@@ -884,6 +1057,9 @@ class DashboardHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b'{"status":"ok","uptime":"running"}')
             return
+
+        elif path in ("/api/search/status", "/api/search_status"):
+            self.send_json(self.search_controller.get_status())
 
         elif path == "/" or path == "/index.html":
             self.send_response(200)
@@ -1058,14 +1234,14 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     logger.error(f"Error regenerating pitch: {e}", exc_info=True)
                     self.send_json({"success": False, "error": str(e)})
 
-            elif path == "/api/find_leads":
+            elif path in ("/api/search/start", "/api/find_leads"):
                 count = int(params.get("count", 25))
-                try:
-                    imported = self.finder_service.find_and_import_leads(count=count)
-                    self.send_json({"success": True, "imported": imported})
-                except Exception as e:
-                    logger.error(f"Error finding leads: {e}", exc_info=True)
-                    self.send_json({"success": False, "error": str(e)})
+                ok, msg = self.search_controller.start_search(count=count)
+                self.send_json({"success": ok, "message": msg, "is_running": self.search_controller.is_running})
+
+            elif path in ("/api/search/stop", "/api/stop_leads"):
+                ok, msg = self.search_controller.stop_search()
+                self.send_json({"success": ok, "message": msg, "is_running": self.search_controller.is_running})
 
             elif path == "/api/generate_batch":
                 count = int(params.get("count", 5))
@@ -1193,8 +1369,8 @@ class RobustThreadingHTTPServer(ThreadingHTTPServer):
         pass
 
 def start_server():
-    sched_thread = threading.Thread(target=_daily_lead_search_scheduler, daemon=True)
-    sched_thread.start()
+    # Lead discovery is now fully manual and user-controlled via UI buttons (Start / Stop)
+    # to prevent unprompted CPU usage or running in vain.
 
     sync_thread = threading.Thread(target=_periodic_background_syncer, daemon=True)
     sync_thread.start()
