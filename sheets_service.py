@@ -154,7 +154,7 @@ class LeadDataService:
             new_lead["website"] = item.get("website", "")
             new_lead["phone"] = item.get("phone", "")
             new_lead["email"] = item.get("email", "")
-            new_lead["status"] = "NEW"
+            new_lead["status"] = item.get("status") or "⚪ Очікує відправки"
             new_lead["date"] = today
 
             current_imported.append(new_lead)

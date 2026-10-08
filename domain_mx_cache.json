@@ -897,5 +897,65 @@
     "mx": [
       "esva.openlan.it"
     ]
+  },
+  "vivancoculturadevino.es": {
+    "has_mx": true,
+    "mx": [
+      "mail.vivancoculturadevino.es"
+    ]
+  },
+  "bodegaslan.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegaslan-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasysios.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "bodegasramonbilbao.es": {
+    "has_mx": true,
+    "mx": [
+      "mail.bodegasramonbilbao.es"
+    ]
+  },
+  "bodegasmuriel.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.bodegasmuriel.com"
+    ]
+  },
+  "roda.es": {
+    "has_mx": true,
+    "mx": [
+      "roda-es.mail.protection.outlook.com"
+    ]
+  },
+  "beronia.es": {
+    "has_mx": true,
+    "mx": [
+      "beronia-es.mail.protection.outlook.com"
+    ]
+  },
+  "vallllach.com": {
+    "has_mx": true,
+    "mx": [
+      "mola.etelematics.com"
+    ]
+  },
+  "closmogador.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "alvaropalacios.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
   }
 }

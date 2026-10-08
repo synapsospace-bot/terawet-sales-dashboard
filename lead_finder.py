@@ -13,6 +13,8 @@ from email_verifier import EmailVerifierService
 
 logger = logging.getLogger("LeadFinder")
 
+VERIFIED_POOL_FILE = config.BASE_DIR / "verified_candidates_pool.json"
+
 # Curated reservoir of verified agricultural B2B prospects across dry European regions
 # (Wineries, Olive Producers, Nurseries, Fruit Orchards, Garden Centers, Cooperatives)
 CANDIDATE_LEADS_POOL: List[Dict[str, str]] = [
@@ -1510,72 +1512,79 @@ class LeadFinderService:
 
         return batch
 
+    def _load_verified_pool(self) -> List[Dict[str, str]]:
+        if VERIFIED_POOL_FILE.exists():
+            try:
+                with open(VERIFIED_POOL_FILE, "r", encoding="utf-8") as f:
+                    pool = json.load(f)
+                    if pool and isinstance(pool, list):
+                        return pool
+            except Exception as e:
+                logger.error(f"Failed to load verified candidates pool: {e}")
+        return CANDIDATE_LEADS_POOL
+
     def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
         """
-        Discovers new leads from candidate pool or dynamic discovery engine
-        and appends them to active database.
+        Discovers new leads from the verified candidate reservoir and appends them to active database.
         Supports graceful abort via stop_event.
         Returns count of newly imported leads.
         """
-        existing_leads = self.data_service.get_all_leads()
+        existing_leads = self.data_service.get_all_leads(include_bounced=True)
         existing_emails = set(l.get("email", "").strip().lower() for l in existing_leads if l.get("email"))
         existing_names = set(l.get("company_name", "").strip().lower() for l in existing_leads if l.get("company_name"))
-        existing_city_basenames = set()
-        for l in existing_leads:
-            c = (l.get("city") or "").split(" / ")[0].strip().lower()
-            cn = (l.get("company_name") or "").lower()
-            if c and cn:
-                existing_city_basenames.add((c, cn))
 
+        imported_leads = self.data_service._load_imported_leads()
+        imported_emails = set(l.get("email", "").strip().lower() for l in imported_leads if l.get("email"))
+        imported_names = set(l.get("name", "").strip().lower() for l in imported_leads if l.get("name"))
+
+        known_emails = existing_emails | imported_emails
+        known_names = existing_names | imported_names
+
+        candidates_pool = self._load_verified_pool()
         candidates_to_add = []
 
-        # 1. Harvest from static pool first if any remain unimported
-        for cand in CANDIDATE_LEADS_POOL:
+        logger.info(f"Starting lead discovery for up to {count} prospects (reservoir size: {len(candidates_pool)})...")
+
+        for cand in candidates_pool:
             if stop_event and stop_event.is_set():
-                logger.info("Harvesting from static pool aborted by user stop_event.")
+                logger.info("Harvesting from reservoir aborted by user stop_event.")
                 break
 
             cand_email = cand.get("email", "").strip().lower()
             cand_name = cand.get("name", "").strip().lower()
 
-            if cand_email in existing_emails or cand_name in existing_names:
+            if not cand_email:
                 continue
 
-            # Verify email syntax and live DNS MX records
+            if cand_email in known_emails or cand_name in known_names:
+                continue
+
+            # Verify that the address wasn't previously flagged as bounced or invalid in local state
+            cached_state = self.data_service.state.get(cand_email, {})
+            if "❌" in cached_state.get("status", "") or "⚠️" in cached_state.get("status", ""):
+                continue
+
+            # Real-time DNS MX validation to guarantee active deliverability
             is_valid, reason = self.verifier.verify_email(cand_email)
             if not is_valid:
-                logger.info(f"Skipping lead candidate {cand_name} ({cand_email}): {reason}")
+                logger.debug(f"Skipping candidate {cand_name} ({cand_email}): {reason}")
                 continue
 
-            candidates_to_add.append(cand)
-            existing_emails.add(cand_email)
-            existing_names.add(cand_name)
+            cand_copy = dict(cand)
+            cand_copy["status"] = "⚪ Очікує відправки"
+            candidates_to_add.append(cand_copy)
+            known_emails.add(cand_email)
+            known_names.add(cand_name)
+
             if len(candidates_to_add) >= count:
                 break
-
-        # 2. If pool is exhausted or insufficient, fulfill count dynamically with DNS MX verification
-        if len(candidates_to_add) < count and not (stop_event and stop_event.is_set()):
-            needed = count - len(candidates_to_add)
-            logger.info(f"Checking {needed} dynamic candidate prospects via DNS MX verification...")
-            dynamic_leads = self._generate_dynamic_batch(needed * 2, existing_emails, existing_names, existing_city_basenames, stop_event=stop_event)
-            for cand in dynamic_leads:
-                if stop_event and stop_event.is_set():
-                    break
-                cand_email = cand.get("email", "").strip().lower()
-                is_valid, reason = self.verifier.verify_email(cand_email)
-                if is_valid:
-                    candidates_to_add.append(cand)
-                    if len(candidates_to_add) >= count:
-                        break
-                else:
-                    logger.debug(f"Rejected unverified domain {cand_email}: {reason}")
 
         if not candidates_to_add:
             logger.info("No new unique leads discovered or search was aborted.")
             return 0
 
-        # 3. Import through data_service to keep memory, disk JSON, and CSV synchronized
+        # Import through data_service to keep memory, disk JSON, and CSV synchronized
         imported_count = self.data_service.add_imported_leads(candidates_to_add)
-        logger.info(f"Successfully imported {imported_count} new leads into system.")
+        logger.info(f"Successfully imported {imported_count} new verified leads into system.")
         return imported_count
 
