@@ -2148,5 +2148,88 @@
     "mx": [
       "mail.chateaumontredon.com"
     ]
+  },
+  "bodegasfaustino.com": {
+    "has_mx": true,
+    "mx": [
+      "correo.bodegasfaustino.es",
+      "bodegasfaustino-com.mail.protection.outlook.com"
+    ]
+  },
+  "vegasicilia.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "dobaena.com": {
+    "has_mx": true,
+    "mx": [
+      "mx20.profesionalhosting.com",
+      "mx10.profesionalhosting.com"
+    ]
+  },
+  "cooperativasoller.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.cooperativasoller.com"
+    ]
+  },
+  "recaredo.com": {
+    "has_mx": true,
+    "mx": [
+      "recaredo-com.mail.protection.outlook.com"
+    ]
+  },
+  "allegrini.it": {
+    "has_mx": true,
+    "mx": [
+      "antispam2.infogestlive.it",
+      "antispam.infogestlive.it"
+    ]
+  },
+  "masi.it": {
+    "has_mx": true,
+    "mx": [
+      "antispam.infogestlive.it",
+      "antispam2.infogestlive.it"
+    ]
+  },
+  "lucedellavite.com": {
+    "has_mx": true,
+    "mx": [
+      "lucedellavite-com.mail.protection.outlook.com"
+    ]
+  },
+  "feudomaccari.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.feudomaccari.it"
+    ]
+  },
+  "quintadonoval.com": {
+    "has_mx": true,
+    "mx": [
+      "mailin1.totalweb.net.uk",
+      "mailin2.totalweb.net.uk"
+    ]
+  },
+  "villamelnik.com": {
+    "has_mx": true,
+    "mx": [
+      "villamelnik-com.mail.protection.outlook.com"
+    ]
+  },
+  "sortovisemena.bg": {
+    "has_mx": true,
+    "mx": [
+      "mail.sortovisemena.bg"
+    ]
+  },
+  "avantiswines.gr": {
+    "has_mx": true,
+    "mx": [
+      "avantiswines-gr.mail.protection.outlook.com"
+    ]
   }
 }
