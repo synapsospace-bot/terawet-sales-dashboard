@@ -141,10 +141,9 @@ class GmailDraftService:
                 logger.error(f"❌ OAuth send failed to {target_to}: {e}")
                 return False, f"Помилка OAuth: {e}"
         else:
-            # Local preview mode (simulation)
-            draft_id = self._create_local_preview_draft(target_to, subject, body_html, body_plain, company_name)
-            logger.info(f"Local preview mode simulated send for {target_to}: {draft_id}")
-            return True, f"local-simulated-{draft_id}"
+            err_msg = "Помилка: Не налаштовано пароль додатка Gmail (EMAIL_APP_PASSWORD). Лист не може бути відправлено."
+            logger.error(f"❌ Cannot dispatch live email to {target_to}: {err_msg}")
+            return False, err_msg
 
     def create_draft(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> str:
         """

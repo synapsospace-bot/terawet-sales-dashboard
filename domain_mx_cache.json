@@ -2039,5 +2039,114 @@
   "this-domain-definitely-does-not-exist-12345.com": {
     "has_mx": false,
     "reason": "Домен this-domain-definitely-does-not-exist-12345.com не існує або не має поштових записів"
+  },
+  "bulagro.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "agropolychim.bg": {
+    "has_mx": true,
+    "mx": [
+      "mx2-eu1.ppe-hosted.com",
+      "mx1-eu1.ppe-hosted.com"
+    ]
+  },
+  "cramagirboiu.ro": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "alira.ro": {
+    "has_mx": true,
+    "mx": [
+      "alira-ro.mail.protection.outlook.com"
+    ]
+  },
+  "corcova.ro": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "hatzidakiswines.gr": {
+    "has_mx": true,
+    "mx": [
+      "ALT4.ASPMX.L.GOOGLE.COM",
+      "ALT3.ASPMX.L.GOOGLE.COM"
+    ]
+  },
+  "argyros.gr": {
+    "has_mx": true,
+    "mx": [
+      "argyros.gr"
+    ]
+  },
+  "vylyan.hu": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "aspmx2.googlemail.com"
+    ]
+  },
+  "sauska.hu": {
+    "has_mx": true,
+    "mx": [
+      "sauska-hu.mail.protection.outlook.com"
+    ]
+  },
+  "disznoko.hu": {
+    "has_mx": true,
+    "mx": [
+      "disznoko-hu.mail.protection.outlook.com"
+    ]
+  },
+  "kozlovic.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.kozlovic.hr"
+    ]
+  },
+  "scurek.com": {
+    "has_mx": true,
+    "mx": [
+      "mail1.start2000.net",
+      "mail2.start2000.net"
+    ]
+  },
+  "ornellaia.com": {
+    "has_mx": true,
+    "mx": [
+      "ornellaia-com.mail.protection.outlook.com"
+    ]
+  },
+  "gaja.com": {
+    "has_mx": true,
+    "mx": [
+      "gaja-com.mail.protection.outlook.com"
+    ]
+  },
+  "fontodi.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.fontodi.com"
+    ]
+  },
+  "cvne.com": {
+    "has_mx": true,
+    "mx": [
+      "cvne-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateaumontredon.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.chateaumontredon.com"
+    ]
   }
 }

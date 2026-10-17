@@ -1344,7 +1344,7 @@ async function checkOutreachStatus() {
 
       // Progress bar calculations
       const progStep = document.getElementById('outreachProgressStep');
-      if (progStep) progStep.innerText = data.current_step || 'Відправка листа...';
+      if (progStep) progStep.innerText = data.current_step_text || data.current_step || 'Відправка листа...';
 
       const progCount = document.getElementById('outreachProgressCount');
       if (progCount) progCount.innerText = `${data.progress_current || 0} / ${data.progress_total || 50}`;
@@ -1356,7 +1356,7 @@ async function checkOutreachStatus() {
       }
 
       const progLead = document.getElementById('outreachProgressLead');
-      if (progLead) progLead.innerText = '🏢 Поточний лід: ' + (data.current_lead || '...');
+      if (progLead) progLead.innerText = '🏢 Поточний лід: ' + (data.current_lead_name || data.current_lead || '...');
 
       const progCd = document.getElementById('outreachCountdownText');
       if (progCd) {

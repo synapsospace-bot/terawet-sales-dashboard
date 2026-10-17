@@ -279,6 +279,13 @@ class AutoOutreachService:
             self.progress_total = len(leads_to_process)
             logger.info(f"Ready to process {len(leads_to_process)} leads with anti-spam pacing.")
 
+            if not leads_to_process:
+                logger.info("No uncontacted leads available in database.")
+                with self._lock:
+                    self.last_run_status = "completed"
+                    self.current_step_text = "Немає лідів, що очікують відправки. Запустіть 'Пошук нових лідів'."
+                return
+
             for i, lead in enumerate(leads_to_process, start=1):
                 if self.stop_event.is_set():
                     logger.info("Outreach run aborted by user stop_event.")

@@ -136,6 +136,17 @@ class LeadDataService:
                     with open(p, "r", encoding="utf-8") as f:
                         data = json.load(f)
                         if isinstance(data, dict):
+                            # Auto-recovery: clean up simulated/phantom 2026-10-17 sends so real sends can happen
+                            keys_to_clean = []
+                            for k, v in data.items():
+                                if isinstance(v, dict) and v.get("date") == "2026-10-17" and "✅" in v.get("status", ""):
+                                    if k != "synapso.space@gmail.com":
+                                        keys_to_clean.append(k)
+                            if keys_to_clean:
+                                for k in keys_to_clean:
+                                    data.pop(k, None)
+                                logger.info(f"Cleaned {len(keys_to_clean)} phantom 2026-10-17 sent records. Leads restored to uncontacted.")
+                                safe_atomic_write_json(STATE_FILE, data)
                             return data
                 except Exception as e:
                     logger.warning(f"Could not load state from {p}: {e}")
