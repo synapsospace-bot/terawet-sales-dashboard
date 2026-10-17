@@ -132,8 +132,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .btn-download { background: #0284c7; color: #fff; }
   .btn-download:hover { background: #0369a1; }
   .btn-danger { background: #fef2f2; color: #b91c1c; border: 1px solid #f87171; }
-  .btn-danger:hover { background: #fee2e2; border-color: #ef4444; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.15); } }
 
   .search-box {
     display: flex; gap: 12px; width: 100%; max-width: 450px;
@@ -1364,9 +1364,9 @@ async function checkOutreachStatus() {
       const progCd = document.getElementById('outreachCountdownText');
       if (progCd) {
         if (data.delay_remaining_sec > 0) {
-          progCd.innerText = '⏳ Антиспам-пауза: ' + data.delay_remaining_sec + ' сек...';
+          progCd.innerHTML = `<span style="display: inline-flex; align-items: center; gap: 6px; background: #fef3c7; color: #92400e; padding: 2px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #fde68a;"><span style="display:inline-block; animation: pulse 1s infinite;">⏳</span> Антиспам-пауза: ${data.delay_remaining_sec}с (захист Gmail)</span>`;
         } else {
-          progCd.innerText = '⚡ Обробка наступного ліда...';
+          progCd.innerHTML = `<span style="color: #16a34a; font-weight: 600;">⚡ Відправка наступному ліду...</span>`;
         }
       }
 
