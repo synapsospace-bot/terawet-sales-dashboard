@@ -109,9 +109,28 @@ class GmailDraftService:
                 message.attach(part1)
                 message.attach(part2)
 
-                with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=25) as server:
+                server = None
+                try:
+                    # Method A: Port 465 SSL
+                    server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=20)
                     server.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
-                    server.send_message(message)
+                except Exception as ssl_err:
+                    logger.warning(f"SMTP_SSL (port 465) failed ({ssl_err}), attempting STARTTLS on port 587...")
+                    try:
+                        # Method B: Port 587 STARTTLS
+                        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=20)
+                        server.ehlo()
+                        server.starttls()
+                        server.ehlo()
+                        server.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+                    except Exception as tls_err:
+                        raise RuntimeError(f"SMTP failed on port 465 ({ssl_err}) AND on port 587 ({tls_err})")
+
+                server.send_message(message)
+                try:
+                    server.quit()
+                except Exception:
+                    pass
 
                 msg_id = f"smtp-sent-{int(time.time()*1000)}"
                 logger.info(f"✅ Email successfully dispatched via Gmail SMTP to {target_to} ({company_name})")
@@ -144,6 +163,31 @@ class GmailDraftService:
             err_msg = "Помилка: Не налаштовано пароль додатка Gmail (EMAIL_APP_PASSWORD). Лист не може бути відправлено."
             logger.error(f"❌ Cannot dispatch live email to {target_to}: {err_msg}")
             return False, err_msg
+
+    def test_smtp_connection(self) -> Tuple[bool, str]:
+        """Tests live SMTP connection using both port 465 and port 587."""
+        if not config.EMAIL_USER or not config.EMAIL_APP_PASSWORD:
+            return False, "EMAIL_USER або EMAIL_APP_PASSWORD не налаштовано."
+        import smtplib
+        details = []
+        try:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=12) as s:
+                s.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+            return True, "Успішне підключення до Gmail SMTP через порт 465 (SSL)!"
+        except Exception as e465:
+            details.append(f"Порт 465: {e465}")
+
+        try:
+            with smtplib.SMTP("smtp.gmail.com", 587, timeout=12) as s:
+                s.ehlo()
+                s.starttls()
+                s.ehlo()
+                s.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+            return True, "Успішне підключення до Gmail SMTP через порт 587 (STARTTLS)!"
+        except Exception as e587:
+            details.append(f"Порт 587: {e587}")
+
+        return False, " | ".join(details)
 
     def create_draft(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> str:
         """

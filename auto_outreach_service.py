@@ -348,6 +348,25 @@ class AutoOutreachService:
                     else:
                         failed_count += 1
                         logger.error(f"[{i}/{len(leads_to_process)}] Failed sending to {comp_name}: {res}")
+                        with self._lock:
+                            self.state.setdefault("dispatch_log", []).append({
+                                "time": now_str,
+                                "company": comp_name,
+                                "email": email,
+                                "country": f"{flag} {country}".strip(),
+                                "subject": subject,
+                                "status": f"❌ {res[:40]}",
+                                "mode": "send"
+                            })
+                            self._save_state()
+
+                        # Fail-fast defense: if 2 sends fail with 0 successes, halt immediately
+                        if failed_count >= 2 and sent_count == 0:
+                            logger.error(f"Halting dispatch worker due to repeated errors: {res}")
+                            with self._lock:
+                                self.last_run_status = "error"
+                                self.current_step_text = f"Помилка пошти Gmail: {res}"
+                            break
                 else:
                     # Mode == draft
                     self.current_step_text = f"Створення чернетки Gmail для {comp_name}..."

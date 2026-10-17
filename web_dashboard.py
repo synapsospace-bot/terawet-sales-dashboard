@@ -219,9 +219,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <span class="dot" style="background: #22c55e;"></span>
       <span id="telegramStatusText">📱 Telegram: Підключено</span>
     </div>
-    <div class="status-pill">
-      <div class="dot"></div>
-      <span id="navEmailText">Пошта: synapso.space@gmail.com</span>
+    <div class="status-pill" id="smtpPill" onclick="testSmtpConnection()" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; cursor: pointer;" title="Натисніть для перевірки з'єднання з Gmail SMTP">
+      <div class="dot" style="background: #22c55e;"></div>
+      <span id="navEmailText">📧 Gmail: Підключено</span>
     </div>
   </div>
 </div>
@@ -1567,6 +1567,22 @@ async function testTelegramConnection() {
   }
 }
 
+async function testSmtpConnection() {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast("Перевіряю підключення до Gmail SMTP (порти 465/587)...");
+  try {
+    const res = await fetch('/api/smtp/test');
+    const data = await res.json();
+    if (data.success) {
+      showToast("✅ " + data.message);
+    } else {
+      showToast("❌ Помилка Gmail: " + data.message);
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
 async function checkInboxRepliesNow() {
   const t = I18N[currentLang] || I18N.uk;
   showToast(t.toastCheckingReplies || "Сканую пошту на наявність відповідей від клієнтів...");
@@ -1722,6 +1738,15 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         elif path in ("/api/replies/status", "/api/replies_status"):
             self.send_json(self.inbox_service.get_status())
+
+        elif path in ("/api/smtp/test", "/api/test_smtp"):
+            ok, msg = self.draft_service.test_smtp_connection()
+            self.send_json({
+                "success": ok,
+                "message": msg,
+                "email_user": config.EMAIL_USER,
+                "app_pass_len": len(config.EMAIL_APP_PASSWORD)
+            })
 
         elif path == "/" or path == "/index.html":
             self.send_response(200)

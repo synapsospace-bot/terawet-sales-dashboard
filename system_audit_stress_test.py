@@ -209,7 +209,8 @@ def test_web_dashboard_endpoints():
         ("/api/health", 200),
         ("/api/search/status", 200),
         ("/api/outreach/status", 200),
-        ("/api/replies/status", 200)
+        ("/api/replies/status", 200),
+        ("/api/smtp/test", 200)
     ]
 
     try:

@@ -37,8 +37,11 @@ CSV_FILE_PATH = os.getenv("CSV_FILE_PATH", str(BASE_DIR / "leads_sample.csv"))
 # ==========================================
 # Email / Gmail Configuration
 # ==========================================
-EMAIL_USER = os.getenv("EMAIL_USER", "synapso.space@gmail.com")
-EMAIL_APP_PASSWORD = os.getenv("EMAIL_APP_PASSWORD", "obfo jhej jupq muaf").replace(" ", "")
+EMAIL_USER = (os.getenv("EMAIL_USER") or "synapso.space@gmail.com").strip()
+_raw_app_pass = os.getenv("EMAIL_APP_PASSWORD")
+if not _raw_app_pass or not _raw_app_pass.strip():
+    _raw_app_pass = "obfo jhej jupq muaf"
+EMAIL_APP_PASSWORD = _raw_app_pass.replace(" ", "").strip()
 
 GMAIL_ENABLED = os.getenv("GMAIL_ENABLED", "false").lower() in ("true", "1", "yes")
 GMAIL_CREDENTIALS_FILE = os.getenv("GMAIL_CREDENTIALS_FILE", str(BASE_DIR / "credentials.json"))
