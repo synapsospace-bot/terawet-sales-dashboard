@@ -4,7 +4,7 @@ import base64
 import logging
 import pickle
 import imaplib
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -77,6 +77,74 @@ class GmailDraftService:
         except Exception as e:
             logger.warning(f"OAuth initialization failed: {e}")
             return False
+
+    def send_email(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> Tuple[bool, str]:
+        """
+        Sends an email directly to the recipient via SMTP (Gmail App Password) or Google OAuth.
+        Returns (success: bool, message_id_or_error: str).
+        """
+        import re
+        clean_email = (to_email or "").strip()
+        if not clean_email:
+            return False, "Порожня адреса email"
+
+        # Split multiple comma/semicolon emails, take primary recipient
+        primary_recipients = re.findall(r'[\w\.-]+@[\w\.-]+', clean_email.lower())
+        if not primary_recipients:
+            return False, f"Некоректний синтаксис email: {clean_email}"
+        target_to = primary_recipients[0]
+
+        if config.EMAIL_USER and config.EMAIL_APP_PASSWORD:
+            import smtplib
+            try:
+                message = MIMEMultipart("alternative")
+                message['To'] = target_to
+                message['From'] = f"{config.SENDER_NAME} <{config.EMAIL_USER}>"
+                message['Subject'] = subject
+                if config.CONTACT_EMAIL and config.CONTACT_EMAIL.lower() != config.EMAIL_USER.lower():
+                    message['Reply-To'] = config.CONTACT_EMAIL
+
+                part1 = MIMEText(body_plain, 'plain', 'utf-8')
+                part2 = MIMEText(body_html, 'html', 'utf-8')
+                message.attach(part1)
+                message.attach(part2)
+
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=25) as server:
+                    server.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+                    server.send_message(message)
+
+                msg_id = f"smtp-sent-{int(time.time()*1000)}"
+                logger.info(f"✅ Email successfully dispatched via Gmail SMTP to {target_to} ({company_name})")
+                return True, msg_id
+            except Exception as e:
+                logger.error(f"❌ SMTP dispatch failed to {target_to}: {e}", exc_info=True)
+                return False, f"Помилка SMTP: {e}"
+
+        elif self.mode == "oauth" and self.oauth_service:
+            try:
+                message = MIMEMultipart("alternative")
+                message['to'] = target_to
+                message['subject'] = subject
+
+                part1 = MIMEText(body_plain, 'plain', 'utf-8')
+                part2 = MIMEText(body_html, 'html', 'utf-8')
+                message.attach(part1)
+                message.attach(part2)
+
+                raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
+                body = {'raw': raw_message}
+                sent_msg = self.oauth_service.users().messages().send(userId='me', body=body).execute()
+                msg_id = sent_msg.get('id', '')
+                logger.info(f"✅ Email sent via OAuth to {target_to} (ID: {msg_id})")
+                return True, f"oauth-sent-{msg_id}"
+            except Exception as e:
+                logger.error(f"❌ OAuth send failed to {target_to}: {e}")
+                return False, f"Помилка OAuth: {e}"
+        else:
+            # Local preview mode (simulation)
+            draft_id = self._create_local_preview_draft(target_to, subject, body_html, body_plain, company_name)
+            logger.info(f"Local preview mode simulated send for {target_to}: {draft_id}")
+            return True, f"local-simulated-{draft_id}"
 
     def create_draft(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> str:
         """

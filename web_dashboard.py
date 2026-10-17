@@ -15,6 +15,7 @@ from sheets_service import LeadDataService, UPDATED_CSV_FILE
 from agent_brain import TerawetAgentBrain
 from gmail_service import GmailDraftService
 from lead_finder import LeadFinderService
+from auto_outreach_service import AutoOutreachService
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger("WebDashboard")
@@ -243,6 +244,98 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- Auto Outreach Command Card -->
+  <div class="auto-outreach-card" id="outreachCard" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 26px; line-height: 1;">🤖</div>
+        <div>
+          <h2 style="font-size: 16px; font-weight: 700; color: #0f172a;" data-i18n="outreachTitle">Автономна розсилка (50 лідів / день)</h2>
+          <div style="font-size: 12.5px; color: var(--muted);" id="outreachSubtitle" data-i18n="outreachSubtitle">Автоматичний щоденний пошук, генерація пропозицій та безпечна відправка з інтервалами 45–90с</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="status-pill" id="outreachStatusBadge" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; font-weight: 600;">
+          <span class="dot" id="outreachDot" style="background: #22c55e;"></span>
+          <span id="outreachBadgeText">🟢 Розклад: щодня о 09:30</span>
+        </span>
+        <button class="btn btn-secondary" onclick="openOutreachSettingsModal()" style="padding: 7px 12px; font-size: 13px;" title="Налаштування розкладу та лімітів">⚙️ <span data-i18n="btnSettings">Налаштування</span></button>
+      </div>
+    </div>
+
+    <!-- Outreach Metrics Row -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;">
+      <div>
+        <div style="font-size: 11.5px; color: var(--muted); text-transform: uppercase; font-weight: 600;" data-i18n="outreachMetricToday">Сьогодні надіслано</div>
+        <div style="font-size: 20px; font-weight: 700; color: #0f172a;"><span id="outreachSentToday">0</span> / <span id="outreachDailyTarget">50</span> <span style="font-size: 12px; color: var(--muted); font-weight: 500;">(ліміт)</span></div>
+      </div>
+      <div>
+        <div style="font-size: 11.5px; color: var(--muted); text-transform: uppercase; font-weight: 600;" data-i18n="outreachMetricAntiSpam">Захист від блокування</div>
+        <div style="font-size: 14px; font-weight: 700; color: #0284c7; margin-top: 4px;">45 – 90 сек <span style="font-size: 12px; color: var(--muted); font-weight: 500;">(людська пауза)</span></div>
+      </div>
+      <div>
+        <div style="font-size: 11.5px; color: var(--muted); text-transform: uppercase; font-weight: 600;" data-i18n="outreachMetricMode">Режим відправки</div>
+        <div style="font-size: 14px; font-weight: 700; color: #166534; margin-top: 4px;" id="outreachModeLabel">🚀 Пряма відправка (SMTP)</div>
+      </div>
+      <div>
+        <div style="font-size: 11.5px; color: var(--muted); text-transform: uppercase; font-weight: 600;" data-i18n="outreachMetricLastRun">Останній запуск</div>
+        <div style="font-size: 13.5px; font-weight: 600; color: #334155; margin-top: 4px;" id="outreachLastRunText">Очікує 09:30</div>
+      </div>
+    </div>
+
+    <!-- Active Progress Bar (shows up when dispatching) -->
+    <div id="outreachActiveProgress" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div style="font-size: 13px; font-weight: 600; color: #166534; display: flex; align-items: center; gap: 8px;">
+          <span style="display: inline-block; width: 12px; height: 12px; border: 2px solid #16a34a; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+          <span id="outreachProgressStep">Відправка листа...</span>
+        </div>
+        <div style="font-size: 13px; font-weight: 700; color: #166534;" id="outreachProgressCount">0 / 50</div>
+      </div>
+      <div style="background: #dcfce7; height: 8px; border-radius: 9999px; overflow: hidden; margin-bottom: 8px;">
+        <div id="outreachProgressBar" style="background: #16a34a; height: 100%; width: 0%; transition: width 0.4s ease;"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #15803d;">
+        <span id="outreachProgressLead">🏢 Поточний лід: ...</span>
+        <span id="outreachCountdownText">⏳ Пауза між листами: ...</span>
+      </div>
+    </div>
+
+    <!-- Buttons row -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-primary" id="btnStartOutreach" onclick="startAutoOutreach(50, 'send')" style="background: #007001; font-weight: 700;">🚀 <span data-i18n="btnStartOutreachNow">Запустити розсилку (50 лідів)</span></button>
+        <button class="btn btn-danger" id="btnStopOutreach" onclick="stopAutoOutreach()" style="display: none; font-weight: 700;">🛑 <span data-i18n="btnStopOutreachNow">Зупинити розсилку</span></button>
+        <button class="btn btn-secondary" onclick="toggleOutreachLog()" style="font-size: 13px;">📋 <span data-i18n="btnViewDispatchLog">Журнал відправки</span> (<span id="outreachLogCount">0</span>)</button>
+      </div>
+      <div style="font-size: 12px; color: var(--muted);">
+        🔒 <i>100% захист від блокування: валідація MX + паузи 45-90с</i>
+      </div>
+    </div>
+
+    <!-- Collapsible Dispatch Log Table -->
+    <div id="outreachLogDrawer" style="display: none; margin-top: 16px; border-top: 1px solid #e2e8f0; padding-top: 14px;">
+      <div style="font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 10px;" data-i18n="outreachLogHeader">Останні відправлені листи сьогодні:</div>
+      <div style="max-height: 220px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <thead>
+            <tr style="background: #f8fafc; color: var(--muted); text-transform: uppercase;">
+              <th style="padding: 8px 10px; width: 70px;">Час</th>
+              <th style="padding: 8px 10px;">Компанія</th>
+              <th style="padding: 8px 10px;">Email</th>
+              <th style="padding: 8px 10px;">Країна</th>
+              <th style="padding: 8px 10px;">Тема листа</th>
+              <th style="padding: 8px 10px; width: 90px;">Статус</th>
+            </tr>
+          </thead>
+          <tbody id="outreachLogBody">
+            <tr><td colspan="6" style="text-align: center; padding: 16px; color: var(--muted);" data-i18n="outreachLogEmpty">Сьогодні розсилка ще не відправлялася</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- Actions -->
   <div class="actions-card">
     <div class="search-box">
@@ -312,6 +405,54 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <button class="btn btn-secondary" data-i18n="modalClose" onclick="closeModal()">Закрити</button>
       <button class="btn btn-secondary" id="modalRegenBtn" data-i18n="modalRegenBtn" onclick="regenerateLeadText()" style="border-color: #f59e0b; color: #b45309; background: #fffbeb;">🔄 Перегенерувати текст</button>
       <button class="btn btn-primary" id="modalActionBtn" data-i18n="modalActionBtn">Створити чернетку в Gmail</button>
+    </div>
+  </div>
+</div>
+
+<!-- Outreach Settings Modal -->
+<div class="modal" id="outreachSettingsModal">
+  <div class="modal-content" style="max-width: 520px;">
+    <div class="modal-header">
+      <h3 style="font-size: 18px;" data-i18n="modalSettingsTitle">⚙️ Параметри автономної розсилки</h3>
+      <button class="close-btn" onclick="closeOutreachSettingsModal()">&times;</button>
+    </div>
+    <div style="font-size: 13px; line-height: 1.5; color: #475569; margin-bottom: 18px;">
+      Налаштування щоденного розкладу, антиспам-пауз та лімітів відправки для 100% захисту вашого облікового запису Gmail.
+    </div>
+    
+    <div style="margin-bottom: 14px;">
+      <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setDailyQuota">Денний ліміт відправки (ліди / день):</label>
+      <input type="number" id="settingDailyQuota" min="5" max="100" value="50" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+      <div style="font-size: 11.5px; color: var(--muted); margin-top: 4px;">Рекомендовано: до 50 листів/день для надійного рейтингу відправника.</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+      <div>
+        <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setMinDelay">Мін. пауза (сек):</label>
+        <input type="number" id="settingMinDelay" min="15" max="300" value="45" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setMaxDelay">Макс. пауза (сек):</label>
+        <input type="number" id="settingMaxDelay" min="30" max="600" value="90" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+      </div>
+    </div>
+
+    <div style="margin-bottom: 14px;">
+      <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setScheduleTime">Час щоденного авто-запуску (Київ / Софія):</label>
+      <input type="time" id="settingScheduleTime" value="09:30" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setMode">Режим роботи:</label>
+      <select id="settingMode" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+        <option value="send">🚀 Автоматична відправка листів (Прямий SMTP)</option>
+        <option value="draft">🟡 Тільки чернетки у Gmail (ручна перевірка)</option>
+      </select>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 10px;">
+      <button class="btn btn-secondary" onclick="closeOutreachSettingsModal()" data-i18n="modalClose">Скасувати</button>
+      <button class="btn btn-primary" onclick="saveOutreachSettings()" data-i18n="btnSaveSettings" style="background: #007001;">💾 Зберегти налаштування</button>
     </div>
   </div>
 </div>
@@ -404,6 +545,28 @@ const I18N = {
     toastSearchStopRequested: "⏹️ Відправлено сигнал зупинки пошуку...",
     toastSearchStopped: "⏹️ Пошук лідів припинено! Збережено лідів: {n}",
     toastSearchFinished: "🎉 Пошук завершено! Додано {n} нових лідів!",
+    outreachTitle: "Автономна розсилка (50 лідів / день)",
+    outreachSubtitle: "Автоматичний щоденний пошук, генерація пропозицій та безпечна відправка з інтервалами 45–90с",
+    btnSettings: "Налаштування",
+    outreachMetricToday: "Сьогодні надіслано",
+    outreachMetricAntiSpam: "Захист від блокування",
+    outreachMetricMode: "Режим відправки",
+    outreachMetricLastRun: "Останній запуск",
+    btnStartOutreachNow: "Запустити розсилку (50 лідів)",
+    btnStopOutreachNow: "Зупинити розсилку",
+    btnViewDispatchLog: "Журнал відправки",
+    outreachLogHeader: "Останні відправлені листи сьогодні:",
+    outreachLogEmpty: "Сьогодні розсилка ще не відправлялася",
+    modalSettingsTitle: "⚙️ Параметри автономної розсилки",
+    setDailyQuota: "Денний ліміт відправки (ліди / день):",
+    setMinDelay: "Мін. пауза (сек):",
+    setMaxDelay: "Макс. пауза (сек):",
+    setScheduleTime: "Час щоденного авто-запуску (Київ / Софія):",
+    setMode: "Режим роботи:",
+    btnSaveSettings: "💾 Зберегти налаштування",
+    toastOutreachStart: "🚀 Автономну розсилку запущено! Паузи 45-90с між листами.",
+    toastOutreachStop: "⏹️ Сигнал зупинки надіслано! Розсилка зупиниться протягом 1 сек.",
+    toastSettingsSaved: "✅ Налаштування розсилки успішно збережено!",
   },
   bg: {
     appTitle: "TERAWET-ORIGINAL Команден Център",
@@ -488,6 +651,28 @@ const I18N = {
     toastSearchStopRequested: "⏹️ Изпратена заявка за спиране...",
     toastSearchStopped: "⏹️ Търсенето е спряно! Запазени лийдове: {n}",
     toastSearchFinished: "🎉 Търсенето завърши! Добавени {n} нови лийда!",
+    outreachTitle: "Автономно изпращане (50 лийда / ден)",
+    outreachSubtitle: "Автоматично ежедневно търсене, генериране на оферти и сигурно изпращане с интервали 45–90 сек",
+    btnSettings: "Настройки",
+    outreachMetricToday: "Днес изпратени",
+    outreachMetricAntiSpam: "Защита от блокиране",
+    outreachMetricMode: "Режим на изпращане",
+    outreachMetricLastRun: "Последно стартиране",
+    btnStartOutreachNow: "Стартирай изпращането (50 лийда)",
+    btnStopOutreachNow: "Спри изпращането",
+    btnViewDispatchLog: "Дневник на изпращането",
+    outreachLogHeader: "Последно изпратени писма днес:",
+    outreachLogEmpty: "Днес все още няма изпратени писма",
+    modalSettingsTitle: "⚙️ Параметри на автономно изпращане",
+    setDailyQuota: "Дневен лимит за изпращане (лийда / ден):",
+    setMinDelay: "Мин. пауза (сек):",
+    setMaxDelay: "Макс. пауза (сек):",
+    setScheduleTime: "Време за ежедневно авто-стартиране (Киев / София):",
+    setMode: "Режим на работа:",
+    btnSaveSettings: "💾 Запази настройките",
+    toastOutreachStart: "🚀 Автономното изпращане е стартирано! Паузи 45-90 сек между писмата.",
+    toastOutreachStop: "⏹️ Сигнал за спиране е изпратен! Процесът ще спре до 1 сек.",
+    toastSettingsSaved: "✅ Настройките са успешно запазени!",
   }
 };
 
@@ -1052,10 +1237,276 @@ function showToast(msg) {
   setTimeout(() => { toast.style.display = 'none'; }, 3500);
 }
 
+// ==========================================
+// AUTONOMOUS DAILY OUTREACH ENGINE FRONTEND
+// ==========================================
+let outreachPollTimer = null;
+let lastOutreachSentCount = null;
+
+async function checkOutreachStatus() {
+  const t = I18N[currentLang] || I18N.uk;
+  try {
+    const res = await fetch('/api/outreach/status?_t=' + Date.now(), { cache: 'no-store' });
+    const data = await res.json();
+
+    // 1. Update Metrics
+    const stToday = document.getElementById('outreachSentToday');
+    if (stToday) stToday.innerText = data.sent_today || 0;
+
+    const stTarget = document.getElementById('outreachDailyTarget');
+    if (stTarget) stTarget.innerText = data.daily_target || 50;
+
+    const modeLbl = document.getElementById('outreachModeLabel');
+    if (modeLbl) {
+      modeLbl.innerText = (data.mode === 'send') ? '🚀 Пряма відправка (SMTP)' : '🟡 Чернетки у Gmail';
+      modeLbl.style.color = (data.mode === 'send') ? '#166534' : '#ca8a04';
+    }
+
+    const lastRunLbl = document.getElementById('outreachLastRunText');
+    if (lastRunLbl) {
+      if (data.last_run_timestamp) {
+        const timePart = data.last_run_timestamp.split('T')[1] ? data.last_run_timestamp.split('T')[1].slice(0,5) : data.last_run_timestamp;
+        lastRunLbl.innerText = timePart + ' (' + (data.last_run_status || 'ok') + ')';
+      } else {
+        lastRunLbl.innerText = 'Очікує ' + (data.schedule_time || '09:30');
+      }
+    }
+
+    // 2. Status Badge & Controls
+    const dot = document.getElementById('outreachDot');
+    const badge = document.getElementById('outreachStatusBadge');
+    const badgeText = document.getElementById('outreachBadgeText');
+    const activeProg = document.getElementById('outreachActiveProgress');
+    const btnStart = document.getElementById('btnStartOutreach');
+    const btnStop = document.getElementById('btnStopOutreach');
+
+    if (data.is_running) {
+      if (dot) dot.style.background = '#eab308';
+      if (badge) {
+        badge.style.background = '#fef3c7';
+        badge.style.color = '#92400e';
+        badge.style.borderColor = '#fde68a';
+      }
+      if (badgeText) badgeText.innerText = '🚀 Розсилка в процесі...';
+
+      if (btnStart) btnStart.style.display = 'none';
+      if (btnStop) btnStop.style.display = 'inline-flex';
+      if (activeProg) activeProg.style.display = 'block';
+
+      // Progress bar calculations
+      const progStep = document.getElementById('outreachProgressStep');
+      if (progStep) progStep.innerText = data.current_step || 'Відправка листа...';
+
+      const progCount = document.getElementById('outreachProgressCount');
+      if (progCount) progCount.innerText = `${data.progress_current || 0} / ${data.progress_total || 50}`;
+
+      const progBar = document.getElementById('outreachProgressBar');
+      if (progBar) {
+        const pct = (data.progress_total > 0) ? Math.min(100, Math.round(((data.progress_current || 0) / data.progress_total) * 100)) : 0;
+        progBar.style.width = pct + '%';
+      }
+
+      const progLead = document.getElementById('outreachProgressLead');
+      if (progLead) progLead.innerText = '🏢 Поточний лід: ' + (data.current_lead || '...');
+
+      const progCd = document.getElementById('outreachCountdownText');
+      if (progCd) {
+        if (data.delay_remaining_sec > 0) {
+          progCd.innerText = '⏳ Антиспам-пауза: ' + data.delay_remaining_sec + ' сек...';
+        } else {
+          progCd.innerText = '⚡ Обробка наступного ліда...';
+        }
+      }
+
+      // Ensure rapid polling while active
+      if (!outreachPollTimer) {
+        outreachPollTimer = setInterval(checkOutreachStatus, 2000);
+      }
+    } else {
+      if (outreachPollTimer) {
+        clearInterval(outreachPollTimer);
+        outreachPollTimer = null;
+      }
+
+      if (btnStart) btnStart.style.display = 'inline-flex';
+      if (btnStop) btnStop.style.display = 'none';
+      if (activeProg) activeProg.style.display = 'none';
+
+      if (data.sent_today >= data.daily_target) {
+        if (dot) dot.style.background = '#16a34a';
+        if (badge) {
+          badge.style.background = '#f0fdf4';
+          badge.style.color = '#166534';
+          badge.style.borderColor = '#bbf7d0';
+        }
+        if (badgeText) badgeText.innerText = '🎉 Денну норму (50) виконано!';
+      } else {
+        if (dot) dot.style.background = '#22c55e';
+        if (badge) {
+          badge.style.background = '#f0fdf4';
+          badge.style.color = '#166534';
+          badge.style.borderColor = '#bbf7d0';
+        }
+        if (badgeText) badgeText.innerText = '🟢 Розклад: щодня о ' + (data.schedule_time || '09:30');
+      }
+    }
+
+    // 3. Dispatch Log Drawer & Count
+    const logCountEl = document.getElementById('outreachLogCount');
+    if (logCountEl && data.dispatch_log) {
+      logCountEl.innerText = data.dispatch_log.length;
+    }
+    renderDispatchLog(data.dispatch_log || []);
+
+    // 4. Silently refresh leads data if sent count incremented
+    if (lastOutreachSentCount !== null && data.sent_today !== lastOutreachSentCount) {
+      loadData(true);
+    }
+    lastOutreachSentCount = data.sent_today;
+
+  } catch (e) {}
+}
+
+function renderDispatchLog(logEntries) {
+  const tbody = document.getElementById('outreachLogBody');
+  if (!tbody) return;
+  const t = I18N[currentLang] || I18N.uk;
+
+  if (!logEntries || logEntries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 16px; color: var(--muted);">${t.outreachLogEmpty}</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = '';
+  // Show most recent at top
+  const sorted = [...logEntries].reverse();
+  sorted.forEach(entry => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #f1f5f9';
+    const isSuccess = entry.status === 'sent' || entry.status === 'draft_created';
+    const statusPill = isSuccess
+      ? `<span style="background: #dcfce7; color: #166534; font-weight: 700; padding: 2px 8px; border-radius: 9999px; font-size: 11px;">✅ Надіслано</span>`
+      : `<span style="background: #fee2e2; color: #991b1b; font-weight: 700; padding: 2px 8px; border-radius: 9999px; font-size: 11px;">❌ Помилка</span>`;
+
+    tr.innerHTML = `
+      <td style="padding: 7px 10px; color: var(--muted); font-size: 11.5px;">${entry.time || ''}</td>
+      <td style="padding: 7px 10px; font-weight: 600; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${entry.company || '—'}</td>
+      <td style="padding: 7px 10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><code>${entry.email || '—'}</code></td>
+      <td style="padding: 7px 10px;">${entry.country || '—'}</td>
+      <td style="padding: 7px 10px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${entry.subject || ''}">${entry.subject || '—'}</td>
+      <td style="padding: 7px 10px;">${statusPill}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleOutreachLog() {
+  const drawer = document.getElementById('outreachLogDrawer');
+  if (!drawer) return;
+  drawer.style.display = (drawer.style.display === 'none' || drawer.style.display === '') ? 'block' : 'none';
+}
+
+async function startAutoOutreach(count = 50, mode = 'send') {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastOutreachStart);
+  try {
+    const res = await fetch('/api/outreach/start', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({count: count, mode: mode})
+    });
+    const data = await res.json();
+    if (!data.success) {
+      showToast((t.toastError || "Помилка: ") + (data.message || ""));
+    }
+    checkOutreachStatus();
+    if (!outreachPollTimer) {
+      outreachPollTimer = setInterval(checkOutreachStatus, 2000);
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
+async function stopAutoOutreach() {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastOutreachStop);
+  try {
+    await fetch('/api/outreach/stop', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+    setTimeout(checkOutreachStatus, 500);
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
+async function openOutreachSettingsModal() {
+  try {
+    const res = await fetch('/api/outreach/status?_t=' + Date.now(), { cache: 'no-store' });
+    const data = await res.json();
+    const quota = document.getElementById('settingDailyQuota');
+    if (quota && data.daily_target) quota.value = data.daily_target;
+    const minD = document.getElementById('settingMinDelay');
+    if (minD && data.jitter_min_sec) minD.value = data.jitter_min_sec;
+    const maxD = document.getElementById('settingMaxDelay');
+    if (maxD && data.jitter_max_sec) maxD.value = data.jitter_max_sec;
+    const sTime = document.getElementById('settingScheduleTime');
+    if (sTime && data.schedule_time) sTime.value = data.schedule_time;
+    const sMode = document.getElementById('settingMode');
+    if (sMode && data.mode) sMode.value = data.mode;
+  } catch (e) {}
+  const modal = document.getElementById('outreachSettingsModal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeOutreachSettingsModal() {
+  const modal = document.getElementById('outreachSettingsModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function saveOutreachSettings() {
+  const t = I18N[currentLang] || I18N.uk;
+  const dailyTarget = parseInt(document.getElementById('settingDailyQuota').value, 10) || 50;
+  const minDelay = parseInt(document.getElementById('settingMinDelay').value, 10) || 45;
+  const maxDelay = parseInt(document.getElementById('settingMaxDelay').value, 10) || 90;
+  const schedTime = document.getElementById('settingScheduleTime').value || '09:30';
+  const modeVal = document.getElementById('settingMode').value || 'send';
+
+  try {
+    const res = await fetch('/api/outreach/settings', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        daily_target: dailyTarget,
+        jitter_min_sec: minDelay,
+        jitter_max_sec: maxDelay,
+        schedule_time: schedTime,
+        mode: modeVal
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t.toastSettingsSaved);
+      closeOutreachSettingsModal();
+      checkOutreachStatus();
+    } else {
+      showToast((t.toastError || "Помилка: ") + (data.message || ""));
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
 // Init
 setLanguage(currentLang);
 loadData();
 checkSearchStatus();
+checkOutreachStatus();
+
+// Regular background polling
+setInterval(checkOutreachStatus, 5000);
 
 // Auto-refresh data silently every 60s so sent emails update automatically without overloading the server
 setInterval(() => {
@@ -1147,6 +1598,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
     draft_service = GmailDraftService()
     finder_service = LeadFinderService(data_service=data_service)
     search_controller = LeadSearchController(finder_service=finder_service)
+    outreach_service = AutoOutreachService(
+        data_service=data_service,
+        agent_brain=agent_brain,
+        draft_service=draft_service,
+        finder_service=finder_service
+    )
 
     def do_HEAD(self):
         self.send_response(200)
@@ -1167,6 +1624,9 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         elif path in ("/api/search/status", "/api/search_status"):
             self.send_json(self.search_controller.get_status())
+
+        elif path in ("/api/outreach/status", "/api/auto_status"):
+            self.send_json(self.outreach_service.get_status())
 
         elif path == "/" or path == "/index.html":
             self.send_response(200)
@@ -1364,6 +1824,20 @@ class DashboardHandler(BaseHTTPRequestHandler):
             elif path in ("/api/search/stop", "/api/stop_leads"):
                 ok, msg = self.search_controller.stop_search()
                 self.send_json({"success": ok, "message": msg, "is_running": self.search_controller.is_running})
+
+            elif path in ("/api/outreach/start", "/api/auto_start"):
+                count = int(params.get("count", 50))
+                mode = params.get("mode", "send")
+                ok, msg = self.outreach_service.start_dispatch(count=count, mode=mode, triggered_by="manual")
+                self.send_json({"success": ok, "message": msg, "status": self.outreach_service.get_status()})
+
+            elif path in ("/api/outreach/stop", "/api/auto_stop"):
+                ok, msg = self.outreach_service.stop_dispatch()
+                self.send_json({"success": ok, "message": msg, "status": self.outreach_service.get_status()})
+
+            elif path == "/api/outreach/settings":
+                res = self.outreach_service.update_settings(params)
+                self.send_json({"success": True, "settings": res})
 
             elif path == "/api/generate_batch":
                 count = int(params.get("count", 5))

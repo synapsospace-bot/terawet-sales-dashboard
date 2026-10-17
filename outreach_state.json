@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "schedule_hour": 9,
+  "schedule_minute": 30,
+  "daily_target": 50,
+  "min_delay_seconds": 45,
+  "max_delay_seconds": 90,
+  "send_mode": "send",
+  "today_date": "2026-10-17",
+  "sent_today": 0,
+  "last_run_date": "",
+  "last_run_timestamp": "",
+  "last_run_summary": {
+    "discovered": 0,
+    "sent": 0,
+    "failed": 0,
+    "skipped_invalid": 0,
+    "duration_minutes": 0.0
+  },
+  "dispatch_log": []
+}
