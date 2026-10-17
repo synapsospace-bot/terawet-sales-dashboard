@@ -1997,5 +1997,37 @@
       "pmx.abv.bg",
       "smx.abv.bg"
     ]
+  },
+  "bodegasprotos.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasprotos-com.mail.protection.outlook.com"
+    ]
+  },
+  "gere.hu": {
+    "has_mx": true,
+    "mx": [
+      "gere-hu.mail.protection.outlook.com"
+    ]
+  },
+  "crama-oprisor.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.it365.ro",
+      "mx1.it365.ro"
+    ]
+  },
+  "antinori.it": {
+    "has_mx": true,
+    "mx": [
+      "marchesiantinori.esvacloud.com"
+    ]
+  },
+  "guigal.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.ldsysteme.fr",
+      "mibv4.ldsysteme.fr"
+    ]
   }
 }

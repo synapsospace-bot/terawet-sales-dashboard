@@ -5,6 +5,9 @@ from typing import Dict, Any, Tuple, Optional, List
 from pathlib import Path
 import config
 
+import threading
+from sheets_service import safe_atomic_write_json
+
 logger = logging.getLogger("EmailVerifier")
 
 CACHE_FILE = config.BASE_DIR / "domain_mx_cache.json"
@@ -16,6 +19,7 @@ class EmailVerifierService:
     2. Disposable & temporary domain blocking
     3. Live DNS MX (Mail Exchanger) validation with in-memory & disk caching
     4. Fallback A-record check for custom legacy mail servers
+    Thread-safe and crash-proof.
     """
 
     DISPOSABLE_DOMAINS = {
@@ -34,23 +38,33 @@ class EmailVerifierService:
     }
 
     def __init__(self):
+        self._lock = threading.RLock()
         self._cache = self._load_cache()
 
     def _load_cache(self) -> Dict[str, Dict[str, Any]]:
-        if CACHE_FILE.exists():
-            try:
-                with open(CACHE_FILE, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception as e:
-                logger.warning(f"Could not load domain MX cache: {e}")
+        bak_file = CACHE_FILE.with_suffix(CACHE_FILE.suffix + ".bak")
+        for p in (CACHE_FILE, bak_file):
+            if p.exists() and p.stat().st_size > 0:
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        if isinstance(data, dict):
+                            return data
+                except Exception as e:
+                    logger.warning(f"Could not load domain MX cache from {p}: {e}")
         return {}
 
     def _save_cache(self):
-        try:
-            with open(CACHE_FILE, "w", encoding="utf-8") as f:
-                json.dump(self._cache, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            logger.warning(f"Could not save domain MX cache: {e}")
+        with self._lock:
+            try:
+                safe_atomic_write_json(CACHE_FILE, self._cache)
+            except Exception as e:
+                logger.warning(f"Could not save domain MX cache: {e}")
+
+    def _set_cache_entry(self, domain: str, entry: Dict[str, Any]):
+        with self._lock:
+            self._cache[domain] = entry
+            self._save_cache()
 
     def verify_email(self, email_address: str) -> Tuple[bool, str]:
         """
@@ -83,8 +97,9 @@ class EmailVerifierService:
             return True, f"Надійний поштовий провайдер ({domain})"
 
         # 4. Check cache
-        if domain in self._cache:
-            cached = self._cache[domain]
+        with self._lock:
+            cached = self._cache.get(domain)
+        if cached:
             if cached.get("has_mx", False):
                 mx_list = cached.get('mx', ['OK'])
                 mx_name = mx_list[0] if mx_list else 'OK'
@@ -113,15 +128,13 @@ class EmailVerifierService:
             if answers:
                 mx_hosts = [str(r.exchange).rstrip('.') for r in answers]
                 if mx_hosts:
-                    self._cache[domain] = {"has_mx": True, "mx": mx_hosts[:2]}
-                    self._save_cache()
+                    self._set_cache_entry(domain, {"has_mx": True, "mx": mx_hosts[:2]})
                     return True, f"Дійсний поштовий сервер (MX: {mx_hosts[0]})"
 
             # Fallback to A record check (some mail servers receive mail on A record directly)
             try:
                 resolver.resolve(domain, 'A')
-                self._cache[domain] = {"has_mx": True, "mx": [f"A-record ({domain})"]}
-                self._save_cache()
+                self._set_cache_entry(domain, {"has_mx": True, "mx": [f"A-record ({domain})"]})
                 return True, f"Домен існує (A-record: {domain})"
             except Exception:
                 pass
@@ -130,13 +143,15 @@ class EmailVerifierService:
             import socket
             try:
                 socket.getaddrinfo(domain, 80)
-                self._cache[domain] = {"has_mx": True, "mx": [f"socket-resolved ({domain})"]}
-                self._save_cache()
+                self._set_cache_entry(domain, {"has_mx": True, "mx": [f"socket-resolved ({domain})"]})
                 return True, f"Домен активний (socket: {domain})"
             except Exception:
-                self._cache[domain] = {"has_mx": False, "reason": f"Домен {domain} не існує або не має поштових записів"}
-                self._save_cache()
+                self._set_cache_entry(domain, {"has_mx": False, "reason": f"Домен {domain} не існує або не має поштових записів"})
                 return False, f"Домен {domain} не має поштових записів MX"
+        except Exception as e:
+            logger.debug(f"Resolver check exception for {domain}: {e}")
+            self._set_cache_entry(domain, {"has_mx": False, "reason": f"Помилка DNS: {e}"})
+            return False, f"Помилка перевірки домену {domain}"
 
         except ImportError:
             import socket

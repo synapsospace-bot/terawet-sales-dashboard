@@ -7,3 +7,5 @@ cloudflared.tgz
 supervisor.log
 tunnel_url.txt
 *.log
+*.bak
+*.tmp*
