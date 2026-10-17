@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import time
 import email
 import html
@@ -62,20 +63,24 @@ def _decode_mime_header(raw_header: Optional[str]) -> str:
 
 def _clean_body_snippet(text: str, max_chars: int = 400) -> str:
     """
-    Cleans raw email text: strips HTML, strips quoted replies ('>' or 'On ... wrote:'),
-    and normalizes whitespace into a punchy readable preview.
+    Cleans raw email text: converts HTML breaks to newlines, strips HTML,
+    strips quoted replies ('>' or 'On ... wrote:'), and normalizes whitespace into a punchy readable preview.
     """
     if not text:
         return ""
-    # Strip HTML tags
-    clean = re.sub(r'<[^>]+>', ' ', text)
+    # Strip script and style blocks entirely
+    clean = re.sub(r'(?is)<(script|style)[^>]*>.*?</\1>', ' ', text)
+    # Convert block tags and breaks to newlines
+    clean = re.sub(r'(?i)<(br|/p|/div|/tr|/h\d)\s*/?>', '\n', clean)
+    # Strip remaining HTML tags
+    clean = re.sub(r'<[^>]+>', ' ', clean)
     clean = html.unescape(clean)
 
     # Cut off standard email quote headers (On [date] wrote:, От: ..., etc.)
     quote_markers = [
-        r"(?i)\n\s*on\s+.+wrote\s*:\s*\n",
-        r"(?i)\n\s*в\s+.+написал\(а\)\s*:\s*\n",
-        r"(?i)\n\s*на\s+.+написа\s*:\s*\n",
+        r"(?i)\n\s*on\s+.+wrote\s*:",
+        r"(?i)\n\s*в\s+.+написал\(а\)\s*:",
+        r"(?i)\n\s*на\s+.+написа\s*:",
         r"(?i)\n\s*-+\s*original message\s*-+",
         r"(?i)\n\s*-+\s*исходное сообщение\s*-+",
         r"(?i)\n\s*from:\s*.+\nsent:\s*",
@@ -86,8 +91,8 @@ def _clean_body_snippet(text: str, max_chars: int = 400) -> str:
         if len(parts) > 1:
             clean = parts[0]
 
-    # Remove lines starting with '>'
-    lines = [line.strip() for line in clean.splitlines() if not line.strip().startswith('>')]
+    # Remove lines starting with '>' or '&gt;'
+    lines = [line.strip() for line in clean.splitlines() if line.strip() and not line.strip().startswith('>') and not line.strip().startswith('&gt;')]
     clean = " ".join(lines)
     # Collapse multiple whitespaces
     clean = re.sub(r'\s+', ' ', clean).strip()

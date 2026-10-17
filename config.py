@@ -60,6 +60,7 @@ KNOWLEDGE_BASE_PATH = BASE_DIR / "knowledge_base.json"
 # ==========================================
 # Telegram Bot Notifications & Reporting
 # ==========================================
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8208076264:AAElAEQneQk2IJRUnpbMIgLw9Je_AHdBh6o")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8647417710:AAEa456g9tGzC0fcKtczq5Mgf7jjcVylIXE")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "6796493041")
 TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() in ("true", "1", "yes")
+

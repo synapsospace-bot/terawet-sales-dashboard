@@ -25,7 +25,7 @@ class TelegramNotifier:
     """
 
     def __init__(self, bot_token: Optional[str] = None, default_chat_id: Optional[str] = None):
-        self.bot_token = bot_token or getattr(config, "TELEGRAM_BOT_TOKEN", "8208076264:AAElAEQneQk2IJRUnpbMIgLw9Je_AHdBh6o")
+        self.bot_token = bot_token or getattr(config, "TELEGRAM_BOT_TOKEN", "8647417710:AAEa456g9tGzC0fcKtczq5Mgf7jjcVylIXE")
         self.default_chat_id = default_chat_id or getattr(config, "TELEGRAM_CHAT_ID", "6796493041")
         self.enabled = getattr(config, "TELEGRAM_ENABLED", True)
 
@@ -190,7 +190,7 @@ class TelegramNotifier:
         text = (
             f"🌱 <b>TERAWET-ORIGINAL Command Center</b>\n"
             f"✅ <b>Перевірка зв'язку з Telegram успішна!</b>\n\n"
-            f"🤖 <b>Бот:</b> @synapsospace_bot\n"
+            f"🤖 <b>Бот:</b> @astroinsta_bot (Dashbord_terawet.bot)\n"
             f"🆔 <b>Chat ID:</b> <code>{self.default_chat_id}</code>\n"
             f"⏰ <b>Час:</b> {now_str}\n\n"
             f"<b>Тепер ви автоматично отримуватимете:</b>\n"

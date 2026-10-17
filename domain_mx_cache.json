@@ -2029,5 +2029,15 @@
       "mx2.ldsysteme.fr",
       "mibv4.ldsysteme.fr"
     ]
+  },
+  "google.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.google.com"
+    ]
+  },
+  "this-domain-definitely-does-not-exist-12345.com": {
+    "has_mx": false,
+    "reason": "Домен this-domain-definitely-does-not-exist-12345.com не існує або не має поштових записів"
   }
 }
