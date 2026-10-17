@@ -1513,15 +1513,28 @@ class LeadFinderService:
         return batch
 
     def _load_verified_pool(self) -> List[Dict[str, str]]:
+        pool = []
         if VERIFIED_POOL_FILE.exists():
             try:
                 with open(VERIFIED_POOL_FILE, "r", encoding="utf-8") as f:
-                    pool = json.load(f)
-                    if pool and isinstance(pool, list):
-                        return pool
+                    data = json.load(f)
+                    if data and isinstance(data, list):
+                        pool.extend(data)
             except Exception as e:
                 logger.error(f"Failed to load verified candidates pool: {e}")
-        return CANDIDATE_LEADS_POOL
+
+        # Seamlessly merge with built-in candidate pool without duplicates
+        seen_emails = set(c.get("email", "").strip().lower() for c in pool if c.get("email"))
+        seen_names = set(c.get("name", "").strip().lower() for c in pool if c.get("name"))
+        for cand in CANDIDATE_LEADS_POOL:
+            ce = cand.get("email", "").strip().lower()
+            cn = cand.get("name", "").strip().lower()
+            if ce and ce not in seen_emails and cn not in seen_names:
+                pool.append(cand)
+                seen_emails.add(ce)
+                seen_names.add(cn)
+
+        return pool if pool else CANDIDATE_LEADS_POOL
 
     def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
         """

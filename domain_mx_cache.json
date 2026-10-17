@@ -957,5 +957,1045 @@
     "mx": [
       "mx.serviciodecorreo.es"
     ]
+  },
+  "arzuaganavarro.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.arzuaganavarro.com"
+    ]
+  },
+  "dehesadeloscanonigos.com": {
+    "has_mx": true,
+    "mx": [
+      "dehesadeloscanonigos-com.mail.protection.outlook.com"
+    ]
+  },
+  "villacreces.com": {
+    "has_mx": true,
+    "mx": [
+      "villacreces-com.mail.protection.outlook.com"
+    ]
+  },
+  "cepa21.com": {
+    "has_mx": true,
+    "mx": [
+      "cepa21-com.mail.protection.outlook.com"
+    ]
+  },
+  "casasdehualdo.com": {
+    "has_mx": true,
+    "mx": [
+      "casasdehualdo-com.mail.protection.outlook.com"
+    ]
+  },
+  "ricasoli.it": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ricasoli.it"
+    ]
+  },
+  "tenutailpoggione.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.tenutailpoggione.it"
+    ]
+  },
+  "carlettipoliziano.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.cbsolt.net",
+      "mx02.cbsolt.net"
+    ]
+  },
+  "piocesare.it": {
+    "has_mx": true,
+    "mx": [
+      "esva.sistnet.it"
+    ]
+  },
+  "tommasi.com": {
+    "has_mx": true,
+    "mx": [
+      "tommasi-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-margaux.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaumargaux-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "haut-brion.com": {
+    "has_mx": true,
+    "mx": [
+      "vade-mx-eu-fallback02.hornetsecurity.com",
+      "vade-mx-eu-fallback01.hornetsecurity.com"
+    ]
+  },
+  "chateau-montrose.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaumontrose-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-cheval-blanc.com": {
+    "has_mx": true,
+    "mx": [
+      "exchange.chateau-chevalblanc.com"
+    ]
+  },
+  "chateaucanon.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "aspmx3.googlemail.com"
+    ]
+  },
+  "chateau-gazin.com": {
+    "has_mx": true,
+    "mx": [
+      "wfsv164.webfutur.com"
+    ]
+  },
+  "leflaive.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.leflaive.com",
+      "mx1.leflaive.com"
+    ]
+  },
+  "comtes-lafon.fr": {
+    "has_mx": true,
+    "mx": [
+      "fb.mail.gandi.net",
+      "spool.mail.gandi.net"
+    ]
+  },
+  "brunier.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx-mibc-fr-09.mailinblack.com"
+    ]
+  },
+  "domainetempier.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx2.googlemail.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "ramospinto.pt": {
+    "has_mx": true,
+    "mx": [
+      "mxg.eu.mpssec.net",
+      "mxf.eu.mpssec.net"
+    ]
+  },
+  "quintadovallado.com": {
+    "has_mx": true,
+    "mx": [
+      "mxf.eu.mpssec.net",
+      "mxg.eu.mpssec.net"
+    ]
+  },
+  "fea.pt": {
+    "has_mx": true,
+    "mx": [
+      "fea-pt.mail.protection.outlook.com"
+    ]
+  },
+  "herdadedosobroso.pt": {
+    "has_mx": true,
+    "mx": [
+      "mail.fullscreen.pt"
+    ]
+  },
+  "cortesdecima.pt": {
+    "has_mx": true,
+    "mx": [
+      "cortesdecima-pt.mail.protection.outlook.com"
+    ]
+  },
+  "aveleda.pt": {
+    "has_mx": true,
+    "mx": [
+      "aveleda-pt.mail.protection.outlook.com"
+    ]
+  },
+  "borovitza.com": {
+    "has_mx": true,
+    "mx": [
+      "_dc-mx.432e9e6ea43c.borovitza.com"
+    ]
+  },
+  "cramapanciu.ro": {
+    "has_mx": true,
+    "mx": [
+      "cramapanciu.ro"
+    ]
+  },
+  "gramona.com": {
+    "has_mx": true,
+    "mx": [
+      "gramona-com.mail.protection.outlook.com"
+    ]
+  },
+  "juveycamps.com": {
+    "has_mx": true,
+    "mx": [
+      "juveycamps-com.mail.protection.outlook.com"
+    ]
+  },
+  "pagodecarraovejas.com": {
+    "has_mx": true,
+    "mx": [
+      "pagodecarraovejas-com.mail.protection.outlook.com"
+    ]
+  },
+  "emiliomoro.com": {
+    "has_mx": true,
+    "mx": [
+      "emiliomoro-com.mail.protection.outlook.com"
+    ]
+  },
+  "otenet.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx.otenet.gr",
+      "mx3.otenet.gr"
+    ]
+  },
+  "bodegascampillo.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegascampillo-com.mail.protection.outlook.com",
+      "correo.bodegasfaustino.es"
+    ]
+  },
+  "enate.es": {
+    "has_mx": true,
+    "mx": [
+      "enate-es.mail.protection.outlook.com"
+    ]
+  },
+  "torres.es": {
+    "has_mx": true,
+    "mx": [
+      "mtorres.in.tmes.trendmicro.eu"
+    ]
+  },
+  "lopezdeheredia.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.lopezdeheredia.com"
+    ]
+  },
+  "sierracantabria.com": {
+    "has_mx": true,
+    "mx": [
+      "sierracantabria-com.mail.eo.outlook.com"
+    ]
+  },
+  "francoespanolas.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.google.com"
+    ]
+  },
+  "marquesdecaceres.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "ontanon.es": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "murviedro.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (murviedro.com)"
+    ]
+  },
+  "vicentegandia.com": {
+    "has_mx": true,
+    "mx": [
+      "vicentegandia-com.mail.protection.outlook.com"
+    ]
+  },
+  "lustau.es": {
+    "has_mx": true,
+    "mx": [
+      "poster1i.iberlayer.com",
+      "poster3i.iberlayer.com"
+    ]
+  },
+  "gonzalezbyass.com": {
+    "has_mx": true,
+    "mx": [
+      "gonzalezbyass-com.mail.protection.outlook.com"
+    ]
+  },
+  "pagodeloscapellanes.com": {
+    "has_mx": true,
+    "mx": [
+      "pagodeloscapellanes-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasfillaboa.com": {
+    "has_mx": true,
+    "mx": [
+      "cpdsrvbmx001.masaveu.com",
+      "cpdsrvbmx002.masaveu.com"
+    ]
+  },
+  "bodegasmurua.com": {
+    "has_mx": true,
+    "mx": [
+      "cpdsrvbmx001.masaveu.com",
+      "cpdsrvbmx002.masaveu.com"
+    ]
+  },
+  "bodegaotazu.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegaotazu-com.mail.protection.outlook.com"
+    ]
+  },
+  "castelodemedina.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.castelodemedina.com"
+    ]
+  },
+  "bodegashabla.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegashabla-com.mail.protection.outlook.com"
+    ]
+  },
+  "aceitesmirasol.com": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: aceitesmirasol.com does not exist"
+  },
+  "orodeldesierto.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.orodeldesierto.com"
+    ]
+  },
+  "provedo.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "caliplant.com": {
+    "has_mx": true,
+    "mx": [
+      "filtro.sendguardian.com"
+    ]
+  },
+  "mazzei.it": {
+    "has_mx": true,
+    "mx": [
+      "mazzei-it.mail.protection.outlook.com"
+    ]
+  },
+  "folonari.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "coldorcia.it": {
+    "has_mx": true,
+    "mx": [
+      "coldorcia-it.mail.protection.outlook.com"
+    ]
+  },
+  "caparzo.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.caparzo.com"
+    ]
+  },
+  "gdvajra.it": {
+    "has_mx": true,
+    "mx": [
+      "alt1.aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "michelechiarlo.it": {
+    "has_mx": true,
+    "mx": [
+      "michelechiarlo.it"
+    ]
+  },
+  "leonedecastris.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.leonedecastris.com"
+    ]
+  },
+  "duca.net": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "frantoiofranci.it": {
+    "has_mx": true,
+    "mx": [
+      "mx4.milleritalia.net"
+    ]
+  },
+  "gonnelli1585.it": {
+    "has_mx": true,
+    "mx": [
+      "gonnelli1585-it.mail.protection.outlook.com"
+    ]
+  },
+  "vivairauscedo.com": {
+    "has_mx": true,
+    "mx": [
+      "vivairauscedo-com.mail.protection.outlook.com"
+    ]
+  },
+  "feudi.it": {
+    "has_mx": true,
+    "mx": [
+      "feudi-it.mail.protection.outlook.com"
+    ]
+  },
+  "coltibuono.com": {
+    "has_mx": true,
+    "mx": [
+      "coltibuono-com.mail.protection.outlook.com"
+    ]
+  },
+  "elenawalch.com": {
+    "has_mx": true,
+    "mx": [
+      "elenawalch-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-latour.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaulatour-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-palmer.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.google.com"
+    ]
+  },
+  "jmcazes.com": {
+    "has_mx": true,
+    "mx": [
+      "jmcazes-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-ducru-beaucaillou.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (chateau-ducru-beaucaillou.com)"
+    ]
+  },
+  "beychevelle.com": {
+    "has_mx": true,
+    "mx": [
+      "beychevelle-com.mail.protection.outlook.com"
+    ]
+  },
+  "pontet-canet.com": {
+    "has_mx": true,
+    "mx": [
+      "mx03.cloud.vadesecure.com",
+      "mx02.cloud.vadesecure.com"
+    ]
+  },
+  "chateau-figeac.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaufigeac-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-climens.fr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "domaine-ponsot.com": {
+    "has_mx": true,
+    "mx": [
+      "vade-mx-fr02.hornetsecurity.com",
+      "vade-mx-eu-fallback01.hornetsecurity.com"
+    ]
+  },
+  "chateaulanerthe.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.fr",
+      "mx01.ionos.fr"
+    ]
+  },
+  "lajanasse.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.fr",
+      "mx00.ionos.fr"
+    ]
+  },
+  "minuty.com": {
+    "has_mx": true,
+    "mx": [
+      "a.mx.domainoo.fr"
+    ]
+  },
+  "domaines-ott.com": {
+    "has_mx": true,
+    "mx": [
+      "mx-mibc-fr-05.mailinblack.com",
+      "mx-mibc-fr-05.mailinblack.com"
+    ]
+  },
+  "miraval.com": {
+    "has_mx": true,
+    "mx": [
+      "mxb.ovh.net",
+      "mx1.ovh.net"
+    ]
+  },
+  "chateau-giscours.fr": {
+    "has_mx": true,
+    "mx": [
+      "d323625.a.ess.de.barracudanetworks.com",
+      "d323625.b.ess.de.barracudanetworks.com"
+    ]
+  },
+  "esporao.com": {
+    "has_mx": true,
+    "mx": [
+      "esporao-com.mail.protection.outlook.com"
+    ]
+  },
+  "symington.com": {
+    "has_mx": true,
+    "mx": [
+      "symington-com.mail.protection.outlook.com"
+    ]
+  },
+  "quintadelarosa.com": {
+    "has_mx": true,
+    "mx": [
+      "quintadelarosa-com.mail.protection.outlook.com"
+    ]
+  },
+  "roques.pt": {
+    "has_mx": true,
+    "mx": [
+      "mxc.meoempresas.pt",
+      "mxp.meoempresas.pt"
+    ]
+  },
+  "soalheiro.com": {
+    "has_mx": true,
+    "mx": [
+      "soalheiro-com.mail.protection.outlook.com"
+    ]
+  },
+  "adegamayor.pt": {
+    "has_mx": true,
+    "mx": [
+      "adegamayor-pt.mail.protection.outlook.com"
+    ]
+  },
+  "casarelvas.pt": {
+    "has_mx": true,
+    "mx": [
+      "casarelvas-pt.mail.protection.outlook.com"
+    ]
+  },
+  "sovena.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (sovena.com)"
+    ]
+  },
+  "herdadedosgrous.com": {
+    "has_mx": true,
+    "mx": [
+      "herdadedosgrous.com"
+    ]
+  },
+  "tselepos.gr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "palivou.gr": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: palivou.gr does not exist"
+  },
+  "stylidacoop.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.stylidacoop.gr"
+    ]
+  },
+  "antonakakis.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.antonakakis.gr"
+    ]
+  },
+  "dourakiswinery.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.dourakiswinery.gr"
+    ]
+  },
+  "bruendlmayer.at": {
+    "has_mx": true,
+    "mx": [
+      "bruendlmayer-at.mail.protection.outlook.com"
+    ]
+  },
+  "fx-pichler.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.itkfm.at"
+    ]
+  },
+  "knoll.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.knoll.at"
+    ]
+  },
+  "gobelsburg.at": {
+    "has_mx": true,
+    "mx": [
+      "gobelsburg-at.mail.protection.outlook.com"
+    ]
+  },
+  "heinrich.at": {
+    "has_mx": true,
+    "mx": [
+      "www225.your-server.de"
+    ]
+  },
+  "domaene-wachau.at": {
+    "has_mx": true,
+    "mx": [
+      "domaenewachau-at01i.mail.protection.outlook.com",
+      "domaene-wachau.at"
+    ]
+  },
+  "weingut-robert-weil.com": {
+    "has_mx": true,
+    "mx": [
+      "weingutrobertweil-com01i1e.mail.protection.outlook.com"
+    ]
+  },
+  "drloosen.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.drloosen.de"
+    ]
+  },
+  "markusmolitor.com": {
+    "has_mx": true,
+    "mx": [
+      "mx03.hornetsecurity.com",
+      "mx01.hornetsecurity.com"
+    ]
+  },
+  "weingut-fritz-haag.de": {
+    "has_mx": true,
+    "mx": [
+      "mx03.hornetsecurity.com",
+      "mx01.hornetsecurity.com"
+    ]
+  },
+  "emiroglio-wine.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.emiroglio-wine.com"
+    ]
+  },
+  "lovico.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "zlatenrozhen.bg": {
+    "has_mx": true,
+    "mx": [
+      "zlatenrozhen.bg"
+    ]
+  },
+  "salla.bg": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert02.host.bg",
+      "spamexpert01.host.bg"
+    ]
+  },
+  "logodajwinery.com": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "cramaceptura.eu": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: cramaceptura.eu does not exist"
+  },
+  "domeniulcoroanei.com": {
+    "has_mx": true,
+    "mx": [
+      "domeniulcoroanei.com"
+    ]
+  },
+  "avincis.ro": {
+    "has_mx": true,
+    "mx": [
+      "avincis-ro.mail.protection.outlook.com"
+    ]
+  },
+  "cramabauer.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.cramabauer.com"
+    ]
+  },
+  "lacertawinery.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.lacertawinery.ro"
+    ]
+  },
+  "bolfanvinskivrh.hr": {
+    "has_mx": true,
+    "mx": [
+      "bolfanvinskivrh.hr"
+    ]
+  },
+  "coronica.eu": {
+    "has_mx": true,
+    "mx": [
+      "mail.coronica.eu"
+    ]
+  },
+  "degrassi.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.degrassi.hr"
+    ]
+  },
+  "vinarijakovacevic.co.rs": {
+    "has_mx": true,
+    "mx": [
+      "A-record (vinarijakovacevic.co.rs)"
+    ]
+  },
+  "movia.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.movia.si"
+    ]
+  },
+  "bock.hu": {
+    "has_mx": true,
+    "mx": [
+      "bock-hu.mail.protection.outlook.com"
+    ]
+  },
+  "knw.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.knw.hu",
+      "mx2.postmaster.hu"
+    ]
+  },
+  "bodegasmauro.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.bodegasmauro.com"
+    ]
+  },
+  "bodegasborsao.com": {
+    "has_mx": true,
+    "mx": [
+      "redestel-mx1.titanhq.com"
+    ]
+  },
+  "bodegascastano.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegascastano-com.mail.protection.outlook.com"
+    ]
+  },
+  "casi.es": {
+    "has_mx": true,
+    "mx": [
+      "d342660.b.ess.de.barracudanetworks.com",
+      "d342660.a.ess.de.barracudanetworks.com"
+    ]
+  },
+  "anecoop.com": {
+    "has_mx": true,
+    "mx": [
+      "poster4i.iberlayer.com",
+      "poster1i.iberlayer.com"
+    ]
+  },
+  "aspontis.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.mail.ovh.net",
+      "mx2.mail.ovh.net"
+    ]
+  },
+  "scacciadiavoli.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.scacciadiavoli.it"
+    ]
+  },
+  "arnaldocaprai.it": {
+    "has_mx": true,
+    "mx": [
+      "arnaldocapraisa.esvacloud.com"
+    ]
+  },
+  "argentiera.eu": {
+    "has_mx": true,
+    "mx": [
+      "argentiera-eu.mail.protection.outlook.com"
+    ]
+  },
+  "tenuterubino.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.tenuterubino.com"
+    ]
+  },
+  "liveli.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.liveli.it"
+    ]
+  },
+  "cusumano.it": {
+    "has_mx": true,
+    "mx": [
+      "cusumano-it.mail.protection.outlook.com"
+    ]
+  },
+  "cantina-terlano.com": {
+    "has_mx": true,
+    "mx": [
+      "cantinaterlano-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "aloislageder.eu": {
+    "has_mx": true,
+    "mx": [
+      "esmtp.ufficioremoto.com"
+    ]
+  },
+  "pruneti.it": {
+    "has_mx": true,
+    "mx": [
+      "pruneti-it.mail.protection.outlook.com"
+    ]
+  },
+  "battistinivivai.com": {
+    "has_mx": true,
+    "mx": [
+      "battistinivivai-com.mail.protection.outlook.com"
+    ]
+  },
+  "pichon-comtesse.com": {
+    "has_mx": true,
+    "mx": [
+      "mx-mibc-fr-05.mailinblack.com",
+      "mx-mibc-fr-05.mailinblack.com"
+    ]
+  },
+  "leoville-barton.com": {
+    "has_mx": true,
+    "mx": [
+      "leovillebarton-com02b.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-lagrange.com": {
+    "has_mx": true,
+    "mx": [
+      "mx-mibc-fr-02.mailinblack.com"
+    ]
+  },
+  "chateau-talbot.com": {
+    "has_mx": true,
+    "mx": [
+      "chateautalbot-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "brane-cantenac.com": {
+    "has_mx": true,
+    "mx": [
+      "branecantenac-com01c.mail.protection.outlook.com"
+    ]
+  },
+  "bouchard-pereetfils.com": {
+    "has_mx": true,
+    "mx": [
+      "bouchardpereetfils-com02b.mail.protection.outlook.com"
+    ]
+  },
+  "larochewines.com": {
+    "has_mx": true,
+    "mx": [
+      "larochewines-com.mail.protection.outlook.com"
+    ]
+  },
+  "williamfevre.com": {
+    "has_mx": true,
+    "mx": [
+      "williamfevre-com.mail.protection.outlook.com"
+    ]
+  },
+  "esclans.com": {
+    "has_mx": true,
+    "mx": [
+      "a.mx.domainoo.fr"
+    ]
+  },
+  "forets-naudet.com": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: forets-naudet.com does not exist"
+  },
+  "valemeao.pt": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: valemeao.pt does not exist"
+  },
+  "quintadapacheca.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.quintadapacheca.com"
+    ]
+  },
+  "alvesdesousa.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "aspmx2.googlemail.com"
+    ]
+  },
+  "herdadedacomporta.pt": {
+    "has_mx": true,
+    "mx": [
+      "herdadedacomporta-pt.mail.protection.outlook.com"
+    ]
+  },
+  "adegavidigueira.pt": {
+    "has_mx": true,
+    "mx": [
+      "adegavidigueira-pt.mail.protection.outlook.com"
+    ]
+  },
+  "copmoura.pt": {
+    "has_mx": false,
+    "reason": "NXDOMAIN: copmoura.pt does not exist"
+  },
+  "karavitakiswines.com": {
+    "has_mx": true,
+    "mx": [
+      "karavitakiswines.com"
+    ]
+  },
+  "acn.com.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.acn.com.gr"
+    ]
+  },
+  "agromessinia.gr": {
+    "has_mx": true,
+    "mx": [
+      "imap.mail.webnode.com"
+    ]
+  },
+  "kracher.at": {
+    "has_mx": true,
+    "mx": [
+      "kracher-at.mail.protection.outlook.com"
+    ]
+  },
+  "tement.at": {
+    "has_mx": true,
+    "mx": [
+      "mxin2.austriacloud.at",
+      "tement-at.mail.protection.outlook.com"
+    ]
+  },
+  "doennhoff.com": {
+    "has_mx": true,
+    "mx": [
+      "smtpin.rzone.de"
+    ]
+  },
+  "buerklin-wolf.de": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.de",
+      "mx01.ionos.de"
+    ]
+  },
+  "vinarte.ro": {
+    "has_mx": true,
+    "mx": [
+      "vinarte-ro.mail.protection.outlook.com"
+    ]
+  },
+  "petrovaselo.com": {
+    "has_mx": true,
+    "mx": [
+      "petrovaselo-com.mail.protection.outlook.com"
+    ]
+  },
+  "dingac.hr": {
+    "has_mx": true,
+    "mx": [
+      "dingac.hr"
+    ]
+  },
+  "bire.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.bire.hr"
+    ]
+  },
+  "abv.bg": {
+    "has_mx": true,
+    "mx": [
+      "pmx.abv.bg",
+      "smx.abv.bg"
+    ]
   }
 }

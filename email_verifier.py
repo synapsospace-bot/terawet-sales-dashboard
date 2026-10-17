@@ -92,42 +92,61 @@ class EmailVerifierService:
             else:
                 return False, cached.get("reason", "Домен не має поштових записів MX")
 
-        # 5. Live DNS MX check via dnspython
+        # 5. Live DNS MX check via dnspython with public nameserver fallbacks
         try:
             import dns.resolver
+            resolver = dns.resolver.Resolver()
+            resolver.timeout = 3.5
+            resolver.lifetime = 4.0
+
+            answers = None
             try:
-                answers = dns.resolver.resolve(domain, 'MX', lifetime=2.5)
+                answers = resolver.resolve(domain, 'MX')
+            except (dns.resolver.NoNameservers, dns.resolver.LifetimeTimeout, Exception):
+                # Fallback to trusted public DNS (Google & Cloudflare) if local system DNS fails
+                try:
+                    resolver.nameservers = ['8.8.8.8', '1.1.1.1', '8.8.4.4']
+                    answers = resolver.resolve(domain, 'MX')
+                except Exception as ex:
+                    logger.debug(f"Public DNS fallback MX query failed for {domain}: {ex}")
+
+            if answers:
                 mx_hosts = [str(r.exchange).rstrip('.') for r in answers]
                 if mx_hosts:
                     self._cache[domain] = {"has_mx": True, "mx": mx_hosts[:2]}
                     self._save_cache()
                     return True, f"Дійсний поштовий сервер (MX: {mx_hosts[0]})"
-            except (dns.resolver.NoAnswer, dns.resolver.NoNameservers):
-                # Fallback to A record check (some mail servers receive mail on A record directly)
-                try:
-                    dns.resolver.resolve(domain, 'A', lifetime=2.0)
-                    self._cache[domain] = {"has_mx": True, "mx": [f"A-record ({domain})"]}
-                    self._save_cache()
-                    return True, f"Домен існує (A-record: {domain})"
-                except Exception:
-                    self._cache[domain] = {"has_mx": False, "reason": f"Домен {domain} не має MX/A записів для пошти"}
-                    self._save_cache()
-                    return False, f"Домен {domain} не має поштових записів MX"
-            except dns.resolver.NXDOMAIN:
-                self._cache[domain] = {"has_mx": False, "reason": f"Домен {domain} не існує (NXDOMAIN)"}
+
+            # Fallback to A record check (some mail servers receive mail on A record directly)
+            try:
+                resolver.resolve(domain, 'A')
+                self._cache[domain] = {"has_mx": True, "mx": [f"A-record ({domain})"]}
                 self._save_cache()
-                return False, f"Домен {domain} не існує (NXDOMAIN)"
-            except Exception as e:
-                logger.debug(f"DNS lookup warning for {domain}: {e}")
-                # Don't permanently cache generic network timeouts
-                return False, f"Помилка перевірки домену {domain}: {e}"
+                return True, f"Домен існує (A-record: {domain})"
+            except Exception:
+                pass
+
+            # Final socket fallback
+            import socket
+            try:
+                socket.getaddrinfo(domain, 80)
+                self._cache[domain] = {"has_mx": True, "mx": [f"socket-resolved ({domain})"]}
+                self._save_cache()
+                return True, f"Домен активний (socket: {domain})"
+            except Exception:
+                self._cache[domain] = {"has_mx": False, "reason": f"Домен {domain} не існує або не має поштових записів"}
+                self._save_cache()
+                return False, f"Домен {domain} не має поштових записів MX"
+
         except ImportError:
-            # Fallback using socket if dnspython not available
             import socket
             try:
                 socket.gethostbyname(domain)
                 return True, "Домен резолвиться (socket fallback)"
             except Exception:
                 return False, f"Домен {domain} не існує або недоступний"
+        except Exception as e:
+            logger.debug(f"DNS lookup error for {domain}: {e}")
+            return False, f"Помилка перевірки домену {domain}: {e}"
 
         return False, "Не вдалося перевірити поштовий сервер"
