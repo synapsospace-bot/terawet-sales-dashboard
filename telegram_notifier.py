@@ -182,6 +182,19 @@ class TelegramNotifier:
 
         return self.send_message(text, parse_mode="HTML")
 
+    def send_alert(self, title: str, message: str) -> Tuple[bool, str]:
+        """
+        Sends an operational or warning alert.
+        """
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        text = (
+            f"⚠️ <b>{_escape_html(title)}</b>\n\n"
+            f"{message}\n\n"
+            f"⏰ <b>Час:</b> {now_str}\n"
+            f"📊 <a href=\"https://terawet-sales-dashboard.onrender.com\">Відкрити Дашборд</a>"
+        )
+        return self.send_message(text, parse_mode="HTML")
+
     def send_test_notification(self) -> Tuple[bool, str]:
         """
         Sends a test message to confirm connection.

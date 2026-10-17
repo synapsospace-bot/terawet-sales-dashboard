@@ -187,6 +187,16 @@ class GmailDraftService:
         except Exception as e587:
             details.append(f"Порт 587: {e587}")
 
+        # Check IMAP (port 993) to provide crystal clear diagnostic if cloud firewall blocks SMTP
+        try:
+            import imaplib
+            imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=10)
+            imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
+            imap.logout()
+            return False, "Хмарний хостинг (Render Free) блокує вихідні порти SMTP (465/587). Але Gmail IMAP (порт 993) активний — режим 'Чернетки' працює на 100%! Для прямої відправки до 'Надіслані' запустіть сценарій локально на Mac."
+        except Exception as imap_err:
+            details.append(f"Порт 993 (IMAP): {imap_err}")
+
         return False, " | ".join(details)
 
     def create_draft(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> str:

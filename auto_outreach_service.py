@@ -4,6 +4,7 @@ import json
 import random
 import logging
 import threading
+import html
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
@@ -362,10 +363,24 @@ class AutoOutreachService:
 
                         # Fail-fast defense: if 2 sends fail with 0 successes, halt immediately
                         if failed_count >= 2 and sent_count == 0:
-                            logger.error(f"Halting dispatch worker due to repeated errors: {res}")
+                            is_blocked = "101" in str(res) or "unreachable" in str(res).lower()
+                            if is_blocked:
+                                halt_reason = "Хмарний хостинг Render блокує вихідні порти SMTP (465/587). Оберіть у налаштуваннях режим 'Чернетки' (IMAP 993) або запустіть сценарій на Mac для прямої відправки."
+                            else:
+                                halt_reason = f"Помилка пошти Gmail: {res[:60]}"
+                            logger.error(f"Halting dispatch worker: {halt_reason}")
                             with self._lock:
                                 self.last_run_status = "error"
-                                self.current_step_text = f"Помилка пошти Gmail: {res}"
+                                self.current_step_text = halt_reason
+                            try:
+                                from telegram_notifier import telegram_notifier
+                                telegram_notifier.send_alert(
+                                    "РОЗСИЛКУ ПРИЗУПИНЕНО",
+                                    f"⚠️ <b>{html.escape(halt_reason)}</b>\n\n"
+                                    f"👉 <b>Безпека:</b> Жоден лід не постраждав, усі 100% контактів збережені в базі зі статусом 'Очікує відправки'."
+                                )
+                            except Exception as tg_err:
+                                logger.warning(f"Could not dispatch halt alert to Telegram: {tg_err}")
                             break
                 else:
                     # Mode == draft

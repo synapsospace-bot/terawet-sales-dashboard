@@ -459,9 +459,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <div style="margin-bottom: 20px;">
       <label style="display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: #0f172a;" data-i18n="setMode">Режим роботи:</label>
       <select id="settingMode" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-        <option value="send">🚀 Автоматична відправка листів (Прямий SMTP)</option>
-        <option value="draft">🟡 Тільки чернетки у Gmail (ручна перевірка)</option>
+        <option value="draft">🟡 Тільки чернетки у Gmail (ручна перевірка) — 100% працює на Render</option>
+        <option value="send">🚀 Автоматична відправка листів (Прямий SMTP — для локального запуску на Mac)</option>
       </select>
+      <div style="font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.4;">
+        💡 <b>Примітка:</b> Безкоштовний хостинг Render блокує вихідні порти SMTP (465/587). Для хмарної роботи використовуйте режим <b>"Чернетки у Gmail"</b> (IMAP 993 активний). Для автоматичної відправки до "Надіслані" запускайте сценарій локально на комп'ютері.
+      </div>
     </div>
 
     <div style="display: flex; justify-content: flex-end; gap: 10px;">
@@ -1569,14 +1572,33 @@ async function testTelegramConnection() {
 
 async function testSmtpConnection() {
   const t = I18N[currentLang] || I18N.uk;
-  showToast("Перевіряю підключення до Gmail SMTP (порти 465/587)...");
+  showToast("Перевіряю поштові порти Gmail (SMTP 465/587 та IMAP 993)...");
   try {
     const res = await fetch('/api/smtp/test');
     const data = await res.json();
+    const pill = document.getElementById("smtpPill");
+    const textEl = document.getElementById("navEmailText");
+
     if (data.success) {
+      if (textEl) textEl.textContent = "📧 Gmail: SMTP Активний";
+      if (pill) {
+        pill.style.background = "#f0fdf4";
+        pill.style.color = "#166534";
+        pill.style.borderColor = "#bbf7d0";
+      }
       showToast("✅ " + data.message);
     } else {
-      showToast("❌ Помилка Gmail: " + data.message);
+      if (data.message && data.message.includes("IMAP")) {
+        if (textEl) textEl.textContent = "📧 Gmail: Чернетки IMAP (SMTP блоковано)";
+        if (pill) {
+          pill.style.background = "#fffbeb";
+          pill.style.color = "#92400e";
+          pill.style.borderColor = "#fde68a";
+        }
+        showToast("ℹ️ " + data.message);
+      } else {
+        showToast("❌ Помилка Gmail: " + data.message);
+      }
     }
   } catch (e) {
     showToast(t.toastNetError);

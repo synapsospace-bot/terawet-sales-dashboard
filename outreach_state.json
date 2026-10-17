@@ -5,7 +5,7 @@
   "daily_target": 50,
   "min_delay_seconds": 45,
   "max_delay_seconds": 90,
-  "send_mode": "send",
+  "send_mode": "draft",
   "today_date": "2026-10-17",
   "sent_today": 0,
   "last_run_date": "",
