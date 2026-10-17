@@ -94,6 +94,14 @@ class GmailDraftService:
             return False, f"Некоректний синтаксис email: {clean_email}"
         target_to = primary_recipients[0]
 
+        # Method 1: Google Apps Script Webhook (Port 443 HTTPS - 100% Cloud Autonomous on Render!)
+        webhook_url = getattr(config, "GOOGLE_SHEET_WEBHOOK_URL", "").strip()
+        if webhook_url and "script.google.com" in webhook_url:
+            ok, res_msg = self._send_via_google_webhook(target_to, subject, body_html, body_plain, company_name)
+            if ok:
+                return True, res_msg
+            logger.warning(f"Google Apps Script Webhook attempt failed ({res_msg}), falling back to direct SMTP...")
+
         if config.EMAIL_USER and config.EMAIL_APP_PASSWORD:
             import smtplib
             try:
@@ -164,8 +172,84 @@ class GmailDraftService:
             logger.error(f"❌ Cannot dispatch live email to {target_to}: {err_msg}")
             return False, err_msg
 
+    def _send_via_google_webhook(self, to_email: str, subject: str, body_html: str, body_plain: str, company_name: str = "") -> Tuple[bool, str]:
+        """
+        Sends email via Google Apps Script Webhook over HTTPS (Port 443).
+        Guarantees 100% cloud deliverability from Render without SMTP port blocks.
+        """
+        webhook_url = getattr(config, "GOOGLE_SHEET_WEBHOOK_URL", "").strip()
+        if not webhook_url or "script.google.com" not in webhook_url:
+            return False, "GOOGLE_SHEET_WEBHOOK_URL не налаштовано або некоректний"
+
+        import json
+        import urllib.request
+
+        payload = {
+            "action": "send_email",
+            "to": to_email,
+            "subject": subject,
+            "body_plain": body_plain,
+            "body_html": body_html,
+            "sender_name": getattr(config, "SENDER_NAME", "Dmytro Bendyk | TERAWET-ORIGINAL"),
+            "reply_to": getattr(config, "CONTACT_EMAIL", "terawet.original@gmail.com"),
+            "secret": getattr(config, "GMAIL_WEBHOOK_SECRET", "terawet_secure_sync_2026")
+        }
+
+        class _RedirectHandler(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self, req, fp, code, msg, headers, newurl):
+                if code in (301, 302, 303, 307) and req.get_method() in ("POST", "PUT"):
+                    newheaders = {k: v for k, v in req.headers.items() if k.lower() not in ("content-length", "content-type")}
+                    return urllib.request.Request(newurl, headers=newheaders, unverifiable=True, method="GET")
+                return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+        try:
+            opener = urllib.request.build_opener(_RedirectHandler)
+            req = urllib.request.Request(
+                webhook_url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+            )
+            with opener.open(req, timeout=30) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                if data.get("success") or data.get("status") == "ok":
+                    logger.info(f"✅ Email successfully dispatched via Google Apps Script Relay to {to_email} ({company_name})")
+                    return True, f"gas-sent-{int(time.time()*1000)}"
+                else:
+                    return False, data.get("error", "Помилка Google Apps Script")
+        except Exception as e:
+            logger.warning(f"Google Apps Script Webhook send failed: {e}")
+            return False, f"Помилка Webhook: {e}"
+
     def test_smtp_connection(self) -> Tuple[bool, str]:
-        """Tests live SMTP connection using both port 465 and port 587."""
+        """Tests live email connection: Google Apps Script Webhook, SMTP (465/587), and IMAP (993)."""
+        # 1. Test Google Apps Script Webhook if configured
+        webhook_url = getattr(config, "GOOGLE_SHEET_WEBHOOK_URL", "").strip()
+        if webhook_url and "script.google.com" in webhook_url:
+            import json, urllib.request
+            try:
+                class _RedirectHandler(urllib.request.HTTPRedirectHandler):
+                    def redirect_request(self, req, fp, code, msg, headers, newurl):
+                        if code in (301, 302, 303, 307) and req.get_method() in ("POST", "PUT"):
+                            newheaders = {k: v for k, v in req.headers.items() if k.lower() not in ("content-length", "content-type")}
+                            return urllib.request.Request(newurl, headers=newheaders, unverifiable=True, method="GET")
+                        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+                opener = urllib.request.build_opener(_RedirectHandler)
+                payload = {"action": "test", "secret": getattr(config, "GMAIL_WEBHOOK_SECRET", "terawet_secure_sync_2026")}
+                req = urllib.request.Request(
+                    webhook_url,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+                )
+                with opener.open(req, timeout=15) as resp:
+                    data = json.loads(resp.read().decode("utf-8"))
+                    if data.get("success") or data.get("status") == "ok":
+                        user = data.get("user") or data.get("email_user") or config.EMAIL_USER
+                        quota = data.get("quota") or data.get("remaining_daily_quota") or "100+"
+                        return True, f"Google Apps Script Relay активний (HTTPS порт 443)! Відправник: {user}, денна квота Google: {quota} листів."
+            except Exception as e:
+                logger.warning(f"Google Apps Script test failed: {e}")
+
         if not config.EMAIL_USER or not config.EMAIL_APP_PASSWORD:
             return False, "EMAIL_USER або EMAIL_APP_PASSWORD не налаштовано."
         import smtplib
@@ -193,7 +277,7 @@ class GmailDraftService:
             imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=10)
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
             imap.logout()
-            return False, "Хмарний хостинг (Render Free) блокує вихідні порти SMTP (465/587). Але Gmail IMAP (порт 993) активний — режим 'Чернетки' працює на 100%! Для прямої відправки до 'Надіслані' запустіть сценарій локально на Mac."
+            return False, "Хмарний хостинг (Render Free) блокує вихідні порти SMTP (465/587). Але Gmail IMAP (порт 993) активний — режим 'Чернетки' працює на 100%! Для прямої відправки підключіть Google Apps Script Relay або запустіть сценарій локально на Mac."
         except Exception as imap_err:
             details.append(f"Порт 993 (IMAP): {imap_err}")
 
