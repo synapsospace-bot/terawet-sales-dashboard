@@ -16,6 +16,8 @@ from agent_brain import TerawetAgentBrain
 from gmail_service import GmailDraftService
 from lead_finder import LeadFinderService
 from auto_outreach_service import AutoOutreachService
+from telegram_notifier import TelegramNotifier, telegram_notifier
+from inbox_reply_service import InboxReplyService
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger("WebDashboard")
@@ -171,6 +173,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .status-gray { background: #f1f5f9; color: var(--muted); }
   .status-red { background: #fee2e2; color: #991b1b; }
   .status-orange { background: #fef3c7; color: #92400e; }
+  .status-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; font-weight: 700; }
 
   /* Modal */
   .modal {
@@ -212,6 +215,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <button type="button" class="lang-btn active" id="lang-uk" onclick="setLanguage('uk')">🇺🇦 UA</button>
       <button type="button" class="lang-btn" id="lang-bg" onclick="setLanguage('bg')">🇧🇬 BG</button>
     </div>
+    <div class="status-pill" id="telegramPill" onclick="testTelegramConnection()" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; cursor: pointer;" title="Натисніть для перевірки зв'язку з Telegram-ботом">
+      <span class="dot" style="background: #22c55e;"></span>
+      <span id="telegramStatusText">📱 Telegram: Підключено</span>
+    </div>
     <div class="status-pill">
       <div class="dot"></div>
       <span id="navEmailText">Пошта: synapso.space@gmail.com</span>
@@ -237,6 +244,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <div class="stat-card">
       <div class="stat-title" data-i18n="statSent">✅ Листи відправлено</div>
       <div class="stat-val" id="stat-sent" style="color: #16a34a;">0</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #9333ea;">
+      <div class="stat-title" data-i18n="statReplies">💬 Отримано відповідей</div>
+      <div class="stat-val" id="stat-replies" style="color: #9333ea;">0</div>
     </div>
     <div class="stat-card" style="border-left: 4px solid #ef4444;">
       <div class="stat-title" data-i18n="statInvalid">❌ Недійсні / Bounces</div>
@@ -307,6 +318,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <button class="btn btn-primary" id="btnStartOutreach" onclick="startAutoOutreach(50, 'send')" style="background: #007001; font-weight: 700;">🚀 <span data-i18n="btnStartOutreachNow">Запустити розсилку (50 лідів)</span></button>
         <button class="btn btn-danger" id="btnStopOutreach" onclick="stopAutoOutreach()" style="display: none; font-weight: 700;">🛑 <span data-i18n="btnStopOutreachNow">Зупинити розсилку</span></button>
         <button class="btn btn-secondary" onclick="toggleOutreachLog()" style="font-size: 13px;">📋 <span data-i18n="btnViewDispatchLog">Журнал відправки</span> (<span id="outreachLogCount">0</span>)</button>
+        <button class="btn btn-secondary" onclick="testTelegramConnection()" style="font-size: 13px; border-color: #38bdf8; color: #0284c7; background: #f0f9ff;" title="Надіслати тестове повідомлення у Telegram-бот">📱 <span data-i18n="btnTestTelegram">Тест Telegram</span></button>
+        <button class="btn btn-secondary" onclick="checkInboxRepliesNow()" style="font-size: 13px; border-color: #d8b4fe; color: #7e22ce; background: #faf5ff;" title="Перевірити пошту на відповіді клієнтів прямо зараз">📥 <span data-i18n="btnCheckReplies">Перевірити відповіді</span></button>
       </div>
       <div style="font-size: 12px; color: var(--muted);">
         🔒 <i>100% захист від блокування: валідація MX + паузи 45-90с</i>
@@ -367,6 +380,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <button class="tab-btn" data-filter="all" data-i18n="tabAll" onclick="setFilter('all', this)">Всі ліди</button>
     <button class="tab-btn" data-filter="review" data-i18n="tabReview" onclick="setFilter('review', this)">🟡 Чернетки на перевірці</button>
     <button class="tab-btn" data-filter="sent" data-i18n="tabSent" onclick="setFilter('sent', this)">✅ Відправлені</button>
+    <button class="tab-btn" data-filter="replied" data-i18n="tabReplied" onclick="setFilter('replied', this)">💬 Відповіли</button>
     <button class="tab-btn" data-filter="invalid" data-i18n="tabInvalid" onclick="setFilter('invalid', this)">❌ Недійсні / Bounces</button>
   </div>
 
@@ -567,6 +581,15 @@ const I18N = {
     toastOutreachStart: "🚀 Автономну розсилку запущено! Паузи 45-90с між листами.",
     toastOutreachStop: "⏹️ Сигнал зупинки надіслано! Розсилка зупиниться протягом 1 сек.",
     toastSettingsSaved: "✅ Налаштування розсилки успішно збережено!",
+    statReplies: "💬 Отримано відповідей",
+    tabReplied: "💬 Відповіли",
+    statusReplied: "💬 Отримано відповідь",
+    btnTestTelegram: "Тест Telegram",
+    btnCheckReplies: "Перевірити відповіді",
+    toastTestingTelegram: "📱 Відправляю тестове повідомлення в Telegram...",
+    toastTelegramTestSent: "✅ Тестове сповіщення надіслано у ваш Telegram!",
+    toastCheckingReplies: "📥 Сканую пошту на наявність відповідей від клієнтів...",
+    toastCheckRepliesDone: "✅ Перевірку пошти завершено. Нових відповідей: {n}",
   },
   bg: {
     appTitle: "TERAWET-ORIGINAL Команден Център",
@@ -673,6 +696,15 @@ const I18N = {
     toastOutreachStart: "🚀 Автономното изпращане е стартирано! Паузи 45-90 сек между писмата.",
     toastOutreachStop: "⏹️ Сигнал за спиране е изпратен! Процесът ще спре до 1 сек.",
     toastSettingsSaved: "✅ Настройките са успешно запазени!",
+    statReplies: "💬 Получени отговори",
+    tabReplied: "💬 Отговорили",
+    statusReplied: "💬 Получен отговор",
+    btnTestTelegram: "Тест Telegram",
+    btnCheckReplies: "Провери отговори",
+    toastTestingTelegram: "📱 Изпращане на тестово съобщение в Telegram...",
+    toastTelegramTestSent: "✅ Тестовото известие е изпратено във вашия Telegram!",
+    toastCheckingReplies: "📥 Сканиране на пощата за получени отговори...",
+    toastCheckRepliesDone: "✅ Проверката на пощата завърши. Нови отговори: {n}",
   }
 };
 
@@ -769,13 +801,17 @@ function updateStats() {
     const s = (l && l.status) ? String(l.status) : '';
     return s.includes('✅') && !s.includes('❌');
   }).length;
+  const replied = leadsData.filter(l => {
+    const s = (l && l.status) ? String(l.status) : '';
+    return s.includes('💬') || s.includes('ВІДПОВІДЬ') || s.includes('Відповів');
+  }).length;
   const invalid = leadsData.filter(l => {
     const s = (l && l.status) ? String(l.status) : '';
     return s.includes('❌') || s.includes('⚠️');
   }).length;
   const pending = leadsData.filter(l => {
     const s = (l && l.status) ? String(l.status) : '';
-    return l && l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️');
+    return l && l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️') && !s.includes('💬');
   }).length;
 
   const stTotal = document.getElementById('stat-total');
@@ -784,6 +820,8 @@ function updateStats() {
   if (stRev) stRev.innerText = review;
   const stSent = document.getElementById('stat-sent');
   if (stSent) stSent.innerText = sent;
+  const stRep = document.getElementById('stat-replies');
+  if (stRep) stRep.innerText = replied;
   const stPend = document.getElementById('stat-pending');
   if (stPend) stPend.innerText = pending;
   const stInv = document.getElementById('stat-invalid');
@@ -798,6 +836,8 @@ function updateStats() {
   if (bRev) bRev.innerHTML = `${dict.tabReview} <span style="background:#ca8a04;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${review}</span>`;
   const bSent = document.querySelector('.tab-btn[data-filter="sent"]');
   if (bSent) bSent.innerHTML = `${dict.tabSent} <span style="background:#16a34a;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${sent}</span>`;
+  const bRep = document.querySelector('.tab-btn[data-filter="replied"]');
+  if (bRep) bRep.innerHTML = `${dict.tabReplied} <span style="background:#9333ea;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${replied}</span>`;
   const bInv = document.querySelector('.tab-btn[data-filter="invalid"]');
   if (bInv) bInv.innerHTML = `${dict.tabInvalid} <span style="background:#dc2626;color:#fff;padding:1px 7px;border-radius:10px;font-size:11.5px;font-weight:700;margin-left:5px;">${invalid}</span>`;
 }
@@ -831,18 +871,20 @@ function renderTable() {
     const matchText = ((l.company_name || '') + " " + (l.country || '') + " " + (l.country_bg || '') + " " + (l.country_code || '') + " " + (l.city || '') + " " + (l.email || '') + " " + (l.category || '')).toLowerCase().includes(q);
     if (!matchText) return false;
 
-    if (activeFilter === 'pending') return l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️');
+    if (activeFilter === 'pending') return l.email && !s.includes('🟡') && !s.includes('✅') && !s.includes('❌') && !s.includes('⚠️') && !s.includes('💬');
     if (activeFilter === 'review') return s.includes('🟡') || s.includes('DRAFT_CREATED');
-    if (activeFilter === 'sent') return s.includes('✅') && !s.includes('❌');
+    if (activeFilter === 'sent') return s.includes('✅') && !s.includes('❌') && !s.includes('💬');
+    if (activeFilter === 'replied') return s.includes('💬') || s.includes('ВІДПОВІДЬ') || s.includes('Відповів');
     if (activeFilter === 'invalid') return s.includes('❌') || s.includes('⚠️');
     return true;
   });
 
-  // Sort so actionable leads (pending or draft review) appear at the top
+  // Sort so replied leads appear at very top (rank 0), followed by drafts, then pending
   filtered.sort((a, b) => {
     const sa = (a && a.status) ? String(a.status) : '';
     const sb = (b && b.status) ? String(b.status) : '';
     const rank = (s) => {
+      if (s.includes('💬') || s.includes('ВІДПОВІДЬ')) return 0;
       if (s.includes('🟡') || s.includes('DRAFT_CREATED')) return 1;
       if (!s.includes('✅') && !s.includes('❌') && !s.includes('⚠️')) return 2;
       if (s.includes('✅')) return 3;
@@ -860,7 +902,10 @@ function renderTable() {
     const s = (lead && lead.status) ? String(lead.status) : '';
     let badgeClass = 'status-gray';
     let statusText = t.statusPending;
-    if (s.includes('❌')) {
+    if (s.includes('💬') || s.includes('ВІДПОВІДЬ')) {
+      badgeClass = 'status-purple';
+      statusText = t.statusReplied;
+    } else if (s.includes('❌')) {
       badgeClass = 'status-red';
       statusText = t.statusBounced;
     } else if (s.includes('⚠️')) {
@@ -875,7 +920,11 @@ function renderTable() {
     }
 
     let actionButtons = `<button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; white-space: nowrap;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>`;
-    if (s.includes('🟡') || s.includes('DRAFT_CREATED')) {
+    if (s.includes('💬') || s.includes('ВІДПОВІДЬ')) {
+      actionButtons = `
+        <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; color: #7e22ce; border-color: #d8b4fe; background: #faf5ff; font-weight: 700; white-space: nowrap;" onclick="viewLead(${lead.row_number})" title="Переглянути відповідь клієнта">💬 ${t.btnView}</button>
+      `;
+    } else if (s.includes('🟡') || s.includes('DRAFT_CREATED')) {
       actionButtons = `
         <button class="btn btn-secondary" style="padding: 5px 8px; font-size: 12px; color: #166534; border-color: #86efac; background: #f0fdf4; margin-right: 4px; white-space: nowrap;" onclick="markSent(${lead.row_number}, '${lead.email || ''}')" title="${t.markSentTitle}">${t.btnMarkSent}</button>
         <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; white-space: nowrap;" onclick="viewLead(${lead.row_number})">${t.btnView}</button>
@@ -1499,6 +1548,45 @@ async function saveOutreachSettings() {
   }
 }
 
+async function testTelegramConnection() {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastTestingTelegram || "Відправляю тестове повідомлення в Telegram...");
+  try {
+    const res = await fetch('/api/telegram/test', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t.toastTelegramTestSent || "✅ Тестове сповіщення надіслано у ваш Telegram!");
+    } else {
+      showToast((t.toastError || "Помилка: ") + (data.message || ""));
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
+async function checkInboxRepliesNow() {
+  const t = I18N[currentLang] || I18N.uk;
+  showToast(t.toastCheckingReplies || "Сканую пошту на наявність відповідей від клієнтів...");
+  try {
+    const res = await fetch('/api/replies/check_now', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t.toastCheckRepliesDone.replace('{n}', data.count || 0));
+      await loadData();
+    } else {
+      showToast((t.toastError || "Помилка: ") + (data.message || ""));
+    }
+  } catch (e) {
+    showToast(t.toastNetError);
+  }
+}
+
 // Init
 setLanguage(currentLang);
 loadData();
@@ -1604,6 +1692,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
         draft_service=draft_service,
         finder_service=finder_service
     )
+    inbox_service = InboxReplyService(
+        data_service=data_service,
+        notifier=telegram_notifier
+    )
 
     def do_HEAD(self):
         self.send_response(200)
@@ -1627,6 +1719,9 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         elif path in ("/api/outreach/status", "/api/auto_status"):
             self.send_json(self.outreach_service.get_status())
+
+        elif path in ("/api/replies/status", "/api/replies_status"):
+            self.send_json(self.inbox_service.get_status())
 
         elif path == "/" or path == "/index.html":
             self.send_response(200)
@@ -1839,6 +1934,14 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 res = self.outreach_service.update_settings(params)
                 self.send_json({"success": True, "settings": res})
 
+            elif path in ("/api/replies/check_now", "/api/check_replies"):
+                count, replies = self.inbox_service.check_inbox_for_replies(limit_search=30)
+                self.send_json({"success": True, "count": count, "replies": replies})
+
+            elif path in ("/api/telegram/test", "/api/test_telegram"):
+                ok, msg = telegram_notifier.send_test_notification()
+                self.send_json({"success": ok, "message": msg})
+
             elif path == "/api/generate_batch":
                 count = int(params.get("count", 5))
                 new_leads = self.data_service.get_new_leads()[:count]
@@ -1988,6 +2091,9 @@ def start_server():
 
     keepalive_thread = threading.Thread(target=_render_keepalive_pinger, daemon=True)
     keepalive_thread.start()
+
+    # Start autonomous background inbox reply monitor (detects replies & alerts Telegram)
+    DashboardHandler.inbox_service.start_background_scanner(interval_sec=90)
 
     while True:
         try:

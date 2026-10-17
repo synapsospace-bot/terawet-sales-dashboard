@@ -410,6 +410,33 @@ class AutoOutreachService:
 
             logger.info(f"🎉 Outreach session finished! Sent: {sent_count}, Failed: {failed_count}, Invalid: {skipped_invalid}, Time: {elapsed_min}m")
 
+            # Dispatch Daily Telegram Report
+            try:
+                from telegram_notifier import telegram_notifier
+                countries_stats = {}
+                for l in leads_to_process[:sent_count]:
+                    c_name = l.get("country", "Європа")
+                    c_flag = l.get("country_flag", "")
+                    label = f"{c_flag} {c_name}".strip()
+                    countries_stats[label] = countries_stats.get(label, 0) + 1
+
+                telegram_summary = {
+                    "today_date": today_str,
+                    "timestamp": timestamp_str.split(" ")[1] if " " in timestamp_str else timestamp_str,
+                    "target_count": target_count,
+                    "sent_count": sent_count,
+                    "failed_count": failed_count,
+                    "skipped_invalid": skipped_invalid,
+                    "duration_minutes": elapsed_min,
+                    "status": self.last_run_status,
+                    "mode": mode,
+                    "countries": countries_stats
+                }
+                telegram_notifier.send_daily_outreach_report(telegram_summary)
+                logger.info("Sent daily outreach report to Telegram.")
+            except Exception as tg_err:
+                logger.error(f"Failed sending Telegram daily outreach report: {tg_err}")
+
         except Exception as e:
             logger.error(f"Critical error in outreach worker: {e}", exc_info=True)
             with self._lock:

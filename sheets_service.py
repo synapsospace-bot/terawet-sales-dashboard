@@ -910,6 +910,33 @@ class LeadDataService:
             logger.info(f"Updated lead {lead.get('company_name')} -> '✅ Лист відправлено' in local database.")
             self.export_updated_csv()
 
+    def mark_lead_replied(self, lead: Dict[str, Any], subject: str, snippet: str, reply_date: str = ""):
+        """
+        Marks lead as having replied ('💬 Отримано відповідь') in state, memory, and CSV.
+        Thread-safe and atomic.
+        """
+        with self._lock:
+            raw_email = lead.get("email", "").strip()
+            today = reply_date or datetime.now().strftime("%Y-%m-%d")
+
+            cached_data = {
+                "status": "💬 Отримано відповідь",
+                "date": today,
+                "subject": subject,
+                "generation_sheet": f"Subject: {subject}\n\n[ВІДПОВІДЬ КЛІЄНТА]:\n{snippet}"
+            }
+            if raw_email:
+                self.state[raw_email.lower()] = cached_data
+                for em in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email.lower()):
+                    self.state[em] = cached_data
+            comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
+            if comp_name:
+                self.state[f"name_{comp_name}"] = cached_data
+
+            self._save_state()
+            logger.info(f"Updated lead {lead.get('company_name')} -> '💬 Отримано відповідь' in local database.")
+            self.export_updated_csv()
+
     def export_updated_csv(self) -> Path:
         """
         Exports the updated sheet into updated_google_sheet.csv with deduplication and formula injection protection.

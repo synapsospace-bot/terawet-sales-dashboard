@@ -56,3 +56,10 @@ SENDER_WEBSITE = os.getenv("SENDER_WEBSITE", "https://tera-wet.com")
 CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "terawet.original@gmail.com")
 
 KNOWLEDGE_BASE_PATH = BASE_DIR / "knowledge_base.json"
+
+# ==========================================
+# Telegram Bot Notifications & Reporting
+# ==========================================
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8208076264:AAElAEQneQk2IJRUnpbMIgLw9Je_AHdBh6o")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "6796493041")
+TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() in ("true", "1", "yes")
