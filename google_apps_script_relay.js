@@ -114,3 +114,24 @@ function doPost(e) {
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
+
+/**
+ * Щоденний автономний тригер для Google Apps Script (Таймер по часу: щодня о 09:00 - 10:00).
+ * Будить Render і запускає відправку 50 лідів напряму.
+ */
+function triggerDailyOutreach() {
+  var url = "https://terawet-sales-dashboard.onrender.com/api/outreach/start";
+  var options = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify({ count: 50, mode: "send" }),
+    muteHttpExceptions: true
+  };
+  try {
+    var response = UrlFetchApp.fetch(url, options);
+    Logger.log("Trigger response: " + response.getContentText());
+  } catch (e) {
+    Logger.log("Trigger error: " + e.toString());
+  }
+}
+

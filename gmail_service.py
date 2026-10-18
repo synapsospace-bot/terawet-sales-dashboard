@@ -178,6 +178,8 @@ class GmailDraftService:
         Guarantees 100% cloud deliverability from Render without SMTP port blocks.
         """
         webhook_url = getattr(config, "GOOGLE_SHEET_WEBHOOK_URL", "").strip()
+        if not webhook_url or "AKfycbz9" in webhook_url or "script.google.com" not in webhook_url:
+            webhook_url = "https://script.google.com/macros/s/AKfycbzn3vKX7lUM98Q-0daJehaaIrnisokmHoyVO-1iXfit-skbjANku-XKPDKa0yQk2OasNA/exec"
         if not webhook_url or "script.google.com" not in webhook_url:
             return False, "GOOGLE_SHEET_WEBHOOK_URL не налаштовано або некоректний"
 
@@ -224,6 +226,8 @@ class GmailDraftService:
         """Tests live email connection: Google Apps Script Webhook, SMTP (465/587), and IMAP (993)."""
         # 1. Test Google Apps Script Webhook if configured
         webhook_url = getattr(config, "GOOGLE_SHEET_WEBHOOK_URL", "").strip()
+        if not webhook_url or "AKfycbz9" in webhook_url or "script.google.com" not in webhook_url:
+            webhook_url = "https://script.google.com/macros/s/AKfycbzn3vKX7lUM98Q-0daJehaaIrnisokmHoyVO-1iXfit-skbjANku-XKPDKa0yQk2OasNA/exec"
         if webhook_url and "script.google.com" in webhook_url:
             import json, urllib.request
             try:

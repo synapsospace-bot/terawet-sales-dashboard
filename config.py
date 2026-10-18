@@ -31,10 +31,10 @@ GOOGLE_SHEET_URL = os.getenv(
     "GOOGLE_SHEET_URL", 
     "https://docs.google.com/spreadsheets/d/1E5w61jpITa3DgnmnhbJBmLhllTVLabUYYZMlke4CljY/edit?usp=sharing"
 )
-GOOGLE_SHEET_WEBHOOK_URL = os.getenv(
-    "GOOGLE_SHEET_WEBHOOK_URL",
-    "https://script.google.com/macros/s/AKfycbzn3vKX7lUM98Q-0daJehaaIrnisokmHoyVO-1iXfit-skbjANku-XKPDKa0yQk2OasNA/exec"
-)
+_raw_webhook = (os.getenv("GOOGLE_SHEET_WEBHOOK_URL") or "").strip()
+if not _raw_webhook or "AKfycbz9" in _raw_webhook or not _raw_webhook.startswith("https://script.google.com/"):
+    _raw_webhook = "https://script.google.com/macros/s/AKfycbzn3vKX7lUM98Q-0daJehaaIrnisokmHoyVO-1iXfit-skbjANku-XKPDKa0yQk2OasNA/exec"
+GOOGLE_SHEET_WEBHOOK_URL = _raw_webhook
 GMAIL_WEBHOOK_SECRET = os.getenv("GMAIL_WEBHOOK_SECRET", "terawet_secure_sync_2026")
 CSV_FILE_PATH = os.getenv("CSV_FILE_PATH", str(BASE_DIR / "leads_sample.csv"))
 
