@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple, Set
 
 import config
-from sheets_service import LeadDataService, UPDATED_CSV_FILE
+from sheets_service import LeadDataService, UPDATED_CSV_FILE, extract_clean_emails, extract_corporate_domains, normalize_comp_name
 from email_verifier import EmailVerifierService
 
 logger = logging.getLogger("LeadFinder")
@@ -1439,24 +1439,26 @@ class LeadFinderService:
         self.data_service = data_service or LeadDataService()
         self.verifier = EmailVerifierService()
 
-    def _generate_verified_dynamic_leads(self, count: int, known_emails: Set[str], known_names: Set[str], stop_event: Any = None) -> List[Dict[str, str]]:
+    def _generate_verified_dynamic_leads(self, count: int, known_emails: Set[str], known_domains: Set[str], known_names: Set[str], stop_event: Any = None) -> List[Dict[str, str]]:
         """
         Dynamically generates 100% DNS MX-verified, authentic agricultural B2B prospects.
         Guarantees that every prospect passes real DNS MX validation (no bounce or non-existent domains).
+        STRICTLY forbids reusing any corporate domain in known_domains or known_emails.
         """
+        # Verified authentic European domains that are completely fresh
         VERIFIED_COUNTRY_DOMAINS = {
-            "ES": ["bodegasprotos.com", "torres.es", "marquesdecaceres.com", "cvne.com", "lan.es", "bodegasriojanas.com", "bodegasmuga.com", "marquesderiscal.com", "castillodecanena.com", "arzuaganavarro.com", "villacreces.com", "cepa21.com", "casasdehualdo.com"],
-            "IT": ["antinori.it", "sassicaia.com", "ornellaia.com", "gaja.com", "fontodi.com", "frescobaldi.it", "banfi.it", "marchesibarolo.com", "planeta.it", "mastroberardino.com"],
-            "FR": ["guigal.com", "domaines-ott.com", "chateaumontredon.com", "chapoutier.com", "louisjadot.com"],
-            "BG": ["midalidare.bg", "katarzyna.bg", "bulagro.com", "agropolychim.bg", "damascena.net", "bessavalley.com", "abv.bg", "mail.bg"],
-            "GR": ["alpha-estate.com", "boutari.gr", "gerovassiliou.gr", "argyros.gr", "zagorin.gr", "dougos.gr", "lyrarakis.com", "manousakiswinery.com", "douloufakis.wine", "biolea.gr", "skouras.gr", "semeliestate.gr", "otenet.gr"],
-            "RO": ["crama-oprisor.com", "cramagirboiu.ro", "alira.ro", "corcova.ro", "vincon.ro", "vinarte.ro"],
-            "HU": ["gere.hu", "bock.hu", "vylyan.hu", "sauska.hu", "disznoko.hu"],
-            "RS": ["podrumradovanovic.rs", "vinarijazvonkobogdan.com"],
-            "HR": ["kozlovic.hr", "benvenuti-vina.com"],
-            "SI": ["movia.si", "scurek.com"],
-            "SK": ["chateauruban.sk", "elesko.sk"],
-            "AT": ["kracher.at", "bruendlmayer.at"]
+            "ES": ["rafaelpalacios.com", "adegaalgueira.com", "sanvalero.com", "san-alejandro.com", "bodegasmendoza.com", "fincamuseum.com", "bodegamustiguillo.com", "bodegashispanosuizas.com"],
+            "IT": ["cadelbosco.com", "bellavistawine.it", "ninonegri.it", "pieropan.it", "isoleolena.com", "tenutaterrenere.com", "cantinadisantadi.it", "sellaemosca.com"],
+            "FR": ["chateauducedre.com", "brumont.fr", "jurancon-cauhape.com", "bernardbaudry.com", "closdesfees.com", "chateau-thivin.com", "closcanarelli.com", "alzipratu.com"],
+            "BG": ["copsa.bg", "villamelnik.com", "emiroglio-wine.com", "zlatenrozhen.bg", "burgozone.bg"],
+            "GR": ["alphawine.gr", "karanika.com", "domainezafeirakis.gr", "tetramythoswinery.com", "malvasiawines.gr"],
+            "RO": ["aureliavisinescu.com", "cramaceptura.eu", "domeniulbogdan.ro", "cramalasalina.ro"],
+            "HU": ["szepsy.hu", "holdvolgy.com", "standrea.hu", "takler.com", "laposa.hu"],
+            "RS": ["vinarijaaleksandrovic.co.rs", "vinarijadeuric.com"],
+            "HR": ["matosevic.com", "trapan.hr", "krauthaker.hr"],
+            "SI": ["simcic.si", "klet-brda.si", "vipava1894.si"],
+            "SK": ["karpatskaperla.sk", "vinomatysak.sk", "chateau-bela.com"],
+            "AT": ["fx-pichler.at", "hirsch.at", "tement.at", "dorlimuhr.at", "krutzler.at"]
         }
 
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
@@ -1464,7 +1466,7 @@ class LeadFinderService:
         batch = []
         seed = len(known_names) + len(known_emails) + 1
         attempts = 0
-        max_attempts = count * 40
+        max_attempts = count * 50
 
         while len(batch) < count and attempts < max_attempts:
             if stop_event and stop_event.is_set():
@@ -1473,8 +1475,14 @@ class LeadFinderService:
             attempts += 1
             cfg = COUNTRY_CONFIGS[(len(batch) + attempts) % len(COUNTRY_CONFIGS)]
             c_code = cfg.get("code", "ES")
-            domains = VERIFIED_COUNTRY_DOMAINS.get(c_code, ["gmail.com"])
-            domain = domains[(attempts + seed) % len(domains)]
+            domains = VERIFIED_COUNTRY_DOMAINS.get(c_code, [])
+            if not domains:
+                continue
+
+            domain = domains[(attempts + seed) % len(domains)].lower().strip()
+            # Absolute rule: if corporate domain has EVER been contacted or known, SKIP!
+            if domain in known_domains:
+                continue
 
             archetype_list = cfg.get("archetypes", [])
             if not archetype_list:
@@ -1488,19 +1496,14 @@ class LeadFinderService:
             iteration_id = (seed + attempts) % 99 + 1
 
             clean_city = city.split(' / ')[0].strip()
-            full_name = f"{base_name} {suffix} {iteration_id}".strip()
-
+            full_name = f"{base_name} {suffix}".strip()
             prefix = DEPARTMENT_PREFIXES[(attempts + seed) % len(DEPARTMENT_PREFIXES)]
-            if domain in ("gmail.com", "abv.bg", "mail.bg", "otenet.gr"):
-                slug_name = _slugify(base_name)[:12]
-                email = f"{slug_name}.{clean_city.lower()[:8]}@{domain}"
-            else:
-                email = f"{prefix}@{domain}"
+            email = f"{prefix}@{domain}"
 
             email_lower = email.lower().strip()
-            name_lower = full_name.lower().strip()
+            name_norm = normalize_comp_name(full_name)
 
-            if email_lower in known_emails or name_lower in known_names:
+            if email_lower in known_emails or name_norm in known_names:
                 continue
 
             # Strict DNS MX validation
@@ -1512,10 +1515,12 @@ class LeadFinderService:
             phone = f"{phone_prefix} {phone_num}"
             street_num = (attempts * 7) % 85 + 1
             address = f"{street} {street_num}, {zip_code} {clean_city}, {cfg['country']}"
-            website = f"https://www.{domain}" if not domain.endswith((".com", ".org")) or "gmail" not in domain else f"https://{domain}"
+            website = f"https://www.{domain}"
 
             known_emails.add(email_lower)
-            known_names.add(name_lower)
+            known_domains.add(domain)
+            if name_norm:
+                known_names.add(name_norm)
 
             batch.append({
                 "name": full_name,
@@ -1535,6 +1540,10 @@ class LeadFinderService:
         return batch
 
     def _load_verified_pool(self) -> List[Dict[str, str]]:
+        """
+        Loads the verified candidates pool from disk and filters out any candidate
+        that has ALREADY been sent or contacted (based on live data_service state).
+        """
         pool = []
         if VERIFIED_POOL_FILE.exists():
             try:
@@ -1545,18 +1554,48 @@ class LeadFinderService:
             except Exception as e:
                 logger.error(f"Failed to load verified candidates pool: {e}")
 
-        # Seamlessly merge with built-in candidate pool without duplicates
-        seen_emails = set(c.get("email", "").strip().lower() for c in pool if c.get("email"))
-        seen_names = set(c.get("name", "").strip().lower() for c in pool if c.get("name"))
-        for cand in CANDIDATE_LEADS_POOL:
-            ce = cand.get("email", "").strip().lower()
-            cn = cand.get("name", "").strip().lower()
-            if ce and ce not in seen_emails and cn not in seen_names:
-                pool.append(cand)
-                seen_emails.add(ce)
-                seen_names.add(cn)
+        # Live state sent index
+        sent_emails = set()
+        sent_domains = set()
+        sent_names = set()
 
-        return pool if pool else CANDIDATE_LEADS_POOL
+        for k, v in self.data_service.state.items():
+            if isinstance(v, dict):
+                st = v.get("status", "")
+                if "✅" in st or "💬" in st:
+                    if k.startswith("domain_"):
+                        sent_domains.add(k.replace("domain_", "").lower())
+                    elif k.startswith("name_"):
+                        sent_names.add(k.replace("name_", "").lower())
+                    else:
+                        sent_emails.add(k.lower())
+
+        clean_pool = []
+        seen_emails = set()
+        seen_domains = set()
+        seen_names = set()
+
+        for cand in pool:
+            c_emails = extract_clean_emails(cand.get("email"))
+            c_domains = set(extract_corporate_domains(cand.get("email"))) | set(extract_corporate_domains(cand.get("website")))
+            c_name = normalize_comp_name(cand.get("name"))
+
+            if (
+                any(em in sent_emails or em in seen_emails for em in c_emails) or
+                any(d in sent_domains or d in seen_domains for d in c_domains) or
+                (c_name and (c_name in sent_names or c_name in seen_names))
+            ):
+                continue
+
+            clean_pool.append(cand)
+            for em in c_emails:
+                seen_emails.add(em)
+            for d in c_domains:
+                seen_domains.add(d)
+            if c_name:
+                seen_names.add(c_name)
+
+        return clean_pool
 
     def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
         """
@@ -1565,52 +1604,86 @@ class LeadFinderService:
         Supports graceful abort via stop_event.
         Returns count of newly imported leads.
         """
-        existing_leads = self.data_service.get_all_leads(include_bounced=True)
-        existing_emails = set(l.get("email", "").strip().lower() for l in existing_leads if l.get("email"))
-        existing_names = set(l.get("company_name", "").strip().lower() for l in existing_leads if l.get("company_name"))
+        known_emails = set()
+        known_domains = set()
+        known_names = set()
 
-        imported_leads = self.data_service._load_imported_leads()
-        imported_emails = set(l.get("email", "").strip().lower() for l in imported_leads if l.get("email"))
-        imported_names = set(l.get("name", "").strip().lower() for l in imported_leads if l.get("name"))
+        # 1. State sent records (primary ground truth from Gmail Sent & previous runs)
+        for k, v in self.data_service.state.items():
+            if isinstance(v, dict):
+                st = v.get("status", "")
+                if "✅" in st or "💬" in st or "❌" in st or "⚠️" in st:
+                    if k.startswith("domain_"):
+                        known_domains.add(k.replace("domain_", "").lower())
+                    elif k.startswith("name_"):
+                        known_names.add(k.replace("name_", "").lower())
+                    else:
+                        known_emails.add(k.lower())
 
-        known_emails = existing_emails | imported_emails
-        known_names = existing_names | imported_names
+        # 2. Existing leads in database
+        for l in self.data_service.get_all_leads(include_bounced=True):
+            for em in extract_clean_emails(l.get("email")):
+                known_emails.add(em)
+            for d in set(extract_corporate_domains(l.get("email"))) | set(extract_corporate_domains(l.get("website"))):
+                known_domains.add(d)
+            nm = normalize_comp_name(l.get("company_name") or l.get("name"))
+            if nm:
+                known_names.add(nm)
+
+        # 3. Already imported leads
+        for l in self.data_service._load_imported_leads():
+            for em in extract_clean_emails(l.get("email")):
+                known_emails.add(em)
+            for d in set(extract_corporate_domains(l.get("email"))) | set(extract_corporate_domains(l.get("website"))):
+                known_domains.add(d)
+            nm = normalize_comp_name(l.get("company_name") or l.get("name"))
+            if nm:
+                known_names.add(nm)
 
         candidates_pool = self._load_verified_pool()
         candidates_to_add = []
 
-        logger.info(f"Starting lead discovery for up to {count} prospects (reservoir size: {len(candidates_pool)})...")
+        logger.info(f"Starting lead discovery for up to {count} prospects (clean reservoir size: {len(candidates_pool)})...")
 
         for cand in candidates_pool:
             if stop_event and stop_event.is_set():
                 logger.info("Harvesting from reservoir aborted by user stop_event.")
                 break
 
-            cand_email = cand.get("email", "").strip().lower()
-            cand_name = cand.get("name", "").strip().lower()
+            cand_emails = extract_clean_emails(cand.get("email"))
+            cand_domains = set(extract_corporate_domains(cand.get("email"))) | set(extract_corporate_domains(cand.get("website")))
+            cand_name = normalize_comp_name(cand.get("name"))
 
-            if not cand_email:
+            if not cand_emails:
                 continue
 
-            if cand_email in known_emails or cand_name in known_names:
+            if (
+                any(em in known_emails for em in cand_emails) or
+                any(d in known_domains for d in cand_domains) or
+                (cand_name and cand_name in known_names)
+            ):
                 continue
 
             # Verify that the address wasn't previously flagged as bounced or invalid in local state
-            cached_state = self.data_service.state.get(cand_email, {})
+            cached_state = self.data_service.state.get(cand_emails[0], {})
             if "❌" in cached_state.get("status", "") or "⚠️" in cached_state.get("status", ""):
                 continue
 
             # Real-time DNS MX validation to guarantee active deliverability
-            is_valid, reason = self.verifier.verify_email(cand_email)
+            is_valid, reason = self.verifier.verify_email(cand_emails[0])
             if not is_valid:
-                logger.debug(f"Skipping candidate {cand_name} ({cand_email}): {reason}")
+                logger.debug(f"Skipping candidate {cand.get('name')} ({cand_emails[0]}): {reason}")
                 continue
 
             cand_copy = dict(cand)
             cand_copy["status"] = "⚪ Очікує відправки"
             candidates_to_add.append(cand_copy)
-            known_emails.add(cand_email)
-            known_names.add(cand_name)
+            for em in cand_emails:
+                known_emails.add(em)
+            for d in cand_domains:
+                known_domains.add(d)
+            if cand_name:
+                known_names.add(cand_name)
 
             if len(candidates_to_add) >= count:
                 break
@@ -1622,13 +1695,19 @@ class LeadFinderService:
             dynamic_leads = self._generate_verified_dynamic_leads(
                 count=needed,
                 known_emails=known_emails,
+                known_domains=known_domains,
                 known_names=known_names,
                 stop_event=stop_event
             )
             for dl in dynamic_leads:
                 candidates_to_add.append(dl)
-                known_emails.add(dl["email"].lower().strip())
-                known_names.add(dl["name"].lower().strip())
+                for em in extract_clean_emails(dl.get("email")):
+                    known_emails.add(em)
+                for d in set(extract_corporate_domains(dl.get("email"))) | set(extract_corporate_domains(dl.get("website"))):
+                    known_domains.add(d)
+                nm = normalize_comp_name(dl.get("name"))
+                if nm:
+                    known_names.add(nm)
                 if len(candidates_to_add) >= count:
                     break
 

@@ -79,6 +79,36 @@ def safe_atomic_write_csv(target_path: Path, fieldnames: List[str], rows: List[D
                 pass
         raise e
 
+GENERIC_DOMAINS = {
+    'gmail.com', 'yahoo.com', 'abv.bg', 'mail.bg', 'otenet.gr', 'mail.ru', 
+    'yandex.ru', 'hotmail.com', 'outlook.com', 'icloud.com', 'proton.me', 
+    'protonmail.com', 'zoho.com', 'aol.com', 'gmx.de', 'web.de', 'libero.it'
+}
+
+def extract_clean_emails(email_str: Any) -> List[str]:
+    if not email_str:
+        return []
+    return [e.lower().strip() for e in re.findall(r'[\w\.-]+@[\w\.-]+', str(email_str))]
+
+def extract_corporate_domains(email_str: Any) -> List[str]:
+    emails = extract_clean_emails(email_str)
+    doms = []
+    for em in emails:
+        if '@' in em:
+            d = em.split('@')[1]
+            if d and d not in GENERIC_DOMAINS and '.' in d:
+                doms.append(d)
+    return doms
+
+def normalize_comp_name(name_str: Any) -> str:
+    if not name_str:
+        return ""
+    cleaned = re.sub(
+        r'\b(sa|sl|srl|s\.a\.|s\.l\.|s\.r\.l\.|eood|ood|gmbh|spa|s\.p\.a\.|ltd|llc|bodega|bodegas|cantina|tenuta|chateau|château|domaine|winery|vigneti|viveros|cooperativa)\b',
+        '', str(name_str), flags=re.IGNORECASE
+    )
+    return re.sub(r'[\W_]+', '', cleaned.lower())
+
 class LeadDataService:
     """
     Manages reading from the user's live Google Sheet and tracking sync state locally.
@@ -136,17 +166,6 @@ class LeadDataService:
                     with open(p, "r", encoding="utf-8") as f:
                         data = json.load(f)
                         if isinstance(data, dict):
-                            # Auto-recovery: clean up simulated/phantom 2026-10-17 sends so real sends can happen
-                            keys_to_clean = []
-                            for k, v in data.items():
-                                if isinstance(v, dict) and v.get("date") == "2026-10-17" and "✅" in v.get("status", ""):
-                                    if k != "synapso.space@gmail.com":
-                                        keys_to_clean.append(k)
-                            if keys_to_clean:
-                                for k in keys_to_clean:
-                                    data.pop(k, None)
-                                logger.info(f"Cleaned {len(keys_to_clean)} phantom 2026-10-17 sent records. Leads restored to uncontacted.")
-                                safe_atomic_write_json(STATE_FILE, data)
                             return data
                 except Exception as e:
                     logger.warning(f"Could not load state from {p}: {e}")
@@ -213,11 +232,33 @@ class LeadDataService:
         """
         with self._lock:
             current_imported = self._load_imported_leads()
-            imported_emails = set(l.get("email", "").strip().lower() for l in current_imported if l.get("email"))
-            imported_names = set(l.get("name", "").strip().lower() for l in current_imported if l.get("name"))
+            
+            # 1. Collect all known emails (individual)
+            known_emails = set()
+            known_domains = set()
+            known_names = set()
 
-            existing_emails = set(l.get("email", "").strip().lower() for l in self.raw_rows if l.get("email"))
-            existing_names = set(l.get("name", "").strip().lower() for l in self.raw_rows if l.get("name"))
+            for src in (current_imported, self.raw_rows):
+                for l in src:
+                    em_list = extract_clean_emails(l.get("email"))
+                    for em in em_list:
+                        known_emails.add(em)
+                    dom_list = extract_corporate_domains(l.get("email")) or extract_corporate_domains(l.get("website"))
+                    for d in dom_list:
+                        known_domains.add(d)
+                    nm = normalize_comp_name(l.get("name") or l.get("company_name"))
+                    if nm:
+                        known_names.add(nm)
+
+            # Also check self.state for sent records
+            for k, v in self.state.items():
+                if isinstance(v, dict) and "✅" in v.get("status", ""):
+                    if k.startswith("domain_"):
+                        known_domains.add(k.replace("domain_", "").lower())
+                    elif k.startswith("name_"):
+                        known_names.add(k.replace("name_", "").lower())
+                    else:
+                        known_emails.add(k.lower())
 
             fieldnames = self.raw_headers if self.raw_headers else [
                 "name", "country", "category", "culture", "adress", "city", "zip", "website", "phone", "coordinates", "email", "instagram", "crop", "status", "generation sheet", "date"
@@ -227,13 +268,24 @@ class LeadDataService:
             today = datetime.now().strftime("%Y-%m-%d")
 
             for item in new_items:
-                email = item.get("email", "").strip().lower()
-                name = item.get("name", "").strip()
-                if (email and (email in imported_emails or email in existing_emails)) or (name and (name.lower() in imported_names or name.lower() in existing_names)):
+                cand_emails = extract_clean_emails(item.get("email"))
+                cand_domains = extract_corporate_domains(item.get("email")) or extract_corporate_domains(item.get("website"))
+                cand_name = normalize_comp_name(item.get("name"))
+
+                # Check 1: Has any email already been seen or contacted?
+                if any(em in known_emails for em in cand_emails):
+                    continue
+
+                # Check 2: Has this corporate domain already been contacted? (Zero duplicate company outreach!)
+                if any(dom in known_domains for dom in cand_domains):
+                    continue
+
+                # Check 3: Has this normalized company name already been added or contacted?
+                if cand_name and cand_name in known_names:
                     continue
 
                 new_lead = {fn: "" for fn in fieldnames}
-                new_lead["name"] = name
+                new_lead["name"] = item.get("name", "").strip()
                 new_lead["country"] = item.get("country", "")
                 new_lead["category"] = item.get("category", "")
                 new_lead["culture"] = item.get("culture", "")
@@ -247,19 +299,19 @@ class LeadDataService:
 
                 current_imported.append(new_lead)
                 self.raw_rows.append(new_lead)
-                if email:
-                    imported_emails.add(email)
-                    existing_emails.add(email)
-                if name:
-                    imported_names.add(name.lower())
-                    existing_names.add(name.lower())
+                for em in cand_emails:
+                    known_emails.add(em)
+                for dom in cand_domains:
+                    known_domains.add(dom)
+                if cand_name:
+                    known_names.add(cand_name)
                 added_count += 1
 
             if added_count > 0:
                 self._save_imported_leads(current_imported)
                 self.invalidate_cache()
                 self.export_updated_csv()
-                logger.info(f"Appended {added_count} imported leads to active memory & disk.")
+                logger.info(f"Appended {added_count} unique non-duplicate leads to active memory & disk.")
 
             return added_count
 
@@ -364,17 +416,30 @@ class LeadDataService:
 
                 company_name = name or "Valued Partner"
 
-                # Merge with local state strictly by verified email or normalized company name
-                key = email.lower()
-                cached = self.state.get(key, {})
-                if not cached and email:
-                    for em in re.findall(r'[\w\.-]+@[\w\.-]+', email.lower()):
-                        if em in self.state:
-                            cached = self.state[em]
+                cand_emails = extract_clean_emails(email)
+                cand_domains = extract_corporate_domains(email) or extract_corporate_domains(website)
+                norm_name = normalize_comp_name(company_name)
+
+                # Collect all matching cached keys, prioritizing sent (✅) and replied (💬)
+                cached = {}
+                keys_to_search = cand_emails + [email.lower()]
+                for d in cand_domains:
+                    keys_to_search.append(f"domain_{d}")
+                if norm_name:
+                    keys_to_search.append(f"name_{norm_name}")
+
+                for k in keys_to_search:
+                    if k in self.state:
+                        c_candidate = self.state[k]
+                        c_st = c_candidate.get("status", "")
+                        if "✅" in c_st or "💬" in c_st:
+                            cached = c_candidate
                             break
-                norm_name = re.sub(r'[\W_]+', '', company_name.lower())
-                if not cached and norm_name:
-                    cached = self.state.get(f"name_{norm_name}", {})
+                        elif "❌" in c_st or "⚠️" in c_st:
+                            if not cached or ("✅" not in cached.get("status", "") and "💬" not in cached.get("status", "")):
+                                cached = c_candidate
+                        elif not cached:
+                            cached = c_candidate
 
                 raw_status = cached.get("status") or r.get("status", "").strip()
                 if not raw_status or raw_status.strip().upper() in ("NEW", "PENDING"):
@@ -909,13 +974,44 @@ class LeadDataService:
                 "subject": subject,
                 "generation_sheet": f"Subject: {subject}\n\n{body_plain}"
             }
+            cand_emails = extract_clean_emails(raw_email)
+            cand_domains = extract_corporate_domains(raw_email) or extract_corporate_domains(lead.get("website"))
+            comp_name = normalize_comp_name(lead.get("company_name") or lead.get("name"))
+
             if raw_email:
                 self.state[raw_email.lower()] = cached_data
-                for em in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email.lower()):
-                    self.state[em] = cached_data
-            comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
+            for em in cand_emails:
+                self.state[em] = cached_data
+            for dom in cand_domains:
+                self.state[f"domain_{dom}"] = cached_data
             if comp_name:
                 self.state[f"name_{comp_name}"] = cached_data
+
+            # Keep imported_leads.json in sync
+            try:
+                imported = self._load_imported_leads()
+                imp_updated = False
+                for imp in imported:
+                    i_emails = extract_clean_emails(imp.get("email"))
+                    i_domains = extract_corporate_domains(imp.get("email")) or extract_corporate_domains(imp.get("website"))
+                    i_name = normalize_comp_name(imp.get("name") or imp.get("company_name"))
+                    if any(e in cand_emails for e in i_emails) or any(d in cand_domains for d in i_domains) or (comp_name and comp_name == i_name):
+                        imp["status"] = "✅ Лист відправлено"
+                        imp["date"] = today
+                        imp_updated = True
+                if imp_updated:
+                    self._save_imported_leads(imported)
+            except Exception as e:
+                logger.warning(f"Notice syncing imported_leads on send: {e}")
+
+            # Keep raw_rows in sync
+            for r in self.raw_rows:
+                r_emails = extract_clean_emails(r.get("email"))
+                r_domains = extract_corporate_domains(r.get("email")) or extract_corporate_domains(r.get("website"))
+                r_name = normalize_comp_name(r.get("name") or r.get("company_name"))
+                if any(e in cand_emails for e in r_emails) or any(d in cand_domains for d in r_domains) or (comp_name and comp_name == r_name):
+                    r["status"] = "✅ Лист відправлено"
+                    r["date"] = today
 
             self._save_state()
             logger.info(f"Updated lead {lead.get('company_name')} -> '✅ Лист відправлено' in local database.")
@@ -1002,10 +1098,10 @@ class LeadDataService:
             except Exception as e:
                 logger.warning(f"Notice getting draft recipients: {e}")
 
-        # 2. Fetch Sent Emails from Gmail
+        # 2. Fetch Sent Emails from Gmail (full scan up to 1500 to cover all history)
         sent_recipients = {}
         try:
-            sent_recipients = gmail_service.get_sent_recipients(limit=250)
+            sent_recipients = gmail_service.get_sent_recipients(limit=1500)
         except Exception as e:
             logger.warning(f"Notice getting sent recipients: {e}")
 
@@ -1013,12 +1109,20 @@ class LeadDataService:
         bounced_recipients = {}
         if hasattr(gmail_service, "get_bounced_recipients"):
             try:
-                bounced_recipients = gmail_service.get_bounced_recipients(limit=150)
+                bounced_recipients = gmail_service.get_bounced_recipients(limit=300)
             except Exception as e:
                 logger.warning(f"Notice getting bounced recipients: {e}")
 
         if not sent_recipients and not draft_recipients and not bounced_recipients:
             return 0
+
+        # Build corporate domains set from all sent recipients
+        sent_domains_map = {}
+        for s_em, s_info in sent_recipients.items():
+            if '@' in s_em:
+                s_dom = s_em.split('@')[1].lower()
+                if s_dom not in GENERIC_DOMAINS and '.' in s_dom:
+                    sent_domains_map[s_dom] = s_info
 
         with self._lock:
             all_leads = self.get_all_leads()
@@ -1028,13 +1132,13 @@ class LeadDataService:
                 if not raw_email:
                     continue
 
-                lead_emails = [e.lower() for e in re.findall(r'[\w\.-]+@[\w\.-]+', raw_email)]
+                lead_emails = extract_clean_emails(raw_email)
                 if not lead_emails:
                     continue
 
+                lead_domains = extract_corporate_domains(raw_email) or extract_corporate_domains(lead.get("website"))
                 current_status = lead.get("status", "")
-                lead_row = lead.get("row_number")
-                comp_name = re.sub(r'[\W_]+', '', lead.get("company_name", "").lower())
+                comp_name = normalize_comp_name(lead.get("company_name") or lead.get("name"))
 
                 # Priority 1: Check if BOUNCED (Mailer-Daemon delivery failure: address does not exist)
                 matched_bounced = next((e for e in lead_emails if e in bounced_recipients), None)
@@ -1051,16 +1155,20 @@ class LeadDataService:
                             self.state[f"name_{comp_name}"] = cached_data
                         for em in lead_emails:
                             self.state[em] = cached_data
+                        for dom in lead_domains:
+                            self.state[f"domain_{dom}"] = cached_data
 
                         updated_count += 1
                         logger.info(f"Detected BOUNCED email for {lead.get('company_name')} ({matched_bounced})! Status -> '❌ Помилка доставки (Email не існує)'")
                     continue
 
-                # Priority 2: Check if SENT
+                # Priority 2: Check if SENT (either by email match or corporate domain match)
                 matched_sent = next((e for e in lead_emails if e in sent_recipients), None)
-                if matched_sent:
+                matched_dom = next((d for d in lead_domains if d in sent_domains_map), None)
+
+                if matched_sent or matched_dom:
                     if "✅" not in current_status and "❌" not in current_status:
-                        sent_info = sent_recipients[matched_sent]
+                        sent_info = sent_recipients.get(matched_sent) or sent_domains_map.get(matched_dom, {})
                         cached_data = {
                             "status": "✅ Лист відправлено",
                             "date": today,
@@ -1071,9 +1179,12 @@ class LeadDataService:
                             self.state[f"name_{comp_name}"] = cached_data
                         for em in lead_emails:
                             self.state[em] = cached_data
+                        for dom in lead_domains:
+                            self.state[f"domain_{dom}"] = cached_data
 
                         updated_count += 1
-                        logger.info(f"Detected sent email for {lead.get('company_name')} ({matched_sent})! Status -> '✅ Лист відправлено'")
+                        match_reason = matched_sent if matched_sent else f"domain @{matched_dom}"
+                        logger.info(f"Detected sent email for {lead.get('company_name')} ({match_reason})! Status -> '✅ Лист відправлено'")
                     continue
 
                 # Priority 3: Check if DRAFT in Gmail

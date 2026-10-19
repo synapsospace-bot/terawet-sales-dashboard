@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
 import config
-from sheets_service import LeadDataService, safe_atomic_write_json
+from sheets_service import LeadDataService, safe_atomic_write_json, extract_clean_emails, extract_corporate_domains, normalize_comp_name
 from agent_brain import TerawetAgentBrain
 from gmail_service import GmailDraftService
 from lead_finder import LeadFinderService
@@ -253,28 +253,73 @@ class AutoOutreachService:
 
         try:
             logger.info(f"▶️ Starting auto-outreach run (target: {target_count}, mode: {mode})...")
-            self.current_step_text = "Пошук та перевірка свіжих контактів лідів..."
+            self.current_step_text = "Синхронізація надісланих листів із Gmail..."
 
-            # 1. Fetch existing uncontacted leads
+            # 0. Ironclad Sync: verify all sent emails directly from Gmail Sent Mail
+            try:
+                self.data_service.sync_sent_emails(self.draft_service)
+            except Exception as sync_err:
+                logger.warning(f"Pre-flight Gmail Sent sync warning: {sync_err}")
+
+            # 1. Build live sets of ALL sent emails, domains, and company names
+            sent_emails = set()
+            sent_domains = set()
+            sent_names = set()
+
+            for k, v in self.data_service.state.items():
+                if isinstance(v, dict):
+                    st = v.get("status", "")
+                    if "✅" in st or "💬" in st:
+                        if k.startswith("domain_"):
+                            sent_domains.add(k.replace("domain_", "").lower())
+                        elif k.startswith("name_"):
+                            sent_names.add(k.replace("name_", "").lower())
+                        else:
+                            sent_emails.add(k.lower())
+
+            # 2. Fetch existing uncontacted leads with STRICT exclusion of any sent email, domain, or company
             all_leads = self.data_service.get_all_leads()
-            uncontacted = [
-                l for l in all_leads 
-                if l.get("email") and ("⚪" in l.get("status", "") or "NEW" in l.get("status", "").upper())
-            ]
+            uncontacted = []
+            for l in all_leads:
+                l_emails = extract_clean_emails(l.get("email"))
+                l_domains = extract_corporate_domains(l.get("email")) or extract_corporate_domains(l.get("website"))
+                l_name = normalize_comp_name(l.get("company_name") or l.get("name"))
+                st = l.get("status", "")
+
+                is_already_sent = (
+                    "✅" in st or
+                    any(em in sent_emails for em in l_emails) or
+                    any(d in sent_domains for d in l_domains) or
+                    (l_name and l_name in sent_names)
+                )
+                if is_already_sent:
+                    if "✅" not in st:
+                        self.data_service.mark_email_sent(l, l.get("subject", ""), "")
+                    continue
+
+                if "⚪" in st or "NEW" in st.upper():
+                    uncontacted.append(l)
 
             needed_discovery = target_count - len(uncontacted)
             if needed_discovery > 0 and not self.stop_event.is_set():
-                logger.info(f"Have {len(uncontacted)} uncontacted leads in cache; searching {needed_discovery} more...")
+                logger.info(f"Have {len(uncontacted)} uncontacted leads in cache; searching {needed_discovery} more fresh prospects...")
                 imported = self.finder_service.find_and_import_leads(
                     count=needed_discovery,
                     stop_event=self.stop_event
                 )
                 discovered_count = imported
                 all_leads = self.data_service.get_all_leads()
-                uncontacted = [
-                    l for l in all_leads 
-                    if l.get("email") and ("⚪" in l.get("status", "") or "NEW" in l.get("status", "").upper())
-                ]
+                uncontacted = []
+                for l in all_leads:
+                    l_emails = extract_clean_emails(l.get("email"))
+                    l_domains = extract_corporate_domains(l.get("email")) or extract_corporate_domains(l.get("website"))
+                    l_name = normalize_comp_name(l.get("company_name") or l.get("name"))
+                    st = l.get("status", "")
+
+                    if "✅" in st or any(em in sent_emails for em in l_emails) or any(d in sent_domains for d in l_domains) or (l_name and l_name in sent_names):
+                        continue
+                    if "⚪" in st or "NEW" in st.upper():
+                        uncontacted.append(l)
 
             leads_to_process = uncontacted[:target_count]
             self.progress_total = len(leads_to_process)
@@ -287,6 +332,10 @@ class AutoOutreachService:
                     self.current_step_text = "Немає лідів, що очікують відправки. Запустіть 'Пошук нових лідів'."
                 return
 
+            session_sent_emails = set()
+            session_sent_domains = set()
+            session_sent_names = set()
+
             for i, lead in enumerate(leads_to_process, start=1):
                 if self.stop_event.is_set():
                     logger.info("Outreach run aborted by user stop_event.")
@@ -297,6 +346,19 @@ class AutoOutreachService:
                 country = lead.get("country", "")
                 flag = lead.get("country_flag", "")
                 lang = lead.get("language", "en")
+
+                # In-loop deduplication check against session and global sent sets
+                l_emails = extract_clean_emails(email)
+                l_domains = extract_corporate_domains(email) or extract_corporate_domains(lead.get("website"))
+                l_name = normalize_comp_name(comp_name)
+
+                if (
+                    any(em in sent_emails or em in session_sent_emails for em in l_emails) or
+                    any(d in sent_domains or d in session_sent_domains for d in l_domains) or
+                    (l_name and (l_name in sent_names or l_name in session_sent_names))
+                ):
+                    logger.warning(f"⏩ In-loop skipping duplicate lead {comp_name} ({email}) - domain/email/company already contacted.")
+                    continue
 
                 self.current_lead_name = comp_name
                 self.current_lead_email = email
@@ -333,6 +395,16 @@ class AutoOutreachService:
                     if ok:
                         self.data_service.mark_email_sent(lead, subject, body_plain)
                         sent_count += 1
+                        for em in l_emails:
+                            session_sent_emails.add(em)
+                            sent_emails.add(em)
+                        for d in l_domains:
+                            session_sent_domains.add(d)
+                            sent_domains.add(d)
+                        if l_name:
+                            session_sent_names.add(l_name)
+                            sent_names.add(l_name)
+
                         with self._lock:
                             self.state["sent_today"] = self.state.get("sent_today", 0) + 1
                             self.state.setdefault("dispatch_log", []).append({
@@ -394,6 +466,16 @@ class AutoOutreachService:
                     )
                     self.data_service.mark_draft_created(lead, draft_id, subject, body_plain)
                     sent_count += 1
+                    for em in l_emails:
+                        session_sent_emails.add(em)
+                        sent_emails.add(em)
+                    for d in l_domains:
+                        session_sent_domains.add(d)
+                        sent_domains.add(d)
+                    if l_name:
+                        session_sent_names.add(l_name)
+                        sent_names.add(l_name)
+
                     with self._lock:
                         self.state["sent_today"] = self.state.get("sent_today", 0) + 1
                         self.state.setdefault("dispatch_log", []).append({
