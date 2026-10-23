@@ -2231,5 +2231,383 @@
     "mx": [
       "avantiswines-gr.mail.protection.outlook.com"
     ]
+  },
+  "vega-sicilia.com": {
+    "has_mx": true,
+    "mx": [
+      "vegasicilia-com01b.mail.protection.outlook.com"
+    ]
+  },
+  "pazodesenorans.com": {
+    "has_mx": true,
+    "mx": [
+      "alt1.aspmx.l.google.com",
+      "aspmx4.googlemail.com"
+    ]
+  },
+  "corullon.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (corullon.com)"
+    ]
+  },
+  "fincalaestacada.com": {
+    "has_mx": true,
+    "mx": [
+      "fincalaestacada-com.mail.protection.outlook.com"
+    ]
+  },
+  "stmichael.it": {
+    "has_mx": true,
+    "mx": [
+      "stmichael-it.mail.protection.outlook.com"
+    ]
+  },
+  "henribourgeois.com": {
+    "has_mx": true,
+    "mx": [
+      "henribourgeois-com.mail.protection.outlook.com"
+    ]
+  },
+  "domainegauby.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx14.mail.magic.fr"
+    ]
+  },
+  "zindhumbrecht.fr": {
+    "has_mx": true,
+    "mx": [
+      "A-record (zindhumbrecht.fr)"
+    ]
+  },
+  "mercouri.gr": {
+    "has_mx": true,
+    "mx": [
+      "A-record (mercouri.gr)"
+    ]
+  },
+  "vinarijaaleksandrovic.co.rs": {
+    "has_mx": false,
+    "reason": "Домен vinarijaaleksandrovic.co.rs не існує або не має поштових записів"
+  },
+  "laposa.hu": {
+    "has_mx": true,
+    "mx": [
+      "laposa-hu.mail.protection.outlook.com"
+    ]
+  },
+  "karpatskaperla.sk": {
+    "has_mx": true,
+    "mx": [
+      "karpatskaperla-sk.mail.protection.outlook.com"
+    ]
+  },
+  "rafaelpalacios.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "adegaalgueira.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.adegaalgueira.com"
+    ]
+  },
+  "san-alejandro.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.san-alejandro.com"
+    ]
+  },
+  "bodegasmendoza.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "fincamuseum.com": {
+    "has_mx": true,
+    "mx": [
+      "correo.sea.es"
+    ]
+  },
+  "bodegamustiguillo.com": {
+    "has_mx": true,
+    "mx": [
+      "alt4.aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "ninonegri.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.wintrade.it",
+      "smtp.wintrade.it"
+    ]
+  },
+  "isoleolena.com": {
+    "has_mx": false,
+    "reason": "Домен isoleolena.com не існує або не має поштових записів"
+  },
+  "sellaemosca.com": {
+    "has_mx": true,
+    "mx": [
+      "sellaemosca-com.mail.protection.outlook.com"
+    ]
+  },
+  "jurancon-cauhape.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.ovh.net",
+      "mxb.ovh.net"
+    ]
+  },
+  "bernardbaudry.com": {
+    "has_mx": true,
+    "mx": [
+      "mta-gw.infomaniak.ch"
+    ]
+  },
+  "closcanarelli.com": {
+    "has_mx": true,
+    "mx": [
+      "mx3.mail.ovh.net",
+      "mx4.mail.ovh.net"
+    ]
+  },
+  "alzipratu.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "oekonomierat-rebholz.com": {
+    "has_mx": true,
+    "mx": [
+      "mxlb.ispgateway.de"
+    ]
+  },
+  "toni-jost.de": {
+    "has_mx": false,
+    "reason": "Домен toni-jost.de не існує або не має поштових записів"
+  },
+  "krutzler.at": {
+    "has_mx": true,
+    "mx": [
+      "krutzler-at.mail.protection.outlook.com"
+    ]
+  },
+  "alphawine.gr": {
+    "has_mx": false,
+    "reason": "Домен alphawine.gr не існує або не має поштових записів"
+  },
+  "tetramythoswinery.com": {
+    "has_mx": false,
+    "reason": "Домен tetramythoswinery.com не існує або не має поштових записів"
+  },
+  "condesdealbarei.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.condesdealbarei.com"
+    ]
+  },
+  "valdesil.com": {
+    "has_mx": true,
+    "mx": [
+      "valdesil-com.mail.protection.outlook.com"
+    ]
+  },
+  "adegasguimaro.com": {
+    "has_mx": false,
+    "reason": "Домен adegasguimaro.com не існує або не має поштових записів"
+  },
+  "masdoix.com": {
+    "has_mx": true,
+    "mx": [
+      "sb01.entorno.es",
+      "sb02.entorno.es"
+    ]
+  },
+  "clos-erasmus.com": {
+    "has_mx": true,
+    "mx": [
+      "ASPMX2.GOOGLEMAIL.com",
+      "ASPMX5.GOOGLEMAIL.com"
+    ]
+  },
+  "cellercapcanes.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "bodegasfrontonio.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasfrontonio-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasmorca.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (bodegasmorca.com)"
+    ]
+  },
+  "bodegasdominiodelbendito.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasdominiodelbendito.com не існує або не має поштових записів"
+  },
+  "tesolamonja.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (tesolamonja.com)"
+    ]
+  },
+  "bodegasierranorte.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "vegalfaro.com": {
+    "has_mx": true,
+    "mx": [
+      "vegalfaro-com.mail.protection.outlook.com"
+    ]
+  },
+  "gutierrezdelavega.es": {
+    "has_mx": false,
+    "reason": "Домен gutierrezdelavega.es не існує або не має поштових записів"
+  },
+  "terriccio.it": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "aspmx5.googlemail.com"
+    ]
+  },
+  "tenutasetteponti.it": {
+    "has_mx": true,
+    "mx": [
+      "tenutasetteponti.it"
+    ]
+  },
+  "biondisanti.it": {
+    "has_mx": true,
+    "mx": [
+      "biondisanti-it.mail.protection.outlook.com"
+    ]
+  },
+  "conterno.it": {
+    "has_mx": true,
+    "mx": [
+      "conterno-it.mail.protection.outlook.com"
+    ]
+  },
+  "bartolomascarello.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.bartolomascarello.it"
+    ]
+  },
+  "braida.it": {
+    "has_mx": true,
+    "mx": [
+      "braida-it.mail.protection.outlook.com"
+    ]
+  },
+  "inama.wine": {
+    "has_mx": true,
+    "mx": [
+      "inama-wine.mail.protection.outlook.com"
+    ]
+  },
+  "elisabettaforadori.com": {
+    "has_mx": true,
+    "mx": [
+      "elisabettaforadori-com.mail.protection.outlook.com"
+    ]
+  },
+  "sanleonardo.it": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "graci.eu": {
+    "has_mx": true,
+    "mx": [
+      "mx.graci.eu"
+    ]
+  },
+  "gianfrancofino.it": {
+    "has_mx": true,
+    "mx": [
+      "ASPMX.L.GOOGLE.com",
+      "ALT1.ASPMX.L.GOOGLE.com"
+    ]
+  },
+  "marisacuomo.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.marisacuomo.com"
+    ]
+  },
+  "domainedetrevallon.com": {
+    "has_mx": true,
+    "mx": [
+      "fb.mail.gandi.net",
+      "spool.mail.gandi.net"
+    ]
+  },
+  "chateau-simone.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx2.alwaysdata.com",
+      "epartenaire.alwaysdata.net"
+    ]
+  },
+  "cote-rotie-jamet.com": {
+    "has_mx": true,
+    "mx": [
+      "redirect.ovh.net"
+    ]
+  },
+  "domainejlchave.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.fr",
+      "mx00.ionos.fr"
+    ]
+  },
+  "stephanetissot.com": {
+    "has_mx": true,
+    "mx": [
+      "antispam3.xefi.fr"
+    ]
+  },
+  "quintadoportal.com": {
+    "has_mx": true,
+    "mx": [
+      "a1.spambusters.email",
+      "n1.spambusters.email"
+    ]
+  },
+  "luispato.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.luispato.com"
+    ]
+  },
+  "filipapato.net": {
+    "has_mx": true,
+    "mx": [
+      "A-record (filipapato.net)"
+    ]
   }
 }

@@ -4,7 +4,11 @@ import threading
 import time
 import io
 import csv
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+KYIV_TZ = timezone(timedelta(hours=3))
+
+def get_kyiv_now() -> datetime:
+    return datetime.now(KYIV_TZ)
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import urllib.parse
 from pathlib import Path
@@ -2068,17 +2072,17 @@ class DashboardHandler(BaseHTTPRequestHandler):
         logger.info(f"{self.client_address[0]} - {msg}")
 
 def _daily_lead_search_scheduler():
-    """Background scheduler that automatically searches 20-30 leads every day at 09:00 AM."""
-    logger.info("Daily lead search scheduler initialized (runs automatically every morning at 09:00 AM).")
+    """Background scheduler that automatically searches 20-30 leads every day at 09:00 AM Kyiv time."""
+    logger.info("Daily lead search scheduler initialized (runs automatically every morning at 09:00 AM Kyiv time).")
     last_run_date = None
 
     while True:
         try:
-            now = datetime.now()
+            now = get_kyiv_now()
             today_str = now.strftime("%Y-%m-%d")
-            # Trigger if it's 9:00 AM or later and hasn't run today yet
+            # Trigger if it's 9:00 AM or later Kyiv time and hasn't run today yet
             if now.hour >= 9 and last_run_date != today_str:
-                logger.info("⏰ [09:00 AM TRIGGER] Running daily automated lead search (20-30 leads)...")
+                logger.info("⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (25-30 leads)...")
                 imported = DashboardHandler.finder_service.find_and_import_leads(count=25)
                 logger.info(f"Daily lead search finished: {imported} leads imported.")
                 last_run_date = today_str

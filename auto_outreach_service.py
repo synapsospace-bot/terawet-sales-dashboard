@@ -5,7 +5,11 @@ import random
 import logging
 import threading
 import html
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+KYIV_TZ = timezone(timedelta(hours=3))
+
+def get_kyiv_now() -> datetime:
+    return datetime.now(KYIV_TZ)
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
@@ -580,7 +584,7 @@ class AutoOutreachService:
 
         while True:
             try:
-                now = datetime.now()
+                now = get_kyiv_now()
                 today_str = now.strftime("%Y-%m-%d")
 
                 with self._lock:

@@ -1447,18 +1447,19 @@ class LeadFinderService:
         """
         # Verified authentic European domains that are completely fresh
         VERIFIED_COUNTRY_DOMAINS = {
-            "ES": ["rafaelpalacios.com", "adegaalgueira.com", "sanvalero.com", "san-alejandro.com", "bodegasmendoza.com", "fincamuseum.com", "bodegamustiguillo.com", "bodegashispanosuizas.com"],
-            "IT": ["cadelbosco.com", "bellavistawine.it", "ninonegri.it", "pieropan.it", "isoleolena.com", "tenutaterrenere.com", "cantinadisantadi.it", "sellaemosca.com"],
-            "FR": ["chateauducedre.com", "brumont.fr", "jurancon-cauhape.com", "bernardbaudry.com", "closdesfees.com", "chateau-thivin.com", "closcanarelli.com", "alzipratu.com"],
-            "BG": ["copsa.bg", "villamelnik.com", "emiroglio-wine.com", "zlatenrozhen.bg", "burgozone.bg"],
-            "GR": ["alphawine.gr", "karanika.com", "domainezafeirakis.gr", "tetramythoswinery.com", "malvasiawines.gr"],
-            "RO": ["aureliavisinescu.com", "cramaceptura.eu", "domeniulbogdan.ro", "cramalasalina.ro"],
-            "HU": ["szepsy.hu", "holdvolgy.com", "standrea.hu", "takler.com", "laposa.hu"],
-            "RS": ["vinarijaaleksandrovic.co.rs", "vinarijadeuric.com"],
-            "HR": ["matosevic.com", "trapan.hr", "krauthaker.hr"],
-            "SI": ["simcic.si", "klet-brda.si", "vipava1894.si"],
-            "SK": ["karpatskaperla.sk", "vinomatysak.sk", "chateau-bela.com"],
-            "AT": ["fx-pichler.at", "hirsch.at", "tement.at", "dorlimuhr.at", "krutzler.at"]
+            "ES": ["bodegasfillaboa.com", "condesdealbarei.com", "valdesil.com", "adegasguimaro.com", "masdoix.com", "clos-erasmus.com", "cellercapcanes.com", "bodegasfrontonio.com", "bodegasmorca.com", "bodegasdominiodelbendito.com", "tesolamonja.com", "bodegasierranorte.com", "vegalfaro.com", "gutierrezdelavega.es"],
+            "IT": ["terriccio.it", "tenutasetteponti.it", "carlettipoliziano.com", "biondisanti.it", "casanovadineri.com", "conterno.it", "bartolomascarello.it", "vietti.com", "braida.it", "inama.wine", "elisabettaforadori.com", "sanleonardo.it", "benanti.it", "graci.eu", "gianfrancofino.it", "marisacuomo.com"],
+            "FR": ["chateau-palmer.com", "leoville-poyferre.fr", "leflaive.fr", "dujac.com", "domainedetrevallon.com", "chateau-simone.fr", "cote-rotie-jamet.com", "domainejlchave.fr", "stephanetissot.com"],
+            "PT": ["niepoort.pt", "quintadoportal.com", "luispato.com", "filipapato.net", "herdadedosgrous.com", "jportugalramos.com"],
+            "DE": ["scharzhof.de", "clemens-busch.de", "georg-breuer.com", "weingut-christmann.de", "franz-keller.de"],
+            "AT": ["weingutnigl.at", "salomonwirt.at", "sattlerhof.at", "kollwentz.at", "moric.at"],
+            "GR": ["gentilini.gr", "gaiawines.gr", "skouras.gr"],
+            "RO": ["cramagirboiu.ro", "crama-oprisor.com"],
+            "BG": ["minkovbrothers.com", "chateauburgozone.bg"],
+            "HR": ["benvenutivina.com", "kozlovic.hr"],
+            "SI": ["movia.si"],
+            "SK": ["chateauruban.sk", "elesko.sk"],
+            "RS": ["podrumradovanovic.rs"]
         }
 
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
