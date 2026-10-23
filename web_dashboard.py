@@ -2134,8 +2134,15 @@ class RobustThreadingHTTPServer(ThreadingHTTPServer):
         pass
 
 def start_server():
-    # Lead discovery is now fully manual and user-controlled via UI buttons (Start / Stop)
-    # to prevent unprompted CPU usage or running in vain.
+    # Sanitize database on startup to guarantee zero duplicate uncontacted leads
+    try:
+        DashboardHandler.data_service.sanitize_all_databases()
+    except Exception as e:
+        logger.warning(f"Startup database sanitize warning: {e}")
+
+    # Start automated daily lead search scheduler (every morning at 09:00 AM Kyiv time)
+    search_sched_thread = threading.Thread(target=_daily_lead_search_scheduler, daemon=True)
+    search_sched_thread.start()
 
     sync_thread = threading.Thread(target=_periodic_background_syncer, daemon=True)
     sync_thread.start()

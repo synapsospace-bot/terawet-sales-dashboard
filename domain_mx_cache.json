@@ -2609,5 +2609,206 @@
     "mx": [
       "A-record (filipapato.net)"
     ]
+  },
+  "adegaseidos.com": {
+    "has_mx": false,
+    "reason": "Домен adegaseidos.com не існує або не має поштових записів"
+  },
+  "bodegasastobiza.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasastobiza.com не існує або не має поштових записів"
+  },
+  "cellercredo.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (cellercredo.com)"
+    ]
+  },
+  "terrasgauda.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.terrasgauda.com"
+    ]
+  },
+  "le-pupille.com": {
+    "has_mx": false,
+    "reason": "Домен le-pupille.com не існує або не має поштових записів"
+  },
+  "chateau-lascombes.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.ovh.net",
+      "mxb.ovh.net"
+    ]
+  },
+  "domaine-roulot.fr": {
+    "has_mx": false,
+    "reason": "Домен domaine-roulot.fr не існує або не має поштових записів"
+  },
+  "paterianakis.gr": {
+    "has_mx": true,
+    "mx": [
+      "paterianakis-gr.mail.protection.outlook.com"
+    ]
+  },
+  "rossidi.com": {
+    "has_mx": true,
+    "mx": [
+      "rossidi.com"
+    ]
+  },
+  "quinta-do-noval.com": {
+    "has_mx": false,
+    "reason": "Домен quinta-do-noval.com не існує або не має поштових записів"
+  },
+  "alain-graillot.com": {
+    "has_mx": false,
+    "reason": "Домен alain-graillot.com не існує або не має поштових записів"
+  },
+  "domaine-du-colombier.fr": {
+    "has_mx": true,
+    "mx": [
+      "A-record (domaine-du-colombier.fr)"
+    ]
+  },
+  "abadia-retuerta.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (abadia-retuerta.com)"
+    ]
+  },
+  "marquesdevargas.com": {
+    "has_mx": true,
+    "mx": [
+      "varma.in.tmes.trendmicro.eu"
+    ]
+  },
+  "bodegasvaldemar.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasvaldemar.com не існує або не має поштових записів"
+  },
+  "ruffino.it": {
+    "has_mx": true,
+    "mx": [
+      "mxb-001e0e01.gslb.pphosted.com",
+      "mxa-001e0e01.gslb.pphosted.com"
+    ]
+  },
+  "marchesidigresy.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "ceretto.com": {
+    "has_mx": true,
+    "mx": [
+      "ceretto-com.mail.protection.outlook.com"
+    ]
+  },
+  "damilanobarolo.com": {
+    "has_mx": false,
+    "reason": "Домен damilanobarolo.com не існує або не має поштових записів"
+  },
+  "prunotto.it": {
+    "has_mx": true,
+    "mx": [
+      "marchesiantinori.esvacloud.com"
+    ]
+  },
+  "chateau-beychevelle.com": {
+    "has_mx": true,
+    "mx": [
+      "mx3.mail.ovh.net",
+      "mx4.mail.ovh.net"
+    ]
+  },
+  "chateau-gruaud-larose.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-gruaud-larose.com не існує або не має поштових записів"
+  },
+  "chateau-d-issan.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-d-issan.com не існує або не має поштових записів"
+  },
+  "chateau-giscours.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.mailbox.orange-business.com"
+    ]
+  },
+  "chateau-cantemerle.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaucantemerle-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "carm.pt": {
+    "has_mx": true,
+    "mx": [
+      "carm-pt.mail.protection.outlook.com"
+    ]
+  },
+  "taylor.pt": {
+    "has_mx": true,
+    "mx": [
+      "taylor-pt.mail.protection.outlook.com"
+    ]
+  },
+  "elesko.sk": {
+    "has_mx": true,
+    "mx": [
+      "box.efmail.sk"
+    ]
+  },
+  "kollwentz.at": {
+    "has_mx": true,
+    "mx": [
+      "mx.mymailwall.com"
+    ]
+  },
+  "chateauburgozone.bg": {
+    "has_mx": false,
+    "reason": "Домен chateauburgozone.bg не існує або не має поштових записів"
+  },
+  "chateauruban.sk": {
+    "has_mx": true,
+    "mx": [
+      "mailin.mx-hub.eu",
+      "mailin.mx-hub.sk"
+    ]
+  },
+  "scharzhof.de": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.de",
+      "mx01.ionos.de"
+    ]
+  },
+  "clemens-busch.de": {
+    "has_mx": true,
+    "mx": [
+      "mx01.busymouse.de",
+      "mx02.busymouse.de"
+    ]
+  },
+  "georg-breuer.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.georg-breuer.com"
+    ]
+  },
+  "weingut-christmann.de": {
+    "has_mx": true,
+    "mx": [
+      "smtpin.rzone.de"
+    ]
+  },
+  "franz-keller.de": {
+    "has_mx": true,
+    "mx": [
+      "franzkeller-de01c.mail.protection.outlook.com"
+    ]
   }
 }

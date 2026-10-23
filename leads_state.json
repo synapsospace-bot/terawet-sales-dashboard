@@ -576,8 +576,9 @@
   },
   "contact@skouras.gr": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 12:13:13 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Κτήμα Σκούρα (Skouras Domain) (στη Μεσογειακή ζώνη)"
+    "name": "Κτήμα Σκούρας (Domaine Skouras)",
+    "company_name": "Κτήμα Σκούρας (Domaine Skouras)",
+    "date": "2026-10-23"
   },
   "name_κτήμασκούραskourasdomain": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -684,8 +685,9 @@
   },
   "elit_plants@abv.bg": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 12:11:51 +0300",
-    "subject": "50% икономия на вода и сигурен добив в условия на суша за Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery) (в Тракийската низина и Южна България)"
+    "name": "Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery)",
+    "company_name": "Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery)",
+    "date": "2026-09-23"
   },
   "name_овощенразсадникелитпловдивelitagronursery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -806,8 +808,9 @@
   },
   "office@bassarea.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 12:11:26 +0300",
-    "subject": "50% икономия на вода и сигурен добив в условия на суша за Вила Басарея (Villa Bassarea) (в Средиземноморския басейн)"
+    "name": "Вила Басарея (Villa Bassarea)",
+    "company_name": "Вила Басарея (Villa Bassarea)",
+    "date": "2026-09-23"
   },
   "name_вилабасареяvillabassarea": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1362,8 +1365,9 @@
   },
   "informacion@bodegasmuga.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:47 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Muga"
+    "name": "Bodegas Muga",
+    "company_name": "Bodegas Muga",
+    "date": "2026-10-07"
   },
   "name_bodegasmuga": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1413,8 +1417,9 @@
   },
   "marchesibarolo@marchesibarolo.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:36 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Marchesi di Barolo"
+    "name": "Marchesi di Barolo",
+    "company_name": "Marchesi di Barolo",
+    "date": "2026-10-23"
   },
   "name_marchesidibarolo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1465,8 +1470,9 @@
   },
   "jadot@louisjadot.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:29 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Maison Louis Jadot"
+    "name": "Maison Louis Jadot",
+    "company_name": "Maison Louis Jadot",
+    "date": "2026-10-23"
   },
   "name_maisonlouisjadot": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1491,8 +1497,9 @@
   },
   "kontakt@badel1862.hr": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:23 +0300",
-    "subject": "50% ušteda vode pri navodnjavanju i zaštita od suše za Badel 1862 d.d. (across the Mediterranean basin)"
+    "name": "Badel 1862 d.d.",
+    "company_name": "Badel 1862 d.d.",
+    "date": "2026-10-23"
   },
   "name_badel1862dd": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1525,8 +1532,9 @@
   },
   "office@jidvei.ro": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:16 +0300",
-    "subject": "Economie de 50% la apa de irigații și protecție împotriva secetei pentru Jidvei Podgoria Târnave"
+    "name": "Jidvei Podgoria Târnave",
+    "company_name": "Jidvei Podgoria Târnave",
+    "date": "2026-10-23"
   },
   "name_jidveipodgoriatârnave": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1535,8 +1543,9 @@
   },
   "cotnari@cotnari.ro": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:04:14 +0300",
-    "subject": "Economie de 50% la apa de irigații și protecție împotriva secetei pentru Cotnari Podgoria Clasică"
+    "name": "Cotnari Podgoria Clasică",
+    "company_name": "Cotnari Podgoria Clasică",
+    "date": "2026-10-23"
   },
   "name_cotnaripodgoriaclasică": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1545,8 +1554,9 @@
   },
   "faustino@bodegasfaustino.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:36 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Faustino"
+    "name": "Bodegas Faustino",
+    "company_name": "Bodegas Faustino",
+    "date": "2026-10-23"
   },
   "name_bodegasfaustino": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1555,8 +1565,9 @@
   },
   "vegasicilia@vegasicilia.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:34 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodega Vega Sicilia"
+    "name": "Bodega Vega Sicilia",
+    "company_name": "Bodega Vega Sicilia",
+    "date": "2026-10-23"
   },
   "name_bodegavegasicilia": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1565,8 +1576,9 @@
   },
   "info@dobaena.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:31 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Aceites Baena (DO Baena)"
+    "name": "Aceites Baena (DO Baena)",
+    "company_name": "Aceites Baena (DO Baena)",
+    "date": "2026-10-23"
   },
   "name_aceitesbaenadobaena": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1575,8 +1587,9 @@
   },
   "contact@chateauguiraud.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:24 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Guiraud (Sauternes)"
+    "name": "Château Guiraud (Sauternes)",
+    "company_name": "Château Guiraud (Sauternes)",
+    "date": "2026-10-23"
   },
   "name_châteauguiraudsauternes": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1585,8 +1598,9 @@
   },
   "smith-haut-lafitte@smith-haut-lafitte.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:22 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Smith Haut Lafitte"
+    "name": "Château Smith Haut Lafitte",
+    "company_name": "Château Smith Haut Lafitte",
+    "date": "2026-10-23"
   },
   "name_châteausmithhautlafitte": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1595,8 +1609,9 @@
   },
   "domaine@dujac.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:20 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Domaine Dujac"
+    "name": "Domaine Dujac",
+    "company_name": "Domaine Dujac",
+    "date": "2026-10-23"
   },
   "name_domainedujac": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1605,8 +1620,9 @@
   },
   "info@hatzidakiswines.gr": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:07 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Οινοποιείο Χατζηδάκη (Hatzidakis Winery) (στη Μεσογειακή ζώνη)"
+    "name": "Οινοποιείο Χατζηδάκη (Hatzidakis Winery)",
+    "company_name": "Οινοποιείο Χατζηδάκη (Hatzidakis Winery)",
+    "date": "2026-10-23"
   },
   "name_οινοποιείοχατζηδάκηhatzidakiswinery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1615,8 +1631,9 @@
   },
   "sigalas@sigalas-wine.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:06 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Κτήμα Σιγάλας (Domaine Sigalas) (στη Μεσογειακή ζώνη)"
+    "name": "Κτήμα Σιγάλας (Domaine Sigalas)",
+    "company_name": "Κτήμα Σιγάλας (Domaine Sigalas)",
+    "date": "2026-10-23"
   },
   "name_κτήμασιγάλαςdomainesigalas": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1625,8 +1642,9 @@
   },
   "comunicacion@bodegaslan.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:33:20 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Lan"
+    "name": "Bodegas Lan",
+    "company_name": "Bodegas Lan",
+    "date": "2026-10-08"
   },
   "name_bodegaslan": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1635,8 +1653,9 @@
   },
   "info@bodegasramonbilbao.es": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:33:16 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Ramón Bilbao"
+    "name": "Bodegas Ramón Bilbao",
+    "company_name": "Bodegas Ramón Bilbao",
+    "date": "2026-10-08"
   },
   "name_bodegasramónbilbao": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1645,8 +1664,9 @@
   },
   "info@bodegasmuriel.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:33:15 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Muriel"
+    "name": "Bodegas Muriel",
+    "company_name": "Bodegas Muriel",
+    "date": "2026-10-08"
   },
   "name_bodegasmuriel": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1655,8 +1675,9 @@
   },
   "mogador@closmogador.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:33:07 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Clos Mogador"
+    "name": "Clos Mogador",
+    "company_name": "Clos Mogador",
+    "date": "2026-10-08"
   },
   "name_closmogador": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1665,8 +1686,9 @@
   },
   "arzuaga@arzuaganavarro.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:57 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Arzuaga Navarro"
+    "name": "Bodegas Arzuaga Navarro",
+    "company_name": "Bodegas Arzuaga Navarro",
+    "date": "2026-10-17"
   },
   "name_bodegasarzuaganavarro": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1675,8 +1697,9 @@
   },
   "dehesa@dehesadeloscanonigos.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:55 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Dehesa de los Canónigos"
+    "name": "Dehesa de los Canónigos",
+    "company_name": "Dehesa de los Canónigos",
+    "date": "2026-10-17"
   },
   "name_dehesadeloscanónigos": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1685,8 +1708,9 @@
   },
   "info@villacreces.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:52 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Finca Villacreces"
+    "name": "Finca Villacreces",
+    "company_name": "Finca Villacreces",
+    "date": "2026-10-17"
   },
   "name_fincavillacreces": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1695,8 +1719,9 @@
   },
   "cepa21@cepa21.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:50 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Cepa 21"
+    "name": "Bodegas Cepa 21",
+    "company_name": "Bodegas Cepa 21",
+    "date": "2026-10-17"
   },
   "name_bodegascepa21": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1705,8 +1730,9 @@
   },
   "info@casasdehualdo.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:42 +0300",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Casas de Hualdo"
+    "name": "Casas de Hualdo",
+    "company_name": "Casas de Hualdo",
+    "date": "2026-10-17"
   },
   "name_casasdehualdo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1715,8 +1741,9 @@
   },
   "brolio@ricasoli.it": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:25 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Barone Ricasoli (Castello di Brolio)"
+    "name": "Barone Ricasoli (Castello di Brolio)",
+    "company_name": "Barone Ricasoli (Castello di Brolio)",
+    "date": "2026-10-17"
   },
   "name_baronericasolicastellodibrolio": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1725,8 +1752,9 @@
   },
   "info@tenutailpoggione.it": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:20 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Il Poggione"
+    "name": "Il Poggione",
+    "company_name": "Il Poggione",
+    "date": "2026-10-17"
   },
   "name_ilpoggione": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1735,8 +1763,9 @@
   },
   "poliziano@carlettipoliziano.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:02 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Poliziano Azienda Agricola"
+    "name": "Poliziano Azienda Agricola",
+    "company_name": "Poliziano Azienda Agricola",
+    "date": "2026-10-17"
   },
   "name_polizianoaziendaagricola": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1745,8 +1774,9 @@
   },
   "info@piocesare.it": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:14 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Pio Cesare"
+    "name": "Pio Cesare",
+    "company_name": "Pio Cesare",
+    "date": "2026-10-17"
   },
   "name_piocesare": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1755,8 +1785,9 @@
   },
   "info@tommasi.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:32:05 +0300",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Tommasi Family Estates"
+    "name": "Tommasi Family Estates",
+    "company_name": "Tommasi Family Estates",
+    "date": "2026-10-17"
   },
   "name_tommasifamilyestates": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1765,8 +1796,9 @@
   },
   "hospitality@chateau-margaux.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:38:03 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Margaux"
+    "name": "Château Margaux",
+    "company_name": "Château Margaux",
+    "date": "2026-10-17"
   },
   "name_châteaumargaux": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1775,8 +1807,9 @@
   },
   "contact@haut-brion.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:38:01 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Haut-Brion"
+    "name": "Château Haut-Brion",
+    "company_name": "Château Haut-Brion",
+    "date": "2026-10-17"
   },
   "name_châteauhautbrion": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1785,8 +1818,9 @@
   },
   "contact@chateau-montrose.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:33 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Montrose"
+    "name": "Château Montrose",
+    "company_name": "Château Montrose",
+    "date": "2026-10-17"
   },
   "name_châteaumontrose": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1795,8 +1829,9 @@
   },
   "contact@chateau-cheval-blanc.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:28 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Cheval Blanc"
+    "name": "Château Cheval Blanc",
+    "company_name": "Château Cheval Blanc",
+    "date": "2026-10-17"
   },
   "name_châteauchevalblanc": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1805,8 +1840,9 @@
   },
   "contact@chateaucanon.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:57 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Canon"
+    "name": "Château Canon",
+    "company_name": "Château Canon",
+    "date": "2026-10-17"
   },
   "name_châteaucanon": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1815,8 +1851,9 @@
   },
   "contact@chateau-gazin.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:55 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Gazin (Pomerol)"
+    "name": "Château Gazin (Pomerol)",
+    "company_name": "Château Gazin (Pomerol)",
+    "date": "2026-10-17"
   },
   "name_châteaugazinpomerol": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1825,8 +1862,9 @@
   },
   "contact@leflaive.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:54 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Domaine Leflaive"
+    "name": "Domaine Leflaive",
+    "company_name": "Domaine Leflaive",
+    "date": "2026-10-17"
   },
   "name_domaineleflaive": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1835,8 +1873,9 @@
   },
   "contact@comtes-lafon.fr": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:48 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Domaine des Comtes Lafon"
+    "name": "Domaine des Comtes Lafon",
+    "company_name": "Domaine des Comtes Lafon",
+    "date": "2026-10-17"
   },
   "name_domainedescomteslafon": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1845,8 +1884,9 @@
   },
   "vieux-telegraphe@brunier.fr": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:41 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Domaine du Vieux Télégraphe"
+    "name": "Domaine du Vieux Télégraphe",
+    "company_name": "Domaine du Vieux Télégraphe",
+    "date": "2026-10-17"
   },
   "name_domaineduvieuxtélégraphe": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1855,8 +1895,9 @@
   },
   "tempier@domainetempier.com": {
     "status": "✅ Лист відправлено",
-    "date": "Fri, 9 Oct 2026 14:37:39 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Domaine Tempier Bandol"
+    "name": "Domaine Tempier Bandol",
+    "company_name": "Domaine Tempier Bandol",
+    "date": "2026-10-17"
   },
   "name_domainetempierbandol": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1865,8 +1906,9 @@
   },
   "ramos.pinto@ramospinto.pt": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:09:02 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Ramos Pinto (στη Μεσογειακή ζώνη)"
+    "name": "Ramos Pinto",
+    "company_name": "Ramos Pinto",
+    "date": "2026-10-17"
   },
   "name_ramospinto": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1875,8 +1917,9 @@
   },
   "informacoes@quintadovallado.com": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:08:11 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Quinta do Vallado (στη Μεσογειακή ζώνη)"
+    "name": "Quinta do Vallado",
+    "company_name": "Quinta do Vallado",
+    "date": "2026-10-17"
   },
   "name_quintadovallado": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1885,8 +1928,9 @@
   },
   "cartuxa@fea.pt": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:08:09 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Cartuxa (Fundação Eugénio de Almeida) (στη Μεσογειακή ζώνη)"
+    "name": "Cartuxa (Fundação Eugénio de Almeida)",
+    "company_name": "Cartuxa (Fundação Eugénio de Almeida)",
+    "date": "2026-10-17"
   },
   "name_cartuxafundaçãoeugéniodealmeida": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1895,8 +1939,9 @@
   },
   "info@herdadedosobroso.pt": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:08:07 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Herdade do Sobroso (στη Μεσογειακή ζώνη)"
+    "name": "Herdade do Sobroso",
+    "company_name": "Herdade do Sobroso",
+    "date": "2026-10-17"
   },
   "name_herdadedosobroso": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1905,8 +1950,9 @@
   },
   "cortesdecima@cortesdecima.pt": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:08:04 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Cortes de Cima (στη Μεσογειακή ζώνη)"
+    "name": "Cortes de Cima",
+    "company_name": "Cortes de Cima",
+    "date": "2026-10-17"
   },
   "name_cortesdecima": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1915,8 +1961,9 @@
   },
   "welcome@aveleda.pt": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:08:02 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Quinta da Aveleda (στη Μεσογειακή ζώνη)"
+    "name": "Quinta da Aveleda",
+    "company_name": "Quinta da Aveleda",
+    "date": "2026-10-17"
   },
   "name_quintadaaveleda": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1925,8 +1972,9 @@
   },
   "gaiawine@otenet.gr": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:07:55 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Κτήμα Γαία (Gaia Wines) (στη Μεσογειακή ζώνη)"
+    "name": "Κτήμα Γαία (Gaia Wines)",
+    "company_name": "Κτήμα Γαία (Gaia Wines)",
+    "date": "2026-10-17"
   },
   "name_κτήμαγαίαgaiawines": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1935,8 +1983,9 @@
   },
   "info@bibliachora.gr": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:07:50 +0300",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την Κτήμα Βιβλία Χώρα (Biblia Chora) (στη Χαλκιδική & Κεντρική Μακεδονία)"
+    "name": "Κτήμα Βιβλία Χώρα (Biblia Chora)",
+    "company_name": "Κτήμα Βιβλία Χώρα (Biblia Chora)",
+    "date": "2026-10-17"
   },
   "name_κτήμαβιβλίαχώραbibliachora": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1945,8 +1994,9 @@
   },
   "office@borovitza.com": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:07:46 +0300",
-    "subject": "50% икономия на вода и сигурен добив в условия на суша за Винарна Боровица (Borovitza Winery) (в Средиземноморския басейн)"
+    "name": "Винарна Боровица (Borovitza Winery)",
+    "company_name": "Винарна Боровица (Borovitza Winery)",
+    "date": "2026-10-17"
   },
   "name_винарнаборовицаborovitzawinery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1955,8 +2005,9 @@
   },
   "office@cramapanciu.ro": {
     "status": "✅ Лист відправлено",
-    "date": "Thu, 15 Oct 2026 16:07:26 +0300",
-    "subject": "Economie de 50% la apa de irigații și protecție împotriva secetei pentru Crama Panciu"
+    "name": "Crama Panciu",
+    "company_name": "Crama Panciu",
+    "date": "2026-10-17"
   },
   "name_cramapanciu": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2067,8 +2118,9 @@
   },
   "contact@miraval.com": {
     "status": "✅ Лист відправлено",
-    "date": "Wed, 7 Oct 2026 13:34:18 +0300",
-    "subject": "50% d'économie d'eau d'irrigation et bouclier anti-sécheresse pour Château Miraval Provence"
+    "name": "Château Miraval Provence",
+    "company_name": "Château Miraval Provence",
+    "date": "2026-10-23"
   },
   "name_châteaumiravalprovence": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2175,8 +2227,9 @@
   },
   "info@bodegascampillo.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 02:56:31 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Campillo"
+    "name": "Bodegas Campillo",
+    "company_name": "Bodegas Campillo",
+    "date": "2026-10-17"
   },
   "name_bodegascampillo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2245,8 +2298,9 @@
   },
   "murviedro@murviedro.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:01:41 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Murviedro"
+    "name": "Bodegas Murviedro",
+    "company_name": "Bodegas Murviedro",
+    "date": "2026-10-17"
   },
   "name_bodegasmurviedro": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2275,8 +2329,9 @@
   },
   "info@gonzalezbyass.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:03:54 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para González Byass (Tío Pepe)"
+    "name": "González Byass (Tío Pepe)",
+    "company_name": "González Byass (Tío Pepe)",
+    "date": "2026-10-17"
   },
   "name_gonzálezbyasstíopepe": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2285,8 +2340,9 @@
   },
   "info@pagodeloscapellanes.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:04:29 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Pago de los Capellanes"
+    "name": "Pago de los Capellanes",
+    "company_name": "Pago de los Capellanes",
+    "date": "2026-10-17"
   },
   "name_pagodeloscapellanes": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2295,8 +2351,9 @@
   },
   "info@bodegasfillaboa.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:05:06 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Fillaboa"
+    "name": "Bodegas Fillaboa",
+    "company_name": "Bodegas Fillaboa",
+    "date": "2026-10-17"
   },
   "name_bodegasfillaboa": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2315,8 +2372,9 @@
   },
   "info@bodegaotazu.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:06:38 -0700 (PDT)",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodega Otazu"
+    "name": "Bodega Otazu",
+    "company_name": "Bodega Otazu",
+    "date": "2026-10-17"
   },
   "name_bodegaotazu": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2381,8 +2439,9 @@
   },
   "folonari@folonari.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:20:16 -0700 (PDT)",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Tenuta di Nozzole (Folonari)"
+    "name": "Tenuta di Nozzole (Folonari)",
+    "company_name": "Tenuta di Nozzole (Folonari)",
+    "date": "2026-10-17"
   },
   "name_tenutadinozzolefolonari": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2417,8 +2476,9 @@
   },
   "info@michelechiarlo.it": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:30:26 -0700 (PDT)",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Michele Chiarlo"
+    "name": "Michele Chiarlo",
+    "company_name": "Michele Chiarlo",
+    "date": "2026-10-17"
   },
   "name_michelechiarlo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2427,8 +2487,9 @@
   },
   "leonedecastris@leonedecastris.com": {
     "status": "✅ Лист відправлено",
-    "date": "Sat, 17 Oct 2026 03:30:58 -0700 (PDT)",
-    "subject": "Risparmio del 50% sull'acqua di irrigazione e difesa dalla siccità per Leone de Castris"
+    "name": "Leone de Castris",
+    "company_name": "Leone de Castris",
+    "date": "2026-10-17"
   },
   "name_leonedecastris": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -7173,5 +7234,47 @@
   "name_weingutgernotundheikeheinrich": {
     "status": "✅ Лист відправлено",
     "date": "2026-10-22"
+  },
+  "sigalasw@otenet.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Σιγάλα (Domaine Sigalas)",
+    "company_name": "Κτήμα Σιγάλα (Domaine Sigalas)",
+    "date": "2026-10-19"
+  },
+  "office@emiroglio-wine.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Винарска изба Едоардо Миролио (Edoardo Miroglio)",
+    "company_name": "Винарска изба Едоардо Миролио (Edoardo Miroglio)",
+    "date": "2026-10-19"
+  },
+  "office@lovico.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Винарна Ловико Сухиндол (Lovico Suhindol)",
+    "company_name": "Винарна Ловико Сухиндол (Lovico Suhindol)",
+    "date": "2026-10-19"
+  },
+  "office@logodajwinery.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Винарска изба Логодаж (Logodaj Winery)",
+    "company_name": "Винарска изба Логодаж (Logodaj Winery)",
+    "date": "2026-10-19"
+  },
+  "pintia@vega-sicilia.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Pintia (Vega Sicilia)",
+    "company_name": "Bodegas Pintia (Vega Sicilia)",
+    "date": "2026-10-23"
+  },
+  "teso@tesolamonja.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Teso La Monja (Sierra Cantabria)",
+    "company_name": "Bodegas Teso La Monja (Sierra Cantabria)",
+    "date": "2026-10-23"
+  },
+  "sierranorte@bodegasierranorte.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodega Sierra Norte",
+    "company_name": "Bodega Sierra Norte",
+    "date": "2026-10-23"
   }
 }

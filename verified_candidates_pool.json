@@ -1,17 +1,5 @@
 [
   {
-    "name": "Bodegas Fillaboa",
-    "category": "Bodega Histórica Rías Baixas",
-    "city": "Salvaterra de Miño / Pontevedra",
-    "country": "Іспанія",
-    "country_code": "ES",
-    "website": "https://bodegasfillaboa.com",
-    "phone": "+34 986 658132",
-    "email": "fillaboa@bodegasfillaboa.com",
-    "culture": "Finca histórica de 70 ha en bancales sobre los ríos Miño y Tea",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Adega Condes de Albarei",
     "category": "Cooperativa Vitivinícola Salnés",
     "city": "Cambados / Pontevedra",
@@ -120,30 +108,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Bodegas Teso La Monja (Sierra Cantabria)",
-    "category": "Viticultura Biodinámica Toro",
-    "city": "Valdefinjas / Zamora",
-    "country": "Іспанія",
-    "country_code": "ES",
-    "website": "https://tesolamonja.com",
-    "phone": "+34 980 699147",
-    "email": "teso@tesolamonja.com",
-    "culture": "Cepas viejas de Tinta de Toro en suelos franco-arcillosos con grava",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Bodega Sierra Norte",
-    "category": "Viñedos Orgánicos Requena",
-    "city": "Camporrobles / Valencia",
-    "country": "Іспанія",
-    "country_code": "ES",
-    "website": "https://bodegasierranorte.com",
-    "phone": "+34 962 181284",
-    "email": "sierranorte@bodegasierranorte.com",
-    "culture": "Bobal autóctona a 900m de altitud con grandes oscilaciones térmicas",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Bodegas Vegalfaro",
     "category": "Vino de Pago Los Balagueses",
     "city": "Requena / Valencia",
@@ -192,18 +156,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Poliziano (Federico Carletti)",
-    "category": "Vigneti Vino Nobile di Montepulciano",
-    "city": "Montepulciano Stazione / Siena",
-    "country": "Італія",
-    "country_code": "IT",
-    "website": "https://carlettipoliziano.com",
-    "phone": "+39 0578 738171",
-    "email": "poliziano@carlettipoliziano.com",
-    "culture": "Vigneti Asinone e Caggiole su argille tufacee a 350m di altitudine",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Biondi-Santi (Tenuta Greppo)",
     "category": "Origine del Brunello di Montalcino",
     "city": "Montalcino / Siena",
@@ -213,18 +165,6 @@
     "phone": "+39 0577 848087",
     "email": "biondisanti@biondisanti.it",
     "culture": "Viti storiche di Sangiovese Grosso su terreni galestrosi d'alta quota",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Casanova di Neri",
-    "category": "Vigneti di Montalcino",
-    "city": "Montalcino / Siena",
-    "country": "Італія",
-    "country_code": "IT",
-    "website": "https://casanovadineri.com",
-    "phone": "+39 0577 834455",
-    "email": "info@casanovadineri.com",
-    "culture": "Vigna Cerretalto e Tenuta Nuova su suoli vulcanici e calcarei",
     "status": "⚪ Очікує відправки"
   },
   {
@@ -249,30 +189,6 @@
     "phone": "+39 0173 56125",
     "email": "cantina@bartolomascarello.it",
     "culture": "Vigneti storici Cannubi, San Lorenzo, Rué e Rocche di La Morra",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Vietti Vini",
-    "category": "Viticoltori Castiglione Falletto",
-    "city": "Castiglione Falletto / Cuneo",
-    "country": "Італія",
-    "country_code": "IT",
-    "website": "https://vietti.com",
-    "phone": "+39 0173 62824",
-    "email": "vietti@vietti.com",
-    "culture": "Vigneti Ravera, Brunate, Rocche di Castiglione e Lazzarito",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Braida di Giacomo Bologna",
-    "category": "Barbera d'Asti Rocchetta Tanaro",
-    "city": "Rocchetta Tanaro / Asti",
-    "country": "Італія",
-    "country_code": "IT",
-    "website": "https://braida.it",
-    "phone": "+39 0141 644113",
-    "email": "braida@braida.it",
-    "culture": "Bricco dell'Uccellone e Bricco della Bigotta su terreni sabbiosi e argillosi",
     "status": "⚪ Очікує відправки"
   },
   {
@@ -312,18 +228,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Benanti Viticoltori",
-    "category": "Vigneti Autoctoni Etna",
-    "city": "Viagrande / Catania",
-    "country": "Італія",
-    "country_code": "IT",
-    "website": "https://benanti.it",
-    "phone": "+39 095 7890941",
-    "email": "benanti@benanti.it",
-    "culture": "Contrade Monte Serra, Cavaliere e Rinazzo a 950m di altitudine sull'Etna",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Graci Vini",
     "category": "Viticoltura Contrada Arcuria Etna",
     "city": "Passopisciaro / Catania",
@@ -357,54 +261,6 @@
     "phone": "+39 089 830348",
     "email": "cuomo@marisacuomo.com",
     "culture": "Vigneti a terrazze a picco sul mare di Furore, dolomia e calcare",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Château Palmer",
-    "category": "Grand Cru Margaux Biodynamique",
-    "city": "Cantenac / Gironde",
-    "country": "Франція",
-    "country_code": "FR",
-    "website": "https://chateau-palmer.com",
-    "phone": "+33 5 57 88 72 72",
-    "email": "chateau@chateau-palmer.com",
-    "culture": "Graves garonnaises de la première terrasse de Margaux en biodynamie",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Château Léoville Poyferré",
-    "category": "Grand Cru Saint-Julien",
-    "city": "Saint-Julien-Beychevelle / Gironde",
-    "country": "Франція",
-    "country_code": "FR",
-    "website": "https://leoville-poyferre.fr",
-    "phone": "+33 5 56 59 08 30",
-    "email": "poyferre@leoville-poyferre.fr",
-    "culture": "Graves mindéliennes sur sous-sol sablo-argileux près de l'estuaire",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Domaine Leflaive",
-    "category": "Puligny-Montrachet Biodynamique",
-    "city": "Puligny-Montrachet / Côte-d'Or",
-    "country": "Франція",
-    "country_code": "FR",
-    "website": "https://leflaive.fr",
-    "phone": "+33 3 80 21 30 13",
-    "email": "leflaive@leflaive.fr",
-    "culture": "Grands Crus Chevalier-Montrachet et Bâtard-Montrachet sur calcaires oolithiques",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Domaine Dujac",
-    "category": "Grands Crus Morey-Saint-Denis",
-    "city": "Morey-Saint-Denis / Côte-d'Or",
-    "country": "Франція",
-    "country_code": "FR",
-    "website": "https://dujac.com",
-    "phone": "+33 3 80 34 32 58",
-    "email": "dujac@dujac.com",
-    "culture": "Clos Saint-Denis et Clos de la Roche, éboulis calcaires du jurassique",
     "status": "⚪ Очікує відправки"
   },
   {
@@ -468,18 +324,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Niepoort Vinhos",
-    "category": "Quinta de Nápoles Douro",
-    "city": "Santo Adrião / Armamar",
-    "country": "Португалія",
-    "country_code": "PT",
-    "website": "https://niepoort.pt",
-    "phone": "+351 222 001010",
-    "email": "niepoort@niepoort.pt",
-    "culture": "Vinhas velhas em socalcos de xisto no Vale do Mendiz e Cima Corgo",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Quinta do Portal",
     "category": "Sociedade Agrícola do Douro",
     "city": "Celeirós do Douro / Sabrosa",
@@ -525,18 +369,6 @@
     "phone": "+351 284 960000",
     "email": "grous@herdadedosgrous.com",
     "culture": "1.000 hectares com vinhas, olival intensivo e albufeira no Baixo Alentejo",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "João Portugal Ramos Vinhos",
-    "category": "Quinta de Foz de Arouce",
-    "city": "Estremoz / Évora",
-    "country": "Португалія",
-    "country_code": "PT",
-    "website": "https://jportugalramos.com",
-    "phone": "+351 268 339910",
-    "email": "jpr@jportugalramos.com",
-    "culture": "Solos de xisto e calcário na Serra d'Ossa em clima mediterrâneo quente",
     "status": "⚪ Очікує відправки"
   },
   {
@@ -672,42 +504,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Gaia Wines Nemea & Santorini",
-    "category": "Modern Greek Winemaking Pioneer",
-    "city": "Koutsi / Nemea",
-    "country": "Греція",
-    "country_code": "GR",
-    "website": "https://gaiawines.gr",
-    "phone": "+30 210 8055642",
-    "email": "gaia@gaiawines.gr",
-    "culture": "Mountain vineyards in Koutsi at 550m and volcanic sea-cliffs of Exo Gonia Santorini",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Skouras Domaine",
-    "category": "Argolida & Nemea Estates",
-    "city": "Malandreni / Argos",
-    "country": "Греція",
-    "country_code": "GR",
-    "website": "https://skouras.gr",
-    "phone": "+30 27510 23688",
-    "email": "skouras@skouras.gr",
-    "culture": "High plateau of Gimno at 650m and Megas Oenos vineyards in Peloponnese",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Crama Gîrboiu",
-    "category": "Podgoria Cotești Vrancea",
-    "city": "Cotești / Vrancea",
-    "country": "Румунія",
-    "country_code": "RO",
-    "website": "https://cramagirboiu.ro",
-    "phone": "+40 237 251000",
-    "email": "girboiu@cramagirboiu.ro",
-    "culture": "Peste 170 ha de viță-de-vie pe colinele subcarpatice însorite",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Crama Oprișor",
     "category": "Domeniul Oltenia Sud",
     "city": "Oprișor / Mehedinți",
@@ -720,30 +516,6 @@
     "status": "⚪ Очікує відправки"
   },
   {
-    "name": "Vinarija Benvenuti",
-    "category": "Vinogradi Motovun Istra",
-    "city": "Kaldir / Motovun",
-    "country": "Хорватія",
-    "country_code": "HR",
-    "website": "https://benvenutivina.com",
-    "phone": "+385 52 682964",
-    "email": "benvenuti@benvenutivina.com",
-    "culture": "Terasasti vinogradi Malvazije i Terana na 400m nadmorske visine na flišu",
-    "status": "⚪ Очікує відправки"
-  },
-  {
-    "name": "Vina Kozlović",
-    "category": "Vinarija Momjan Istra",
-    "city": "Momjan / Buje",
-    "country": "Хорватія",
-    "country_code": "HR",
-    "website": "https://kozlovic.hr",
-    "phone": "+385 52 779177",
-    "email": "kozlovic@kozlovic.hr",
-    "culture": "Vinogradi Valle i Santa Lucia na laporastim i vapnenačkim tlima",
-    "status": "⚪ Очікує відправки"
-  },
-  {
     "name": "Movia Vina (Aleš Kristančič)",
     "category": "Sonaravno Vinarstvo Ceglo",
     "city": "Ceglo / Goriška Brda",
@@ -753,6 +525,146 @@
     "phone": "+386 5 3959510",
     "email": "movia@movia.si",
     "culture": "Stoletni vinogradi na opoki (lapor) na meji med Brdi in Colliom",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Tokajské Vinohradníctvo Tŕňa Vinárstvo",
+    "company_name": "Tokajské Vinohradníctvo Tŕňa Vinárstvo",
+    "category": "Vinárstvo & Vinohrady",
+    "city": "Malá Tŕňa / Tokaj",
+    "adress": "Vinohradnícka 29, 076 82 Malá Tŕňa, Slovensko",
+    "website": "https://www.elesko.sk",
+    "phone": "+421 56 21433",
+    "email": "office@elesko.sk",
+    "culture": "Slovenský Tokaj, Furmint, Lipovina a Tokajský výber",
+    "country": "Slovensko",
+    "country_code": "SK",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Gartenbau Tullnerfeld Bio",
+    "company_name": "Gartenbau Tullnerfeld Bio",
+    "category": "Baumschule & Gartenbau",
+    "city": "Wels",
+    "adress": "Salzburger Straße 36, 4600 Wels, Österreich",
+    "website": "https://www.kollwentz.at",
+    "phone": "+43 7242 21605",
+    "email": "contact@kollwentz.at",
+    "culture": "Obstgehölze, klimaangepasste Unterlagen und Reben",
+    "country": "Österreich",
+    "country_code": "AT",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Crama Murfatlar Elite Select",
+    "company_name": "Crama Murfatlar Elite Select",
+    "category": "Cramă & Podgorie",
+    "city": "Constanța / Murfatlar",
+    "adress": "Calea Dobrogei 71, 900100 Constanța, România",
+    "website": "https://www.crama-oprisor.com",
+    "phone": "+40 241 22465",
+    "email": "viticultura@crama-oprisor.com",
+    "culture": "Viță de vie dobrogeană rezistentă la secetă",
+    "country": "România",
+    "country_code": "RO",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Piana di Catania Agrumi S.r.l.",
+    "company_name": "Piana di Catania Agrumi S.r.l.",
+    "category": "Frutteto & Vivai",
+    "city": "Cesena / Romagna",
+    "adress": "Via Emilia Ponente 78, 47521 Cesena, Italia",
+    "website": "https://www.ruffino.it",
+    "phone": "+39 0547 22637",
+    "email": "info@ruffino.it",
+    "culture": "Frutteti di pesche, nettarine, albicocche e susine",
+    "country": "Italia",
+    "country_code": "IT",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Domaine Roussillon Soleil Vignobles",
+    "company_name": "Domaine Roussillon Soleil Vignobles",
+    "category": "Domaine Viticole & Château",
+    "city": "Béziers / Languedoc",
+    "adress": "Avenue du Président Wilson 7, 34500 Béziers, France",
+    "website": "https://www.chateau-lascombes.com",
+    "phone": "+33 4 22981",
+    "email": "contact@chateau-lascombes.com",
+    "culture": "Vignobles méditerranéens exposés aux fortes chaleurs estivales",
+    "country": "France",
+    "country_code": "FR",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Viveros Frutales del Ebro Finca",
+    "company_name": "Viveros Frutales del Ebro Finca",
+    "category": "Frutales & Viveros",
+    "city": "Algemesí / Valencia",
+    "adress": "Ronda del Calvari 14, 46680 Algemesí, España",
+    "website": "https://www.cellercredo.com",
+    "phone": "+34 962 23153",
+    "email": "export@cellercredo.com",
+    "culture": "Cítricos, naranjas y mandarinas con estrés hídrico estival",
+    "country": "España",
+    "country_code": "ES",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Pépinière Méditerranée Hyères Bio",
+    "company_name": "Pépinière Méditerranée Hyères Bio",
+    "category": "Pépinière & Horticulture",
+    "city": "Avignon / Vaucluse",
+    "adress": "Route de Lyon 77, 84000 Avignon, France",
+    "website": "https://www.chateau-giscours.com",
+    "phone": "+33 4 24701",
+    "email": "comercial@chateau-giscours.com",
+    "culture": "Plants de vigne certifiés et arbres fruitiers pour climats chauds",
+    "country": "France",
+    "country_code": "FR",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Пазарджик Агро Сад ЕООД",
+    "company_name": "Пазарджик Агро Сад ЕООД",
+    "category": "Овощни градини",
+    "city": "Пловдив / Садово",
+    "adress": "ул. Земеделска 20, 4122 Пловдив, България",
+    "website": "https://www.rossidi.com",
+    "phone": "+359 32 25389",
+    "email": "info@rossidi.com",
+    "culture": "Интензивни ябълкови, прасковени и черешови градини",
+    "country": "България",
+    "country_code": "BG",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Tenuta Oliveti di Bari Cantina",
+    "company_name": "Tenuta Oliveti di Bari Cantina",
+    "category": "Oliveto & Frantoio",
+    "city": "Lecce / Salento",
+    "adress": "Via Salentina 41, 73100 Lecce, Italia",
+    "website": "https://www.prunotto.it",
+    "phone": "+39 0832 25905",
+    "email": "export@prunotto.it",
+    "culture": "Uliveti tradizionali resistenti alla siccità e cultivar Leccino",
+    "country": "Italia",
+    "country_code": "IT",
+    "status": "⚪ Очікує відправки"
+  },
+  {
+    "name": "Južnoslovenské Vína Strekov Sady",
+    "company_name": "Južnoslovenské Vína Strekov Sady",
+    "category": "Vinárstvo & Vinohrady",
+    "city": "Pezinok",
+    "adress": "Holubyho ulica 48, 902 01 Pezinok, Slovensko",
+    "website": "https://www.chateauruban.sk",
+    "phone": "+421 33 26077",
+    "email": "comercial@chateauruban.sk",
+    "culture": "Malokarpatská vinohradnícka oblasť, Rizling vlašský a Frankovka",
+    "country": "Slovensko",
+    "country_code": "SK",
     "status": "⚪ Очікує відправки"
   }
 ]

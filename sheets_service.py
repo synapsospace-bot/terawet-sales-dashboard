@@ -79,35 +79,20 @@ def safe_atomic_write_csv(target_path: Path, fieldnames: List[str], rows: List[D
                 pass
         raise e
 
-GENERIC_DOMAINS = {
-    'gmail.com', 'yahoo.com', 'abv.bg', 'mail.bg', 'otenet.gr', 'mail.ru', 
-    'yandex.ru', 'hotmail.com', 'outlook.com', 'icloud.com', 'proton.me', 
-    'protonmail.com', 'zoho.com', 'aol.com', 'gmx.de', 'web.de', 'libero.it'
-}
-
-def extract_clean_emails(email_str: Any) -> List[str]:
-    if not email_str:
-        return []
-    return [e.lower().strip() for e in re.findall(r'[\w\.-]+@[\w\.-]+', str(email_str))]
-
-def extract_corporate_domains(email_str: Any) -> List[str]:
-    emails = extract_clean_emails(email_str)
-    doms = []
-    for em in emails:
-        if '@' in em:
-            d = em.split('@')[1]
-            if d and d not in GENERIC_DOMAINS and '.' in d:
-                doms.append(d)
-    return doms
+from lead_deduplicator import (
+    MasterSentRegistry,
+    extract_clean_emails,
+    extract_corporate_domains,
+    clean_phone_digits,
+    clean_tokens,
+    clean_core_slug,
+    GENERIC_DOMAINS
+)
 
 def normalize_comp_name(name_str: Any) -> str:
     if not name_str:
         return ""
-    cleaned = re.sub(
-        r'\b(sa|sl|srl|s\.a\.|s\.l\.|s\.r\.l\.|eood|ood|gmbh|spa|s\.p\.a\.|ltd|llc|bodega|bodegas|cantina|tenuta|chateau|château|domaine|winery|vigneti|viveros|cooperativa)\b',
-        '', str(name_str), flags=re.IGNORECASE
-    )
-    return re.sub(r'[\W_]+', '', cleaned.lower())
+    return clean_core_slug(name_str)
 
 class LeadDataService:
     """
@@ -202,14 +187,105 @@ class LeadDataService:
     def _merge_imported_leads(self):
         with self._lock:
             imported = self._load_imported_leads()
+    def get_sent_registry(self) -> MasterSentRegistry:
+        """
+        Builds a comprehensive, ironclad MasterSentRegistry of ALL contacted leads
+        across raw_rows, state (leads_state.json), and imported_leads.
+        """
+        registry = MasterSentRegistry()
+        with self._lock:
+            # 1. From raw_rows
+            for r in self.raw_rows:
+                st = r.get("status", "")
+                if "✅" in st or "💬" in st:
+                    registry.register_lead({
+                        "name": r.get("name") or r.get("company_name"),
+                        "email": r.get("email"),
+                        "website": r.get("website"),
+                        "phone": r.get("phone")
+                    }, is_sent=True)
+
+            # 2. From self.state (leads_state.json)
+            for k, v in self.state.items():
+                if isinstance(v, dict):
+                    st = v.get("status", "")
+                    if "✅" in st or "💬" in st:
+                        lead_info = {
+                            "name": v.get("company_name") or v.get("name"),
+                            "email": v.get("email") or (k if "@" in k else ""),
+                            "website": v.get("website") or (f"https://{k.replace('domain_', '')}" if k.startswith("domain_") else ""),
+                            "phone": v.get("phone")
+                        }
+                        registry.register_lead(lead_info, is_sent=True)
+
+            # 3. From imported_leads if marked sent
+            for imp in self._load_imported_leads():
+                st = imp.get("status", "")
+                if "✅" in st or "💬" in st:
+                    registry.register_lead(imp, is_sent=True)
+
+        return registry
+
+    def sanitize_all_databases(self) -> int:
+        """
+        Scans imported_leads.json, leads_state.json, and raw_rows.
+        Identifies any uncontacted lead that matches any contacted lead (email, domain, phone, or company name)
+        and updates its status to '✅ Лист відправлено' so that duplicate emails can NEVER be sent.
+        Returns the number of sanitized duplicate leads.
+        """
+        with self._lock:
+            registry = self.get_sent_registry()
+            imported = self._load_imported_leads()
+            updated_count = 0
+
+            for imp in imported:
+                st = imp.get("status", "")
+                if "✅" in st or "💬" in st:
+                    continue
+                is_dup, reason = registry.is_duplicate(imp)
+                if is_dup:
+                    logger.info(f"Sanitizing duplicate lead '{imp.get('name')}': {reason} -> ✅ Лист відправлено")
+                    imp["status"] = "✅ Лист відправлено"
+                    updated_count += 1
+                    em_list = extract_clean_emails(imp.get("email"))
+                    if em_list:
+                        self.state[em_list[0]] = {
+                            "status": "✅ Лист відправлено",
+                            "name": imp.get("name"),
+                            "company_name": imp.get("name"),
+                            "date": imp.get("date") or datetime.now().strftime("%Y-%m-%d")
+                        }
+
+            if updated_count > 0:
+                self._save_imported_leads(imported)
+                self._save_state()
+                self._load_local_csv()
+                self._merge_imported_leads()
+                self.invalidate_cache()
+                self.export_updated_csv()
+                logger.info(f"Sanitized and synchronized {updated_count} duplicate leads to '✅ Лист відправлено'.")
+
+            return updated_count
+
+    def _merge_imported_leads(self):
+        with self._lock:
+            imported = self._load_imported_leads()
             if not imported:
                 return
+            
+            registry = self.get_sent_registry()
             existing_emails = set(r.get("email", "").strip().lower() for r in self.raw_rows if r.get("email"))
             existing_names = set(r.get("name", "").strip().lower() for r in self.raw_rows if r.get("name"))
 
             for imp in imported:
                 email = imp.get("email", "").strip().lower()
                 name = imp.get("name", "").strip().lower()
+                
+                # Check if this imported lead matches an already sent lead
+                is_dup, reason = registry.is_duplicate(imp)
+                if is_dup and "✅" not in imp.get("status", "") and "💬" not in imp.get("status", ""):
+                    imp["status"] = "✅ Лист відправлено"
+
                 if (email and email in existing_emails) or (name and name in existing_names):
                     continue
                 self.raw_rows.append(imp)
@@ -228,37 +304,16 @@ class LeadDataService:
     def add_imported_leads(self, new_items: List[Dict[str, str]]) -> int:
         """
         Appends newly discovered prospects to imported_leads.json and active memory.
-        Guarantees thread-safety and that Google Sheet sync will never overwrite or erase them.
+        Guarantees thread-safety and that duplicates are strictly rejected.
         """
         with self._lock:
             current_imported = self._load_imported_leads()
-            
-            # 1. Collect all known emails (individual)
-            known_emails = set()
-            known_domains = set()
-            known_names = set()
+            registry = self.get_sent_registry()
 
+            # Also register all existing uncontacted leads to prevent intra-batch duplicates
             for src in (current_imported, self.raw_rows):
                 for l in src:
-                    em_list = extract_clean_emails(l.get("email"))
-                    for em in em_list:
-                        known_emails.add(em)
-                    dom_list = extract_corporate_domains(l.get("email")) or extract_corporate_domains(l.get("website"))
-                    for d in dom_list:
-                        known_domains.add(d)
-                    nm = normalize_comp_name(l.get("name") or l.get("company_name"))
-                    if nm:
-                        known_names.add(nm)
-
-            # Also check self.state for sent records
-            for k, v in self.state.items():
-                if isinstance(v, dict) and "✅" in v.get("status", ""):
-                    if k.startswith("domain_"):
-                        known_domains.add(k.replace("domain_", "").lower())
-                    elif k.startswith("name_"):
-                        known_names.add(k.replace("name_", "").lower())
-                    else:
-                        known_emails.add(k.lower())
+                    registry.register_lead(l, is_sent=True)
 
             fieldnames = self.raw_headers if self.raw_headers else [
                 "name", "country", "category", "culture", "adress", "city", "zip", "website", "phone", "coordinates", "email", "instagram", "crop", "status", "generation sheet", "date"
@@ -268,20 +323,9 @@ class LeadDataService:
             today = datetime.now().strftime("%Y-%m-%d")
 
             for item in new_items:
-                cand_emails = extract_clean_emails(item.get("email"))
-                cand_domains = extract_corporate_domains(item.get("email")) or extract_corporate_domains(item.get("website"))
-                cand_name = normalize_comp_name(item.get("name"))
-
-                # Check 1: Has any email already been seen or contacted?
-                if any(em in known_emails for em in cand_emails):
-                    continue
-
-                # Check 2: Has this corporate domain already been contacted? (Zero duplicate company outreach!)
-                if any(dom in known_domains for dom in cand_domains):
-                    continue
-
-                # Check 3: Has this normalized company name already been added or contacted?
-                if cand_name and cand_name in known_names:
+                is_dup, reason = registry.is_duplicate(item)
+                if is_dup:
+                    logger.warning(f"⏩ Dropping duplicate candidate '{item.get('name')}' ({item.get('email')}): {reason}")
                     continue
 
                 new_lead = {fn: "" for fn in fieldnames}
@@ -299,12 +343,7 @@ class LeadDataService:
 
                 current_imported.append(new_lead)
                 self.raw_rows.append(new_lead)
-                for em in cand_emails:
-                    known_emails.add(em)
-                for dom in cand_domains:
-                    known_domains.add(dom)
-                if cand_name:
-                    known_names.add(cand_name)
+                registry.register_lead(new_lead, is_sent=True)
                 added_count += 1
 
             if added_count > 0:

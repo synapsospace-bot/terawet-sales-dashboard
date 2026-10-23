@@ -8,7 +8,8 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple, Set
 
 import config
-from sheets_service import LeadDataService, UPDATED_CSV_FILE, extract_clean_emails, extract_corporate_domains, normalize_comp_name
+from sheets_service import LeadDataService, UPDATED_CSV_FILE
+from lead_deduplicator import MasterSentRegistry, extract_clean_emails, extract_corporate_domains, normalize_comp_name
 from email_verifier import EmailVerifierService
 
 logger = logging.getLogger("LeadFinder")
@@ -1439,23 +1440,28 @@ class LeadFinderService:
         self.data_service = data_service or LeadDataService()
         self.verifier = EmailVerifierService()
 
-    def _generate_verified_dynamic_leads(self, count: int, known_emails: Set[str], known_domains: Set[str], known_names: Set[str], stop_event: Any = None) -> List[Dict[str, str]]:
+    def _generate_verified_dynamic_leads(self, count: int, sent_registry: MasterSentRegistry = None, session_registry: MasterSentRegistry = None, stop_event: Any = None) -> List[Dict[str, str]]:
         """
         Dynamically generates 100% DNS MX-verified, authentic agricultural B2B prospects.
         Guarantees that every prospect passes real DNS MX validation (no bounce or non-existent domains).
-        STRICTLY forbids reusing any corporate domain in known_domains or known_emails.
+        STRICTLY forbids reusing any corporate domain, email, or company name already contacted.
         """
-        # Verified authentic European domains that are completely fresh
+        if sent_registry is None:
+            sent_registry = self.data_service.get_sent_registry()
+        if session_registry is None:
+            session_registry = MasterSentRegistry()
+
+        # Verified authentic European domains that are completely fresh (100% MX verified)
         VERIFIED_COUNTRY_DOMAINS = {
-            "ES": ["bodegasfillaboa.com", "condesdealbarei.com", "valdesil.com", "adegasguimaro.com", "masdoix.com", "clos-erasmus.com", "cellercapcanes.com", "bodegasfrontonio.com", "bodegasmorca.com", "bodegasdominiodelbendito.com", "tesolamonja.com", "bodegasierranorte.com", "vegalfaro.com", "gutierrezdelavega.es"],
-            "IT": ["terriccio.it", "tenutasetteponti.it", "carlettipoliziano.com", "biondisanti.it", "casanovadineri.com", "conterno.it", "bartolomascarello.it", "vietti.com", "braida.it", "inama.wine", "elisabettaforadori.com", "sanleonardo.it", "benanti.it", "graci.eu", "gianfrancofino.it", "marisacuomo.com"],
-            "FR": ["chateau-palmer.com", "leoville-poyferre.fr", "leflaive.fr", "dujac.com", "domainedetrevallon.com", "chateau-simone.fr", "cote-rotie-jamet.com", "domainejlchave.fr", "stephanetissot.com"],
-            "PT": ["niepoort.pt", "quintadoportal.com", "luispato.com", "filipapato.net", "herdadedosgrous.com", "jportugalramos.com"],
+            "ES": ["cvne.com", "abadia-retuerta.com", "terrasgauda.com", "cellercredo.com", "bodegasdominiodelbendito.com", "adegasguimaro.com"],
+            "IT": ["ruffino.it", "prunotto.it", "fontodi.com", "casanovadineri.com", "vietti.com", "benanti.it"],
+            "FR": ["chateau-giscours.com", "chateau-cantemerle.com", "chateau-lascombes.com", "domaine-du-colombier.fr"],
+            "PT": ["soalheiro.com", "carm.pt", "luispato.com", "filipapato.net"],
             "DE": ["scharzhof.de", "clemens-busch.de", "georg-breuer.com", "weingut-christmann.de", "franz-keller.de"],
             "AT": ["weingutnigl.at", "salomonwirt.at", "sattlerhof.at", "kollwentz.at", "moric.at"],
-            "GR": ["gentilini.gr", "gaiawines.gr", "skouras.gr"],
+            "GR": ["hatzidakiswines.gr", "paterianakis.gr"],
             "RO": ["cramagirboiu.ro", "crama-oprisor.com"],
-            "BG": ["minkovbrothers.com", "chateauburgozone.bg"],
+            "BG": ["rossidi.com", "chateauburgozone.bg"],
             "HR": ["benvenutivina.com", "kozlovic.hr"],
             "SI": ["movia.si"],
             "SK": ["chateauruban.sk", "elesko.sk"],
@@ -1465,7 +1471,7 @@ class LeadFinderService:
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
 
         batch = []
-        seed = len(known_names) + len(known_emails) + 1
+        seed = len(sent_registry.emails) + len(sent_registry.domains) + 1
         attempts = 0
         max_attempts = count * 50
 
@@ -1481,10 +1487,6 @@ class LeadFinderService:
                 continue
 
             domain = domains[(attempts + seed) % len(domains)].lower().strip()
-            # Absolute rule: if corporate domain has EVER been contacted or known, SKIP!
-            if domain in known_domains:
-                continue
-
             archetype_list = cfg.get("archetypes", [])
             if not archetype_list:
                 continue
@@ -1502,28 +1504,13 @@ class LeadFinderService:
             email = f"{prefix}@{domain}"
 
             email_lower = email.lower().strip()
-            name_norm = normalize_comp_name(full_name)
-
-            if email_lower in known_emails or name_norm in known_names:
-                continue
-
-            # Strict DNS MX validation
-            is_valid, reason = self.verifier.verify_email(email_lower)
-            if not is_valid:
-                continue
-
             phone_num = 20000 + ((iteration_id * 149 + attempts * 23) % 79999)
             phone = f"{phone_prefix} {phone_num}"
             street_num = (attempts * 7) % 85 + 1
             address = f"{street} {street_num}, {zip_code} {clean_city}, {cfg['country']}"
             website = f"https://www.{domain}"
 
-            known_emails.add(email_lower)
-            known_domains.add(domain)
-            if name_norm:
-                known_names.add(name_norm)
-
-            batch.append({
+            cand = {
                 "name": full_name,
                 "company_name": full_name,
                 "category": arch['category'],
@@ -1536,14 +1523,28 @@ class LeadFinderService:
                 "country": cfg['country'],
                 "country_code": cfg['code'],
                 "status": "⚪ Очікує відправки"
-            })
+            }
+
+            is_dup, reason = sent_registry.is_duplicate(cand)
+            if not is_dup:
+                is_dup, reason = session_registry.is_duplicate(cand)
+            if is_dup:
+                continue
+
+            # Strict DNS MX validation
+            is_valid, reason = self.verifier.verify_email(email_lower)
+            if not is_valid:
+                continue
+
+            session_registry.register_lead(cand, is_sent=True)
+            batch.append(cand)
 
         return batch
 
     def _load_verified_pool(self) -> List[Dict[str, str]]:
         """
         Loads the verified candidates pool from disk and filters out any candidate
-        that has ALREADY been sent or contacted (based on live data_service state).
+        that has ALREADY been sent or contacted (using MasterSentRegistry).
         """
         pool = []
         if VERIFIED_POOL_FILE.exists():
@@ -1555,91 +1556,37 @@ class LeadFinderService:
             except Exception as e:
                 logger.error(f"Failed to load verified candidates pool: {e}")
 
-        # Live state sent index
-        sent_emails = set()
-        sent_domains = set()
-        sent_names = set()
-
-        for k, v in self.data_service.state.items():
-            if isinstance(v, dict):
-                st = v.get("status", "")
-                if "✅" in st or "💬" in st:
-                    if k.startswith("domain_"):
-                        sent_domains.add(k.replace("domain_", "").lower())
-                    elif k.startswith("name_"):
-                        sent_names.add(k.replace("name_", "").lower())
-                    else:
-                        sent_emails.add(k.lower())
-
+        sent_registry = self.data_service.get_sent_registry()
+        session_registry = MasterSentRegistry()
         clean_pool = []
-        seen_emails = set()
-        seen_domains = set()
-        seen_names = set()
 
         for cand in pool:
-            c_emails = extract_clean_emails(cand.get("email"))
-            c_domains = set(extract_corporate_domains(cand.get("email"))) | set(extract_corporate_domains(cand.get("website")))
-            c_name = normalize_comp_name(cand.get("name"))
+            is_dup, reason = sent_registry.is_duplicate(cand)
+            if not is_dup:
+                is_dup, reason = session_registry.is_duplicate(cand)
 
-            if (
-                any(em in sent_emails or em in seen_emails for em in c_emails) or
-                any(d in sent_domains or d in seen_domains for d in c_domains) or
-                (c_name and (c_name in sent_names or c_name in seen_names))
-            ):
+            if is_dup:
                 continue
 
             clean_pool.append(cand)
-            for em in c_emails:
-                seen_emails.add(em)
-            for d in c_domains:
-                seen_domains.add(d)
-            if c_name:
-                seen_names.add(c_name)
+            session_registry.register_lead(cand, is_sent=True)
 
         return clean_pool
 
     def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
         """
         Discovers new leads from the verified candidate reservoir and appends them to active database.
-        If the reservoir runs low, automatically replenishes with 100% DNS MX-verified dynamic prospects.
-        Supports graceful abort via stop_event.
-        Returns count of newly imported leads.
+        Uses ironclad MasterSentRegistry to guarantee 100% zero duplicate leads across
+        emails, domains, phones, company names, and parenthetical sub-brands.
         """
-        known_emails = set()
-        known_domains = set()
-        known_names = set()
+        sent_registry = self.data_service.get_sent_registry()
+        session_registry = MasterSentRegistry()
 
-        # 1. State sent records (primary ground truth from Gmail Sent & previous runs)
-        for k, v in self.data_service.state.items():
-            if isinstance(v, dict):
-                st = v.get("status", "")
-                if "✅" in st or "💬" in st or "❌" in st or "⚠️" in st:
-                    if k.startswith("domain_"):
-                        known_domains.add(k.replace("domain_", "").lower())
-                    elif k.startswith("name_"):
-                        known_names.add(k.replace("name_", "").lower())
-                    else:
-                        known_emails.add(k.lower())
-
-        # 2. Existing leads in database
+        # Register all existing leads in memory and on disk
         for l in self.data_service.get_all_leads(include_bounced=True):
-            for em in extract_clean_emails(l.get("email")):
-                known_emails.add(em)
-            for d in set(extract_corporate_domains(l.get("email"))) | set(extract_corporate_domains(l.get("website"))):
-                known_domains.add(d)
-            nm = normalize_comp_name(l.get("company_name") or l.get("name"))
-            if nm:
-                known_names.add(nm)
-
-        # 3. Already imported leads
+            session_registry.register_lead(l, is_sent=True)
         for l in self.data_service._load_imported_leads():
-            for em in extract_clean_emails(l.get("email")):
-                known_emails.add(em)
-            for d in set(extract_corporate_domains(l.get("email"))) | set(extract_corporate_domains(l.get("website"))):
-                known_domains.add(d)
-            nm = normalize_comp_name(l.get("company_name") or l.get("name"))
-            if nm:
-                known_names.add(nm)
+            session_registry.register_lead(l, is_sent=True)
 
         candidates_pool = self._load_verified_pool()
         candidates_to_add = []
@@ -1651,18 +1598,14 @@ class LeadFinderService:
                 logger.info("Harvesting from reservoir aborted by user stop_event.")
                 break
 
-            cand_emails = extract_clean_emails(cand.get("email"))
-            cand_domains = set(extract_corporate_domains(cand.get("email"))) | set(extract_corporate_domains(cand.get("website")))
-            cand_name = normalize_comp_name(cand.get("name"))
-
-            if not cand_emails:
+            is_dup, reason = sent_registry.is_duplicate(cand)
+            if not is_dup:
+                is_dup, reason = session_registry.is_duplicate(cand)
+            if is_dup:
                 continue
 
-            if (
-                any(em in known_emails for em in cand_emails) or
-                any(d in known_domains for d in cand_domains) or
-                (cand_name and cand_name in known_names)
-            ):
+            cand_emails = extract_clean_emails(cand.get("email"))
+            if not cand_emails:
                 continue
 
             # Verify that the address wasn't previously flagged as bounced or invalid in local state
@@ -1679,12 +1622,7 @@ class LeadFinderService:
             cand_copy = dict(cand)
             cand_copy["status"] = "⚪ Очікує відправки"
             candidates_to_add.append(cand_copy)
-            for em in cand_emails:
-                known_emails.add(em)
-            for d in cand_domains:
-                known_domains.add(d)
-            if cand_name:
-                known_names.add(cand_name)
+            session_registry.register_lead(cand_copy, is_sent=True)
 
             if len(candidates_to_add) >= count:
                 break
@@ -1695,22 +1633,17 @@ class LeadFinderService:
             logger.info(f"Reservoir delivered {len(candidates_to_add)} leads. Replenishing remaining {needed} leads via verified dynamic catalog...")
             dynamic_leads = self._generate_verified_dynamic_leads(
                 count=needed,
-                known_emails=known_emails,
-                known_domains=known_domains,
-                known_names=known_names,
+                sent_registry=sent_registry,
+                session_registry=session_registry,
                 stop_event=stop_event
             )
             for dl in dynamic_leads:
                 candidates_to_add.append(dl)
-                for em in extract_clean_emails(dl.get("email")):
-                    known_emails.add(em)
-                for d in set(extract_corporate_domains(dl.get("email"))) | set(extract_corporate_domains(dl.get("website"))):
-                    known_domains.add(d)
-                nm = normalize_comp_name(dl.get("name"))
-                if nm:
-                    known_names.add(nm)
+                session_registry.register_lead(dl, is_sent=True)
                 if len(candidates_to_add) >= count:
                     break
+
+
 
         if not candidates_to_add:
             logger.info("No new unique leads discovered or search was aborted.")
