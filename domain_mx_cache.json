@@ -2810,5 +2810,34 @@
     "mx": [
       "franzkeller-de01c.mail.protection.outlook.com"
     ]
+  },
+  "weingutnigl.at": {
+    "has_mx": true,
+    "mx": [
+      "weingutnigl-at.mail.protection.outlook.com"
+    ]
+  },
+  "salomonwirt.at": {
+    "has_mx": false,
+    "reason": "Домен salomonwirt.at не існує або не має поштових записів"
+  },
+  "sattlerhof.at": {
+    "has_mx": true,
+    "mx": [
+      "mx1.a1.net",
+      "sattlerhof-at.mail.protection.outlook.com"
+    ]
+  },
+  "moric.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.moric.at"
+    ]
+  },
+  "gentilini.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.gentilini.gr"
+    ]
   }
 }

@@ -321,6 +321,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button class="btn btn-primary" id="btnStartOutreach" onclick="startAutoOutreach(50, 'send')" style="background: #007001; font-weight: 700;">🚀 <span data-i18n="btnStartOutreachNow">Запустити розсилку (50 лідів)</span></button>
         <button class="btn btn-danger" id="btnStopOutreach" onclick="stopAutoOutreach()" style="display: none; font-weight: 700;">🛑 <span data-i18n="btnStopOutreachNow">Зупинити розсилку</span></button>
+        <button class="btn btn-secondary" id="btnResetOutreach" onclick="resetAutoOutreach()" style="display: none; font-size: 13px; color: #b91c1c; border-color: #fca5a5; background: #fff5f5; font-weight: 600;" title="Примусово скинути статус у разі зависання">🔄 <span>Скинути статус (Reset)</span></button>
         <button class="btn btn-secondary" onclick="toggleOutreachLog()" style="font-size: 13px;">📋 <span data-i18n="btnViewDispatchLog">Журнал відправки</span> (<span id="outreachLogCount">0</span>)</button>
         <button class="btn btn-secondary" onclick="testTelegramConnection()" style="font-size: 13px; border-color: #38bdf8; color: #0284c7; background: #f0f9ff;" title="Надіслати тестове повідомлення у Telegram-бот">📱 <span data-i18n="btnTestTelegram">Тест Telegram</span></button>
         <button class="btn btn-secondary" onclick="checkInboxRepliesNow()" style="font-size: 13px; border-color: #d8b4fe; color: #7e22ce; background: #faf5ff;" title="Перевірити пошту на відповіді клієнтів прямо зараз">📥 <span data-i18n="btnCheckReplies">Перевірити відповіді</span></button>
@@ -1335,6 +1336,7 @@ async function checkOutreachStatus() {
     const activeProg = document.getElementById('outreachActiveProgress');
     const btnStart = document.getElementById('btnStartOutreach');
     const btnStop = document.getElementById('btnStopOutreach');
+    const btnReset = document.getElementById('btnResetOutreach');
 
     if (data.is_running) {
       if (dot) dot.style.background = '#eab308';
@@ -1347,6 +1349,7 @@ async function checkOutreachStatus() {
 
       if (btnStart) btnStart.style.display = 'none';
       if (btnStop) btnStop.style.display = 'inline-flex';
+      if (btnReset) btnReset.style.display = 'inline-flex';
       if (activeProg) activeProg.style.display = 'block';
 
       // Progress bar calculations
@@ -1386,6 +1389,7 @@ async function checkOutreachStatus() {
 
       if (btnStart) btnStart.style.display = 'inline-flex';
       if (btnStop) btnStop.style.display = 'none';
+      if (btnReset) btnReset.style.display = 'none';
       if (activeProg) activeProg.style.display = 'none';
 
       if (data.sent_today >= data.daily_target) {
@@ -1495,6 +1499,19 @@ async function stopAutoOutreach() {
     setTimeout(checkOutreachStatus, 500);
   } catch (e) {
     showToast(t.toastNetError);
+  }
+}
+
+async function resetAutoOutreach() {
+  if (!confirm("Примусово скинути статус воркера розсилки в Idle? Це розблокує чергу, якщо процес завис.")) return;
+  showToast("Скидання статусу воркера...");
+  try {
+    const res = await fetch('/api/outreach/reset', { method: 'POST' });
+    const data = await res.json();
+    showToast(data.message || "Статус воркера успішно скинуто в Idle!");
+    setTimeout(checkOutreachStatus, 300);
+  } catch (e) {
+    showToast("Помилка зв'язку з сервером");
   }
 }
 
@@ -1762,6 +1779,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
         elif path in ("/api/outreach/status", "/api/auto_status"):
             self.send_json(self.outreach_service.get_status())
 
+        elif path in ("/api/outreach/reset", "/api/auto_reset"):
+            ok, msg = self.outreach_service.reset_dispatch("Запит через API скидання (GET)")
+            self.send_json({"success": ok, "message": msg, "status": self.outreach_service.get_status()})
+
         elif path in ("/api/replies/status", "/api/replies_status"):
             self.send_json(self.inbox_service.get_status())
 
@@ -1981,6 +2002,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 ok, msg = self.outreach_service.stop_dispatch()
                 self.send_json({"success": ok, "message": msg, "status": self.outreach_service.get_status()})
 
+            elif path in ("/api/outreach/reset", "/api/auto_reset"):
+                ok, msg = self.outreach_service.reset_dispatch("Запит через API скидання (POST)")
+                self.send_json({"success": ok, "message": msg, "status": self.outreach_service.get_status()})
+
             elif path == "/api/outreach/settings":
                 res = self.outreach_service.update_settings(params)
                 self.send_json({"success": True, "settings": res})
@@ -2074,18 +2099,38 @@ class DashboardHandler(BaseHTTPRequestHandler):
 def _daily_lead_search_scheduler():
     """Background scheduler that automatically searches 20-30 leads every day at 09:00 AM Kyiv time."""
     logger.info("Daily lead search scheduler initialized (runs automatically every morning at 09:00 AM Kyiv time).")
-    last_run_date = None
 
     while True:
         try:
             now = get_kyiv_now()
             today_str = now.strftime("%Y-%m-%d")
+            last_run_date = DashboardHandler.data_service.state.get("last_search_date", "")
+
             # Trigger if it's 9:00 AM or later Kyiv time and hasn't run today yet
             if now.hour >= 9 and last_run_date != today_str:
-                logger.info("⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (25-30 leads)...")
+                logger.info(f"⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (25-30 leads) for {today_str}...")
                 imported = DashboardHandler.finder_service.find_and_import_leads(count=25)
                 logger.info(f"Daily lead search finished: {imported} leads imported.")
-                last_run_date = today_str
+
+                # Persist execution date to disk
+                DashboardHandler.data_service.state["last_search_date"] = today_str
+                DashboardHandler.data_service._save_state()
+
+                # Dispatch Telegram Notification
+                try:
+                    from telegram_notifier import telegram_notifier
+                    total_all = len(DashboardHandler.data_service.get_all_leads())
+                    telegram_notifier.send_alert(
+                        "РАНКОВИЙ ПОШУК ЛІДІВ (09:00 КИЇВ)",
+                        f"🔍 <b>Автоматичний пошук успішно виконано!</b>\n\n"
+                        f"📥 <b>Нових верифікованих лідів додано:</b> {imported}\n"
+                        f"🛡️ <b>Контроль дублів:</b> 100% захист (перевірено за доменами, телефонами, брендами та DNS MX).\n"
+                        f"📊 <b>Всього активних лідів у системі:</b> {total_all}\n\n"
+                        f"👉 <i>Готово до денної розсилки о 09:30.</i>"
+                    )
+                except Exception as tg_err:
+                    logger.warning(f"Could not send Telegram lead search notification: {tg_err}")
+
         except Exception as e:
             logger.error(f"Daily scheduler exception: {e}")
         time.sleep(30)
@@ -2096,7 +2141,7 @@ def _periodic_background_syncer():
     while True:
         try:
             DashboardHandler.data_service._sync_live_sheet()
-            DashboardHandler.data_service.sync_sent_emails(DashboardHandler.draft_service)
+            DashboardHandler.data_service.sync_sent_emails(DashboardHandler.draft_service, limit=100)
         except Exception as e:
             logger.debug(f"Background syncer notice: {e}")
         time.sleep(120)

@@ -61,6 +61,7 @@ class AutoOutreachService:
         self.current_lead_name = ""
         self.current_lead_email = ""
         self.current_step_text = ""
+        self.last_step_timestamp = time.time()
         self.progress_current = 0
         self.progress_total = 0
         self.delay_remaining_sec = 0
@@ -73,6 +74,19 @@ class AutoOutreachService:
         self.scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
         self.scheduler_thread.start()
         logger.info("AutoOutreachService initialized and background scheduler started.")
+
+    def _update_step(self, text: str, cur: Optional[int] = None, tot: Optional[int] = None, lead_name: str = "", lead_email: str = ""):
+        with self._lock:
+            self.current_step_text = text
+            self.last_step_timestamp = time.time()
+            if cur is not None:
+                self.progress_current = cur
+            if tot is not None:
+                self.progress_total = tot
+            if lead_name:
+                self.current_lead_name = lead_name
+            if lead_email:
+                self.current_lead_email = lead_email
 
     def _default_state(self) -> Dict[str, Any]:
         today_str = datetime.now().strftime("%Y-%m-%d")
@@ -229,9 +243,22 @@ class AutoOutreachService:
                 return False, "Розсилка наразі не виконується"
 
             self.stop_event.set()
-            self.current_step_text = "Зупинка розсилки за запитом..."
+            self._update_step("Зупинка розсилки за запитом...")
             logger.info("🛑 Outreach stop requested by user.")
             return True, "Запит на зупинку розсилки надіслано"
+
+    def reset_dispatch(self, reason: str = "Ручне або автоматичне скидання завислого воркера") -> Tuple[bool, str]:
+        """Forces the dispatch state back to idle, releasing any stuck flags."""
+        with self._lock:
+            self.stop_event.set()
+            self.is_running = False
+            self.delay_remaining_sec = 0
+            self.last_run_status = "idle"
+            self.current_step_text = f"Воркер скинуто: {reason}"
+            self.last_step_timestamp = time.time()
+            self._save_state()
+            logger.warning(f"Outreach worker forcibly reset: {reason}")
+            return True, f"Статус розсилки скинуто: {reason}"
 
     def _sleep_with_cancel(self, duration_sec: float) -> bool:
         """
@@ -258,12 +285,22 @@ class AutoOutreachService:
 
         try:
             logger.info(f"▶️ Starting auto-outreach run (target: {target_count}, mode: {mode})...")
-            self.current_step_text = "Синхронізація надісланих листів із Gmail..."
+            self._update_step("Синхронізація надісланих листів із Gmail...")
 
             # 0. Ironclad Sync: verify all sent emails directly from Gmail Sent Mail & sanitize database
+            # Wrapped in a 15-second worker thread to guarantee dispatch never hangs on slow IMAP connections
             try:
-                self.data_service.sync_sent_emails(self.draft_service)
-                self.data_service.sanitize_all_databases()
+                def _preflight_task():
+                    try:
+                        self.data_service.sync_sent_emails(self.draft_service, limit=150)
+                        self.data_service.sanitize_all_databases()
+                    except Exception as pe:
+                        logger.warning(f"Pre-flight sync error: {pe}")
+                sync_t = threading.Thread(target=_preflight_task, daemon=True)
+                sync_t.start()
+                sync_t.join(timeout=15)
+                if sync_t.is_alive():
+                    logger.warning("Pre-flight sync took longer than 15s; proceeding with outreach using cached database.")
             except Exception as sync_err:
                 logger.warning(f"Pre-flight sync/sanitize warning: {sync_err}")
 
@@ -560,6 +597,27 @@ class AutoOutreachService:
                     daily_target = self.state.get("daily_target", 50)
                     send_mode = self.state.get("send_mode", "send")
                     is_running = self.is_running
+
+                # Watchdog check: if is_running is True, but no step progress has occurred for > 15 minutes:
+                if is_running:
+                    stuck_seconds = time.time() - getattr(self, "last_step_timestamp", time.time())
+                    if stuck_seconds > 900:  # 15 minutes of zero activity
+                        step_info = self.current_step_text or "Невідомий крок"
+                        logger.error(f"🚨 [WATCHDOG RESET] Dispatch worker stalled for {int(stuck_seconds / 60)} min at '{step_info}'. Forcing reset!")
+                        self.reset_dispatch(f"Скинуто Watchdog'ом (зависання {int(stuck_seconds / 60)} хв на: {step_info})")
+                        try:
+                            from telegram_notifier import telegram_notifier
+                            import html
+                            telegram_notifier.send_alert(
+                                "АВТО-ВІДНОВЛЕННЯ ДЕМОНА РОЗСИЛКИ",
+                                f"⚠️ <b>Воркер завис і був автоматично скинутий Watchdog'ом:</b>\n"
+                                f"Крок: {html.escape(step_info)}\n"
+                                f"Час зависання: {int(stuck_seconds / 60)} хв.\n\n"
+                                f"✅ Статус примусово скинуто в Idle для розблокування запланованих завдань."
+                            )
+                        except Exception as tg_err:
+                            logger.warning(f"Could not dispatch watchdog alert: {tg_err}")
+                        is_running = False
 
                 # Trigger condition:
                 # 1. Enabled

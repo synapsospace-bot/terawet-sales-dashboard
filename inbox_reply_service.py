@@ -6,11 +6,14 @@ import email
 import html
 import logging
 import imaplib
+import socket
 import threading
 from datetime import datetime
 from email.header import decode_header
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
+
+socket.setdefaulttimeout(20)
 
 import config
 from sheets_service import LeadDataService, safe_atomic_write_json
@@ -173,7 +176,7 @@ class InboxReplyService:
                 return 0, []
 
             try:
-                imap = imaplib.IMAP4_SSL("imap.gmail.com")
+                imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=15)
                 imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
                 status, _ = imap.select("INBOX", readonly=True)
                 if status != "OK":

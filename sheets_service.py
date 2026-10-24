@@ -1116,7 +1116,7 @@ class LeadDataService:
 
             return UPDATED_CSV_FILE
 
-    def sync_sent_emails(self, gmail_service: Any) -> int:
+    def sync_sent_emails(self, gmail_service: Any, limit: int = 150) -> int:
         """
         Synchronizes lead statuses against both Gmail Sent Mail and Gmail Drafts folders.
         1. Multi-email support: splits comma/semicolon-separated addresses.
@@ -1133,14 +1133,14 @@ class LeadDataService:
         draft_recipients = {}
         if hasattr(gmail_service, "get_draft_recipients"):
             try:
-                draft_recipients = gmail_service.get_draft_recipients(limit=100)
+                draft_recipients = gmail_service.get_draft_recipients(limit=min(limit, 100))
             except Exception as e:
                 logger.warning(f"Notice getting draft recipients: {e}")
 
-        # 2. Fetch Sent Emails from Gmail (full scan up to 1500 to cover all history)
+        # 2. Fetch Sent Emails from Gmail (bounded scan to prevent latency/stalls)
         sent_recipients = {}
         try:
-            sent_recipients = gmail_service.get_sent_recipients(limit=1500)
+            sent_recipients = gmail_service.get_sent_recipients(limit=limit)
         except Exception as e:
             logger.warning(f"Notice getting sent recipients: {e}")
 
@@ -1148,7 +1148,7 @@ class LeadDataService:
         bounced_recipients = {}
         if hasattr(gmail_service, "get_bounced_recipients"):
             try:
-                bounced_recipients = gmail_service.get_bounced_recipients(limit=300)
+                bounced_recipients = gmail_service.get_bounced_recipients(limit=min(limit, 100))
             except Exception as e:
                 logger.warning(f"Notice getting bounced recipients: {e}")
 

@@ -4,12 +4,16 @@ import base64
 import logging
 import pickle
 import imaplib
+import socket
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import config
+
+# Enforce strict global socket timeout so no worker or scheduler thread hangs indefinitely
+socket.setdefaulttimeout(20)
 
 logger = logging.getLogger(__name__)
 
@@ -308,7 +312,7 @@ class GmailDraftService:
 
     def _create_imap_draft(self, to_email: str, subject: str, body_html: str, body_plain: str) -> str:
         """Appends email directly into Gmail's Drafts folder via IMAP."""
-        imap = imaplib.IMAP4_SSL("imap.gmail.com")
+        imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=15)
         imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
         # Detect drafts folder name (Gmail uses [Gmail]/Drafts, [Gmail]/Чернетки, etc.)
@@ -421,7 +425,7 @@ class GmailDraftService:
 
         results = {}
         try:
-            imap = imaplib.IMAP4_SSL("imap.gmail.com")
+            imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=15)
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
             status, folder_list = imap.list()
@@ -502,7 +506,7 @@ class GmailDraftService:
 
         results = {}
         try:
-            imap = imaplib.IMAP4_SSL("imap.gmail.com")
+            imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=15)
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
             status, folder_list = imap.list()
@@ -578,7 +582,7 @@ class GmailDraftService:
 
         results = {}
         try:
-            imap = imaplib.IMAP4_SSL("imap.gmail.com")
+            imap = imaplib.IMAP4_SSL("imap.gmail.com", 993, timeout=15)
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
             status, _ = imap.select("INBOX", readonly=True)

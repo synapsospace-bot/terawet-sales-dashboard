@@ -6,7 +6,7 @@
   "min_delay_seconds": 30,
   "max_delay_seconds": 60,
   "send_mode": "send",
-  "today_date": "2026-10-18",
+  "today_date": "2026-10-24",
   "sent_today": 0,
   "last_run_date": "2026-10-17",
   "last_run_timestamp": "2026-10-17 13:30:58",
