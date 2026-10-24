@@ -218,6 +218,24 @@ class LeadDataService:
                         }
                         registry.register_lead(lead_info, is_sent=True)
 
+                        # Explicit indexation for domain_ and @ keys
+                        if k.startswith("domain_"):
+                            d_clean = k.replace("domain_", "").lower().strip()
+                            if d_clean not in GENERIC_DOMAINS and "." in d_clean:
+                                registry.domains.add(d_clean)
+                        elif "@" in k:
+                            e_clean = k.lower().strip()
+                            registry.emails.add(e_clean)
+                            if "." in e_clean.split("@")[-1]:
+                                d_part = e_clean.split("@")[-1]
+                                if d_part not in GENERIC_DOMAINS:
+                                    registry.domains.add(d_part)
+                        elif k.startswith("name_"):
+                            n_clean = k.replace("name_", "").lower().strip()
+                            if n_clean:
+                                registry.exact_names.add(n_clean)
+                                registry.core_slugs.add(n_clean)
+
             # 3. From imported_leads if marked sent
             for imp in self._load_imported_leads():
                 st = imp.get("status", "")
@@ -730,6 +748,8 @@ class LeadDataService:
             return "de"
         if phone_clean.startswith(("+34", "0034", "34")):
             return "es"
+        if phone_clean.startswith(("+351", "00351", "351")):
+            return "pt"
         if phone_clean.startswith(("+381", "00381", "381")):
             return "sr"
         if phone_clean.startswith(("+385", "00385", "385")):
@@ -759,6 +779,8 @@ class LeadDataService:
             return "de"
         if _has_tld(".es"):
             return "es"
+        if _has_tld(".pt"):
+            return "pt"
         if _has_tld(".rs"):
             return "sr"
         if _has_tld(".hr"):
@@ -779,6 +801,17 @@ class LeadDataService:
             return "bg"
 
         # 6. Country & Regional City Keywords
+        # Portugal
+        pt_keywords = [
+            "portugal", "portuguesa", "lisboa", "lisbon", "porto", "douro", "alentejo", "dão", "dao",
+            "minho", "vinho verde", "setúbal", "setubal", "bairrada", "algarve", "tejo", "ribatejo",
+            "trás-os-montes", "tras-os-montes", "beira interior", "madeira", "açores", "acores",
+            "adega", "quinta", "herdade", "sociedade agrícola", "agricola", "olival", "olivicultura",
+            "pomar", "fruticultura", "vitivinícola", "vitivinicola", "enologia", "vinhos", "évora", "evora"
+        ]
+        if any(k in text for k in pt_keywords):
+            return "pt"
+
         # Serbia
         sr_keywords = [
             "serbia", "srbija", "србија", "beograd", "belgrade", "novi sad", "нови сад", "vojvodina",
@@ -900,7 +933,15 @@ class LeadDataService:
         if any(k in text for k in gr_keywords):
             return "el"
 
-        return "bg" if ("bulgar" in text or ".bg" in text) else "el"
+        if "portug" in text or ".pt" in text:
+            return "pt"
+        if "españ" in text or "spain" in text or ".es" in text:
+            return "es"
+        if "ital" in text or ".it" in text:
+            return "it"
+        if "bulgar" in text or ".bg" in text:
+            return "bg"
+        return "el"
 
     def _detect_country(self, city: str = "", address: str = "", website: str = "", phone: str = "", email: str = "", name: str = "", raw_country: str = "", lang: str = "") -> Dict[str, str]:
         """
@@ -967,6 +1008,7 @@ class LeadDataService:
             "hu": {"code": "HU", "name_uk": "Угорщина", "name_bg": "Унгария", "name_en": "Hungary", "flag": "🇭🇺"},
             "sl": {"code": "SL", "name_uk": "Словенія", "name_bg": "Словения", "name_en": "Slovenia", "flag": "🇸🇮"},
             "sk": {"code": "SK", "name_uk": "Словаччина", "name_bg": "Словакия", "name_en": "Slovakia", "flag": "🇸🇰"},
+            "pt": {"code": "PT", "name_uk": "Португалія", "name_bg": "Португалия", "name_en": "Portugal", "flag": "🇵🇹"},
             "sr": {"code": "SR", "name_uk": "Сербія", "name_bg": "Сърбия", "name_en": "Serbia", "flag": "🇷🇸"},
             "hr": {"code": "HR", "name_uk": "Хорватія", "name_bg": "Хърватия", "name_en": "Croatia", "flag": "🇭🇷"}
         }
@@ -1164,6 +1206,58 @@ class LeadDataService:
                     sent_domains_map[s_dom] = s_info
 
         with self._lock:
+            # Step A: Directly register EVERY sent email & corporate domain from Gmail into self.state
+            for s_em, s_info in sent_recipients.items():
+                s_em_clean = s_em.strip().lower()
+                if not s_em_clean or "@" not in s_em_clean:
+                    continue
+                s_date = s_info.get("date") or today
+                s_subj = s_info.get("subject", "")
+                cached_sent = {
+                    "status": "✅ Лист відправлено",
+                    "date": s_date,
+                    "subject": s_subj
+                }
+                if s_em_clean not in self.state or "✅" not in self.state[s_em_clean].get("status", ""):
+                    self.state[s_em_clean] = cached_sent
+                    updated_count += 1
+
+                s_dom = s_em_clean.split("@")[-1].lower().strip()
+                if s_dom not in GENERIC_DOMAINS and "." in s_dom and len(s_dom) > 4:
+                    dom_key = f"domain_{s_dom}"
+                    if dom_key not in self.state or "✅" not in self.state[dom_key].get("status", ""):
+                        self.state[dom_key] = cached_sent
+
+            # Step B: Mark matched leads in imported_leads.json as sent
+            try:
+                imported = self._load_imported_leads()
+                imp_changed = False
+                for imp in imported:
+                    if "✅" in imp.get("status", ""):
+                        continue
+                    i_emails = extract_clean_emails(imp.get("email"))
+                    i_doms = extract_corporate_domains(imp.get("email")) | extract_corporate_domains(imp.get("website"))
+                    if any(e in sent_recipients for e in i_emails) or any(d in sent_domains_map for d in i_doms):
+                        imp["status"] = "✅ Лист відправлено"
+                        imp["date"] = today
+                        imp_changed = True
+                        updated_count += 1
+                if imp_changed:
+                    self._save_imported_leads(imported)
+            except Exception as e:
+                logger.warning(f"Notice updating imported leads in sync_sent: {e}")
+
+            # Step C: Mark matched leads in raw_rows as sent
+            for r in self.raw_rows:
+                if "✅" in r.get("status", ""):
+                    continue
+                r_emails = extract_clean_emails(r.get("email"))
+                r_doms = extract_corporate_domains(r.get("email")) | extract_corporate_domains(r.get("website"))
+                if any(e in sent_recipients for e in r_emails) or any(d in sent_domains_map for d in r_doms):
+                    r["status"] = "✅ Лист відправлено"
+                    r["date"] = today
+                    updated_count += 1
+
             all_leads = self.get_all_leads()
 
             for lead in all_leads:

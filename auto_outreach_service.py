@@ -396,6 +396,17 @@ class AutoOutreachService:
 
                 # Step C: Dispatch or Draft Creation
                 now_str = datetime.now().strftime("%H:%M:%S")
+
+                # Final pre-send ironclad verification against sent_registry and session_registry
+                is_dup_pre, dup_reason = sent_registry.is_duplicate(lead)
+                if not is_dup_pre:
+                    is_dup_pre, dup_reason = session_registry.is_duplicate(lead)
+                if is_dup_pre:
+                    logger.warning(f"🚨 Pre-send duplicate blocked: {comp_name} ({email}) - {dup_reason}")
+                    self.data_service.mark_email_sent(lead, "Already Contacted", "")
+                    skipped_invalid += 1
+                    continue
+
                 if mode == "send":
                     self.current_step_text = f"Відправка листа через Gmail до {comp_name}..."
                     ok, res = self.draft_service.send_email(
@@ -472,15 +483,8 @@ class AutoOutreachService:
                     )
                     self.data_service.mark_draft_created(lead, draft_id, subject, body_plain)
                     sent_count += 1
-                    for em in l_emails:
-                        session_sent_emails.add(em)
-                        sent_emails.add(em)
-                    for d in l_domains:
-                        session_sent_domains.add(d)
-                        sent_domains.add(d)
-                    if l_name:
-                        session_sent_names.add(l_name)
-                        sent_names.add(l_name)
+                    sent_registry.register_lead(lead, is_sent=True)
+                    session_registry.register_lead(lead, is_sent=True)
 
                     with self._lock:
                         self.state["sent_today"] = self.state.get("sent_today", 0) + 1

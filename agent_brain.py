@@ -246,19 +246,37 @@ class TerawetAgentBrain:
                 "transform_local_en": "Locking moisture in sandy soil and cutting irrigation expenses by 50%."
             }
 
-        # 7. Spain (Andalucía, Murcia, Valencia)
-        if any(k in text for k in ['sevilla', 'andaluc', 'murcia', 'valencia', 'madrid', 'spain', 'españa']):
+        # 7. Spain (Andalucía, Murcia, Valencia, Rioja)
+        if any(k in text for k in ['sevilla', 'andaluc', 'murcia', 'valencia', 'madrid', 'spain', 'españa', 'rioja', 'jerez', 'almeria']):
             return {
                 "region_key": "spain_andalucia",
-                "region_name_el": "στην Ισπανία (Ανδαλουσία / Μούρθια)",
-                "region_name_bg": "в Испания (Андалусия и Мурсия)",
-                "region_name_en": "in Spain (Andalusia and Murcia)",
+                "region_name_el": "στην Ισπανία (Ανδαλουσία / Μούρθια / Rioja)",
+                "region_name_bg": "в Испания (Андалусия, Мурсия и Риоха)",
+                "region_name_en": "in Spain (Andalusia, Murcia, and Rioja)",
                 "pain_el": "στην Ισπανία, οι αυστηροί περιορισμοί στις ποσοστώσεις νερού και η υπερεκμετάλλευση των υδροφορέων απειλούν άμεσα τη βιωσιμότητα των καλλιεργειών.",
                 "pain_bg": "в Испания стриктните водни квоти и палещите жеги правят пестенето на всяка капка въпрос на оцеляване на стопанството.",
                 "pain_en": "in Spain, severe water quota restrictions and overexploited aquifers make every cubic meter saved essential for farm survival.",
                 "transform_local_el": "Μείωση κατανάλωσης νερού άνω του 50% και συμμόρφωση με τις αυστηρότερες ποσοστώσεις άρδευσης.",
                 "transform_local_bg": "Спестяване на над 50% вода и пълна адаптация към строгите водни ограничения.",
                 "transform_local_en": "Over 50% water reduction ensuring resilience under strict irrigation quotas."
+            }
+
+        # 8. Portugal (Douro, Alentejo, Dão, Minho, Setúbal, Lisboa, Algarve)
+        if any(k in text for k in ['portugal', 'douro', 'alentejo', 'dão', 'dao', 'minho', 'setúbal', 'setubal', 'bairrada', 'algarve', 'ribatejo', 'tejo', 'lisboa', 'porto', 'évora', 'evora']):
+            return {
+                "region_key": "portugal",
+                "region_name_el": "στην Πορτογαλία (Douro / Alentejo / Dão)",
+                "region_name_bg": "в Португалия (Доуро, Алентежу и Дао)",
+                "region_name_pt": "em Portugal (Douro / Alentejo / Dão)",
+                "region_name_en": "in Portugal (Douro, Alentejo, and Dão)",
+                "pain_el": "στην Πορτογαλία, οι παρατεταμένες θερινές ξηρασίες άνω των 40°C και η πτώση του υδροφόρου ορίζοντα επιβαρύνουν τα καλλιεργητικά έξοδα.",
+                "pain_bg": "в Португалия екстремните летни горещини и суши в регионите на Доуро и Алентежу изтощават почвената влага.",
+                "pain_pt": "em Portugal, os períodos prolongados de seca estival, ondas de calor superiores a 40°C e a descida dos níveis freáticos colocam uma enorme pressão hídrica e financeira sobre as explorações, com as regas convencionais a perderem até 40%–50% da água por evaporação e lixiviação profunda.",
+                "pain_en": "in Portugal, prolonged summer droughts exceeding 40°C and dropping water tables exhaust soil moisture and increase irrigation costs.",
+                "transform_local_el": "Σταθερή παροχή υγρασίας και 50% μείωση των αναγκών άρδευσης.",
+                "transform_local_bg": "50% икономия на поливна вода и защита на насажденията.",
+                "transform_local_pt": "50% de poupança direta de água na rega, corte drástico de horas de bombagem e proteção ativa das videiras e árvores contra escaldão.",
+                "transform_local_en": "50% direct irrigation water savings, reduced pump operating hours, and active drought immunity."
             }
 
         # 8. Serbia (Vojvodina, Fruška Gora, Šumadija, Čačak, Negotin, Morava)
@@ -325,6 +343,7 @@ class TerawetAgentBrain:
                 "bg": "<strong>За лозови масиви:</strong> 10–15 г ТЕРАУЕТ Т400 в кореновата зона осигуряват постоянен воден буфер. Предотвратява пригора на гроздето, гарантира едри зърна, отличен захарен градус и стабилен добив.",
                 "ro": "<strong>Pentru Podgorii & Viță de Vie:</strong> 10–15 g TERAWET® T400 în zona radiculară a fiecărui butuc. Menține umiditatea optimă, previne stresul termic și arsurile pe boabe, asigurând o acumulare echilibrată de zaharuri (Brix) și aciditate constantă.",
                 "es": "<strong>Para Viñedos:</strong> 10–15 g de TERAWET® T400 en la rizosfera de cada cepa. Garantiza disponibilidad continua de agua sin exceso vegetativo, evita el golpe de calor, protege el racimo y mantiene una acidez equilibrada y óptimo grado Brix.",
+                "pt": "<strong>Para Vinhas & Viticultura:</strong> 10–15 g de TERAWET® T400 na rizosfera de cada videira. Garante disponibilidade contínua de água sem vigor vegetativo excessivo, previne o escaldão e desidratação das uvas, protege o cacho e assegura um grau Brix ideal e acidez equilibrada.",
                 "it": "<strong>Per Vigneti:</strong> 10–15 g di TERAWET® T400 nella rizosfera di ciascuna vite. Assicura una riserva idrica costante evitando lo stress da calore, previene la scottatura dei grappoli e garantisce un grado Brix ottimale e acidità equilibrata.",
                 "fr": "<strong>Pour les Vignobles:</strong> 10–15 g de TERAWET® T400 dans la zone racinaire de chaque pied de vigne. Garantit une hydratation continue sans vigueur végétative excessive, évite le blocage thermique et préserve l'équilibre sucres/acidité.",
                 "de": "<strong>Für Weingärten:</strong> 10–15 g TERAWET® T400 im Wurzelbereich jedes Rebstockes. Gewährleistet kontinuierliche Feuchtigkeit ohne übermäßiges vegetatives Wachstum, verhindert Hitzestress und Traubenbrand und sichert optimale Brix-Werte und Säureharmonie.",
@@ -340,6 +359,7 @@ class TerawetAgentBrain:
                 "bg": "<strong>За разсадници и нови насаждения:</strong> Потапянето на корените в гел-паста ТЕРАУЕТ Т100 (5–8 г/л вода) гарантира <strong>100% прихващане на фиданките</strong>. В субстрати за саксии Т400 съкращава поливките с 60%.",
                 "ro": "<strong>Pentru Pepiniere & Plantații Noi:</strong> Înmuierea rădăcinilor nude în pastă de gel TERAWET® T100 (5–8 g/L apă) garantează <strong>prindere de 100%</strong> fără șoc de transplantare. În substraturi pentru ghivece, T400 reduce udările cu 60%.",
                 "es": "<strong>Para Viveros y Nuevas Plantaciones:</strong> La inmersión de raíces desnudas en pasta de gel TERAWET® T100 (5–8 g/L de agua) asegura un <strong>100% de prendimiento</strong> sin estrés post-trasplante. En sustratos de maceta, T400 reduce el riego en un 60%.",
+                "pt": "<strong>Para Viveiros & Novas Plantações:</strong> A imersão das raízes nuas em pasta de gel TERAWET® T100 (5–8 g/L de água) garante <strong>100% de pegamento</strong> sem choque de transplante. Em vasos e substratos, o T400 reduz a frequência de regas em 60%.",
                 "it": "<strong>Per Vivai e Nuovi Impianti:</strong> L'immersione delle radici nude nella pasta gel TERAWET® T100 (5–8 g/L d'acqua) garantisce il <strong>100% di attecchimento</strong> senza shock da trapianto. Nei substrati per vasi, T400 riduce le irrigazioni del 60%.",
                 "fr": "<strong>Pour les Pépinières & Jeunes Plantations:</strong> Le pralinage des racines nues dans la pâte de gel TERAWET® T100 (5–8 g/L d'eau) assure <strong>100% de reprise racinaire</strong> sans choc de transplantation. En pots, T400 espace les arrosages de 60%.",
                 "de": "<strong>Für Baumschulen & Neupflanzungen:</strong> Das Eintauchen nackter Wurzeln in TERAWET® T100 Gel-Paste (5–8 g/L Wasser) garantiert <strong>100% Anwachserfolg</strong> ohne Pflanzschock. In Substraten senkt T400 die Gießintervalle um 60%.",
@@ -355,6 +375,7 @@ class TerawetAgentBrain:
                 "bg": "<strong>За овощни градини и маслини:</strong> 15–25 г ТЕРАУЕТ Т400 на дърво в активната коренова зона. Спира окапването на завръза в юлските жеги и гарантира едър, качествен плод.",
                 "ro": "<strong>Pentru Livezi & Pomi Fructiferi:</strong> 15–25 g TERAWET® T400 per pom în zona rădăcinilor absorbante. Oprește căderea prematură a fructelor în caniculă și asigură un calibru comercial superior.",
                 "es": "<strong>Para Olivares y Frutales:</strong> 15–25 g de TERAWET® T400 por árbol en la zona radicular activa. Evita la caída prematura de fruto durante las olas de calor de verano y maximiza el calibre y el rendimiento graso.",
+                "pt": "<strong>Para Olivais & Pomares:</strong> 15–25 g de TERAWET® T400 por árvore na zona radicular ativa. Evita a queda prematura de frutos durante as ondas de calor de verão e maximiza o calibre e o rendimento em azeite.",
                 "it": "<strong>Per Uliveti e Frutteti:</strong> 15–25 g di TERAWET® T400 per albero nella zona delle radici assorbenti. Blocca la cascola estiva dei frutticini durante le ondate di calore e favorisce calibri superiori.",
                 "fr": "<strong>Pour Vergers & Oliveraies:</strong> 15–25 g de TERAWET® T400 par arbre au niveau des racines actives. Empêche la chute physiologique des fruits sous forte chaleur et améliore le calibre commercial.",
                 "de": "<strong>Für Obstbau & Baumkulturen:</strong> 15–25 g TERAWET® T400 pro Baum im aktiven Feinwurzelbereich. Stoppt vorzeitigen Fruchtfall bei Sommerhitze und sichert erstklassige Fruchtkaliber.",
@@ -370,6 +391,7 @@ class TerawetAgentBrain:
                 "bg": "<strong>За зеленчуци, полски и оранжерийни култури:</strong> 2–3 кг ТЕРАУЕТ Т400 на декар или 10–15 г под корен. Осигурява балансирано хранене и съкращава поливните норми с над 50%.",
                 "ro": "<strong>Pentru Legume & Culturi de Câmp:</strong> 2–3 kg TERAWET® T400 la 1.000 m² (sau 10–15 g per plantă). Formează un rezervor subteran activ timp de 7–10 ani, reducând la jumătate apa și îngrășămintele.",
                 "es": "<strong>Para Hortalizas y Extensivos:</strong> 2–3 kg de TERAWET® T400 por 1.000 m² (o 10–15 g por planta). Crea un colchón hídrico activo durante 7–10 años que reduce el consumo de agua y fertilizantes a la mitad.",
+                "pt": "<strong>Para Hortícolas e Arvense:</strong> 2–3 kg de TERAWET® T400 por 1.000 m² (ou 10–15 g por planta). Cria uma reserva hídrica subterrânea ativa durante 7 a 10 anos, reduzindo o consumo de água e fertilizantes para metade.",
                 "it": "<strong>Per Orticoltura e Pieno Campo:</strong> 2–3 kg di TERAWET® T400 per 1.000 m² (oppure 10–15 g per pianta). Forma un cuscinetto idrico attivo per 7–10 anni, dimezzando consumi di acqua ed elettricità.",
                 "fr": "<strong>Pour Maraîchage & Plein Champ:</strong> 2–3 kg de TERAWET® T400 pour 1 000 m² (ou 10–15 g par plant). Crée une réserve d'humidité souterraine active pendant 7 à 10 ans, divisant par deux les besoins en eau et en engrais.",
                 "de": "<strong>Für Gemüse- & Feldkulturen:</strong> 2–3 kg TERAWET® T400 pro 1.000 m² (oder 10–15 g pro Pflanze). Schafft ein aktives, 7–10 Jahre haltbares Wasserdepot im Boden und halbiert den Bewässerungs- und Düngerbedarf.",
@@ -526,6 +548,10 @@ Return JSON with subject, body_html, body_plain."""
             "es": {
                 "title": "🤝 Alianza Estratégica y Apertura de Representación Oficial",
                 "text": "Además del suministro directo a explotaciones agrícolas, <strong>TERAWET-ORIGINAL® (VANKO 97 EOOD)</strong> está expandiendo su red comercial en Europa y busca distribuidores agropecuarios consolidados, almacenes agrícolas y cooperativas para la <strong>apertura de delegaciones oficiales y centros regionales de distribución en España</strong>.<br>Ofrecemos márgenes comerciales preferentes, suministro directo de fábrica, asesoramiento agronómico especializado y material técnico de apoyo. Si su empresa está interesada en representar nuestra marca o distribuir TERAWET® en su región, estaremos encantados de coordinar una reunión de trabajo."
+            },
+            "pt": {
+                "title": "🤝 Parceria Estratégica & Abertura de Representação Oficial",
+                "text": "Além do fornecimento direto a explorações agrícolas e vitivinícolas, a <strong>TERAWET-ORIGINAL® (VANKO 97 EOOD)</strong> está a expandir a sua rede comercial na Europa e procura parceiros comerciais de confiança, distribuidores agrícolas, cooperativas e adegas para a <strong>abertura de representações oficiais e entrepostos regionais de distribuição em Portugal</strong>.<br>Oferecemos margens de distribuição atrativas, fornecimento direto de fábrica, formação agronómica especializada e material técnico de apoio. Se a sua empresa tiver interesse em representar ou distribuir TERAWET® na sua região, teremos todo o gosto em agendar uma reunião comercial."
             },
             "it": {
                 "title": "🤝 Opportunità di Partnership Strategica e Rappresentanza Ufficiale",
@@ -1476,7 +1502,81 @@ Pakiranja: 25 kg vreće (360 €) i 1 kg pakiranja.
 👉 Online narudžba: {site}"""
 
         # -------------------------------------------------------------
-        # 13. ENGLISH / INTERNATIONAL FALLBACK
+        # 13. PORTUGUESE COPYWRITER TEMPLATE
+        # -------------------------------------------------------------
+        elif lang == "pt":
+            contact_greeting = f"Exma. equipa da {company}" if not contact or contact in ["Team", "Admin"] else f"Exmo(a). Sr(a). {contact}"
+            reg_display = reg_info.get("region_name_pt", reg_info.get("region_name_en", "em Portugal"))
+            trans_local = reg_info.get("transform_local_pt", "50% de redução nas horas de bombagem durante 7 a 10 anos.")
+            dosage_text = self._get_crop_dosage(crop_info["niche"], "pt")
+
+            if v_mode == 1:
+                subject = f"50% de poupança em eletricidade e custos de bombagem de água para a {company} ({reg_display})"
+            elif v_mode == 2:
+                subject = f"Proteção das culturas contra calor +40°C e garantia de colheita para a {company} ({reg_display})"
+            else:
+                subject = f"50% de poupança de água na rega e proteção contra a seca para a {company} ({reg_display})"
+
+            body_html = f"""<p style="font-size: 15px; color: #1e293b; margin-bottom: 16px;">{contact_greeting},</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Entramos em contacto relativamente à exploração agrícola da <strong>{company}</strong> ({crops}) {reg_display}. 
+Devido ao agravamento das secas estivais, descida acentuada dos lençóis freáticos e custos crescentes de energia para bombagem, a rega convencional perde até <strong>40%–50% da água</strong> aplicada devido à rápida evaporação superficial e lixiviação profunda para fora da zona radicular.
+</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+Para resolver de forma permanente e rentável estes desafios, apresentamos o <strong>TERAWET-ORIGINAL®</strong> – superabsorvente ecológico certificado à base de <strong>potássio</strong> (sem sódio prejudicial ao solo) com <strong>25 anos de experiência comprovada no terreno na Europa</strong> (VANKO 97 EOOD).
+</p>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #007001; border-radius: 8px; padding: 18px 20px; margin: 22px 0;">
+  <h3 style="color: #007001; margin: 0 0 12px 0; font-size: 16px;">🌱 Transformações Concretas para a Sua Exploração com TERAWET®:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #1e293b; line-height: 1.7; font-size: 14.5px;">
+    <li><strong>💧 Redução do consumo de água de rega em 50%–60%:</strong> Os grânulos retêm até 400 vezes o seu próprio peso em água, formando uma <em>reserva hídrica subterrânea ativa</em> exatamente na zona radicular (15–40 cm).</li>
+    <li><strong>⚡ Até 50% de poupança na fatura energética e bombagem:</strong> {trans_local} Menos desgaste nas bombas, proteção dos furos e poços e redução imediata de custos fixos.</li>
+    <li><strong>🧪 Mais de 30%–40% de retenção de adubos solúveis N-P-K:</strong> Os nutrientes permanecem capturados no hidrogel junto às raízes, em vez de se perderem por lixiviação para os lençóis freáticos.</li>
+    <li><strong>🍇 Imunidade ao choque térmico e retenção de frutos:</strong> Evita o desavinho e a perda de calibre em dias de calor extremo (>40°C), assegurando excelente graduação Brix e acidez equilibrada.</li>
+    <li><strong>🌱 100% de pegamento nas novas plantações:</strong> O banho de raízes em pasta de gel T100 elimina por completo o choque de transplante das videiras e árvores.</li>
+    <li><strong>⏳ 7 a 10 ANOS de efeito contínuo no solo com uma única aplicação:</strong> Um investimento único que se paga integralmente logo na primeira época de cultivo.</li>
+  </ul>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 14.5px; line-height: 1.6; color: #334155;">
+  {dosage_text}
+</div>
+
+<p style="font-size: 15px; line-height: 1.6; color: #334155;">
+<strong>Embalagens Profissionais & Encomenda Online Direta:</strong><br>
+O TERAWET-ORIGINAL é fornecido em sacos profissionais de <strong>25 kg (360 €)</strong> para explorações comerciais e em embalagens de <strong>1 kg</strong> para ensaios. Pode encomendar diretamente online:
+</p>
+
+<p style="margin: 24px 0 28px 0; text-align: left;">
+  <a href="{site}" target="_blank" style="background-color: #007001; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">👉 Encomendar online em {site}</a>
+</p>
+
+<p style="font-size: 14.5px; line-height: 1.6; color: #475569;">
+Estamos ao inteiro dispor para calcular a dosagem exata por hectare e apresentar a estimativa de retorno do investimento (ROI) para a sua propriedade.
+</p>"""
+
+            body_plain = f"""{contact_greeting},
+
+Relativamente à exploração agrícola da {company} ({crops}) {reg_display}:
+A rega convencional perde 40%-50% da água por evaporação e lixiviação profunda.
+
+TERAWET-ORIGINAL® (superabsorvente de potássio, 25 anos de experiência na UE):
+- 💧 50%-60% de redução no consumo de água de rega;
+- ⚡ 50% de poupança nos custos de bombagem e eletricidade ({trans_local});
+- 🧪 30%-40% de poupança em adubos solúveis N-P-K;
+- 🍇 Proteção contra o choque térmico (+40°C) e desavinho;
+- 🌱 100% de pegamento de novas videiras e árvores com pasta T100;
+- ⏳ 7 a 10 ANOS de ação contínua no solo com uma única aplicação.
+
+{dosage_text.replace('<strong>', '').replace('</strong>', '')}
+
+Embalagens: sacos profissionais de 25 kg (360 €) e 1 kg.
+👉 Encomenda online direta: {site}"""
+
+        # -------------------------------------------------------------
+        # 14. ENGLISH / INTERNATIONAL FALLBACK
         # -------------------------------------------------------------
         else:
             contact_greeting = f"Dear {company} Team" if not contact or contact in ["Team", "Admin"] else f"Dear {contact}"

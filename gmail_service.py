@@ -411,9 +411,10 @@ class GmailDraftService:
 
         return f"preview-file-{filename}"
 
-    def get_sent_recipients(self, limit: int = 200) -> Dict[str, Dict[str, Any]]:
+    def get_sent_recipients(self, limit: int = 1500) -> Dict[str, Dict[str, Any]]:
         """
         Scans Gmail's Sent Mail folder via IMAP to find emails that were actually sent.
+        Robust against any Gmail account language (English, Ukrainian, Russian, Spanish, etc.).
         Returns a dict mapping lowercase recipient email -> {date, subject}.
         """
         if self.mode != "imap":
@@ -429,24 +430,52 @@ class GmailDraftService:
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
             status, folder_list = imap.list()
-            sent_folder = None
-            if status == 'OK':
+            candidate_folders = []
+            if status == 'OK' and folder_list:
                 for f in folder_list:
-                    line = f.decode('utf-8', errors='ignore')
-                    if '\\Sent' in line:
-                        parts = line.split(' "/" ')
-                        if len(parts) > 1:
-                            sent_folder = parts[-1].strip('"')
+                    line = f.decode('utf-8', errors='ignore') if isinstance(f, bytes) else str(f)
+                    if '\\sent' in line.lower():
+                        match = re.search(r'\s+"?[/.]"?\s+(.*)$', line)
+                        if match:
+                            candidate_folders.append(match.group(1).strip().strip('"'))
+
+            # Standard fallbacks covering all Gmail internationalizations
+            candidate_folders.extend([
+                '[Gmail]/Sent Mail',
+                '[Gmail]/&BB4EQgQ,BEAEMA-',          # Ukrainian: [Gmail]/Надіслані
+                '[Gmail]/&BBoEPgRBDC0EPgRABD4EPgRIEPk-', # Russian: [Gmail]/Отправленные
+                '[Gmail]/Надіслані',
+                '[Gmail]/Отправленные',
+                '[Gmail]/Mensagens enviadas',        # Portuguese
+                '[Gmail]/Elementos enviados',        # Spanish
+                '[Gmail]/Messages envoyés',          # French
+                '[Gmail]/Posta inviata',             # Italian
+                '[Gmail]/Gesendete Elemente',        # German
+                'Sent',
+                'Sent Mail',
+                'Sent Items'
+            ])
+
+            sent_folder = None
+            for cand in candidate_folders:
+                cand_clean = cand.strip('"')
+                for f_name in (f'"{cand_clean}"', cand_clean):
+                    try:
+                        res_status, _ = imap.select(f_name, readonly=True)
+                        if res_status == 'OK':
+                            sent_folder = f_name
                             break
+                    except Exception:
+                        pass
+                if sent_folder:
+                    break
 
             if not sent_folder:
-                sent_folder = '[Gmail]/Sent Mail'
-
-            status, _ = imap.select(f'"{sent_folder}"', readonly=True)
-            if status != 'OK':
-                logger.warning(f"Could not open sent folder '{sent_folder}'")
+                logger.warning(f"Could not open any Gmail sent folder from candidates: {candidate_folders[:5]}")
                 imap.logout()
                 return {}
+
+            logger.info(f"Connected to Gmail Sent folder: {sent_folder}")
 
             status, messages = imap.search(None, 'ALL')
             if status == 'OK' and messages and messages[0]:
@@ -457,14 +486,17 @@ class GmailDraftService:
                     chunk = recent_ids[i:i + chunk_size]
                     id_str = ','.join(m.decode('utf-8', errors='ignore') for m in chunk)
                     try:
-                        res, data = imap.fetch(id_str, '(BODY.PEEK[HEADER.FIELDS (TO SUBJECT DATE)])')
+                        res, data = imap.fetch(id_str, '(BODY.PEEK[HEADER.FIELDS (TO CC BCC SUBJECT DATE)])')
                         if res == 'OK' and data:
                             for item in data:
                                 if isinstance(item, tuple) and len(item) >= 2:
                                     raw_header = item[1].decode('utf-8', errors='ignore')
                                     msg = email.message_from_string(raw_header)
                                     to_raw = msg.get('To', '')
-                                    found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', to_raw.lower())
+                                    cc_raw = msg.get('Cc', '')
+                                    bcc_raw = msg.get('Bcc', '')
+                                    all_recipients = f"{to_raw} {cc_raw} {bcc_raw}".lower()
+                                    found_emails = re.findall(r'[\w\.-]+@[\w\.-]+', all_recipients)
 
                                     raw_subj = msg.get('Subject', '')
                                     decoded_parts = decode_header(raw_subj)
@@ -473,12 +505,13 @@ class GmailDraftService:
                                         if isinstance(p, bytes):
                                             subj_str += p.decode(enc or 'utf-8', errors='ignore')
                                         else:
-                                            subj_str += p
+                                            subj_str += str(p)
 
                                     date_str = msg.get('Date', '')
                                     for em in found_emails:
-                                        if em not in results:
-                                            results[em] = {
+                                        em_clean = em.strip().lower()
+                                        if em_clean not in results and '@' in em_clean:
+                                            results[em_clean] = {
                                                 "date": date_str,
                                                 "subject": subj_str.strip()
                                             }
@@ -510,18 +543,38 @@ class GmailDraftService:
             imap.login(config.EMAIL_USER, config.EMAIL_APP_PASSWORD)
 
             status, folder_list = imap.list()
-            drafts_folder = '[Gmail]/Drafts'
-            if status == 'OK':
+            candidate_draft_folders = []
+            if status == 'OK' and folder_list:
                 for folder_entry in folder_list:
-                    line = folder_entry.decode('utf-8', errors='ignore')
-                    if '\\Drafts' in line:
-                        parts = line.split(' "/" ')
-                        if len(parts) > 1:
-                            drafts_folder = parts[-1].strip('"')
-                            break
+                    line = folder_entry.decode('utf-8', errors='ignore') if isinstance(folder_entry, bytes) else str(folder_entry)
+                    if '\\drafts' in line.lower():
+                        match = re.search(r'\s+"?[/.]"?\s+(.*)$', line)
+                        if match:
+                            candidate_draft_folders.append(match.group(1).strip().strip('"'))
 
-            status, _ = imap.select(f'"{drafts_folder}"', readonly=True)
-            if status != 'OK':
+            candidate_draft_folders.extend([
+                '[Gmail]/Drafts',
+                '[Gmail]/&BB4ENQQ2BDUEQgQ-,BEAEMA-',  # Ukrainian / Russian
+                '[Gmail]/Чернетки',
+                '[Gmail]/Черновики',
+                'Drafts'
+            ])
+
+            drafts_folder = None
+            for cand in candidate_draft_folders:
+                cand_clean = cand.strip('"')
+                for f_name in (f'"{cand_clean}"', cand_clean):
+                    try:
+                        res_status, _ = imap.select(f_name, readonly=True)
+                        if res_status == 'OK':
+                            drafts_folder = f_name
+                            break
+                    except Exception:
+                        pass
+                if drafts_folder:
+                    break
+
+            if not drafts_folder:
                 imap.logout()
                 return {}
 

@@ -2179,11 +2179,23 @@ class RobustThreadingHTTPServer(ThreadingHTTPServer):
         pass
 
 def start_server():
-    # Sanitize database on startup to guarantee zero duplicate uncontacted leads
+    # Sanitize database on startup and trigger initial Gmail sent synchronization
     try:
         DashboardHandler.data_service.sanitize_all_databases()
     except Exception as e:
         logger.warning(f"Startup database sanitize warning: {e}")
+
+    def _initial_boot_sync():
+        try:
+            logger.info("Initiating boot-time Gmail Sent Mail sync & database sanitize...")
+            DashboardHandler.data_service.sync_sent_emails(DashboardHandler.draft_service, limit=1500)
+            DashboardHandler.data_service.sanitize_all_databases()
+            logger.info("Boot-time Gmail sync & sanitization completed.")
+        except Exception as be:
+            logger.warning(f"Boot-time sync notice: {be}")
+
+    boot_sync_thread = threading.Thread(target=_initial_boot_sync, daemon=True)
+    boot_sync_thread.start()
 
     # Start automated daily lead search scheduler (every morning at 09:00 AM Kyiv time)
     search_sched_thread = threading.Thread(target=_daily_lead_search_scheduler, daemon=True)
