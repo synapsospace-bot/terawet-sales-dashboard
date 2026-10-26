@@ -48,6 +48,28 @@ IGNORE_SENDER_PATTERNS = [
     r"@facebookmail\.com"
 ]
 
+AUTOREPLY_PATTERNS = [
+    r"auto-reply", r"autoreply", r"automatic reply", r"risposta automatica",
+    r"out of office", r"abwesenheitsnotiz", r"r[eé]ponse automatique",
+    r"respuesta autom[aá]tica", r"automatische antwort", r"відпустк",
+    r"відпустц", r"vacation", r"vacanze", r"ferie", r"uffici chiusi",
+    r"asuntos urgentes", r"chiusura uffici"
+]
+
+def _is_auto_reply(msg, subject: str, snippet: str) -> bool:
+    auto_sub = msg.get("Auto-Submitted", "").lower()
+    if auto_sub and auto_sub != "no":
+        return True
+    if msg.get("X-Autoreply", "").lower() in ("yes", "true", "1"):
+        return True
+    if "auto_reply" in msg.get("Precedence", "").lower():
+        return True
+    text_to_check = f"{subject} {snippet}".lower()
+    for pat in AUTOREPLY_PATTERNS:
+        if re.search(pat, text_to_check):
+            return True
+    return False
+
 def _decode_mime_header(raw_header: Optional[str]) -> str:
     """Decodes MIME encoded headers like =?UTF-8?B?...?= or =?utf-8?Q?...?="""
     if not raw_header:
@@ -196,12 +218,13 @@ class InboxReplyService:
                     return 0, []
 
                 last_checked_uid = self.state.get("last_checked_uid", 0)
+                max_inbox_uid = max(all_uids) if all_uids else 0
 
-                # First run initialization: set last_checked_uid to the highest UID to avoid alerting on historical spam
-                if last_checked_uid == 0:
-                    self.state["last_checked_uid"] = max(all_uids)
+                # Fast-forward watermark on fresh boot or if there is a gap (> 10 messages) after redeploy:
+                if last_checked_uid == 0 or (max_inbox_uid - last_checked_uid > 10):
+                    logger.info(f"Watermarking INBOX scanner to current max UID ({max_inbox_uid}) to avoid replaying historical replies.")
+                    self.state["last_checked_uid"] = max_inbox_uid
                     self._save_state()
-                    logger.info(f"Initialized inbox reply monitoring from UID: {self.state['last_checked_uid']}")
                     imap.logout()
                     return 0, []
 
@@ -309,11 +332,28 @@ class InboxReplyService:
                                     break
 
                         if matched_lead or is_subject_reply:
+                            # Filter out automated auto-replies / vacation notices / office hours
+                            if _is_auto_reply(msg, subject, snippet):
+                                logger.info(f"🤖 Ignoring automated auto-responder from {sender_email}: '{subject}'")
+                                self.state.setdefault("processed_uids", []).append(uid)
+                                continue
+
                             lead_company = matched_lead.get("company_name", from_name or sender_email) if matched_lead else (from_name or sender_email)
                             lead_country = matched_lead.get("country", "") if matched_lead else "Європа"
                             lead_flag = matched_lead.get("country_flag", "🌍") if matched_lead else "🌍"
                             lead_city = matched_lead.get("city", "") if matched_lead else ""
                             lead_phone = matched_lead.get("phone", "") if matched_lead else ""
+
+                            # Parse real date from email header converted to Kyiv time
+                            parsed_date_str = date_str
+                            try:
+                                import email.utils
+                                dt = email.utils.parsedate_to_datetime(date_str)
+                                from web_dashboard import KYIV_TZ
+                                dt_kyiv = dt.astimezone(KYIV_TZ)
+                                parsed_date_str = dt_kyiv.strftime("%Y-%m-%d %H:%M:%S")
+                            except Exception:
+                                parsed_date_str = date_str or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
                             reply_info = {
                                 "uid": uid,
@@ -324,12 +364,12 @@ class InboxReplyService:
                                 "city": lead_city,
                                 "phone": lead_phone,
                                 "subject": subject,
-                                "date": date_str,
-                                "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                "date": parsed_date_str,
+                                "time": parsed_date_str,
                                 "snippet": snippet
                             }
 
-                            logger.info(f"🚨 Lead reply detected from {sender_email} ({lead_company}): '{subject}'")
+                            logger.info(f"🚨 Genuine lead reply detected from {sender_email} ({lead_company}): '{subject}'")
 
                             # 1. Update lead status in local database
                             target_lead = matched_lead or {
