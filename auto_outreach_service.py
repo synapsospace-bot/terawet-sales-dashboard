@@ -6,7 +6,14 @@ import logging
 import threading
 import html
 from datetime import datetime, timezone, timedelta
-KYIV_TZ = timezone(timedelta(hours=3))
+try:
+    import zoneinfo
+    try:
+        KYIV_TZ = zoneinfo.ZoneInfo("Europe/Kyiv")
+    except Exception:
+        KYIV_TZ = zoneinfo.ZoneInfo("Europe/Kiev")
+except Exception:
+    KYIV_TZ = timezone(timedelta(hours=2))
 
 def get_kyiv_now() -> datetime:
     return datetime.now(KYIV_TZ)

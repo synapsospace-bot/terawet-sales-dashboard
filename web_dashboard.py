@@ -5,7 +5,14 @@ import time
 import io
 import csv
 from datetime import datetime, timezone, timedelta
-KYIV_TZ = timezone(timedelta(hours=3))
+try:
+    import zoneinfo
+    try:
+        KYIV_TZ = zoneinfo.ZoneInfo("Europe/Kyiv")
+    except Exception:
+        KYIV_TZ = zoneinfo.ZoneInfo("Europe/Kiev")
+except Exception:
+    KYIV_TZ = timezone(timedelta(hours=2))
 
 def get_kyiv_now() -> datetime:
     return datetime.now(KYIV_TZ)
@@ -2109,8 +2116,28 @@ def _daily_lead_search_scheduler():
             # Trigger if it's 9:00 AM or later Kyiv time and hasn't run today yet
             if now.hour >= 9 and last_run_date != today_str:
                 logger.info(f"⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (25-30 leads) for {today_str}...")
-                imported = DashboardHandler.finder_service.find_and_import_leads(count=25)
-                logger.info(f"Daily lead search finished: {imported} leads imported.")
+                with DashboardHandler.search_controller.lock:
+                    DashboardHandler.search_controller.is_running = True
+                    DashboardHandler.search_controller.last_status = "running"
+                    DashboardHandler.search_controller.message = f"Автоматичний ранковий пошук лідів (09:00)..."
+                    DashboardHandler.search_controller.target_count = 25
+
+                imported = 0
+                try:
+                    imported = DashboardHandler.finder_service.find_and_import_leads(count=25)
+                    logger.info(f"Daily lead search finished: {imported} leads imported.")
+                    with DashboardHandler.search_controller.lock:
+                        DashboardHandler.search_controller.found_count = imported
+                        DashboardHandler.search_controller.last_status = "completed"
+                        DashboardHandler.search_controller.message = f"Ранковий пошук завершено! Додано лідів: {imported}"
+                except Exception as s_err:
+                    logger.error(f"Daily lead search error: {s_err}", exc_info=True)
+                    with DashboardHandler.search_controller.lock:
+                        DashboardHandler.search_controller.last_status = "error"
+                        DashboardHandler.search_controller.message = f"Помилка ранкового пошуку: {s_err}"
+                finally:
+                    with DashboardHandler.search_controller.lock:
+                        DashboardHandler.search_controller.is_running = False
 
                 # Persist execution date to disk
                 DashboardHandler.data_service.state["last_search_date"] = today_str

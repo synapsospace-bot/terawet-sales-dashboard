@@ -2839,5 +2839,77 @@
     "mx": [
       "mail.gentilini.gr"
     ]
+  },
+  "korta-katarina.com": {
+    "has_mx": false,
+    "reason": "Домен korta-katarina.com не існує або не має поштових записів"
+  },
+  "chateau-copsa.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-copsa.com не існує або не має поштових записів"
+  },
+  "cramaceptura.ro": {
+    "has_mx": false,
+    "reason": "Домен cramaceptura.ro не існує або не має поштових записів"
+  },
+  "cavallotto.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.cbsolt.net",
+      "mx02.cbsolt.net"
+    ]
+  },
+  "matysak.sk": {
+    "has_mx": true,
+    "mx": [
+      "localhost"
+    ]
+  },
+  "enoforum.pt": {
+    "has_mx": false,
+    "reason": "Домен enoforum.pt не існує або не має поштових записів"
+  },
+  "cramadecebal.ro": {
+    "has_mx": false,
+    "reason": "Домен cramadecebal.ro не існує або не має поштових записів"
+  },
+  "chateau-smith-haut-lafitte.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-smith-haut-lafitte.com не існує або не має поштових записів"
+  },
+  "schloss-gobelsburg.at": {
+    "has_mx": true,
+    "mx": [
+      "A-record (schloss-gobelsburg.at)"
+    ]
+  },
+  "marchesiguerrierigonzaga.it": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "alt4.aspmx.l.google.com"
+    ]
+  },
+  "casasantoslima.com": {
+    "has_mx": true,
+    "mx": [
+      "casasantoslima-com.mail.protection.outlook.com"
+    ]
+  },
+  "topolcianky.sk": {
+    "has_mx": true,
+    "mx": [
+      "posta.gc-system.cz"
+    ]
+  },
+  "weingut-bruendlmayer.at": {
+    "has_mx": false,
+    "reason": "Домен weingut-bruendlmayer.at не існує або не має поштових записів"
+  },
+  "kutjevo.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.kutjevo.com"
+    ]
   }
 }
