@@ -2911,5 +2911,261 @@
     "mx": [
       "mail.kutjevo.com"
     ]
+  },
+  "nonexistentdomain123454321.com": {
+    "has_mx": false,
+    "reason": "Домен nonexistentdomain123454321.com не існує або не має поштових записів"
+  },
+  "bodegasbaigorri.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "villa-melnik.com": {
+    "has_mx": false,
+    "reason": "Домен villa-melnik.com не існує або не має поштових записів"
+  },
+  "crama-petro-vaselo.com": {
+    "has_mx": false,
+    "reason": "Домен crama-petro-vaselo.com не існує або не має поштових записів"
+  },
+  "chateau-mont-redon.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-mont-redon.com не існує або не має поштових записів"
+  },
+  "realcompanhiavelha.pt": {
+    "has_mx": true,
+    "mx": [
+      "realcompanhiavelha-pt.mail.protection.outlook.com"
+    ]
+  },
+  "cantinacaldaro.com": {
+    "has_mx": false,
+    "reason": "Домен cantinacaldaro.com не існує або не має поштових записів"
+  },
+  "domaine-pichot.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.fr",
+      "mx00.ionos.fr"
+    ]
+  },
+  "coronica.com": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "stina-vino.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.stina-vino.hr",
+      "stinavino-hr01c.mail.protection.outlook.com"
+    ]
+  },
+  "domeniileostrov.ro": {
+    "has_mx": true,
+    "mx": [
+      "cloudmail03.clausweb.ro",
+      "cloudmail02.clausweb.ro"
+    ]
+  },
+  "badiaacoltibuono.com": {
+    "has_mx": true,
+    "mx": [
+      "mailserver6.vhosting-it.com"
+    ]
+  },
+  "golguz.sk": {
+    "has_mx": true,
+    "mx": [
+      "mx.inetadmin.sk",
+      "mx.inetadmin.cz"
+    ]
+  },
+  "weingut-netzl.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.weingut-netzl.at"
+    ]
+  },
+  "kovacevicvinarija.com": {
+    "has_mx": false,
+    "reason": "Домен kovacevicvinarija.com не існує або не має поштових записів"
+  },
+  "dr-loosen.de": {
+    "has_mx": true,
+    "mx": [
+      "mx2-us1.ppe-hosted.com",
+      "mx1-us1.ppe-hosted.com"
+    ]
+  },
+  "agrotypos.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx1.fastmail.gr",
+      "mx2.fastmail.gr"
+    ]
+  },
+  "murfatlar.ro": {
+    "has_mx": true,
+    "mx": [
+      "mx.cybercloud.ro"
+    ]
+  },
+  "ilpoggione.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.ilpoggione.it"
+    ]
+  },
+  "rubin.rs": {
+    "has_mx": true,
+    "mx": [
+      "mailgw.mts.rs"
+    ]
+  },
+  "bodegasvalduero.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "agromillora.com": {
+    "has_mx": true,
+    "mx": [
+      "agromillora-com.mail.protection.outlook.com"
+    ]
+  },
+  "planasa.com": {
+    "has_mx": true,
+    "mx": [
+      "mxa-00513b01.gslb.pphosted.com",
+      "mxb-00513b01.gslb.pphosted.com"
+    ]
+  },
+  "trops.es": {
+    "has_mx": true,
+    "mx": [
+      "mx.trops.es"
+    ]
+  },
+  "chateau-lafite.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (chateau-lafite.com)"
+    ]
+  },
+  "pepinieres-mercier.com": {
+    "has_mx": true,
+    "mx": [
+      "mx4.mail.ovh.net",
+      "mx3.mail.ovh.net"
+    ]
+  },
+  "fonseca.pt": {
+    "has_mx": true,
+    "mx": [
+      "fonseca-pt.mail.protection.outlook.com"
+    ]
+  },
+  "enoport.pt": {
+    "has_mx": true,
+    "mx": [
+      "enoport-pt.mail.protection.outlook.com"
+    ]
+  },
+  "confagri.pt": {
+    "has_mx": true,
+    "mx": [
+      "confagri-pt-1.fortimailcloud.com",
+      "confagri-pt-2.fortimailcloud.com"
+    ]
+  },
+  "rajpol.com.pl": {
+    "has_mx": true,
+    "mx": [
+      "hosting2325837.online.pro"
+    ]
+  },
+  "winnica-turnau.pl": {
+    "has_mx": false,
+    "reason": "Домен winnica-turnau.pl не існує або не має поштових записів"
+  },
+  "szkolkislaski.pl": {
+    "has_mx": true,
+    "mx": [
+      "szkolkislaski.pl"
+    ]
+  },
+  "plantex.sk": {
+    "has_mx": true,
+    "mx": [
+      "plantex-sk.mail.protection.outlook.com"
+    ]
+  },
+  "tokajicum.hu": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "vina-koper.si": {
+    "has_mx": false,
+    "reason": "Домен vina-koper.si не існує або не має поштових записів"
+  },
+  "hugel.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.mail.ovh.net",
+      "mx1.mail.ovh.net"
+    ]
+  },
+  "weingut-knipser.de": {
+    "has_mx": true,
+    "mx": [
+      "mcs-server.de"
+    ]
+  },
+  "bioaroma.gr": {
+    "has_mx": true,
+    "mx": [
+      "bioaroma-gr.mail.protection.outlook.com"
+    ]
+  },
+  "vincon.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.beciuldomnesc.ro"
+    ]
+  },
+  "batic.si": {
+    "has_mx": true,
+    "mx": [
+      "batic.si.mcp.controlpanel.si"
+    ]
+  },
+  "weingut-heinrich.at": {
+    "has_mx": true,
+    "mx": [
+      "weingutheinrich-at01i.mail.protection.outlook.com"
+    ]
+  },
+  "vinarijamilanovic.rs": {
+    "has_mx": true,
+    "mx": [
+      "vinarijamilanovic.rs"
+    ]
+  },
+  "pepiniera-aiud.ro": {
+    "has_mx": true,
+    "mx": [
+      "mx02.whmpanels.com",
+      "mx03.whmpanels.com"
+    ]
   }
 }

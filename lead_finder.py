@@ -1205,6 +1205,42 @@ AT_ARCHETYPES = [
     }
 ]
 
+DE_ARCHETYPES = [
+    {
+        'category': 'Weingut & Weinbau',
+        'names': [
+            'Weingut Rheingau Terrassen', 'Moseltal Steillagen Weingut', 'Pfalz Rebenhof',
+            'Baden Kaiserstuhl Weine', 'Rheinhessen Lössland Gut', 'Franken Bocksbeutel Winzer', 'Nahe Schieferhof'
+        ],
+        'locations': [
+            ('Bernkastel-Kues / Mosel', 'Gestade', '54470', '+49 6531', 'Steillagen-Riesling auf devonischem Schieferboden'),
+            ('Bad Dürkheim / Pfalz', 'Weinstraße', '67098', '+49 6322', 'Spätburgunder und Riesling auf Kalkmergel- und Sandböden'),
+            ('Rüdesheim am Rhein', 'Rheinstraße', '65385', '+49 6722', 'Steillagenweinbau im UNESCO Welterbe Mittelrheintal'),
+            ('Ihringen / Kaiserstuhl', 'Bachenstraße', '79241', '+49 7668', 'Vulkanverwitterungsböden mit starker Sonneneinstrahlung')
+        ]
+    },
+    {
+        'category': 'Obstbau & Sonderkulturen',
+        'names': [
+            'Bodensee Obstgut Lindau', 'Altes Land Apfelplantagen', 'Südbadischer Beerenhof', 'Obstbau Vorgebirge'
+        ],
+        'locations': [
+            ('Lindau / Bodensee', 'Kemptener Straße', '88131', '+49 8382', 'Tafeläpfel Jonagold, Elstar und Birnenanbau am See'),
+            ('Jork / Altes Land', 'Schützenhofstraße', '21635', '+49 4162', 'Größtes zusammenhängendes Obstanbaugebiet Nordeuropas')
+        ]
+    },
+    {
+        'category': 'Baumschule & Pflanzenzucht',
+        'names': [
+            'Baumschule Holstein Pinneberg', 'Ammerland Gehölzzucht', 'Rheinische Baumschulen'
+        ],
+        'locations': [
+            ('Pinneberg / Holstein', 'Mühlenstraße', '25421', '+49 4101', 'Zertifizierte Obst- und Forstgehölze, klimaangepasste Unterlagen'),
+            ('Bad Zwischenahn / Ammerland', 'In der Horst', '26160', '+49 4403', 'Containerpflanzen, Rhododendren und Baumschulkulturen')
+        ]
+    }
+]
+
 ES_ARCHETYPES = [
     {
         'category': 'Bodega & Viñedos',
@@ -1391,7 +1427,7 @@ COUNTRY_CONFIGS = [
         "suffixes": ["S.r.l.", "Agricola", "Tenuta", "Cantina", "Bio", "Podere", "Vigneti", "Azienda"]
     },
     {
-        "code": "SL",
+        "code": "SI",
         "country": "Slovenija",
         "lang": "sl",
         "tld": ".si",
@@ -1436,13 +1472,22 @@ COUNTRY_CONFIGS = [
         "suffixes": ["S.L.", "Bodegas", "Agrícola", "Finca", "Bio", "Viñedos", "Hacienda", "Frutas"]
     },
     {
-        "code": "SR",
+        "code": "RS",
         "country": "Србија",
         "lang": "sr",
         "tld": ".rs",
         "email_prefix": "office",
         "archetypes": SR_ARCHETYPES,
         "suffixes": ["д.о.о.", "Агро", "Винарија", "Еко", "Резерва", "Тероар", "Плус", "Голд"]
+    },
+    {
+        "code": "DE",
+        "country": "Deutschland",
+        "lang": "de",
+        "tld": ".de",
+        "email_prefix": "info",
+        "archetypes": DE_ARCHETYPES,
+        "suffixes": ["GmbH", "Weingut", "Bio", "GbR", "Agrar", "Obstbau", "Kulturen", "GmbH & Co. KG"]
     },
     {
         "code": "HR",
@@ -1498,72 +1543,121 @@ class LeadFinderService:
 
         # Verified authentic European agricultural domains (100% MX verified across target markets)
         VERIFIED_COUNTRY_DOMAINS = {
-            "ES": [
-                "cvne.com", "abadia-retuerta.com", "terrasgauda.com", "cellercredo.com", "bodegasdominiodelbendito.com",
-                "adegasguimaro.com", "bodegasbilbainas.com", "bodegasmuga.com", "marquesderiscal.com", "castillodecanena.com",
-                "bodegasriojanas.com", "alvear.es", "viverossevilla.com", "barbadillo.com", "orobailen.com",
-                "hernandorena.com", "bodegaslan.com", "ramonbilbao.com", "bodegasberonia.com",
-                "marquesdecaceres.com", "vinatondonia.com", "bodegasenate.com", "artadi.com", "bodegasyuntero.com",
-                "bodegasbaigorri.com", "bodegascastano.com", "bodegaspablo.com", "bodegasarzuaga.com", "matarromera.es"
-            ],
-            "IT": [
-                "ruffino.it", "prunotto.it", "fontodi.com", "casanovadineri.com", "vietti.com", "benanti.it",
-                "frescobaldi.it", "banfi.it", "marchesibarolo.com", "planeta.it", "mastroberardino.com",
-                "antinori.it", "ornellaia.com", "tascalmerita.it", "donnafugata.it", "feudisangregorio.it",
-                "zenato.it", "allegrini.it", "masi.it", "lungarotti.it", "bertani.net", "cantinacaldaro.com",
-                "ceretto.com", "cavallotto.com", "sandrone.com", "sanleonardo.it", "marchesiguerrierigonzaga.it"
-            ],
-            "FR": [
-                "chateau-giscours.com", "chateau-cantemerle.com", "chateau-lascombes.com", "domaine-du-colombier.fr",
-                "chapoutier.com", "louisjadot.com", "chateau-margaux.com", "chateau-haut-brion.com",
-                "guigal.com", "chateau-pape-clement.com", "domaine-tempier.com", "chateau-minuty.com",
-                "chateau-miraval.com", "domaines-ott.com", "chateau-mont-redon.com", "domaine-pichot.com",
-                "domainegros.fr", "chateau-fombrauge.com", "chateau-smith-haut-lafitte.com"
-            ],
-            "PT": [
-                "soalheiro.com", "carm.pt", "luispato.com", "filipapato.net", "esporao.com", "symington.com",
-                "sogrape.com", "cartuxa.pt", "herdadedofreixo.pt", "quintadocrasto.pt", "quintadonoval.com",
-                "niepoort.pt", "casasantoslima.com", "adegademoncao.pt", "adegadeborba.pt", "quintadovallado.com",
-                "realcompanhiavelha.pt", "fiuza-bright.com", "monte-da-ravasqueira.com", "enoforum.pt"
-            ],
-            "DE": [
-                "scharzhof.de", "clemens-busch.de", "georg-breuer.com", "weingut-christmann.de", "franz-keller.de",
-                "dr-loosen.de", "weingut-robert-weil.com", "schloss-vollrads.com", "weingut-keller.de", "markus-molitor.com",
-                "weingut-st-antony.de", "weingut-wittmann.de", "buerklin-wolf.de", "weingut-salwey.de"
-            ],
             "AT": [
-                "weingutnigl.at", "salomonwirt.at", "sattlerhof.at", "kollwentz.at", "moric.at", "weingut-bruendlmayer.at",
-                "domaene-wachau.at", "f-x-pichler.at", "knoll.at", "schloss-gobelsburg.at", "weingut-heinrich.at",
-                "kracher.at", "tement.at"
-            ],
-            "GR": [
-                "hatzidakiswines.gr", "paterianakis.gr", "gerovassiliou.gr", "alpha-estate.com", "skouras.gr",
-                "palivouestate.gr", "semeliestate.gr", "domaine-lazaridi.gr", "boutari.gr", "gaiawines.gr",
-                "douloufakis.wine", "biolea.gr", "kostakis-plants.gr", "botanical-park.com", "fytoriaspartis.gr"
-            ],
-            "RO": [
-                "cramagirboiu.ro", "crama-oprisor.com", "recaswine.ro", "jidvei.ro", "cotnari.ro", "lacertawinery.ro",
-                "cramadecebal.ro", "cramaceptura.ro", "cramapanciu.ro", "avincis.ro", "crama-petro-vaselo.com"
+                "weingutnigl.at", "salomonwirt.at", "sattlerhof.at", "kollwentz.at", "moric.at",
+                "weingut-bruendlmayer.at", "domaene-wachau.at", "f-x-pichler.at", "knoll.at", "schloss-gobelsburg.at",
+                "weingut-heinrich.at", "kracher.at", "tement.at", "weingut-grassl.com", "weingut-gross.at",
+                "weingut-netzl.at", "weingut-polz.at", "weingut-reinisch.at"
             ],
             "BG": [
                 "rossidi.com", "chateauburgozone.bg", "midalidare.bg", "damascena.net", "katarzyna.bg",
                 "bessavalley.com", "villayustina.com", "chateaukolarovo.com", "zagreus.org", "razsadnik-elit.com",
-                "chateau-copsa.com", "minkovbrothers.bg", "edoardomirolio.com", "dragomir.bg", "villa-melnik.com"
+                "chateau-copsa.com", "minkovbrothers.bg", "edoardomirolio.com", "dragomir.bg", "villa-melnik.com",
+                "agro-bulgaria.com", "agrobio.bg", "angelusestate.com", "bulgarianrose.bg", "orbeliawinery.bg",
+                "orbelus.com", "starosel.com", "terratangra.com"
+            ],
+            "DE": [
+                "scharzhof.de", "clemens-busch.de", "georg-breuer.com", "weingut-christmann.de", "franz-keller.de",
+                "dr-loosen.de", "weingut-robert-weil.com", "schloss-vollrads.com", "weingut-keller.de", "markus-molitor.com",
+                "weingut-st-antony.de", "weingut-wittmann.de", "buerklin-wolf.de", "weingut-salwey.de", "baumschule-bruns.de",
+                "baumschule-horstmann.de", "baumschule-lappen.de", "bernhard-huber.de", "obstbau-bodensee.de", "weingut-emrich-schoenleber.de",
+                "weingut-knipser.de", "weingut-rebholz.de", "weingut-zilliken.de"
+            ],
+            "ES": [
+                "cvne.com", "abadia-retuerta.com", "terrasgauda.com", "cellercredo.com", "bodegasdominiodelbendito.com",
+                "adegasguimaro.com", "bodegasbilbainas.com", "bodegasmuga.com", "marquesderiscal.com", "castillodecanena.com",
+                "bodegasriojanas.com", "alvear.es", "viverossevilla.com", "barbadillo.com", "orobailen.com",
+                "hernandorena.com", "bodegaslan.com", "ramonbilbao.com", "bodegasberonia.com", "marquesdecaceres.com",
+                "vinatondonia.com", "bodegasenate.com", "artadi.com", "bodegasyuntero.com", "bodegasbaigorri.com",
+                "bodegascastano.com", "bodegaspablo.com", "bodegasarzuaga.com", "matarromera.es", "agromillora.com",
+                "bodegasalion.com", "bodegasbaigorri.es", "bodegascare.com", "bodegasfarina.com", "bodegasgranfeudo.com",
+                "bodegasitsasmendi.com", "bodegaslecea.com", "bodegasmanzanos.com", "bodegasmontecillo.com", "bodegasotazu.com",
+                "bodegasrubicon.com", "bodegasvalbusenda.com", "bodegasvaldelana.com", "bodegasvalduero.com", "cellerdelroure.es",
+                "chivite.com", "coosur.com", "dcoop.es", "frutasinma.com", "izadi.com",
+                "jaencoop.com", "marquesdemurrieta.com", "martincodax.com", "oleoestepa.com", "planasa.com",
+                "riojalta.com", "trops.es", "valdemar.com", "viveroscasanova.com", "viverosirun.com"
+            ],
+            "FR": [
+                "chateau-giscours.com", "chateau-cantemerle.com", "chateau-lascombes.com", "domaine-du-colombier.fr", "chapoutier.com",
+                "louisjadot.com", "chateau-margaux.com", "chateau-haut-brion.com", "guigal.com", "chateau-pape-clement.com",
+                "domaine-tempier.com", "chateau-minuty.com", "chateau-miraval.com", "domaines-ott.com", "chateau-mont-redon.com",
+                "domaine-pichot.com", "domainegros.fr", "chateau-fombrauge.com", "chateau-smith-haut-lafitte.com", "albert-bichot.com",
+                "chateau-bouscaut.com", "chateau-chasse-spleen.com", "chateau-chevalblanc.com", "chateau-gloria.com", "chateau-mouton-rothschild.com",
+                "chateau-sociando-mallet.com", "domainelabastide.fr", "domaineponsot.com", "drouhin.com", "faiveley.com",
+                "henribourgeois.com", "hugel.com", "pepinieres-mercier.com", "pepinieres-viticoles.fr", "trimbach.fr"
+            ],
+            "GR": [
+                "hatzidakiswines.gr", "paterianakis.gr", "gerovassiliou.gr", "alpha-estate.com", "skouras.gr",
+                "palivouestate.gr", "semeliestate.gr", "domaine-lazaridi.gr", "boutari.gr", "gaiawines.gr",
+                "douloufakis.wine", "biolea.gr", "kostakis-plants.gr", "botanical-park.com", "fytoriaspartis.gr",
+                "agrotypos.gr", "anagnostou.gr", "bioaroma.gr", "chatzivaritis.gr", "cretanoliveoil.gr",
+                "gaiasense.gr", "gavalaswines.gr", "georgiki.gr", "ktimakaripidis.gr", "moraitiswines.gr",
+                "samoswine.gr", "tsantali.gr", "venetsanoswinery.com"
             ],
             "HR": [
                 "benvenutivina.com", "kozlovic.hr", "badel1862.hr", "vina-laguna.hr", "kutjevo.com",
-                "coronica.com", "meneghetti.hr", "korta-katarina.com", "stina-vino.hr", "trapan.hr", "matosevic.com"
+                "coronica.com", "meneghetti.hr", "korta-katarina.com", "stina-vino.hr", "trapan.hr",
+                "matosevic.com", "agrokor.hr", "clai.hr", "fakinwines.com", "fortenovagrupa.hr",
+                "korak.hr", "tomac.hr"
             ],
-            "SI": [
-                "movia.si", "marjan-simcic.si", "batic.si", "vina-koper.si", "jakoncic.si", "scurek.com", "klet-brda.si"
+            "HU": [
+                "figula.hu", "gunzer.hu", "heimann.hu", "legli.hu", "malatinszky.hu",
+                "oremus.hu", "patricius.hu", "sauska.com", "thummerer.hu", "tokajicum.hu",
+                "tothferencpinceszet.hu", "vida.hu"
             ],
-            "SK": [
-                "chateauruban.sk", "elesko.sk", "chateau-bela.com", "karpatskaperla.sk", "matysak.sk", "topolcianky.sk"
+            "IT": [
+                "ruffino.it", "prunotto.it", "fontodi.com", "casanovadineri.com", "vietti.com",
+                "benanti.it", "frescobaldi.it", "banfi.it", "marchesibarolo.com", "planeta.it",
+                "mastroberardino.com", "antinori.it", "ornellaia.com", "tascalmerita.it", "donnafugata.it",
+                "feudisangregorio.it", "zenato.it", "allegrini.it", "masi.it", "lungarotti.it",
+                "bertani.net", "cantinacaldaro.com", "ceretto.com", "cavallotto.com", "sandrone.com",
+                "sanleonardo.it", "marchesiguerrierigonzaga.it", "astoria.it", "badiaacoltibuono.com", "bisol.it",
+                "bortolomiol.com", "boscarelli.com", "cantinarotaliana.it", "capannelle.com", "carpineto.com",
+                "castellobanfi.com", "foradori.com", "frescobaldi.com", "ilpoggione.it", "lecontesse.it",
+                "marcarini.com", "pasqua.it", "roccadellemacie.com", "santamargherita.com", "scavino.com",
+                "speri.com", "vajra.it", "villamarcello.it", "vivaibattistini.it"
+            ],
+            "PL": [
+                "activ.com.pl", "agrosimex.pl", "applex.pl", "chemirol.com.pl", "osadkowski.pl",
+                "rajpol.com.pl", "sadownictwo.com.pl", "sadpol.pl", "szkolkadrzew.pl", "szkolkislaski.pl",
+                "timacagro.pl", "twojsad.pl", "winnicajadwiga.pl", "winnicawieliczka.com"
+            ],
+            "PT": [
+                "soalheiro.com", "carm.pt", "luispato.com", "filipapato.net", "esporao.com",
+                "symington.com", "sogrape.com", "cartuxa.pt", "herdadedofreixo.pt", "quintadocrasto.pt",
+                "quintadonoval.com", "niepoort.pt", "casasantoslima.com", "adegademoncao.pt", "adegadeborba.pt",
+                "quintadovallado.com", "realcompanhiavelha.pt", "fiuza-bright.com", "monte-da-ravasqueira.com", "enoforum.pt",
+                "adegadefavaios.com.pt", "aveleda.com", "confagri.pt", "croftport.com", "enoport.pt",
+                "fonseca.pt", "globalwines.pt", "justinosmadeira.com", "quintadascarvalhas.pt", "quintadoataide.com",
+                "quintadoencontro.pt", "quintadosacores.com", "vinhosbarbeito.com", "vinhosdoalentejo.pt", "vinhosdotejo.pt"
+            ],
+            "RO": [
+                "cramagirboiu.ro", "crama-oprisor.com", "recaswine.ro", "jidvei.ro", "cotnari.ro",
+                "lacertawinery.ro", "cramadecebal.ro", "cramaceptura.ro", "cramapanciu.ro", "avincis.ro",
+                "crama-petro-vaselo.com", "agricola.ro", "agricover.ro", "cramahistria.ro", "cramarasova.ro",
+                "domeniileostrov.ro", "murfatlar.ro", "pepiniera-aiud.ro", "vincon.ro"
             ],
             "RS": [
-                "podrumradovanovic.rs", "vinarijazvonkobogdan.com", "kovacevicvinarija.com", "aleksandrovic.rs",
-                "vinarijadeuric.com", "vinarijatrikorone.rs", "podrumcilic.rs", "vinarijatemet.com"
-            ]
+                "podrumradovanovic.rs", "vinarijazvonkobogdan.com", "kovacevicvinarija.com", "aleksandrovic.rs", "vinarijadeuric.com",
+                "vinarijatrikorone.rs", "podrumcilic.rs", "vinarijatemet.com", "agroglobe.rs", "agromarket.rs",
+                "almex.rs", "deltaagrar.rs", "rubin.rs", "vinarijacoka.rs", "vinarijamilanovic.rs"
+            ],
+            "SI": [
+                "movia.si", "marjan-simcic.si", "batic.si", "vina-koper.si", "jakoncic.si",
+                "scurek.com", "klet-brda.si", "dveri-pax.com", "edisimcic.si", "guerila.si",
+                "kabaj.si", "puklavecfamily.com", "radgonske-gorice.si", "vinakoper.si"
+            ],
+            "SK": [
+                "chateauruban.sk", "elesko.sk", "chateau-bela.com", "karpatskaperla.sk", "matysak.sk",
+                "topolcianky.sk", "agrofert.sk", "floraservis.sk", "golguz.sk", "mrvastanko.sk",
+                "ovocnysad.sk", "pavelka.sk", "plantex.sk", "polnohospodar.sk", "vinarstvoberta.sk",
+                "zelovoc.sk"
+            ],
+            "SL": [
+                "movia.si", "marjan-simcic.si", "batic.si", "vina-koper.si", "jakoncic.si",
+                "scurek.com", "klet-brda.si", "dveri-pax.com", "edisimcic.si", "guerila.si",
+                "kabaj.si", "puklavecfamily.com", "radgonske-gorice.si", "vinakoper.si"
+            ],
         }
 
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
@@ -1687,9 +1781,13 @@ class LeadFinderService:
         """
         # Step 0: Ensure historical sent emails from Gmail IMAP are synchronized and database is sanitized
         try:
+            import threading
             from gmail_service import GmailDraftService
             gmail_svc = GmailDraftService()
-            self.data_service.sync_sent_emails(gmail_svc, limit=1500)
+            # Bounded incremental sync (limit=80, timeout=5s) so IMAP never blocks or causes socket.timeout
+            t = threading.Thread(target=lambda: self.data_service.sync_sent_emails(gmail_svc, limit=80), daemon=True)
+            t.start()
+            t.join(timeout=5.0)
             self.data_service.sanitize_all_databases()
         except Exception as e:
             logger.debug(f"Pre-discovery Gmail sent sync notice: {e}")

@@ -100,7 +100,7 @@ class AutoOutreachService:
         return {
             "enabled": True,
             "schedule_hour": 9,
-            "schedule_minute": 30,
+            "schedule_minute": 0,
             "daily_target": 50,
             "min_delay_seconds": 45,
             "max_delay_seconds": 90,
