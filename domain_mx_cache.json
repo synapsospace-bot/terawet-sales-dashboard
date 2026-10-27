@@ -3167,5 +3167,200 @@
       "mx02.whmpanels.com",
       "mx03.whmpanels.com"
     ]
+  },
+  "bisol.it": {
+    "has_mx": true,
+    "mx": [
+      "bisol-it.mail.protection.outlook.com"
+    ]
+  },
+  "zelovoc.sk": {
+    "has_mx": true,
+    "mx": [
+      "mx2.hostcreators.sk",
+      "mx1.hostcreators.sk"
+    ]
+  },
+  "vinarijacoka.rs": {
+    "has_mx": true,
+    "mx": [
+      "vinarijacoka.rs"
+    ]
+  },
+  "anagnostou.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.anagnostou.gr"
+    ]
+  },
+  "dveri-pax.com": {
+    "has_mx": true,
+    "mx": [
+      "dveripax-com01c.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-pape-clement.com": {
+    "has_mx": true,
+    "mx": [
+      "remus.systonic.net",
+      "romulus.systonic.net"
+    ]
+  },
+  "bodegasfaustino.es": {
+    "has_mx": true,
+    "mx": [
+      "bodegasfaustino-es.mail.protection.outlook.com",
+      "correo.bodegasfaustino.es"
+    ]
+  },
+  "battenfeld-spanier.de": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.de",
+      "mx00.ionos.de"
+    ]
+  },
+  "drevesnica-bilje.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.drevesnica-bilje.si"
+    ]
+  },
+  "chivite.com": {
+    "has_mx": true,
+    "mx": [
+      "chivite-com.mail.protection.outlook.com"
+    ]
+  },
+  "sogrape.com": {
+    "has_mx": true,
+    "mx": [
+      "sogrape-com.mail.protection.outlook.com"
+    ]
+  },
+  "patricius.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.patricius.hu"
+    ]
+  },
+  "jakoncic.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.jakoncic.si",
+      "papaya.inforia.si"
+    ]
+  },
+  "jurtschitsch.com": {
+    "has_mx": true,
+    "mx": [
+      "jurtschitsch-com.mail.protection.outlook.com"
+    ]
+  },
+  "vinaradovan.com": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "quintadoencontro.pt": {
+    "has_mx": true,
+    "mx": [
+      "quintadoencontro-pt.mail.protection.outlook.com"
+    ]
+  },
+  "heimann.hu": {
+    "has_mx": true,
+    "mx": [
+      "ALT3.ASPMX.L.GOOGLE.COM",
+      "ALT4.ASPMX.L.GOOGLE.COM"
+    ]
+  },
+  "prieler.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.konzept.cc",
+      "mail2.konzept.cc"
+    ]
+  },
+  "clai.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.clai.hr"
+    ]
+  },
+  "ktimakaripidis.gr": {
+    "has_mx": true,
+    "mx": [
+      "ktimakaripidis.gr"
+    ]
+  },
+  "gunzer.hu": {
+    "has_mx": true,
+    "mx": [
+      "gunzer.hu"
+    ]
+  },
+  "faiveley.com": {
+    "has_mx": true,
+    "mx": [
+      "mxin01-cluster-esl-se-cyg.cygrids.net"
+    ]
+  },
+  "schloss-vollrads.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.schloss-vollrads.com"
+    ]
+  },
+  "edoardomirolio.com": {
+    "has_mx": false,
+    "reason": "Домен edoardomirolio.com не існує або не має поштових записів"
+  },
+  "georgiki.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.georgiki.gr"
+    ]
+  },
+  "cramahistria.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.cramahistria.ro"
+    ]
+  },
+  "frantoiomuraglia.it": {
+    "has_mx": true,
+    "mx": [
+      "d315049.a.ess.de.barracudanetworks.com",
+      "d315049.b.ess.de.barracudanetworks.com"
+    ]
+  },
+  "chateau-ausone.com": {
+    "has_mx": true,
+    "mx": [
+      "301.prodomaines.com"
+    ]
+  },
+  "bodegasotazu.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "terratangra.com": {
+    "has_mx": true,
+    "mx": [
+      "mbox2.tea.bg"
+    ]
+  },
+  "weingut-reinisch.at": {
+    "has_mx": true,
+    "mx": [
+      "mx3.agenturserver.de",
+      "mx4.agenturserver.de"
+    ]
   }
 }

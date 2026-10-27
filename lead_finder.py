@@ -15,6 +15,7 @@ from email_verifier import EmailVerifierService
 logger = logging.getLogger("LeadFinder")
 
 VERIFIED_POOL_FILE = config.BASE_DIR / "verified_candidates_pool.json"
+MEGA_CATALOG_FILE = config.BASE_DIR / "verified_mega_catalog.json"
 
 # Curated reservoir of verified agricultural B2B prospects across dry European regions
 # (Wineries, Olive Producers, Nurseries, Fruit Orchards, Garden Centers, Cooperatives)
@@ -1518,31 +1519,8 @@ COUNTRY_CONFIGS = [
     }
 ]
 
-class LeadFinderService:
-    """
-    Automated Lead Finder & Enricher for TERAWET-ORIGINAL.
-    Discovers, verifies, and registers 20-30 new agricultural B2B leads daily.
-    Dynamically generates verified, geographically accurate prospects across 10 European target markets:
-    Romania, Hungary, Italy, Slovenia, Slovakia, France, Austria, Spain, Bulgaria, and Greece.
-    """
 
-    def __init__(self, data_service: LeadDataService = None):
-        self.data_service = data_service or LeadDataService()
-        self.verifier = EmailVerifierService()
-
-    def _generate_verified_dynamic_leads(self, count: int, sent_registry: MasterSentRegistry = None, session_registry: MasterSentRegistry = None, stop_event: Any = None) -> List[Dict[str, str]]:
-        """
-        Dynamically generates 100% DNS MX-verified, authentic agricultural B2B prospects.
-        Guarantees that every prospect passes real DNS MX validation (no bounce or non-existent domains).
-        STRICTLY forbids reusing any corporate domain, email, or company name already contacted.
-        """
-        if sent_registry is None:
-            sent_registry = self.data_service.get_sent_registry()
-        if session_registry is None:
-            session_registry = MasterSentRegistry()
-
-        # Verified authentic European agricultural domains (100% MX verified across target markets)
-        VERIFIED_COUNTRY_DOMAINS = {
+VERIFIED_COUNTRY_DOMAINS = {
             "AT": [
                 "weingutnigl.at", "salomonwirt.at", "sattlerhof.at", "kollwentz.at", "moric.at",
                 "weingut-bruendlmayer.at", "domaene-wachau.at", "f-x-pichler.at", "knoll.at", "schloss-gobelsburg.at",
@@ -1660,6 +1638,181 @@ class LeadFinderService:
             ],
         }
 
+REPLENISHMENT_PATTERNS = {
+    "ES": {
+        "prefixes": ["bodegas", "viveros", "almazara", "frutas", "cooperativa", "agricola", "finca"],
+        "terroirs": ["haro", "toro", "rueda", "jumilla", "yecla", "lleida", "elche", "cabra", "baena", "ubeda", "jaen", "requena", "tomelloso", "valdepenas", "sanlucar", "almendralejo", "penafiel", "cigales", "almansa", "carinena", "bierzo", "priorat", "penedes", "calatayud", "somontano", "navarra", "emporda", "valdeorras", "monterrei", "alava", "murcia", "sevilla", "cordoba", "huelva", "cadiz"],
+        "tlds": [".es", ".com"]
+    },
+    "IT": {
+        "prefixes": ["cantina", "tenuta", "frantoio", "podere", "vivai", "agricola", "fattoria", "vigneti"],
+        "terroirs": ["barolo", "barbaresco", "alba", "asti", "soave", "bardolino", "valdobbiadene", "montalcino", "montepulciano", "greve", "radda", "castellina", "sangimignano", "bolgheri", "scansano", "manduria", "avellino", "benevento", "ragusa", "vittoria", "pistoia", "pescia", "lucca", "cortina", "rovereto", "merano", "cormons", "collio", "valpolicella", "chianciano", "orvieto", "spoleto", "marsala"],
+        "tlds": [".it", ".com"]
+    },
+    "FR": {
+        "prefixes": ["chateau-", "domaine-", "pepinieres-", "vignobles-", "vergers-"],
+        "terroirs": ["margaux", "pauillac", "saint-julien", "saint-estephe", "pomerol", "saint-emilion", "chablis", "beaune", "meursault", "pommard", "volnay", "sancerre", "vouvray", "chinon", "bandol", "cassis", "gigondas", "vacqueyras", "hermitage", "cornas", "jurancon", "cahors", "madiran", "bergerac", "corbieres", "minervois", "rhone", "alsace"],
+        "tlds": [".fr", ".com"]
+    },
+    "DE": {
+        "prefixes": ["weingut-", "obstbau-", "baumschule-", "kelterei-"],
+        "terroirs": ["pfalz", "mosel", "rheingau", "baden", "kaiserstuhl", "bodensee", "altesland", "rheinhessen", "franken", "nahe", "ahr", "wuerttemberg", "saale-unstrut", "mittelrhein"],
+        "tlds": [".de", ".com"]
+    },
+    "PT": {
+        "prefixes": ["quinta-", "adega-", "herdade-", "viveiros-"],
+        "terroirs": ["douro", "alentejo", "dao", "vinho-verde", "bairrada", "setubal", "tejo", "madeira", "moncao", "favaios", "redondo", "borba", "cartuxa", "freixo", "crasto", "vallado", "alcobaca", "vidigueira"],
+        "tlds": [".pt", ".com"]
+    },
+    "AT": {
+        "prefixes": ["weingut-", "obstbau-", "baumschule-"],
+        "terroirs": ["wachau", "kremstal", "kamptal", "wagram", "weinviertel", "carnuntum", "neusiedlersee", "leithaberg", "eisenberg", "steiermark", "suedsteiermark", "vulkanland"],
+        "tlds": [".at", ".com"]
+    },
+    "GR": {
+        "prefixes": ["ktima-", "bio-", "fytoria-", "wines-"],
+        "terroirs": ["naoussa", "nemea", "santorini", "crete", "drama", "mantinia", "epirus", "peloponnese", "thessaly", "attica", "samos"],
+        "tlds": [".gr", ".com"]
+    },
+    "RO": {
+        "prefixes": ["crama-", "domeniile-", "pepiniera-", "agro-"],
+        "terroirs": ["dragasani", "dealumare", "cotnari", "murfatlar", "recas", "panciu", "odobesti", "tarnave", "moldova"],
+        "tlds": [".ro", ".com"]
+    },
+    "PL": {
+        "prefixes": ["winnica-", "szkolka-", "sady-", "agro-"],
+        "terroirs": ["grojec", "sandomierz", "malopolska", "lubelskie", "wielkopolska", "dolnyslask", "mazowsze"],
+        "tlds": [".pl", ".com.pl"]
+    },
+    "HR": {
+        "prefixes": ["vina-", "vinarija-", "opg-"],
+        "terroirs": ["istra", "peljesac", "slavonija", "kutjevo", "dingac", "hvar", "korcula"],
+        "tlds": [".hr", ".com"]
+    },
+    "SI": {
+        "prefixes": ["vina-", "klet-", "posestvo-"],
+        "terroirs": ["brda", "vipava", "kras", "istra", "stajerska", "jeruzalem", "krsko"],
+        "tlds": [".si", ".com"]
+    },
+    "SK": {
+        "prefixes": ["vinarstvo-", "sady-", "agro-"],
+        "terroirs": ["tokaj", "strekov", "modra", "pezinok", "topolcianky", "nitra"],
+        "tlds": [".sk", ".com"]
+    },
+    "RS": {
+        "prefixes": ["vinarija-", "podrum-", "agro-"],
+        "terroirs": ["fruskagora", "zupa", "sumadija", "toplica", "subotica", "vrsac"],
+        "tlds": [".rs", ".com"]
+    },
+    "HU": {
+        "prefixes": ["boraszat-", "pinceszet-", "kert-"],
+        "terroirs": ["tokaj", "eger", "villany", "szekszard", "balaton", "somlo", "matra"],
+        "tlds": [".hu", ".com"]
+    },
+    "BG": {
+        "prefixes": ["chateau-", "vinprom-", "razsadnik-", "agro-"],
+        "terroirs": ["plovdiv", "thrace", "danube", "melnik", "rosevalley", "burgas", "varna"],
+        "tlds": [".bg", ".com"]
+    }
+}
+
+class LeadFinderService:
+    """
+    Automated Lead Finder & Enricher for TERAWET-ORIGINAL.
+    Discovers, verifies, and registers 20-30 new agricultural B2B leads daily.
+    Dynamically generates verified, geographically accurate prospects across 10 European target markets:
+    Romania, Hungary, Italy, Slovenia, Slovakia, France, Austria, Spain, Bulgaria, and Greece.
+    """
+
+    def __init__(self, data_service: LeadDataService = None):
+        self.data_service = data_service or LeadDataService()
+        self.verifier = EmailVerifierService()
+        self.domain_catalog = self._load_domain_catalog()
+
+    def _load_domain_catalog(self) -> Dict[str, List[str]]:
+        catalog = {k: list(v) for k, v in VERIFIED_COUNTRY_DOMAINS.items()}
+        if MEGA_CATALOG_FILE.exists():
+            try:
+                with open(MEGA_CATALOG_FILE, "r", encoding="utf-8") as f:
+                    mega = json.load(f)
+                    if isinstance(mega, dict):
+                        for k, v in mega.items():
+                            cur = catalog.get(k, [])
+                            merged = list(dict.fromkeys(cur + v))
+                            catalog[k] = merged
+            except Exception as e:
+                logger.debug(f"Mega catalog load notice: {e}")
+        return catalog
+
+    def _save_domain_catalog(self):
+        try:
+            with open(MEGA_CATALOG_FILE, "w", encoding="utf-8") as f:
+                json.dump(self.domain_catalog, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            logger.debug(f"Could not persist mega catalog: {e}")
+
+    def _replenish_country_domains(self, c_code: str, sent_registry: MasterSentRegistry, session_registry: MasterSentRegistry, target_count: int = 5) -> List[str]:
+        pattern_cfg = REPLENISHMENT_PATTERNS.get(c_code)
+        if not pattern_cfg:
+            return []
+
+        import dns.resolver
+        resolver = dns.resolver.Resolver()
+        resolver.timeout = 1.0
+        resolver.lifetime = 1.5
+
+        existing = set(self.domain_catalog.get(c_code, []))
+        added = []
+
+        prefixes = pattern_cfg.get("prefixes", [])
+        terroirs = pattern_cfg.get("terroirs", [])
+        tlds = pattern_cfg.get("tlds", [".com"])
+
+        for t in terroirs:
+            for p in prefixes:
+                for tld in tlds:
+                    cand_dom = f"{p}{t}{tld}".lower().strip()
+                    if cand_dom in existing or cand_dom in sent_registry.domains or cand_dom in session_registry.domains:
+                        continue
+                    try:
+                        ans = resolver.resolve(cand_dom, "MX")
+                        if ans:
+                            existing.add(cand_dom)
+                            added.append(cand_dom)
+                            if len(added) >= target_count:
+                                break
+                    except Exception:
+                        pass
+                if len(added) >= target_count:
+                    break
+            if len(added) >= target_count:
+                break
+
+        if added:
+            current_list = self.domain_catalog.get(c_code, [])
+            for a in added:
+                if a not in current_list:
+                    current_list.append(a)
+            self.domain_catalog[c_code] = current_list
+            logger.info(f"Dynamically discovered {len(added)} fresh verified domains for {c_code}: {added}")
+            self._save_domain_catalog()
+
+        return added
+
+    def _generate_verified_dynamic_leads(self, count: int, sent_registry: MasterSentRegistry = None, session_registry: MasterSentRegistry = None, stop_event: Any = None) -> List[Dict[str, str]]:
+        """
+        Dynamically generates 100% DNS MX-verified, authentic agricultural B2B prospects.
+        Guarantees that every prospect passes real DNS MX validation (no bounce or non-existent domains).
+        STRICTLY forbids reusing any corporate domain, email, or company name already contacted.
+        """
+        if sent_registry is None:
+            sent_registry = self.data_service.get_sent_registry()
+        if session_registry is None:
+            session_registry = MasterSentRegistry()
+
+        # Verified authentic European agricultural domains (100% MX verified across target markets)
+        # Domain catalog loaded in self.domain_catalog
+
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
 
         batch = []
@@ -1674,7 +1827,7 @@ class LeadFinderService:
             attempts += 1
             cfg = COUNTRY_CONFIGS[(len(batch) + attempts) % len(COUNTRY_CONFIGS)]
             c_code = cfg.get("code", "ES")
-            domains = VERIFIED_COUNTRY_DOMAINS.get(c_code, [])
+            domains = self.domain_catalog.get(c_code, [])
             if not domains:
                 continue
 
@@ -1683,6 +1836,10 @@ class LeadFinderService:
                 d.lower().strip() for d in domains 
                 if d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains
             ]
+            if len(available_domains) < 10:
+                fresh = self._replenish_country_domains(c_code, sent_registry, session_registry, target_count=5)
+                available_domains.extend(fresh)
+
             if not available_domains:
                 continue
 
@@ -1773,7 +1930,7 @@ class LeadFinderService:
 
         return clean_pool
 
-    def find_and_import_leads(self, count: int = 25, stop_event: Any = None) -> int:
+    def find_and_import_leads(self, count: int = 50, stop_event: Any = None) -> int:
         """
         Discovers new leads from the verified candidate reservoir and appends them to active database.
         Uses ironclad MasterSentRegistry to guarantee 100% zero duplicate leads across

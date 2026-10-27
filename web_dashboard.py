@@ -368,7 +368,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </div>
     <div class="btn-group">
       <button class="btn btn-primary" data-i18n="btnGenBatch" onclick="generateBatch(5)">⚡ Створити наступні 5 чернеток у Gmail</button>
-      <button class="btn btn-secondary" id="btnStartSearch" data-i18n="btnStartSearch" onclick="startLeadSearch(25)" style="border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;">▶️ Запустити пошук лідів</button>
+      <button class="btn btn-secondary" id="btnStartSearch" data-i18n="btnStartSearch" onclick="startLeadSearch(50)" style="border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;">▶️ Запустити пошук 50 нових лідів</button>
       <button class="btn btn-danger" id="btnStopSearch" data-i18n="btnStopSearch" onclick="stopLeadSearch()" style="display: none; font-weight: 600;">⏹️ Припинити пошук</button>
       <button class="btn btn-secondary" data-i18n="btnSyncSent" onclick="syncSent()" style="border-color: #86efac; color: #166534; background: #f0fdf4;">📥 Перевірити відправлені в Gmail</button>
       <button class="btn btn-secondary" id="btnVerifyEmails" data-i18n="btnVerifyEmails" onclick="verifyAllEmails()" style="border-color: #fca5a5; color: #991b1b; background: #fef2f2; font-weight: 600;">🛡️ Перевірити валідність пошт</button>
@@ -1206,7 +1206,7 @@ async function regenerateLeadText() {
 
 let searchPollTimer = null;
 
-async function startLeadSearch(count = 25) {
+async function startLeadSearch(count = 50) {
   const t = I18N[currentLang] || I18N.uk;
   showToast(t.toastSearchStart);
   updateSearchUI(true, t.searchRunningStatus);
@@ -1292,7 +1292,7 @@ function updateSearchUI(isRunning, msgText = '') {
 }
 
 // Alias for backwards compatibility
-const findNewLeadsNow = () => startLeadSearch(25);
+const findNewLeadsNow = () => startLeadSearch(50);
 
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -1991,7 +1991,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     self.send_json({"success": False, "error": str(e)})
 
             elif path in ("/api/search/start", "/api/find_leads"):
-                count = int(params.get("count", 25))
+                count = int(params.get("count", 50))
                 ok, msg = self.search_controller.start_search(count=count)
                 self.send_json({"success": ok, "message": msg, "is_running": self.search_controller.is_running})
 
@@ -2115,16 +2115,16 @@ def _daily_lead_search_scheduler():
 
             # Trigger if it's 9:00 AM or later Kyiv time and hasn't run today yet
             if now.hour >= 9 and last_run_date != today_str:
-                logger.info(f"⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (25-30 leads) for {today_str}...")
+                logger.info(f"⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (50 leads) for {today_str}...")
                 with DashboardHandler.search_controller.lock:
                     DashboardHandler.search_controller.is_running = True
                     DashboardHandler.search_controller.last_status = "running"
-                    DashboardHandler.search_controller.message = f"Автоматичний ранковий пошук лідів (09:00)..."
-                    DashboardHandler.search_controller.target_count = 25
+                    DashboardHandler.search_controller.message = f"Автоматичний ранковий пошук 50 нових лідів (09:00)..."
+                    DashboardHandler.search_controller.target_count = 50
 
                 imported = 0
                 try:
-                    imported = DashboardHandler.finder_service.find_and_import_leads(count=25)
+                    imported = DashboardHandler.finder_service.find_and_import_leads(count=50)
                     logger.info(f"Daily lead search finished: {imported} leads imported.")
                     with DashboardHandler.search_controller.lock:
                         DashboardHandler.search_controller.found_count = imported
@@ -2149,11 +2149,11 @@ def _daily_lead_search_scheduler():
                     total_all = len(DashboardHandler.data_service.get_all_leads())
                     telegram_notifier.send_alert(
                         "РАНКОВИЙ ПОШУК ЛІДІВ (09:00 КИЇВ)",
-                        f"🔍 <b>Автоматичний пошук успішно виконано!</b>\n\n"
+                        f"🔍 <b>Щоденний автоматичний пошук 50 нових лідів виконано!</b>\n\n"
                         f"📥 <b>Нових верифікованих лідів додано:</b> {imported}\n"
                         f"🛡️ <b>Контроль дублів:</b> 100% захист (перевірено за доменами, телефонами, брендами та DNS MX).\n"
                         f"📊 <b>Всього активних лідів у системі:</b> {total_all}\n\n"
-                        f"👉 <i>Готово до денної розсилки о 09:30.</i>"
+                        f"👉 <i>Готово до денної розсилки о 09:00 / 09:30.</i>"
                     )
                 except Exception as tg_err:
                     logger.warning(f"Could not send Telegram lead search notification: {tg_err}")
