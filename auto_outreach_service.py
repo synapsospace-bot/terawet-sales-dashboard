@@ -278,6 +278,7 @@ class AutoOutreachService:
                 self.delay_remaining_sec = 0
                 return False
             self.delay_remaining_sec = remaining
+            self.last_step_timestamp = time.time()  # Active delay, not stalled
             time.sleep(1)
             remaining -= 1
         self.delay_remaining_sec = 0
@@ -333,6 +334,7 @@ class AutoOutreachService:
             needed_discovery = target_count - len(uncontacted)
             if needed_discovery > 0 and not self.stop_event.is_set():
                 logger.info(f"Have {len(uncontacted)} uncontacted leads in cache; searching {needed_discovery} more fresh prospects...")
+                self._update_step(f"🔍 Автоматичний пошук {needed_discovery} нових лідів...")
                 imported = self.finder_service.find_and_import_leads(
                     count=needed_discovery,
                     stop_event=self.stop_event
@@ -380,10 +382,11 @@ class AutoOutreachService:
                     logger.warning(f"⏩ In-loop skipping duplicate lead {comp_name} ({email}) - {reason}")
                     continue
 
-                self.current_lead_name = comp_name
-                self.current_lead_email = email
-                self.progress_current = i
-                self.current_step_text = f"Генерація листа для {comp_name} ({i}/{len(leads_to_process)})..."
+                self._update_step(
+                    f"Генерація листа для {comp_name} ({i}/{len(leads_to_process)})...",
+                    cur=i, tot=len(leads_to_process),
+                    lead_name=comp_name, lead_email=email
+                )
 
                 # Step A: DNS MX Pre-flight check
                 is_valid, reason = self.verifier.verify_email(email)
@@ -415,7 +418,7 @@ class AutoOutreachService:
                     continue
 
                 if mode == "send":
-                    self.current_step_text = f"Відправка листа через Gmail до {comp_name}..."
+                    self._update_step(f"Відправка листа через Gmail до {comp_name}...")
                     ok, res = self.draft_service.send_email(
                         to_email=email,
                         subject=subject,
@@ -480,7 +483,7 @@ class AutoOutreachService:
                             break
                 else:
                     # Mode == draft
-                    self.current_step_text = f"Створення чернетки Gmail для {comp_name}..."
+                    self._update_step(f"Створення чернетки Gmail для {comp_name}...")
                     draft_id = self.draft_service.create_draft(
                         to_email=email,
                         subject=subject,
@@ -616,6 +619,7 @@ class AutoOutreachService:
                         step_info = self.current_step_text or "Невідомий крок"
                         logger.error(f"🚨 [WATCHDOG RESET] Dispatch worker stalled for {int(stuck_seconds / 60)} min at '{step_info}'. Forcing reset!")
                         self.reset_dispatch(f"Скинуто Watchdog'ом (зависання {int(stuck_seconds / 60)} хв на: {step_info})")
+                        self.last_watchdog_reset_time = time.time()
                         try:
                             from telegram_notifier import telegram_notifier
                             import html
@@ -635,7 +639,9 @@ class AutoOutreachService:
                 # 2. Not running
                 # 3. Has not run yet today
                 # 4. Current time matches or exceeds configured hour and minute
-                if enabled and not is_running and last_run != today_str:
+                # 5. Cooldown: at least 30 minutes since last watchdog reset to prevent fast retry storm
+                watchdog_cooldown_ok = (time.time() - getattr(self, "last_watchdog_reset_time", 0)) > 1800
+                if enabled and not is_running and last_run != today_str and watchdog_cooldown_ok:
                     if (now.hour > sched_hour) or (now.hour == sched_hour and now.minute >= sched_min):
                         logger.info(f"⏰ [DAILY OUTREACH TRIGGER] Starting scheduled outreach for {daily_target} leads (Target: {sched_hour:02d}:{sched_min:02d})...")
                         self.start_dispatch(count=daily_target, mode=send_mode, triggered_by="scheduler")

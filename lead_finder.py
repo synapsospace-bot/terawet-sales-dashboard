@@ -1757,36 +1757,51 @@ class LeadFinderService:
             return []
 
         import dns.resolver
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        import time
+
         resolver = dns.resolver.Resolver()
-        resolver.timeout = 1.0
-        resolver.lifetime = 1.5
+        resolver.timeout = 0.8
+        resolver.lifetime = 1.0
 
         existing = set(self.domain_catalog.get(c_code, []))
-        added = []
-
         prefixes = pattern_cfg.get("prefixes", [])
         terroirs = pattern_cfg.get("terroirs", [])
         tlds = pattern_cfg.get("tlds", [".com"])
 
+        candidates = []
         for t in terroirs:
             for p in prefixes:
                 for tld in tlds:
                     cand_dom = f"{p}{t}{tld}".lower().strip()
-                    if cand_dom in existing or cand_dom in sent_registry.domains or cand_dom in session_registry.domains:
-                        continue
-                    try:
-                        ans = resolver.resolve(cand_dom, "MX")
-                        if ans:
-                            existing.add(cand_dom)
-                            added.append(cand_dom)
-                            if len(added) >= target_count:
-                                break
-                    except Exception:
-                        pass
-                if len(added) >= target_count:
+                    if cand_dom not in existing and cand_dom not in sent_registry.domains and cand_dom not in session_registry.domains:
+                        candidates.append(cand_dom)
+
+        if not candidates:
+            return []
+
+        def _check_domain(dom: str):
+            try:
+                ans = resolver.resolve(dom, "MX")
+                return dom, bool(ans)
+            except Exception:
+                return dom, False
+
+        added = []
+        t_start = time.time()
+        max_time_sec = 2.0  # Strict 2-second timeout per country replenishment
+
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            futures = {executor.submit(_check_domain, d): d for d in candidates[:40]}
+            for fut in as_completed(futures):
+                dom, is_valid = fut.result()
+                if is_valid and dom not in existing:
+                    existing.add(dom)
+                    added.append(dom)
+                    if len(added) >= target_count:
+                        break
+                if time.time() - t_start > max_time_sec:
                     break
-            if len(added) >= target_count:
-                break
 
         if added:
             current_list = self.domain_catalog.get(c_code, [])
@@ -1818,7 +1833,9 @@ class LeadFinderService:
         batch = []
         seed = len(sent_registry.emails) + len(sent_registry.domains) + 1
         attempts = 0
-        max_attempts = count * 50
+        max_attempts = count * 20
+        replenished_this_session = set()
+        consecutive_empty = 0
 
         while len(batch) < count and attempts < max_attempts:
             if stop_event and stop_event.is_set():
@@ -1829,6 +1846,9 @@ class LeadFinderService:
             c_code = cfg.get("code", "ES")
             domains = self.domain_catalog.get(c_code, [])
             if not domains:
+                consecutive_empty += 1
+                if consecutive_empty > len(COUNTRY_CONFIGS) * 3:
+                    break
                 continue
 
             # Strict anti-duplicate domain filter: strictly exclude any domain ever contacted or in this session
@@ -1836,12 +1856,18 @@ class LeadFinderService:
                 d.lower().strip() for d in domains 
                 if d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains
             ]
-            if len(available_domains) < 10:
+            if len(available_domains) < 5 and c_code not in replenished_this_session:
+                replenished_this_session.add(c_code)
                 fresh = self._replenish_country_domains(c_code, sent_registry, session_registry, target_count=5)
                 available_domains.extend(fresh)
 
             if not available_domains:
+                consecutive_empty += 1
+                if consecutive_empty > len(COUNTRY_CONFIGS) * 3:
+                    break
                 continue
+
+            consecutive_empty = 0
 
             domain = available_domains[(attempts + seed) % len(available_domains)]
             archetype_list = cfg.get("archetypes", [])

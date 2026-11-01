@@ -3362,5 +3362,328 @@
       "mx3.agenturserver.de",
       "mx4.agenturserver.de"
     ]
+  },
+  "poljoprivreda.info": {
+    "has_mx": true,
+    "mx": [
+      "aspmx2.googlemail.com",
+      "aspmx3.googlemail.com"
+    ]
+  },
+  "benvenutivina.com": {
+    "has_mx": true,
+    "mx": [
+      "benvenutivina-com.mail.protection.outlook.com"
+    ]
+  },
+  "oremus.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.oremus.hu",
+      "relay.axelero.hu"
+    ]
+  },
+  "cockburns.com": {
+    "has_mx": true,
+    "mx": [
+      "cockburns-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasenate.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasenate.com не існує або не має поштових записів"
+  },
+  "bodegasitsasmendi.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.serinforhosting.net",
+      "mail2.serinforhosting.net"
+    ]
+  },
+  "vivaigabbianelli.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.vivaigabbianelli.it"
+    ]
+  },
+  "bodegasluzon.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasluzon-com.mail.protection.outlook.com"
+    ]
+  },
+  "agricola.ro": {
+    "has_mx": true,
+    "mx": [
+      "agricola-ro.mail.protection.outlook.com"
+    ]
+  },
+  "pepinieraistrita.ro": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "aspmx3.googlemail.com"
+    ]
+  },
+  "maryanwinery.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.maryanwinery.com"
+    ]
+  },
+  "chateau-pavie.com": {
+    "has_mx": true,
+    "mx": [
+      "mx4.mail.ovh.net",
+      "mx3.mail.ovh.net"
+    ]
+  },
+  "papagiannakos.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail2.papagiannakos.gr"
+    ]
+  },
+  "standrea.com": {
+    "has_mx": true,
+    "mx": [
+      "standrea.com"
+    ]
+  },
+  "vinatondonia.com": {
+    "has_mx": false,
+    "reason": "Домен vinatondonia.com не існує або не має поштових записів"
+  },
+  "baumschule-praskac.at": {
+    "has_mx": true,
+    "mx": [
+      "mx02.easyname.eu",
+      "mx01.easyname.eu"
+    ]
+  },
+  "vinhosdoalentejo.pt": {
+    "has_mx": true,
+    "mx": [
+      "vinhosdoalentejo-pt.mail.protection.outlook.com"
+    ]
+  },
+  "belje.hr": {
+    "has_mx": true,
+    "mx": [
+      "belje-hr.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasvegamar.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.bodegasvegamar.com"
+    ]
+  },
+  "agroelit.bg": {
+    "has_mx": true,
+    "mx": [
+      "agroelit.bg"
+    ]
+  },
+  "artadi.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.artadi.com"
+    ]
+  },
+  "vietti.com": {
+    "has_mx": true,
+    "mx": [
+      "vietti-com.mail.protection.outlook.com"
+    ]
+  },
+  "vinarijatrikorone.rs": {
+    "has_mx": false,
+    "reason": "Домен vinarijatrikorone.rs не існує або не має поштових записів"
+  },
+  "kreinbacher.hu": {
+    "has_mx": true,
+    "mx": [
+      "kreinbacher-hu.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-chasse-spleen.com": {
+    "has_mx": true,
+    "mx": [
+      "301.prodomaines.com"
+    ]
+  },
+  "vinarijadeuric.com": {
+    "has_mx": true,
+    "mx": [
+      "vinarijadeuric-com.mail.protection.outlook.com"
+    ]
+  },
+  "samoswine.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.samoswine.gr"
+    ]
+  },
+  "agrotrend.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.agrotrend.hu"
+    ]
+  },
+  "vignerons-engages.com": {
+    "has_mx": true,
+    "mx": [
+      "vigneronsengages-com02c.mail.protection.outlook.com"
+    ]
+  },
+  "diamantakos.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.diamantakos.gr"
+    ]
+  },
+  "loimer.at": {
+    "has_mx": true,
+    "mx": [
+      "mgw.edv-eder.com"
+    ]
+  },
+  "katogi-averoff.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail-gr.securemail.pro"
+    ]
+  },
+  "bodegasberonia.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasberonia.com не існує або не має поштових записів"
+  },
+  "weingut-wittmann.de": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.de",
+      "mx00.ionos.de"
+    ]
+  },
+  "gavalaswines.gr": {
+    "has_mx": true,
+    "mx": [
+      "alt1.aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "bodegasfarina.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.es",
+      "mx00.ionos.es"
+    ]
+  },
+  "stirbey.com": {
+    "has_mx": true,
+    "mx": [
+      "stirbey.com"
+    ]
+  },
+  "legli.hu": {
+    "has_mx": true,
+    "mx": [
+      "legli.hu"
+    ]
+  },
+  "monini.com": {
+    "has_mx": true,
+    "mx": [
+      "monini-com.mail.protection.outlook.com"
+    ]
+  },
+  "vinarstvoberta.sk": {
+    "has_mx": true,
+    "mx": [
+      "mx1.hostcreators.sk",
+      "mx2.hostcreators.sk"
+    ]
+  },
+  "agro-bulgaria.com": {
+    "has_mx": true,
+    "mx": [
+      "mailrelay.register.be"
+    ]
+  },
+  "tommasiwine.it": {
+    "has_mx": true,
+    "mx": [
+      "mx4.ovh.net",
+      "mxb.ovh.net"
+    ]
+  },
+  "orbelus.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "floraservis.sk": {
+    "has_mx": true,
+    "mx": [
+      "mail.floraservis.sk",
+      "mx2.its.sr"
+    ]
+  },
+  "almex.rs": {
+    "has_mx": true,
+    "mx": [
+      "almex-rs.mail.protection.outlook.com"
+    ]
+  },
+  "obstbau-bodensee.de": {
+    "has_mx": true,
+    "mx": [
+      "mx00.udag.de",
+      "mx01.udag.de"
+    ]
+  },
+  "unicagroup.es": {
+    "has_mx": true,
+    "mx": [
+      "unicagroup-es.mail.protection.outlook.com"
+    ]
+  },
+  "agroglobe.rs": {
+    "has_mx": true,
+    "mx": [
+      "agroglobe-rs.mail.protection.outlook.com"
+    ]
+  },
+  "cretanoliveoil.gr": {
+    "has_mx": true,
+    "mx": [
+      "mx1.hostiger.com"
+    ]
+  },
+  "zafeirakis.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.zafeirakis.gr"
+    ]
+  },
+  "pepinieres-charentaises.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.pepinieres-charentaises.com"
+    ]
+  },
+  "almazarasdelasubbetica.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.almazarasdelasubbetica.com"
+    ]
+  },
+  "neragora.com": {
+    "has_mx": true,
+    "mx": [
+      "securemail02.netx64.cloud"
+    ]
   }
 }
