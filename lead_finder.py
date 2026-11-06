@@ -1761,8 +1761,9 @@ class LeadFinderService:
         import time
 
         resolver = dns.resolver.Resolver()
-        resolver.timeout = 0.8
-        resolver.lifetime = 1.0
+        resolver.nameservers = ['8.8.8.8', '1.1.1.1', '8.8.4.4']
+        resolver.timeout = 1.5
+        resolver.lifetime = 2.0
 
         existing = set(self.domain_catalog.get(c_code, []))
         prefixes = pattern_cfg.get("prefixes", [])
@@ -1789,7 +1790,7 @@ class LeadFinderService:
 
         added = []
         t_start = time.time()
-        max_time_sec = 2.0  # Strict 2-second timeout per country replenishment
+        max_time_sec = 4.0  # Safe timeout per country replenishment
 
         with ThreadPoolExecutor(max_workers=20) as executor:
             futures = {executor.submit(_check_domain, d): d for d in candidates[:40]}

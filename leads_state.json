@@ -1,80 +1,79 @@
 {
   "info@terrascapes.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Garden Center"
   },
   "info@designgreen.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Design Garden"
   },
   "info@tzikaswinery.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Tzikas' Family Winery"
   },
   "ktima@gerovassiliou.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Γεροβασιλείου"
   },
   "info@kakogiannakis.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Κακογιαννάκη"
   },
   "rasko@abv.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Изба \"Ръсин\""
   },
   "info@petrawine.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Petralona Winery"
   },
   "xmichosoe@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "ΜΙΧΟΣ, Χ., & ΣΙΑ Ο.Ε."
   },
   "agrovision.gr@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Domaine Agrovision"
   },
   "info@moschopoliswines.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Moschopolis Winery"
   },
   "ktima.livadioti@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "KTIMA LIVADIOTI"
   },
   "hello@akrathoswinery.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Akrathos Newland Winery"
   },
   "info@konstantarawines.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Konstantara Wines"
   },
   "info@spyropouloswinery.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Spyropoulos Winery - Οινοποιία Σπυρόπουλου"
   },
   "kon-ar@otenet.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κατσάνας - Αγροτικά μηχανήματα"
   },
   "info@familyfarm.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "FAMILYFARM"
   },
   "info@hydro-electrica.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "HYDRO ELECTRICA"
   },
   "info@pyrgosmystra.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Πύργος Μυστρά"
   },
   "efalak@culture.gr, dameep@culture.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-09-30",
-    "subject": "Οικονομικό όφελος & 50% μείωση λογαριασμών άντλησης για την Αρχαιολογικό Μουσείο Σπάρτης (στην Πελοπόννησο)"
+    "name": "Αρχαιολογικό Μουσείο Σπάρτης"
   },
   "efalak@culture.gr": {
     "status": "✅ Лист відправлено",
@@ -86,16 +85,15 @@
   },
   "info@green-leaf.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "GreenLeaf Garden Center"
   },
   "kipotetrip@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Μητρόπουλος"
   },
   "info@myocide.gr, myocide@yahoo.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-09-30",
-    "subject": "50% εξοικονόμηση νερού άρδευσης και προστασία από την ξηρασία για την myocide ο.ε. Εταιρεία απεντομώσεων,μυοκτονιών,απολυμάνσεων (στην Πελοπόννησο)"
+    "name": "myocide ο.ε. Εταιρεία απεντομώσεων,μυοκτονιών,απολυμάνσεων"
   },
   "info@myocide.gr": {
     "status": "✅ Лист відправлено",
@@ -107,7 +105,7 @@
   },
   "info@genariapartments-ilia.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Genari Beach Apartments"
   },
   "info@maniatikoi-elaiones-groves-35.gr": {
     "status": "✅ Лист відправлено",
@@ -196,7 +194,7 @@
   },
   "info@mosaicartgreece.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "MOSAIC ART GREECE"
   },
   "name_mosaicartgreece": {
     "status": "✅ Лист відправлено",
@@ -289,7 +287,7 @@
   },
   "fytoriafligos@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Φλίγκος Κωνσταντίνος"
   },
   "name_φυτώριαφλίγκοςκωνσταντίνος": {
     "status": "✅ Лист відправлено",
@@ -297,7 +295,7 @@
   },
   "info@perikipou.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Περί Κήπου"
   },
   "name_περίκήπου": {
     "status": "✅ Лист відправлено",
@@ -317,7 +315,7 @@
   },
   "pangian2009@hotmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Plakias Plants"
   },
   "name_plakiasplants": {
     "status": "✅ Лист відправлено",
@@ -325,7 +323,7 @@
   },
   "info@fitoriakritis.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Κρήτης / Fitoria Kritis"
   },
   "name_φυτώριακρήτηςfitoriakritis": {
     "status": "✅ Лист відправлено",
@@ -337,7 +335,7 @@
   },
   "info@floraplant.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Floraplant Garden Center Κατάστημα Καλύβες Αποκορώνου"
   },
   "name_floraplantgardencenterκατάστημακαλύβεςαποκορώνου": {
     "status": "✅ Лист відправлено",
@@ -345,7 +343,7 @@
   },
   "fitopigilasithiou@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτοπηγή Λασιθίου"
   },
   "name_φυτοπηγήλασιθίου": {
     "status": "✅ Лист відправлено",
@@ -353,7 +351,7 @@
   },
   "info@antonisgarden.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Antonis Garden Center"
   },
   "name_antonisgardencenter": {
     "status": "✅ Лист відправлено",
@@ -373,7 +371,7 @@
   },
   "vinivel@yamantievs.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "ВИНАРНА ИЗБА ЯМАНТИЕВИ"
   },
   "name_винарнаизбаямантиеви": {
     "status": "✅ Лист відправлено",
@@ -433,18 +431,15 @@
   },
   "gio.pagkalos@gmail.com, greengardenscrete@gmail.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-07",
-    "subject": "Οικονομικό όφελος & 50% μείωση λογαριασμών άντλησης για την Φυτώρια Πάγκαλος (στην Κρήτη & στα νησιά)"
+    "name": "Φυτώρια Πάγκαλος"
   },
   "porteva@bendida.eu, wine@bendida.eu": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-07",
-    "subject": "Намаляване на сметките за ток и поливане с 50% за BENDIDA enotheka & wine shop (в Тракийската низина и Южна България)"
+    "name": "BENDIDA enotheka & wine shop"
   },
   "events@villayustina.com, manager@yustinavillas.com, reservations@yustinavillas.com, manager@villayustina.com, sales.sofia@villayustina.com, sales.plovdiv@villayustina.com, sales.varna@villayustina.com, sales.burgas@villayustina.com, office@villayustina.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-07",
-    "subject": "Намаляване на сметките за ток и поливане с 50% за ВИ ВИЛА ЮСТИНА / VILLA YUSTINA WINERY (в Тракийската низина и Южна България)"
+    "name": "ВИ ВИЛА ЮСТИНА / VILLA YUSTINA WINERY"
   },
   "office@villayustina.com": {
     "status": "✅ Лист відправлено",
@@ -452,7 +447,7 @@
   },
   "kaiorma5@abv.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарна Галерията / Pavlova Art and Wine"
   },
   "name_винарнагалериятаpavlovaartandwine": {
     "status": "✅ Лист відправлено",
@@ -495,7 +490,7 @@
   },
   "info@zagorin.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Αγροτικός Συνεταιρισμός Ζαγοράς Πηλίου (Zagorin)"
   },
   "name_αγροτικόςσυνεταιρισμόςζαγοράςπηλίουzagorin": {
     "status": "✅ Лист відправлено",
@@ -503,7 +498,7 @@
   },
   "info@dougos.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Ντούγκος (Dougos Winery)"
   },
   "name_κτήμαντούγκοςdougoswinery": {
     "status": "✅ Лист відправлено",
@@ -522,7 +517,7 @@
   },
   "info@lyrarakis.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Λυραράκη (Lyrarakis Wines)"
   },
   "name_κτήμαλυραράκηlyrarakiswines": {
     "status": "✅ Лист відправлено",
@@ -530,7 +525,7 @@
   },
   "info@manousakiswinery.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Οινοποιείο Μανουσάκη (Manousakis Winery)"
   },
   "name_οινοποιείομανουσάκηmanousakiswinery": {
     "status": "✅ Лист відправлено",
@@ -549,7 +544,7 @@
   },
   "info@douloufakis.wine": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Οινοποιείο Δουλουφάκη (Douloufakis Winery)"
   },
   "name_οινοποιείοδουλουφάκηdouloufakiswinery": {
     "status": "✅ Лист відправлено",
@@ -558,7 +553,7 @@
   },
   "info@botanical-park.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Βοτανικός Κήπος Χανίων & Φυτώρια (Botanical Park Plants)"
   },
   "name_βοτανικόςκήποςχανίωνφυτώριαbotanicalparkplants": {
     "status": "✅ Лист відправлено",
@@ -576,9 +571,7 @@
   },
   "contact@skouras.gr": {
     "status": "✅ Лист відправлено",
-    "name": "Κτήμα Σκούρας (Domaine Skouras)",
-    "company_name": "Κτήμα Σκούρας (Domaine Skouras)",
-    "date": "2026-10-23"
+    "name": "Κτήμα Σκούρας (Domaine Skouras)"
   },
   "name_κτήμασκούραskourasdomain": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -617,7 +610,7 @@
   },
   "hospitality@semeliestate.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Σεμέλη (Semeli Estate)"
   },
   "name_κτήμασεμέληsemeliestate": {
     "status": "✅ Лист відправлено",
@@ -625,7 +618,7 @@
   },
   "info@domaine-lazaridi.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Κώστα Λαζαρίδη (Costa Lazaridi Domain)"
   },
   "name_κτήμακώσταλαζαρίδηcostalazarididomain": {
     "status": "✅ Лист відправлено",
@@ -633,7 +626,7 @@
   },
   "info@ktima-pavlidis.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Παυλίδη (Ktima Pavlidis)"
   },
   "name_κτήμαπαυλίδηktimapavlidis": {
     "status": "✅ Лист відправлено",
@@ -641,7 +634,7 @@
   },
   "info@kiryianni.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Κυρ-Γιάννη (Kir-Yianni Estate)"
   },
   "name_κτήμακυργιάννηkiryianniestate": {
     "status": "✅ Лист відправлено",
@@ -649,7 +642,7 @@
   },
   "info@fytoriamakedonias.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Κιλκίς Μακεδονίας (Macedonian Tree Nurseries)"
   },
   "name_φυτώριακιλκίςμακεδονίαςmacedoniantreenurseries": {
     "status": "✅ Лист відправлено",
@@ -657,7 +650,7 @@
   },
   "wines@portocarras.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Πόρτο Καρράς (Domaine Porto Carras)"
   },
   "name_κτήμαπόρτοκαρράςdomaineportocarras": {
     "status": "✅ Лист відправлено",
@@ -666,7 +659,7 @@
   },
   "office@bessavalley.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарна Беса Вали (Bessa Valley Winery)"
   },
   "name_винарнабесавалиbessavalleywinery": {
     "status": "✅ Лист відправлено",
@@ -685,9 +678,7 @@
   },
   "elit_plants@abv.bg": {
     "status": "✅ Лист відправлено",
-    "name": "Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery)",
-    "company_name": "Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery)",
-    "date": "2026-09-23"
+    "name": "Овощен Разсадник 'Елит' Пловдив (Elit Agro Nursery)"
   },
   "name_овощенразсадникелитпловдивelitagronursery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -696,7 +687,7 @@
   },
   "info@zagreus.org": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарна Загрей (Zagreus Winery)"
   },
   "name_винарназагрейzagreuswinery": {
     "status": "✅ Лист відправлено",
@@ -705,7 +696,7 @@
   },
   "info@alvear.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Alvear (Montilla-Moriles)"
   },
   "name_bodegasalvearmontillamoriles": {
     "status": "✅ Лист відправлено",
@@ -724,7 +715,7 @@
   },
   "comunicacion@barbadillo.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Barbadillo (Sanlúcar / Jerez)"
   },
   "name_bodegasbarbadillosanlúcarjerez": {
     "status": "✅ Лист відправлено",
@@ -733,7 +724,7 @@
   },
   "info@orobailen.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Aceites Oro Bailén (Galgón 99 SL)"
   },
   "name_aceitesorobailéngalgón99sl": {
     "status": "✅ Лист відправлено",
@@ -742,7 +733,7 @@
   },
   "info@hernandorena.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Viveros Hernandorena (Frutales y Granados)"
   },
   "name_viveroshernandorenafrutalesygranados": {
     "status": "✅ Лист відправлено",
@@ -771,7 +762,7 @@
   },
   "office@katarzyna.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Катаржина Естейт (Katarzyna Estate)"
   },
   "name_катаржинаестейтkatarzynaestate": {
     "status": "✅ Лист відправлено",
@@ -779,7 +770,7 @@
   },
   "office@burgozone.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Шато Бургозоне (Chateau Burgozone)"
   },
   "name_шатобургозонеchateauburgozone": {
     "status": "✅ Лист відправлено",
@@ -808,9 +799,7 @@
   },
   "office@bassarea.com": {
     "status": "✅ Лист відправлено",
-    "name": "Вила Басарея (Villa Bassarea)",
-    "company_name": "Вила Басарея (Villa Bassarea)",
-    "date": "2026-09-23"
+    "name": "Вила Басарея (Villa Bassarea)"
   },
   "name_вилабасареяvillabassarea": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -829,7 +818,7 @@
   },
   "office@copsa.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Шато Копса (Chateau Copsa Complex & Vineyards)"
   },
   "name_шатокопсаchateaucopsacomplexvineyards": {
     "status": "✅ Лист відправлено",
@@ -858,7 +847,7 @@
   },
   "office@tsarevbrod.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарска изба Царев брод (Tsarev Brod Winery)"
   },
   "name_винарскаизбацаревбродtsarevbrodwinery": {
     "status": "✅ Лист відправлено",
@@ -917,7 +906,7 @@
   },
   "info@alpha-estate.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Άλφα (Alpha Estate)"
   },
   "name_κτήμαάλφαalphaestate": {
     "status": "✅ Лист відправлено",
@@ -963,7 +952,7 @@
   },
   "info@cavino.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cavino Winery & Distillery"
   },
   "name_cavinowinerydistillery": {
     "status": "✅ Лист відправлено",
@@ -1347,7 +1336,7 @@
   },
   "sales@svishtov-winery.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарна Свищов (Winery Svishtov)"
   },
   "name_винарнасвищовwinerysvishtov": {
     "status": "✅ Лист відправлено",
@@ -1356,7 +1345,7 @@
   },
   "info@bodegasriojanas.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Riojanas S.A."
   },
   "name_bodegasriojanassa": {
     "status": "✅ Лист відправлено",
@@ -1365,9 +1354,7 @@
   },
   "informacion@bodegasmuga.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Muga",
-    "company_name": "Bodegas Muga",
-    "date": "2026-10-07"
+    "name": "Bodegas Muga"
   },
   "name_bodegasmuga": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1376,7 +1363,7 @@
   },
   "info@bodegasbilbainas.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Bilbaínas (Viña Pomal)"
   },
   "name_bodegasbilbaínasviñapomal": {
     "status": "✅ Лист відправлено",
@@ -1385,7 +1372,7 @@
   },
   "marquesderiscal@marquesderiscal.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Herederos del Marqués de Riscal"
   },
   "name_herederosdelmarquésderiscal": {
     "status": "✅ Лист відправлено",
@@ -1393,7 +1380,7 @@
   },
   "info@castillodecanena.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Castillo de Canena Olive Estate"
   },
   "name_castillodecanenaoliveestate": {
     "status": "✅ Лист відправлено",
@@ -1401,7 +1388,7 @@
   },
   "info@frescobaldi.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Marchesi Frescobaldi"
   },
   "name_marchesifrescobaldi": {
     "status": "✅ Лист відправлено",
@@ -1409,7 +1396,7 @@
   },
   "banfi@banfi.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Castello Banfi Montalcino"
   },
   "name_castellobanfimontalcino": {
     "status": "✅ Лист відправлено",
@@ -1417,9 +1404,7 @@
   },
   "marchesibarolo@marchesibarolo.com": {
     "status": "✅ Лист відправлено",
-    "name": "Marchesi di Barolo",
-    "company_name": "Marchesi di Barolo",
-    "date": "2026-10-23"
+    "name": "Marchesi di Barolo"
   },
   "name_marchesidibarolo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1428,7 +1413,7 @@
   },
   "planeta@planeta.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Planeta Vini Sicilia"
   },
   "name_planetavinisicilia": {
     "status": "✅ Лист відправлено",
@@ -1436,7 +1421,7 @@
   },
   "segreteria@mastroberardino.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Mastroberardino Vigneti"
   },
   "name_mastroberardinovigneti": {
     "status": "✅ Лист відправлено",
@@ -1445,7 +1430,7 @@
   },
   "info@donnafugata.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Donnafugata Vini di Sicilia"
   },
   "name_donnafugatavinidisicilia": {
     "status": "✅ Лист відправлено",
@@ -1453,7 +1438,7 @@
   },
   "info@sassicaia.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Tenuta San Guido (Sassicaia)"
   },
   "name_tenutasanguidosassicaia": {
     "status": "✅ Лист відправлено",
@@ -1462,7 +1447,7 @@
   },
   "chapoutier@chapoutier.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Maison M. Chapoutier"
   },
   "name_maisonmchapoutier": {
     "status": "✅ Лист відправлено",
@@ -1470,9 +1455,7 @@
   },
   "jadot@louisjadot.com": {
     "status": "✅ Лист відправлено",
-    "name": "Maison Louis Jadot",
-    "company_name": "Maison Louis Jadot",
-    "date": "2026-10-23"
+    "name": "Maison Louis Jadot"
   },
   "name_maisonlouisjadot": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1481,7 +1464,7 @@
   },
   "office@podrumradovanovic.rs": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Podrum Radovanović"
   },
   "name_podrumradovanović": {
     "status": "✅ Лист відправлено",
@@ -1489,7 +1472,7 @@
   },
   "office@vinarijazvonkobogdan.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарија Звонко Богдан"
   },
   "name_винаријазвонкобогдан": {
     "status": "✅ Лист відправлено",
@@ -1497,9 +1480,7 @@
   },
   "kontakt@badel1862.hr": {
     "status": "✅ Лист відправлено",
-    "name": "Badel 1862 d.d.",
-    "company_name": "Badel 1862 d.d.",
-    "date": "2026-10-23"
+    "name": "Badel 1862 d.d."
   },
   "name_badel1862dd": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1508,7 +1489,7 @@
   },
   "office@midalidare.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Мидалидаре Естейт (Midalidare Estate)"
   },
   "name_мидалидареестейтmidalidareestate": {
     "status": "✅ Лист відправлено",
@@ -1516,7 +1497,7 @@
   },
   "office@damascena.net": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Дамасцена (Damascena Rose & Lavender)"
   },
   "name_дамасценаdamascenaroselavender": {
     "status": "✅ Лист відправлено",
@@ -1524,7 +1505,7 @@
   },
   "office@recaswine.ro": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cramele Recaș"
   },
   "name_cramelerecaș": {
     "status": "✅ Лист відправлено",
@@ -1532,9 +1513,7 @@
   },
   "office@jidvei.ro": {
     "status": "✅ Лист відправлено",
-    "name": "Jidvei Podgoria Târnave",
-    "company_name": "Jidvei Podgoria Târnave",
-    "date": "2026-10-23"
+    "name": "Jidvei Podgoria Târnave"
   },
   "name_jidveipodgoriatârnave": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1543,9 +1522,7 @@
   },
   "cotnari@cotnari.ro": {
     "status": "✅ Лист відправлено",
-    "name": "Cotnari Podgoria Clasică",
-    "company_name": "Cotnari Podgoria Clasică",
-    "date": "2026-10-23"
+    "name": "Cotnari Podgoria Clasică"
   },
   "name_cotnaripodgoriaclasică": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1554,9 +1531,7 @@
   },
   "faustino@bodegasfaustino.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Faustino",
-    "company_name": "Bodegas Faustino",
-    "date": "2026-10-23"
+    "name": "Bodegas Faustino"
   },
   "name_bodegasfaustino": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1565,9 +1540,7 @@
   },
   "vegasicilia@vegasicilia.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodega Vega Sicilia",
-    "company_name": "Bodega Vega Sicilia",
-    "date": "2026-10-23"
+    "name": "Bodega Vega Sicilia"
   },
   "name_bodegavegasicilia": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1576,9 +1549,7 @@
   },
   "info@dobaena.com": {
     "status": "✅ Лист відправлено",
-    "name": "Aceites Baena (DO Baena)",
-    "company_name": "Aceites Baena (DO Baena)",
-    "date": "2026-10-23"
+    "name": "Aceites Baena (DO Baena)"
   },
   "name_aceitesbaenadobaena": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1587,9 +1558,7 @@
   },
   "contact@chateauguiraud.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Guiraud (Sauternes)",
-    "company_name": "Château Guiraud (Sauternes)",
-    "date": "2026-10-23"
+    "name": "Château Guiraud (Sauternes)"
   },
   "name_châteauguiraudsauternes": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1598,9 +1567,7 @@
   },
   "smith-haut-lafitte@smith-haut-lafitte.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Smith Haut Lafitte",
-    "company_name": "Château Smith Haut Lafitte",
-    "date": "2026-10-23"
+    "name": "Château Smith Haut Lafitte"
   },
   "name_châteausmithhautlafitte": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1609,9 +1576,7 @@
   },
   "domaine@dujac.com": {
     "status": "✅ Лист відправлено",
-    "name": "Domaine Dujac",
-    "company_name": "Domaine Dujac",
-    "date": "2026-10-23"
+    "name": "Domaine Dujac"
   },
   "name_domainedujac": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1620,9 +1585,7 @@
   },
   "info@hatzidakiswines.gr": {
     "status": "✅ Лист відправлено",
-    "name": "Οινοποιείο Χατζηδάκη (Hatzidakis Winery)",
-    "company_name": "Οινοποιείο Χατζηδάκη (Hatzidakis Winery)",
-    "date": "2026-10-23"
+    "name": "Οινοποιείο Χατζηδάκη (Hatzidakis Winery)"
   },
   "name_οινοποιείοχατζηδάκηhatzidakiswinery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1642,9 +1605,7 @@
   },
   "comunicacion@bodegaslan.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Lan",
-    "company_name": "Bodegas Lan",
-    "date": "2026-10-08"
+    "name": "Bodegas Lan"
   },
   "name_bodegaslan": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1653,9 +1614,7 @@
   },
   "info@bodegasramonbilbao.es": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Ramón Bilbao",
-    "company_name": "Bodegas Ramón Bilbao",
-    "date": "2026-10-08"
+    "name": "Bodegas Ramón Bilbao"
   },
   "name_bodegasramónbilbao": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1664,9 +1623,7 @@
   },
   "info@bodegasmuriel.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Muriel",
-    "company_name": "Bodegas Muriel",
-    "date": "2026-10-08"
+    "name": "Bodegas Muriel"
   },
   "name_bodegasmuriel": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1675,9 +1632,7 @@
   },
   "mogador@closmogador.com": {
     "status": "✅ Лист відправлено",
-    "name": "Clos Mogador",
-    "company_name": "Clos Mogador",
-    "date": "2026-10-08"
+    "name": "Clos Mogador"
   },
   "name_closmogador": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1686,9 +1641,7 @@
   },
   "arzuaga@arzuaganavarro.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Arzuaga Navarro",
-    "company_name": "Bodegas Arzuaga Navarro",
-    "date": "2026-10-17"
+    "name": "Bodegas Arzuaga Navarro"
   },
   "name_bodegasarzuaganavarro": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1697,9 +1650,7 @@
   },
   "dehesa@dehesadeloscanonigos.com": {
     "status": "✅ Лист відправлено",
-    "name": "Dehesa de los Canónigos",
-    "company_name": "Dehesa de los Canónigos",
-    "date": "2026-10-17"
+    "name": "Dehesa de los Canónigos"
   },
   "name_dehesadeloscanónigos": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1708,9 +1659,7 @@
   },
   "info@villacreces.com": {
     "status": "✅ Лист відправлено",
-    "name": "Finca Villacreces",
-    "company_name": "Finca Villacreces",
-    "date": "2026-10-17"
+    "name": "Finca Villacreces"
   },
   "name_fincavillacreces": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1719,9 +1668,7 @@
   },
   "cepa21@cepa21.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Cepa 21",
-    "company_name": "Bodegas Cepa 21",
-    "date": "2026-10-17"
+    "name": "Bodegas Cepa 21"
   },
   "name_bodegascepa21": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1730,9 +1677,7 @@
   },
   "info@casasdehualdo.com": {
     "status": "✅ Лист відправлено",
-    "name": "Casas de Hualdo",
-    "company_name": "Casas de Hualdo",
-    "date": "2026-10-17"
+    "name": "Casas de Hualdo"
   },
   "name_casasdehualdo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1741,9 +1686,7 @@
   },
   "brolio@ricasoli.it": {
     "status": "✅ Лист відправлено",
-    "name": "Barone Ricasoli (Castello di Brolio)",
-    "company_name": "Barone Ricasoli (Castello di Brolio)",
-    "date": "2026-10-17"
+    "name": "Barone Ricasoli (Castello di Brolio)"
   },
   "name_baronericasolicastellodibrolio": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1752,9 +1695,7 @@
   },
   "info@tenutailpoggione.it": {
     "status": "✅ Лист відправлено",
-    "name": "Il Poggione",
-    "company_name": "Il Poggione",
-    "date": "2026-10-17"
+    "name": "Il Poggione"
   },
   "name_ilpoggione": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1763,9 +1704,7 @@
   },
   "poliziano@carlettipoliziano.com": {
     "status": "✅ Лист відправлено",
-    "name": "Poliziano Azienda Agricola",
-    "company_name": "Poliziano Azienda Agricola",
-    "date": "2026-10-17"
+    "name": "Poliziano Azienda Agricola"
   },
   "name_polizianoaziendaagricola": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1774,9 +1713,7 @@
   },
   "info@piocesare.it": {
     "status": "✅ Лист відправлено",
-    "name": "Pio Cesare",
-    "company_name": "Pio Cesare",
-    "date": "2026-10-17"
+    "name": "Pio Cesare"
   },
   "name_piocesare": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1785,9 +1722,7 @@
   },
   "info@tommasi.com": {
     "status": "✅ Лист відправлено",
-    "name": "Tommasi Family Estates",
-    "company_name": "Tommasi Family Estates",
-    "date": "2026-10-17"
+    "name": "Tommasi Family Estates"
   },
   "name_tommasifamilyestates": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1796,9 +1731,7 @@
   },
   "hospitality@chateau-margaux.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Margaux",
-    "company_name": "Château Margaux",
-    "date": "2026-10-17"
+    "name": "Château Margaux"
   },
   "name_châteaumargaux": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1807,9 +1740,7 @@
   },
   "contact@haut-brion.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Haut-Brion",
-    "company_name": "Château Haut-Brion",
-    "date": "2026-10-17"
+    "name": "Château Haut-Brion"
   },
   "name_châteauhautbrion": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1818,9 +1749,7 @@
   },
   "contact@chateau-montrose.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Montrose",
-    "company_name": "Château Montrose",
-    "date": "2026-10-17"
+    "name": "Château Montrose"
   },
   "name_châteaumontrose": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1829,9 +1758,7 @@
   },
   "contact@chateau-cheval-blanc.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Cheval Blanc",
-    "company_name": "Château Cheval Blanc",
-    "date": "2026-10-17"
+    "name": "Château Cheval Blanc"
   },
   "name_châteauchevalblanc": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1840,9 +1767,7 @@
   },
   "contact@chateaucanon.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Canon",
-    "company_name": "Château Canon",
-    "date": "2026-10-17"
+    "name": "Château Canon"
   },
   "name_châteaucanon": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1851,9 +1776,7 @@
   },
   "contact@chateau-gazin.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Gazin (Pomerol)",
-    "company_name": "Château Gazin (Pomerol)",
-    "date": "2026-10-17"
+    "name": "Château Gazin (Pomerol)"
   },
   "name_châteaugazinpomerol": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1862,9 +1785,7 @@
   },
   "contact@leflaive.com": {
     "status": "✅ Лист відправлено",
-    "name": "Domaine Leflaive",
-    "company_name": "Domaine Leflaive",
-    "date": "2026-10-17"
+    "name": "Domaine Leflaive"
   },
   "name_domaineleflaive": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1873,9 +1794,7 @@
   },
   "contact@comtes-lafon.fr": {
     "status": "✅ Лист відправлено",
-    "name": "Domaine des Comtes Lafon",
-    "company_name": "Domaine des Comtes Lafon",
-    "date": "2026-10-17"
+    "name": "Domaine des Comtes Lafon"
   },
   "name_domainedescomteslafon": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1884,9 +1803,7 @@
   },
   "vieux-telegraphe@brunier.fr": {
     "status": "✅ Лист відправлено",
-    "name": "Domaine du Vieux Télégraphe",
-    "company_name": "Domaine du Vieux Télégraphe",
-    "date": "2026-10-17"
+    "name": "Domaine du Vieux Télégraphe"
   },
   "name_domaineduvieuxtélégraphe": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1895,9 +1812,7 @@
   },
   "tempier@domainetempier.com": {
     "status": "✅ Лист відправлено",
-    "name": "Domaine Tempier Bandol",
-    "company_name": "Domaine Tempier Bandol",
-    "date": "2026-10-17"
+    "name": "Domaine Tempier Bandol"
   },
   "name_domainetempierbandol": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1906,9 +1821,7 @@
   },
   "ramos.pinto@ramospinto.pt": {
     "status": "✅ Лист відправлено",
-    "name": "Ramos Pinto",
-    "company_name": "Ramos Pinto",
-    "date": "2026-10-17"
+    "name": "Ramos Pinto"
   },
   "name_ramospinto": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1917,9 +1830,7 @@
   },
   "informacoes@quintadovallado.com": {
     "status": "✅ Лист відправлено",
-    "name": "Quinta do Vallado",
-    "company_name": "Quinta do Vallado",
-    "date": "2026-10-17"
+    "name": "Quinta do Vallado"
   },
   "name_quintadovallado": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1928,9 +1839,7 @@
   },
   "cartuxa@fea.pt": {
     "status": "✅ Лист відправлено",
-    "name": "Cartuxa (Fundação Eugénio de Almeida)",
-    "company_name": "Cartuxa (Fundação Eugénio de Almeida)",
-    "date": "2026-10-17"
+    "name": "Cartuxa (Fundação Eugénio de Almeida)"
   },
   "name_cartuxafundaçãoeugéniodealmeida": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1939,9 +1848,7 @@
   },
   "info@herdadedosobroso.pt": {
     "status": "✅ Лист відправлено",
-    "name": "Herdade do Sobroso",
-    "company_name": "Herdade do Sobroso",
-    "date": "2026-10-17"
+    "name": "Herdade do Sobroso"
   },
   "name_herdadedosobroso": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1950,9 +1857,7 @@
   },
   "cortesdecima@cortesdecima.pt": {
     "status": "✅ Лист відправлено",
-    "name": "Cortes de Cima",
-    "company_name": "Cortes de Cima",
-    "date": "2026-10-17"
+    "name": "Cortes de Cima"
   },
   "name_cortesdecima": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1961,9 +1866,7 @@
   },
   "welcome@aveleda.pt": {
     "status": "✅ Лист відправлено",
-    "name": "Quinta da Aveleda",
-    "company_name": "Quinta da Aveleda",
-    "date": "2026-10-17"
+    "name": "Quinta da Aveleda"
   },
   "name_quintadaaveleda": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1972,9 +1875,7 @@
   },
   "gaiawine@otenet.gr": {
     "status": "✅ Лист відправлено",
-    "name": "Κτήμα Γαία (Gaia Wines)",
-    "company_name": "Κτήμα Γαία (Gaia Wines)",
-    "date": "2026-10-17"
+    "name": "Κτήμα Γαία (Gaia Wines)"
   },
   "name_κτήμαγαίαgaiawines": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1983,9 +1884,7 @@
   },
   "info@bibliachora.gr": {
     "status": "✅ Лист відправлено",
-    "name": "Κτήμα Βιβλία Χώρα (Biblia Chora)",
-    "company_name": "Κτήμα Βιβλία Χώρα (Biblia Chora)",
-    "date": "2026-10-17"
+    "name": "Κτήμα Βιβλία Χώρα (Biblia Chora)"
   },
   "name_κτήμαβιβλίαχώραbibliachora": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -1994,9 +1893,7 @@
   },
   "office@borovitza.com": {
     "status": "✅ Лист відправлено",
-    "name": "Винарна Боровица (Borovitza Winery)",
-    "company_name": "Винарна Боровица (Borovitza Winery)",
-    "date": "2026-10-17"
+    "name": "Винарна Боровица (Borovitza Winery)"
   },
   "name_винарнаборовицаborovitzawinery": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2005,9 +1902,7 @@
   },
   "office@cramapanciu.ro": {
     "status": "✅ Лист відправлено",
-    "name": "Crama Panciu",
-    "company_name": "Crama Panciu",
-    "date": "2026-10-17"
+    "name": "Crama Panciu"
   },
   "name_cramapanciu": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2016,9 +1911,7 @@
   },
   "comunicacion@torres.es, press@torres.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-17",
-    "subject": "50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Torres (Familia Torres)",
-    "generation_sheet": "Subject: 50% de ahorro en agua de riego y blindaje frente a la sequía para Bodegas Torres (Familia Torres)\n\nEstimado equipo de Bodegas Torres (Familia Torres),\n\nRespecto a la explotación de Bodegas Torres (Familia Torres) (Bodega / Viñedos (Vilafranca del Penedès / Barcelona)):\nEl riego convencional pierde 40%-50% del agua por evaporación y lixiviación.\n\nTERAWET-ORIGINAL® (polímero de potasio certificado, 25 años en Europa):\n- 💧 50%-60% de reducción en consumo de agua;\n- ⚡ 50% de ahorro en bombeo y energía eléctrica;\n- 🧪 30%-40% de ahorro en fertilizantes N-P-K;\n- 🍇 Protección frente a golpes de calor (>40°C) y retención del fruto;\n- 🌱 100% de prendimiento de plantas con gel radicular T100;\n- ⏳ 7 a 10 AÑOS de actividad en el suelo con 1 sola aplicación.\n\nPara Viñedos: 10–15 g de TERAWET® T400 en la rizosfera de cada cepa. Garantiza disponibilidad continua de agua sin exceso vegetativo, evita el golpe de calor, protege el racimo y mantiene una acidez equilibrada y óptimo grado Brix.\n\nFormatos: sacos de 25 kg (360 €) y 1 kg.\n👉 Pedidos online: https://www.tera-wet.com\n\n🤝 Alianza Estratégica y Apertura de Representación Oficial\nAdemás del suministro directo a explotaciones agrícolas, TERAWET-ORIGINAL® (VANKO 97 EOOD) está expandiendo su red comercial en Europa y busca distribuidores agropecuarios consolidados, almacenes agrícolas y cooperativas para la apertura de delegaciones oficiales y centros regionales de distribución en España.\nOfrecemos márgenes comerciales preferentes, suministro directo de fábrica, asesoramiento agronómico especializado y material técnico de apoyo. Si su empresa está interesada en representar nuestra marca o distribuir TERAWET® en su región, estaremos encantados de coordinar una reunión de trabajo.\n\n---\nVanya Kolarova\n+359888516501\n\nBendyk Dmytro\nSales Manager at TeraWet\nPhone/WhatsApp: +380502365858 / +359889175452\nEmail: Terawet.original@gmail.com\nWebsite: www.tera-wet.com\nFacebook: https://www.facebook.com/share/1HQAp8QqRt/\nInstagram: https://www.instagram.com/terawet.original\nLinkedIn: https://www.linkedin.com/in/terawet-теравет-a7ba0a3b3\n\n---\nPara no recibir más comunicaciones profesionales B2B, responda con 'Baja'."
+    "name": "Bodegas Torres (Familia Torres)"
   },
   "comunicacion@torres.es": {
     "status": "✅ Лист відправлено",
@@ -2036,7 +1929,7 @@
   },
   "comunicacion@bodegasprotos.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Protos"
   },
   "name_bodegasprotos": {
     "status": "✅ Лист відправлено",
@@ -2046,7 +1939,7 @@
   },
   "info@cooperativasoller.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Olis Sóller Cooperativa"
   },
   "name_olissóllercooperativa": {
     "status": "✅ Лист відправлено",
@@ -2056,7 +1949,7 @@
   },
   "info@recaredo.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Recaredo Vinya i Celler"
   },
   "name_recaredovinyaiceller": {
     "status": "✅ Лист відправлено",
@@ -2064,7 +1957,7 @@
   },
   "antinori@antinori.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Antinori nel Chianti Classico"
   },
   "name_antinorinelchianticlassico": {
     "status": "✅ Лист відправлено",
@@ -2072,7 +1965,7 @@
   },
   "info@gaja.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Gaja Winery Barbaresco"
   },
   "name_gajawinerybarbaresco": {
     "status": "✅ Лист відправлено",
@@ -2082,7 +1975,7 @@
   },
   "info@allegrini.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cantina Allegrini Valpolicella"
   },
   "name_cantinaallegrinivalpolicella": {
     "status": "✅ Лист відправлено",
@@ -2092,7 +1985,7 @@
   },
   "masi@masi.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Masi Agricola"
   },
   "name_masiagricola": {
     "status": "✅ Лист відправлено",
@@ -2100,7 +1993,7 @@
   },
   "info@lucedellavite.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Tenuta Luce della Vite"
   },
   "name_tenutalucedellavite": {
     "status": "✅ Лист відправлено",
@@ -2110,7 +2003,7 @@
   },
   "info@feudomaccari.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Feudo Maccari Sicilia"
   },
   "name_feudomaccarisicilia": {
     "status": "✅ Лист відправлено",
@@ -2118,9 +2011,7 @@
   },
   "contact@miraval.com": {
     "status": "✅ Лист відправлено",
-    "name": "Château Miraval Provence",
-    "company_name": "Château Miraval Provence",
-    "date": "2026-10-23"
+    "name": "Château Miraval Provence"
   },
   "name_châteaumiravalprovence": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2129,7 +2020,7 @@
   },
   "noval@quintadonoval.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Quinta do Noval"
   },
   "name_quintadonoval": {
     "status": "✅ Лист відправлено",
@@ -2137,7 +2028,7 @@
   },
   "esporao@esporao.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Esporão (Herdade do Esporão)"
   },
   "name_esporãoherdadedoesporão": {
     "status": "✅ Лист відправлено",
@@ -2145,7 +2036,7 @@
   },
   "office@villamelnik.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Вила Мелник (Villa Melnik Winery)"
   },
   "name_виламелникvillamelnikwinery": {
     "status": "✅ Лист відправлено",
@@ -2155,7 +2046,7 @@
   },
   "office@sortovisemena.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Агроцентър Сортови Семена (Sortovi Semena)"
   },
   "name_агроцентърсортовисеменаsortovisemena": {
     "status": "✅ Лист відправлено",
@@ -2163,7 +2054,7 @@
   },
   "info@avantiswines.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Κτήμα Αβαντίς (Avantis Estate)"
   },
   "name_κτήμααβαντίςavantisestate": {
     "status": "✅ Лист відправлено",
@@ -2171,7 +2062,7 @@
   },
   "info@vivancoculturadevino.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Vivanco"
   },
   "name_bodegasvivanco": {
     "status": "✅ Лист відправлено",
@@ -2181,7 +2072,7 @@
   },
   "info@bodegasysios.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Ysios"
   },
   "name_bodegasysios": {
     "status": "✅ Лист відправлено",
@@ -2191,7 +2082,7 @@
   },
   "roda@roda.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Roda"
   },
   "name_bodegasroda": {
     "status": "✅ Лист відправлено",
@@ -2201,7 +2092,7 @@
   },
   "beronia@beronia.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Beronia"
   },
   "name_bodegasberonia": {
     "status": "✅ Лист відправлено",
@@ -2211,7 +2102,7 @@
   },
   "celler@vallllach.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Celler Vall Llach"
   },
   "name_cellervallllach": {
     "status": "✅ Лист відправлено",
@@ -2219,7 +2110,7 @@
   },
   "bodega@alvaropalacios.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Álvaro Palacios"
   },
   "name_álvaropalacios": {
     "status": "✅ Лист відправлено",
@@ -2227,9 +2118,7 @@
   },
   "info@bodegascampillo.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Campillo",
-    "company_name": "Bodegas Campillo",
-    "date": "2026-10-17"
+    "name": "Bodegas Campillo"
   },
   "name_bodegascampillo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2238,7 +2127,7 @@
   },
   "enate@enate.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Enate"
   },
   "name_bodegasenate": {
     "status": "✅ Лист відправлено",
@@ -2248,7 +2137,7 @@
   },
   "bodega@lopezdeheredia.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas López de Heredia Viña Tondonia"
   },
   "name_bodegaslópezdeherediaviñatondonia": {
     "status": "✅ Лист відправлено",
@@ -2258,7 +2147,7 @@
   },
   "info@sierracantabria.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodega Sierra Cantabria"
   },
   "name_bodegasierracantabria": {
     "status": "✅ Лист відправлено",
@@ -2268,7 +2157,7 @@
   },
   "info@francoespanolas.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Franco-Españolas"
   },
   "name_bodegasfrancoespañolas": {
     "status": "✅ Лист відправлено",
@@ -2278,7 +2167,7 @@
   },
   "comunicacion@marquesdecaceres.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Marqués de Cáceres"
   },
   "name_bodegasmarquésdecáceres": {
     "status": "✅ Лист відправлено",
@@ -2288,7 +2177,7 @@
   },
   "ontanon@ontanon.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Ontañón"
   },
   "name_bodegasontañón": {
     "status": "✅ Лист відправлено",
@@ -2298,9 +2187,7 @@
   },
   "murviedro@murviedro.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Murviedro",
-    "company_name": "Bodegas Murviedro",
-    "date": "2026-10-17"
+    "name": "Bodegas Murviedro"
   },
   "name_bodegasmurviedro": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2309,7 +2196,7 @@
   },
   "vicentegandia@vicentegandia.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Vicente Gandía"
   },
   "name_bodegasvicentegandía": {
     "status": "✅ Лист відправлено",
@@ -2319,7 +2206,7 @@
   },
   "lustau@lustau.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Lustau"
   },
   "name_bodegaslustau": {
     "status": "✅ Лист відправлено",
@@ -2329,9 +2216,7 @@
   },
   "info@gonzalezbyass.com": {
     "status": "✅ Лист відправлено",
-    "name": "González Byass (Tío Pepe)",
-    "company_name": "González Byass (Tío Pepe)",
-    "date": "2026-10-17"
+    "name": "González Byass (Tío Pepe)"
   },
   "name_gonzálezbyasstíopepe": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2340,9 +2225,7 @@
   },
   "info@pagodeloscapellanes.com": {
     "status": "✅ Лист відправлено",
-    "name": "Pago de los Capellanes",
-    "company_name": "Pago de los Capellanes",
-    "date": "2026-10-17"
+    "name": "Pago de los Capellanes"
   },
   "name_pagodeloscapellanes": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2351,9 +2234,7 @@
   },
   "info@bodegasfillaboa.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Fillaboa",
-    "company_name": "Bodegas Fillaboa",
-    "date": "2026-10-17"
+    "name": "Bodegas Fillaboa"
   },
   "name_bodegasfillaboa": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2362,7 +2243,7 @@
   },
   "info@bodegasmurua.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Murua (Masaveu)"
   },
   "name_bodegasmuruamasaveu": {
     "status": "✅ Лист відправлено",
@@ -2372,9 +2253,7 @@
   },
   "info@bodegaotazu.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodega Otazu",
-    "company_name": "Bodega Otazu",
-    "date": "2026-10-17"
+    "name": "Bodega Otazu"
   },
   "name_bodegaotazu": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2383,7 +2262,7 @@
   },
   "info@castelodemedina.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Castelo de Medina"
   },
   "name_bodegascastelodemedina": {
     "status": "✅ Лист відправлено",
@@ -2393,7 +2272,7 @@
   },
   "habla@bodegashabla.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Habla"
   },
   "name_bodegashabla": {
     "status": "✅ Лист відправлено",
@@ -2403,7 +2282,7 @@
   },
   "info@orodeldesierto.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Oro del Desierto (Lopera)"
   },
   "name_orodeldesiertolopera": {
     "status": "✅ Лист відправлено",
@@ -2411,7 +2290,7 @@
   },
   "provedo@provedo.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Viveros Provedo"
   },
   "name_viverosprovedo": {
     "status": "✅ Лист відправлено",
@@ -2421,7 +2300,7 @@
   },
   "caliplant@caliplant.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Viveros Caliplant"
   },
   "name_viveroscaliplant": {
     "status": "✅ Лист відправлено",
@@ -2431,7 +2310,7 @@
   },
   "mazzei@mazzei.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Castello di Fonterutoli (Mazzei)"
   },
   "name_castellodifonterutolimazzei": {
     "status": "✅ Лист відправлено",
@@ -2439,9 +2318,7 @@
   },
   "folonari@folonari.com": {
     "status": "✅ Лист відправлено",
-    "name": "Tenuta di Nozzole (Folonari)",
-    "company_name": "Tenuta di Nozzole (Folonari)",
-    "date": "2026-10-17"
+    "name": "Tenuta di Nozzole (Folonari)"
   },
   "name_tenutadinozzolefolonari": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2450,7 +2327,7 @@
   },
   "info@coldorcia.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Col d’Orcia Brunello"
   },
   "name_coldorciabrunello": {
     "status": "✅ Лист відправлено",
@@ -2458,7 +2335,7 @@
   },
   "caparzo@caparzo.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Caparzo Tenuta Viticola"
   },
   "name_caparzotenutaviticola": {
     "status": "✅ Лист відправлено",
@@ -2468,7 +2345,7 @@
   },
   "info@gdvajra.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "G.D. Vajra"
   },
   "name_gdvajra": {
     "status": "✅ Лист відправлено",
@@ -2476,9 +2353,7 @@
   },
   "info@michelechiarlo.it": {
     "status": "✅ Лист відправлено",
-    "name": "Michele Chiarlo",
-    "company_name": "Michele Chiarlo",
-    "date": "2026-10-17"
+    "name": "Michele Chiarlo"
   },
   "name_michelechiarlo": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -2487,9 +2362,7 @@
   },
   "leonedecastris@leonedecastris.com": {
     "status": "✅ Лист відправлено",
-    "name": "Leone de Castris",
-    "company_name": "Leone de Castris",
-    "date": "2026-10-17"
+    "name": "Leone de Castris"
   },
   "name_leonedecastris": {
     "status": "❌ Помилка доставки (Email не існує)",
@@ -5453,19 +5326,19 @@
   },
   "contact@domaines-ott.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Domaine Ott (Château de Selle)"
   },
   "info@antonakakis.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Φυτώρια Αντωνακάκη (Antonakakis Plants)"
   },
   "weingut@heinrich.at": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Gernot und Heike Heinrich"
   },
   "info@aspontis.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Almazara As Pontis (Vieiru)"
   },
   "crama@aureliavisinescu.com": {
     "status": "✅ Лист відправлено",
@@ -5477,7 +5350,7 @@
   },
   "schloss@gobelsburg.at": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Schloss Gobelsburg"
   },
   "contact@chateau-thivin.com": {
     "status": "✅ Лист відправлено",
@@ -5493,11 +5366,11 @@
   },
   "info@dourakiswinery.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Οινοποιείο Ντουράκη (Dourakis Winery)"
   },
   "avincis.vinuri@avincis.ro": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Crama Avincis (Vila Dobrușa)"
   },
   "office@agropolychim.bg": {
     "status": "✅ Лист відправлено",
@@ -5541,7 +5414,7 @@
   },
   "info@stylidacoop.gr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Αγροτικός Ελαιουργικός Συνεταιρισμός Στυλίδας"
   },
   "info@buerklin-wolf.de": {
     "status": "✅ Лист відправлено",
@@ -5565,7 +5438,7 @@
   },
   "office@bruendlmayer.at": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Bründlmayer"
   },
   "weingut@doennhoff.com": {
     "status": "✅ Лист відправлено",
@@ -5585,11 +5458,11 @@
   },
   "info@scacciadiavoli.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cantina Scacciadiavoli"
   },
   "office@vinarijakovacevic.co.rs": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Vinarija Kovačević"
   },
   "info@sanvalero.com": {
     "status": "✅ Лист відправлено",
@@ -5597,7 +5470,7 @@
   },
   "info@cusumano.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cusumano Vini"
   },
   "info@weingut-hirsch.at": {
     "status": "✅ Лист відправлено",
@@ -5609,7 +5482,7 @@
   },
   "contact@domaine-ponsot.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Domaine Ponsot"
   },
   "info@karanika.com": {
     "status": "✅ Лист відправлено",
@@ -5625,11 +5498,11 @@
   },
   "office@zlatenrozhen.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Златен Рожен (Zlaten Rozhen Winery)"
   },
   "info@weingut-robert-weil.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Robert Weil"
   },
   "info@weingutwittmann.de": {
     "status": "✅ Лист відправлено",
@@ -5637,11 +5510,11 @@
   },
   "info@pontet-canet.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Pontet-Canet"
   },
   "chateau-figeac@chateau-figeac.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Figeac"
   },
   "contact@brane-cantenac.com": {
     "status": "✅ Лист відправлено",
@@ -5661,7 +5534,7 @@
   },
   "info@pruneti.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Frantoio Pruneti"
   },
   "info@standrea.hu": {
     "status": "✅ Лист відправлено",
@@ -5677,7 +5550,7 @@
   },
   "info@bodegascastano.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Castaño"
   },
   "info@bire.hr": {
     "status": "✅ Лист відправлено",
@@ -5685,7 +5558,7 @@
   },
   "office@salla.bg": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Винарска изба Салла Естейт (Salla Estate)"
   },
   "matysak@vinomatysak.sk": {
     "status": "✅ Лист відправлено",
@@ -5697,7 +5570,7 @@
   },
   "beychevelle@beychevelle.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Beychevelle"
   },
   "info@vipava1894.si": {
     "status": "✅ Лист відправлено",
@@ -5713,11 +5586,11 @@
   },
   "info@markusmolitor.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Markus Molitor"
   },
   "contact@leoville-barton.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Léoville Barton"
   },
   "contact@domaineweinbach.com": {
     "status": "✅ Лист відправлено",
@@ -5729,11 +5602,11 @@
   },
   "bolfan@bolfanvinskivrh.hr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Vinarija Bolfan Vinski Vrh"
   },
   "contact@chateau-climens.fr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Climens"
   },
   "info@tenutaterrenere.com": {
     "status": "✅ Лист відправлено",
@@ -5753,7 +5626,7 @@
   },
   "weingut@knoll.at": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Knoll"
   },
   "contact@domaine-vacheron.com": {
     "status": "✅ Лист відправлено",
@@ -5765,7 +5638,7 @@
   },
   "info@drloosen.de": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Dr. Loosen"
   },
   "tedeschi@tedeschiwines.com": {
     "status": "✅ Лист відправлено",
@@ -5777,7 +5650,7 @@
   },
   "info@argentiera.eu": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Tenuta Argentiera Bolgheri"
   },
   "contact@bouchard-pereetfils.com": {
     "status": "✅ Лист відправлено",
@@ -5789,7 +5662,7 @@
   },
   "info@aloislageder.eu": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Alois Lageder"
   },
   "cadelbosco@cadelbosco.com": {
     "status": "✅ Лист відправлено",
@@ -5801,15 +5674,15 @@
   },
   "batplant@battistinivivai.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Vivai Piante Battistini"
   },
   "info@weingut-fritz-haag.de": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Weingut Fritz Haag"
   },
   "contacto@bodegasborsao.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bodegas Borsao"
   },
   "biuro@winnicasrebrnagora.pl": {
     "status": "✅ Лист відправлено",
@@ -5821,7 +5694,7 @@
   },
   "recepcio@bock.hu": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Bock Borászat Villány"
   },
   "info@bodegasochoa.com": {
     "status": "✅ Лист відправлено",
@@ -5853,7 +5726,7 @@
   },
   "info@liveli.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Masseria Li Veli"
   },
   "office@vinarte.ro": {
     "status": "✅ Лист відправлено",
@@ -5865,7 +5738,7 @@
   },
   "info@degrassi.hr": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Vinarija Degrassi"
   },
   "info@weingut-keller.de": {
     "status": "✅ Лист відправлено",
@@ -5877,7 +5750,7 @@
   },
   "info@casi.es": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Cooperativa CASI (Tomate de Almería)"
   },
   "contact@pibarnon.com": {
     "status": "✅ Лист відправлено",
@@ -5885,7 +5758,7 @@
   },
   "contact@cramabauer.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Crama Bauer"
   },
   "biuro@winnicaturnau.pl": {
     "status": "✅ Лист відправлено",
@@ -5893,7 +5766,7 @@
   },
   "info@arnaldocaprai.it": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Arnaldo Caprai Viticoltore"
   },
   "contact@brumont.fr": {
     "status": "✅ Лист відправлено",
@@ -5917,11 +5790,11 @@
   },
   "info@anecoop.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Anecoop S. Coop."
   },
   "office@lacertawinery.ro": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Crama LacertA"
   },
   "info@liviofelluga.it": {
     "status": "✅ Лист відправлено",
@@ -5929,7 +5802,7 @@
   },
   "contact@pichon-comtesse.com": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Château Pichon Longueville Comtesse de Lalande"
   },
   "skaramuca@dingac.hr": {
     "status": "✅ Лист відправлено",
@@ -5937,7 +5810,7 @@
   },
   "office@domaene-wachau.at": {
     "status": "✅ Лист відправлено",
-    "date": "2026-10-22"
+    "name": "Domäne Wachau"
   },
   "dorli@dorlimuhr.at": {
     "status": "✅ Лист відправлено",
@@ -7243,38 +7116,1128 @@
   },
   "office@emiroglio-wine.com": {
     "status": "✅ Лист відправлено",
-    "name": "Винарска изба Едоардо Миролио (Edoardo Miroglio)",
-    "company_name": "Винарска изба Едоардо Миролио (Edoardo Miroglio)",
-    "date": "2026-10-19"
+    "name": "Винарска изба Едоардо Миролио (Edoardo Miroglio)"
   },
   "office@lovico.com": {
     "status": "✅ Лист відправлено",
-    "name": "Винарна Ловико Сухиндол (Lovico Suhindol)",
-    "company_name": "Винарна Ловико Сухиндол (Lovico Suhindol)",
-    "date": "2026-10-19"
+    "name": "Винарна Ловико Сухиндол (Lovico Suhindol)"
   },
   "office@logodajwinery.com": {
     "status": "✅ Лист відправлено",
-    "name": "Винарска изба Логодаж (Logodaj Winery)",
-    "company_name": "Винарска изба Логодаж (Logodaj Winery)",
-    "date": "2026-10-19"
+    "name": "Винарска изба Логодаж (Logodaj Winery)"
   },
   "pintia@vega-sicilia.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Pintia (Vega Sicilia)",
-    "company_name": "Bodegas Pintia (Vega Sicilia)",
-    "date": "2026-10-23"
+    "name": "Bodegas Pintia (Vega Sicilia)"
   },
   "teso@tesolamonja.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodegas Teso La Monja (Sierra Cantabria)",
-    "company_name": "Bodegas Teso La Monja (Sierra Cantabria)",
-    "date": "2026-10-23"
+    "name": "Bodegas Teso La Monja (Sierra Cantabria)"
   },
   "sierranorte@bodegasierranorte.com": {
     "status": "✅ Лист відправлено",
-    "name": "Bodega Sierra Norte",
-    "company_name": "Bodega Sierra Norte",
+    "name": "Bodega Sierra Norte"
+  },
+  "tselepos@otenet.gr, info@tselepos.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Τσέλεπος (Ktima Tselepos)"
+  },
+  "sigalas@sigalas-wine.com, sigalasw@otenet.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Σιγάλας (Domaine Sigalas)"
+  },
+  "contact@chateaulanerthe.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Château La Nerthe",
+    "company_name": "Château La Nerthe",
+    "date": "2026-10-19"
+  },
+  "janasse@lajanasse.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine de la Janasse",
+    "company_name": "Domaine de la Janasse",
+    "date": "2026-10-19"
+  },
+  "info@minuty.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Minuty",
+    "company_name": "Château Minuty",
+    "date": "2026-10-19"
+  },
+  "contact@chateau-giscours.fr": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Giscours",
+    "company_name": "Château Giscours",
+    "date": "2026-10-19"
+  },
+  "orders@quintadelarosa.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta de la Rosa",
+    "company_name": "Quinta de la Rosa",
+    "date": "2026-10-19"
+  },
+  "roques@roques.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta dos Roques",
+    "company_name": "Quinta dos Roques",
+    "date": "2026-10-19"
+  },
+  "daura@soalheiro.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta de Soalheiro",
+    "company_name": "Quinta de Soalheiro",
+    "date": "2026-10-19"
+  },
+  "info@adegamayor.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Adega Mayor (Grupo Nabeiro)",
+    "company_name": "Adega Mayor (Grupo Nabeiro)",
+    "date": "2026-10-19"
+  },
+  "geral@casarelvas.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Casa Relvas",
+    "company_name": "Casa Relvas",
+    "date": "2026-10-19"
+  },
+  "info@herdadedosgrous.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Herdade dos Grous",
+    "company_name": "Herdade dos Grous",
+    "date": "2026-10-19"
+  },
+  "office@fx-pichler.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut F.X. Pichler",
+    "company_name": "Weingut F.X. Pichler",
+    "date": "2026-10-19"
+  },
+  "contact@domeniulcoroanei.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domeniul Coroanei Segarcea",
+    "company_name": "Domeniul Coroanei Segarcea",
+    "date": "2026-10-19"
+  },
+  "coronica@coronica.eu": {
+    "status": "✅ Лист відправлено",
+    "name": "Vinarija Coronica",
+    "company_name": "Vinarija Coronica",
+    "date": "2026-10-19"
+  },
+  "movia@movia.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Movia Vina (Aleš Kristančič)",
+    "company_name": "Movia Vina (Aleš Kristančič)",
+    "date": "2026-10-19"
+  },
+  "info@knw.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Kovács Nimród Winery",
+    "company_name": "Kovács Nimród Winery",
+    "date": "2026-10-19"
+  },
+  "mauro@bodegasmauro.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Mauro",
+    "company_name": "Bodegas Mauro",
+    "date": "2026-10-19"
+  },
+  "info@tenuterubino.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Tenute Rubino Puglia",
+    "company_name": "Tenute Rubino Puglia",
     "date": "2026-10-23"
+  },
+  "info@cantina-terlano.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Cantina Terlano (Kellerei Terlan)",
+    "company_name": "Cantina Terlano (Kellerei Terlan)",
+    "date": "2026-10-23"
+  },
+  "chateau-lagrange@chateau-lagrange.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Lagrange",
+    "company_name": "Château Lagrange",
+    "date": "2026-10-23"
+  },
+  "contact@larochewines.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Laroche Chablis",
+    "company_name": "Domaine Laroche Chablis",
+    "date": "2026-10-23"
+  },
+  "info@esclans.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Château d'Esclans (Whispering Angel)",
+    "company_name": "Château d'Esclans (Whispering Angel)",
+    "date": "2026-10-23"
+  },
+  "alvesdesousa@alvesdesousa.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta da Gaivosa (Alves de Sousa)",
+    "company_name": "Quinta da Gaivosa (Alves de Sousa)",
+    "date": "2026-10-23"
+  },
+  "info@agromessinia.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Ένωση Μεσσηνίας (Messinia Union)",
+    "company_name": "Ένωση Μεσσηνίας (Messinia Union)",
+    "date": "2026-10-23"
+  },
+  "office@petrovaselo.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Petro Vaselo Vineyards",
+    "company_name": "Petro Vaselo Vineyards",
+    "date": "2026-10-23"
+  },
+  "office@crama-oprisor.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Crama Oprișor",
+    "company_name": "Crama Oprișor",
+    "date": "2026-10-23"
+  },
+  "info@cvne.com": {
+    "status": "✅ Лист відправлено",
+    "name": "CVNE (Compañía Vinícola del Norte de España)",
+    "company_name": "CVNE (Compañía Vinícola del Norte de España)",
+    "date": "2026-10-23"
+  },
+  "albarei@condesdealbarei.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Adega Condes de Albarei",
+    "company_name": "Adega Condes de Albarei",
+    "date": "2026-10-23"
+  },
+  "valdesil@valdesil.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Valdesil",
+    "company_name": "Bodegas Valdesil",
+    "date": "2026-10-23"
+  },
+  "doix@masdoix.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Celler Mas Doix",
+    "company_name": "Celler Mas Doix",
+    "date": "2026-10-23"
+  },
+  "info@clos-erasmus.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Clos Erasmus (Clos i Terrasses)",
+    "company_name": "Clos Erasmus (Clos i Terrasses)",
+    "date": "2026-10-23"
+  },
+  "celler@cellercapcanes.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Celler de Capçanes",
+    "company_name": "Celler de Capçanes",
+    "date": "2026-10-23"
+  },
+  "frontonio@bodegasfrontonio.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Frontonio",
+    "company_name": "Bodegas Frontonio",
+    "date": "2026-10-23"
+  },
+  "vegalfaro@vegalfaro.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Vegalfaro",
+    "company_name": "Bodegas Vegalfaro",
+    "date": "2026-10-23"
+  },
+  "terriccio@terriccio.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Castello del Terriccio",
+    "company_name": "Castello del Terriccio",
+    "date": "2026-10-23"
+  },
+  "setteponti@tenutasetteponti.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Tenuta Sette Ponti",
+    "company_name": "Tenuta Sette Ponti",
+    "date": "2026-10-23"
+  },
+  "biondisanti@biondisanti.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Biondi-Santi (Tenuta Greppo)",
+    "company_name": "Biondi-Santi (Tenuta Greppo)",
+    "date": "2026-10-23"
+  },
+  "conterno@conterno.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Giacomo Conterno",
+    "company_name": "Giacomo Conterno",
+    "date": "2026-10-23"
+  },
+  "cantina@bartolomascarello.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Bartolo Mascarello",
+    "company_name": "Bartolo Mascarello",
+    "date": "2026-10-23"
+  },
+  "braida@braida.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Braida di Giacomo Bologna",
+    "company_name": "Braida di Giacomo Bologna",
+    "date": "2026-10-23"
+  },
+  "inama@inama.wine": {
+    "status": "✅ Лист відправлено",
+    "name": "Inama Azienda Agricola",
+    "company_name": "Inama Azienda Agricola",
+    "date": "2026-10-23"
+  },
+  "foradori@elisabettaforadori.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Foradori (Elisabetta Foradori)",
+    "company_name": "Foradori (Elisabetta Foradori)",
+    "date": "2026-10-23"
+  },
+  "sanleonardo@sanleonardo.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Tenuta San Leonardo",
+    "company_name": "Tenuta San Leonardo",
+    "date": "2026-10-23"
+  },
+  "graci@graci.eu": {
+    "status": "✅ Лист відправлено",
+    "name": "Graci Vini",
+    "company_name": "Graci Vini",
+    "date": "2026-10-23"
+  },
+  "fino@gianfrancofino.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Gianfranco Fino Viticoltore",
+    "company_name": "Gianfranco Fino Viticoltore",
+    "date": "2026-10-23"
+  },
+  "cuomo@marisacuomo.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Marisa Cuomo (Cantine di Furore)",
+    "company_name": "Marisa Cuomo (Cantine di Furore)",
+    "date": "2026-10-23"
+  },
+  "trevallon@domainedetrevallon.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine de Trévallon (Eloi Dürrbach)",
+    "company_name": "Domaine de Trévallon (Eloi Dürrbach)",
+    "date": "2026-10-23"
+  },
+  "simone@chateau-simone.fr": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Simone (Famille Rougier)",
+    "company_name": "Château Simone (Famille Rougier)",
+    "date": "2026-10-23"
+  },
+  "jamet@cote-rotie-jamet.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Jamet",
+    "company_name": "Domaine Jamet",
+    "date": "2026-10-23"
+  },
+  "chave@domainejlchave.fr": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Jean-Louis Chave",
+    "company_name": "Domaine Jean-Louis Chave",
+    "date": "2026-10-23"
+  },
+  "tissot@stephanetissot.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Stéphane Tissot",
+    "company_name": "Domaine Stéphane Tissot",
+    "date": "2026-10-23"
+  },
+  "portal@quintadoportal.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta do Portal",
+    "company_name": "Quinta do Portal",
+    "date": "2026-10-23"
+  },
+  "luispato@luispato.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Luis Pato Vinhos",
+    "company_name": "Luis Pato Vinhos",
+    "date": "2026-10-23"
+  },
+  "filipa@filipapato.net": {
+    "status": "✅ Лист відправлено",
+    "name": "Filipa Pato & William Wouters",
+    "company_name": "Filipa Pato & William Wouters",
+    "date": "2026-10-23"
+  },
+  "scharzhof@scharzhof.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Egon Müller (Scharzhof)",
+    "company_name": "Weingut Egon Müller (Scharzhof)",
+    "date": "2026-10-23"
+  },
+  "busch@clemens-busch.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Clemens Busch",
+    "company_name": "Weingut Clemens Busch",
+    "date": "2026-10-23"
+  },
+  "breuer@georg-breuer.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Georg Breuer",
+    "company_name": "Weingut Georg Breuer",
+    "date": "2026-10-23"
+  },
+  "christmann@weingut-christmann.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut A. Christmann",
+    "company_name": "Weingut A. Christmann",
+    "date": "2026-10-23"
+  },
+  "keller@franz-keller.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Franz Keller (Schwarzer Adler)",
+    "company_name": "Weingut Franz Keller (Schwarzer Adler)",
+    "date": "2026-10-23"
+  },
+  "nigl@weingutnigl.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Nigl",
+    "company_name": "Weingut Nigl",
+    "date": "2026-10-23"
+  },
+  "sattler@sattlerhof.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Sattlerhof",
+    "company_name": "Weingut Sattlerhof",
+    "date": "2026-10-23"
+  },
+  "kollwentz@kollwentz.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Kollwentz (Römerhof)",
+    "company_name": "Weingut Kollwentz (Römerhof)",
+    "date": "2026-10-23"
+  },
+  "velich@moric.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weingut Moric (Roland Velich)",
+    "company_name": "Weingut Moric (Roland Velich)",
+    "date": "2026-10-23"
+  },
+  "info@gentilini.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Gentilini Winery & Vineyards",
+    "company_name": "Gentilini Winery & Vineyards",
+    "date": "2026-10-23"
+  },
+  "office@elesko.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Tokajské Vinohradníctvo Tŕňa Vinárstvo",
+    "company_name": "Tokajské Vinohradníctvo Tŕňa Vinárstvo",
+    "date": "2026-10-23"
+  },
+  "info@ruffino.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Piana di Catania Agrumi S.r.l.",
+    "company_name": "Piana di Catania Agrumi S.r.l.",
+    "date": "2026-10-23"
+  },
+  "contact@chateau-lascombes.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Roussillon Soleil Vignobles",
+    "company_name": "Domaine Roussillon Soleil Vignobles",
+    "date": "2026-10-23"
+  },
+  "export@cellercredo.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Viveros Frutales del Ebro Finca",
+    "company_name": "Viveros Frutales del Ebro Finca",
+    "date": "2026-10-23"
+  },
+  "info@rossidi.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Пазарджик Агро Сад ЕООД",
+    "company_name": "Пазарджик Агро Сад ЕООД",
+    "date": "2026-10-23"
+  },
+  "export@prunotto.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Tenuta Oliveti di Bari Cantina",
+    "company_name": "Tenuta Oliveti di Bari Cantina",
+    "date": "2026-10-27"
+  },
+  "comercial@chateauruban.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Južnoslovenské Vína Strekov Sady",
+    "company_name": "Južnoslovenské Vína Strekov Sady",
+    "date": "2026-10-27"
+  },
+  "valduero@bodegasvalduero.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Valduero",
+    "company_name": "Bodegas Valduero",
+    "date": "2026-10-27"
+  },
+  "iberia@agromillora.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Agromillora Iberia",
+    "company_name": "Agromillora Iberia",
+    "date": "2026-10-27"
+  },
+  "planasa@planasa.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Planasa (Plantas de Navarra)",
+    "company_name": "Planasa (Plantas de Navarra)",
+    "date": "2026-10-27"
+  },
+  "trops@trops.es": {
+    "status": "✅ Лист відправлено",
+    "name": "Trops Frutas Tropicales",
+    "company_name": "Trops Frutas Tropicales",
+    "date": "2026-10-27"
+  },
+  "contact@pepinieres-mercier.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Pépinières Mercier",
+    "company_name": "Pépinières Mercier",
+    "date": "2026-10-27"
+  },
+  "info@fonseca.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta da Fonseca (Fladgate)",
+    "company_name": "Quinta da Fonseca (Fladgate)",
+    "date": "2026-10-27"
+  },
+  "geral@enoport.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Enoport United Wines",
+    "company_name": "Enoport United Wines",
+    "date": "2026-10-27"
+  },
+  "confagri@confagri.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "CONFAGRI (Confederação Agrícola de Portugal)",
+    "company_name": "CONFAGRI (Confederação Agrícola de Portugal)",
+    "date": "2026-10-27"
+  },
+  "biuro@rajpol.com.pl": {
+    "status": "✅ Лист відправлено",
+    "name": "Rajpol Grupa Producentów Owoców",
+    "company_name": "Rajpol Grupa Producentów Owoców",
+    "date": "2026-10-27"
+  },
+  "szkolki@szkolkislaski.pl": {
+    "status": "✅ Лист відправлено",
+    "name": "Szkółki Drzew Owocowych i Róż Ślaski",
+    "company_name": "Szkółki Drzew Owocowych i Róż Ślaski",
+    "date": "2026-10-27"
+  },
+  "plantex@plantex.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Plantex Ovocné Sady a Škôlky",
+    "company_name": "Plantex Ovocné Sady a Škôlky",
+    "date": "2026-10-27"
+  },
+  "ventas@tokajicum.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaszék Kertészeti Centrum Kertészet",
+    "company_name": "Domaszék Kertészeti Centrum Kertészet",
+    "date": "2026-10-27"
+  },
+  "info@hugel.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Pépinière Méditerranée Hyères SAS",
+    "company_name": "Pépinière Méditerranée Hyères SAS",
+    "date": "2026-10-27"
+  },
+  "export@weingut-knipser.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Ammerland Gehölzzucht GbR",
+    "company_name": "Ammerland Gehölzzucht GbR",
+    "date": "2026-10-27"
+  },
+  "ventas@bioaroma.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Αμπελώνες Θεσσαλίας Organic",
+    "company_name": "Αμπελώνες Θεσσαλίας Organic",
+    "date": "2026-10-27"
+  },
+  "agri@vincon.ro": {
+    "status": "✅ Лист відправлено",
+    "name": "Pepiniera Transilvania Plant Plant",
+    "company_name": "Pepiniera Transilvania Plant Plant",
+    "date": "2026-10-27"
+  },
+  "info@batic.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Bizeljsko Vina Premium d.o.o.",
+    "company_name": "Bizeljsko Vina Premium d.o.o.",
+    "date": "2026-10-27"
+  },
+  "contact@weingut-heinrich.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Steirisches Apfelland Weiz Bio",
+    "company_name": "Steirisches Apfelland Weiz Bio",
+    "date": "2026-10-27"
+  },
+  "export@vinarijamilanovic.rs": {
+    "status": "✅ Лист відправлено",
+    "name": "Неготинска Крајина Вина Еко",
+    "company_name": "Неготинска Крајина Вина Еко",
+    "date": "2026-10-27"
+  },
+  "agri@paterianakis.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Βερμίου Νάουσα Agro",
+    "company_name": "Κτήμα Βερμίου Νάουσα Agro",
+    "date": "2026-10-27"
+  },
+  "viticultura@pepiniera-aiud.ro": {
+    "status": "✅ Лист відправлено",
+    "name": "Elite Flora Muntenia Select",
+    "company_name": "Elite Flora Muntenia Select",
+    "date": "2026-10-27"
+  },
+  "viticultura@drevesnica-bilje.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Klet Ormož Selekcija Sadjarstvo",
+    "company_name": "Klet Ormož Selekcija Sadjarstvo",
+    "date": "2026-10-27"
+  },
+  "contact@chivite.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Bodegas Rioja Alta Selección Agrícola",
+    "company_name": "Bodegas Rioja Alta Selección Agrícola",
+    "date": "2026-10-27"
+  },
+  "viticultura@sogrape.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Herdade dos Olivais de Beja Agrícola",
+    "company_name": "Herdade dos Olivais de Beja Agrícola",
+    "date": "2026-10-27"
+  },
+  "info@patricius.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Egri Bikavér Pincék Kft.",
+    "company_name": "Egri Bikavér Pincék Kft.",
+    "date": "2026-10-27"
+  },
+  "office@jakoncic.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Štajerska Drevesnica Celje Klet",
+    "company_name": "Štajerska Drevesnica Celje Klet",
+    "date": "2026-10-27"
+  },
+  "export@jurtschitsch.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Kremstal Donauweine Hof",
+    "company_name": "Kremstal Donauweine Hof",
+    "date": "2026-10-27"
+  },
+  "comercial@vinarijacoka.rs": {
+    "status": "✅ Лист відправлено",
+    "name": "Дренова Воћни Калемови Резерва",
+    "company_name": "Дренова Воћни Калемови Резерва",
+    "date": "2026-10-27"
+  },
+  "ventas@vinaradovan.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Maslinici Istra Gold OPG",
+    "company_name": "Maslinici Istra Gold OPG",
+    "date": "2026-10-27"
+  },
+  "viticultura@quintadoencontro.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Frutos do Algarve Lda Agrícola",
+    "company_name": "Frutos do Algarve Lda Agrícola",
+    "date": "2026-10-27"
+  },
+  "info@heimann.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Alföldi Fruct Kft. Kft.",
+    "company_name": "Alföldi Fruct Kft. Kft.",
+    "date": "2026-10-27"
+  },
+  "contact@topolcianky.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Nitrianska Ovocná Škôlka Agro",
+    "company_name": "Nitrianska Ovocná Škôlka Agro",
+    "date": "2026-10-27"
+  },
+  "export@prieler.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Obstgut Donautal Hof",
+    "company_name": "Obstgut Donautal Hof",
+    "date": "2026-10-27"
+  },
+  "agri@clai.hr": {
+    "status": "✅ Лист відправлено",
+    "name": "Ravni Kotari Voće Gold",
+    "company_name": "Ravni Kotari Voće Gold",
+    "date": "2026-10-27"
+  },
+  "viticultura@ktimakaripidis.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Ψηλορείτης Reserve",
+    "company_name": "Κτήμα Ψηλορείτης Reserve",
+    "date": "2026-10-27"
+  },
+  "office@gunzer.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Szabolcsi Alma Termelők Pincészet",
+    "company_name": "Szabolcsi Alma Termelők Pincészet",
+    "date": "2026-10-27"
+  },
+  "viticultura@schloss-vollrads.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Obstbau Vorgebirge GmbH & Co. KG",
+    "company_name": "Obstbau Vorgebirge GmbH & Co. KG",
+    "date": "2026-10-27"
+  },
+  "office@georgiki.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Ημαθία Fresh Peaches Bio",
+    "company_name": "Ημαθία Fresh Peaches Bio",
+    "date": "2026-10-27"
+  },
+  "contact@cramahistria.ro": {
+    "status": "✅ Лист відправлено",
+    "name": "HortiFruct Moldova Crama",
+    "company_name": "HortiFruct Moldova Crama",
+    "date": "2026-10-27"
+  },
+  "export@frantoiomuraglia.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Tenuta Etna Doc Cantina",
+    "company_name": "Tenuta Etna Doc Cantina",
+    "date": "2026-10-27"
+  },
+  "agri@bodegasotazu.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Viñedos de La Mancha Hacienda",
+    "company_name": "Viñedos de La Mancha Hacienda",
+    "date": "2026-10-27"
+  },
+  "office@terratangra.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Родопска Яка Агро",
+    "company_name": "Родопска Яка Агро",
+    "date": "2026-10-27"
+  },
+  "info@weingut-reinisch.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Gartenbau Tullnerfeld GmbH",
+    "company_name": "Gartenbau Tullnerfeld GmbH",
+    "date": "2026-10-27"
+  },
+  "info@adegadefavaios.com.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Quinta da Bairrada Terroir Lda",
+    "company_name": "Quinta da Bairrada Terroir Lda",
+    "date": "2026-11-06"
+  },
+  "export@santomas.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Haloze Vinogradništvo Agro",
+    "company_name": "Haloze Vinogradništvo Agro",
+    "date": "2026-11-06"
+  },
+  "contact@agrotypos.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κρητικά Φυτώρια Ελιάς Estate",
+    "company_name": "Κρητικά Φυτώρια Ελιάς Estate",
+    "date": "2026-11-06"
+  },
+  "viticultura@pepinieres-viticoles.fr": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Terroirs de Bordeaux Terroirs"
+  },
+  "office@rubin.rs": {
+    "status": "✅ Лист відправлено",
+    "name": "Смедеревски Воћњаци Агро"
+  },
+  "agri@figula.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Szombathely Faiskola Estate"
+  },
+  "agri@angelusestate.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Струма Вали Тероар"
+  },
+  "office@bassermann-jordan.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Altes Land Apfelplantagen Weingut"
+  },
+  "export@anagnostou.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Θεσσαλία Fruit Agro Groves"
+  },
+  "agri@grgic-vina.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Kozlović Brijeg Vina Gold"
+  },
+  "info@sograpevinhos.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Olival Tradicional de Moura Lda"
+  },
+  "ventas@cockburns.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Herdade do Alentejo Sol Herdade"
+  },
+  "info@gaiasense.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Σπάρτη Ελαιοκομική Α.Ε."
+  },
+  "agri@agroglobe.rs": {
+    "status": "✅ Лист відправлено",
+    "name": "Шумадијски Виногради Топола Плус"
+  },
+  "office@monemvasiawinery.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Οινοποιία Παγγαίου Bio"
+  },
+  "agri@igler.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Weinviertel DAC Hof Winzer"
+  },
+  "info@bernhard-huber.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Südbadischer Beerenhof GmbH"
+  },
+  "contact@venetsanoswinery.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Ελαιώνες Μεσσηνίας Estate",
+    "company_name": "Ελαιώνες Μεσσηνίας Estate",
+    "date": "2026-11-06"
+  },
+  "ventas@ostrozovic.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Sady Žitného Ostrova Družstvo"
+  },
+  "office@staatsweingut-freiburg.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Altes Land Apfelplantagen Weingut",
+    "company_name": "Altes Land Apfelplantagen Weingut",
+    "date": "2026-11-06"
+  },
+  "viticultura@cavicchioli.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Cantina Irpinia Terroir Azienda"
+  },
+  "info@parparoussis.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Οινοποιείο Τυρνάβου Α.Ε."
+  },
+  "ventas@diamantakos.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Φυτώρια Πελοποννήσου Organic",
+    "company_name": "Φυτώρια Πελοποννήσου Organic",
+    "date": "2026-11-06"
+  },
+  "contact@chateau-mouton-rothschild.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Châteauneuf Prestige Vignobles"
+  },
+  "ventas@guerila.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Sadovnjaki Vipava Frut Bio"
+  },
+  "ventas@chatzivaritis.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Φυτώρια Πελοποννήσου Organic"
+  },
+  "comercial@baumschule-praskac.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Burgenland Kirschenhof Agrar"
+  },
+  "info@vupik.hr": {
+    "status": "✅ Лист відправлено",
+    "name": "Pelješac Dingač Vina d.o.o."
+  },
+  "comercial@gerzinic.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Poreč Vina Laguna Podrumi"
+  },
+  "contact@bio-drama.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Ελαιώνες Μεσσηνίας Estate"
+  },
+  "comercial@klet-krsko.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Posavje Jabolka Agro Posestvo"
+  },
+  "office@chateau-chevalblanc.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Horticulture Avignon Plant Domaine"
+  },
+  "ventas@radgonske-gorice.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Vrtnarstvo Prekmurje Bio"
+  },
+  "viticultura@winkler-hermaden.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Neusiedlersee Winzerhof Selektion"
+  },
+  "info@bujdoso.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Győri Gyümölcsfacsemete Kft."
+  },
+  "ventas@granfrutta.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Cantina Salento Vini Podere"
+  },
+  "office@bodegasmontecillo.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Cítricos Valencianos Algemesí Bodegas"
+  },
+  "export@pavelka.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Bio Sady Levice Bio"
+  },
+  "viticultura@von-winning.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Moseltal Steillagen Weingut GmbH & Co. KG"
+  },
+  "office@gesellmann.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Steirische Pflanzenschule Graz Weingut"
+  },
+  "export@baumschule-lappen.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Pfalz Rebenhof GbR"
+  },
+  "agri@campotec.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Adega Regional do Dão Bio"
+  },
+  "export@herdade-dos-grous.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Pomares do Oeste Agro Adega"
+  },
+  "comercial@terraparna.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Piešťanské Ovocinárstvo Sady"
+  },
+  "info@dr-loosen.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Moseltal Steillagen Weingut GmbH",
+    "company_name": "Moseltal Steillagen Weingut GmbH",
+    "date": "2026-11-06"
+  },
+  "export@bodegasolivares.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Finca Olivarera Toledo Finca"
+  },
+  "info@maryanwinery.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Сакар Вайнс ЕООД"
+  },
+  "export@tipchenitza.bg": {
+    "status": "✅ Лист відправлено",
+    "name": "Сините Камъни Фрут Био"
+  },
+  "contact@chateau-gloria.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Saint-Émilion Grand Cru Vignobles"
+  },
+  "viticultura@sauska.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Soproni Kékfrankos Birtok Gold"
+  },
+  "agri@domainedechevalier.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Languedoc Minervois Exploitation"
+  },
+  "info@agrotrend.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Kecskemét Barack Farm Kft."
+  },
+  "export@firriato.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Uliveti Valle dei Templi Cantina"
+  },
+  "office@agricola.ro": {
+    "status": "✅ Лист відправлено",
+    "name": "Agro Plant Banat Agro"
+  },
+  "office@agro-moldova.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Agro Plant Banat Agro",
+    "company_name": "Agro Plant Banat Agro",
+    "date": "2026-11-06"
+  },
+  "agri@weingut-gross.at": {
+    "status": "✅ Лист відправлено",
+    "name": "Neusiedlersee Winzerhof Winzer",
+    "company_name": "Neusiedlersee Winzerhof Winzer",
+    "date": "2026-11-06"
+  },
+  "info@weingut-emrich-schoenleber.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Südbadischer Beerenhof GmbH",
+    "company_name": "Südbadischer Beerenhof GmbH",
+    "date": "2026-11-06"
+  },
+  "contact@klet-krsko.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Oljkarstvo Slovenske Istre Vina",
+    "company_name": "Oljkarstvo Slovenske Istre Vina",
+    "date": "2026-11-06"
+  },
+  "export@pepinieres-naudet.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Saint-Émilion Grand Cru Château",
+    "company_name": "Domaine Saint-Émilion Grand Cru Château",
+    "date": "2026-11-06"
+  },
+  "ventas@almex.rs": {
+    "status": "✅ Лист відправлено",
+    "name": "Смедеревски Воћњаци Тероар",
+    "company_name": "Смедеревски Воћњаци Тероар",
+    "date": "2026-11-06"
+  },
+  "agri@coronica.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Kozlović Brijeg Vina Gold",
+    "company_name": "Kozlović Brijeg Vina Gold",
+    "date": "2026-11-06"
+  },
+  "info@quintadaveiga.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Olival Tradicional de Moura Lda",
+    "company_name": "Olival Tradicional de Moura Lda",
+    "date": "2026-11-06"
+  },
+  "export@guerila.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Sadjarstvo Maribor Agro",
+    "company_name": "Sadjarstvo Maribor Agro",
+    "date": "2026-11-06"
+  },
+  "comercial@pepinieres-viticoles.fr": {
+    "status": "✅ Лист відправлено",
+    "name": "Château Terroirs de Bordeaux Bio",
+    "company_name": "Château Terroirs de Bordeaux Bio",
+    "date": "2026-11-06"
+  },
+  "ventas@bodegaseguren.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Cítricos Valencianos Algemesí Viñedos",
+    "company_name": "Cítricos Valencianos Algemesí Viñedos",
+    "date": "2026-11-06"
+  },
+  "info@anagnostou.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Φυτώρια Πελοποννήσου Α.Ε.",
+    "company_name": "Φυτώρια Πελοποννήσου Α.Ε.",
+    "date": "2026-11-06"
+  },
+  "comercial@puklavecfamily.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Posavje Jabolka Agro Posestvo",
+    "company_name": "Posavje Jabolka Agro Posestvo",
+    "date": "2026-11-06"
+  },
+  "comercial@standrea.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Győri Gyümölcsfacsemete Bio",
+    "company_name": "Győri Gyümölcsfacsemete Bio",
+    "date": "2026-11-06"
+  },
+  "ventas@edisimcic.si": {
+    "status": "✅ Лист відправлено",
+    "name": "Sadovnjaki Vipava Frut Bio",
+    "company_name": "Sadovnjaki Vipava Frut Bio",
+    "date": "2026-11-06"
+  },
+  "viticultura@malatinszky.hu": {
+    "status": "✅ Лист відправлено",
+    "name": "Soproni Kékfrankos Birtok Gold",
+    "company_name": "Soproni Kékfrankos Birtok Gold",
+    "date": "2026-11-06"
+  },
+  "office@gaiasense.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κρητικά Φυτώρια Ελιάς Bio",
+    "company_name": "Κρητικά Φυτώρια Ελιάς Bio",
+    "date": "2026-11-06"
+  },
+  "info@triebaumer.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Burgenland Kirschenhof GmbH",
+    "company_name": "Burgenland Kirschenhof GmbH",
+    "date": "2026-11-06"
+  },
+  "ventas@zafeirakis.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Θεσσαλία Fruit Agro Organic",
+    "company_name": "Θεσσαλία Fruit Agro Organic",
+    "date": "2026-11-06"
+  },
+  "info@ilocki-podrumi.hr": {
+    "status": "✅ Лист відправлено",
+    "name": "Pelješac Dingač Vina d.o.o.",
+    "company_name": "Pelješac Dingač Vina d.o.o.",
+    "date": "2026-11-06"
+  },
+  "comercial@vinarija-dingac.hr": {
+    "status": "✅ Лист відправлено",
+    "name": "Poreč Vina Laguna Podrumi",
+    "company_name": "Poreč Vina Laguna Podrumi",
+    "date": "2026-11-06"
+  },
+  "export@tsantali.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Κτήμα Πηνειού Groves",
+    "company_name": "Κτήμα Πηνειού Groves",
+    "date": "2026-11-06"
+  },
+  "ventas@vinhosdotejo.pt": {
+    "status": "✅ Лист відправлено",
+    "name": "Azeites do Alentejo Dourado Herdade",
+    "company_name": "Azeites do Alentejo Dourado Herdade",
+    "date": "2026-11-06"
+  },
+  "ventas@monemvasiawinery.gr": {
+    "status": "✅ Лист відправлено",
+    "name": "Καλαμάτα Bio Olives Organic",
+    "company_name": "Καλαμάτα Bio Olives Organic",
+    "date": "2026-11-06"
+  },
+  "viticultura@royal-tokaji.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Pannónia Plant Faiskola Gold",
+    "company_name": "Pannónia Plant Faiskola Gold",
+    "date": "2026-11-06"
+  },
+  "ventas@robertopaolo.it": {
+    "status": "✅ Лист відправлено",
+    "name": "Cantina Salento Vini Podere",
+    "company_name": "Cantina Salento Vini Podere",
+    "date": "2026-11-06"
+  },
+  "export@obstbau-bodensee.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Baden Kaiserstuhl Weine GbR",
+    "company_name": "Baden Kaiserstuhl Weine GbR",
+    "date": "2026-11-06"
+  },
+  "export@vinarstvoberta.sk": {
+    "status": "✅ Лист відправлено",
+    "name": "Bio Sady Levice Bio",
+    "company_name": "Bio Sady Levice Bio",
+    "date": "2026-11-06"
+  },
+  "viticultura@fritz-haag.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Rheinhessen Lössland Gut GmbH & Co. KG",
+    "company_name": "Rheinhessen Lössland Gut GmbH & Co. KG",
+    "date": "2026-11-06"
+  },
+  "info@domaineponsot.com": {
+    "status": "✅ Лист відправлено",
+    "name": "Domaine Languedoc Minervois SAS",
+    "company_name": "Domaine Languedoc Minervois SAS",
+    "date": "2026-11-06"
+  },
+  "agri@kuehling-gillot.de": {
+    "status": "✅ Лист відправлено",
+    "name": "Pfalz Rebenhof Kulturen",
+    "company_name": "Pfalz Rebenhof Kulturen",
+    "date": "2026-11-06"
   }
 }

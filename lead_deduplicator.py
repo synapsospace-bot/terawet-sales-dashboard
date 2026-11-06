@@ -64,12 +64,33 @@ STOP_WORDS = {
     'und', 'and', 'et', 'y', 'en', 'al', 'der', 'die', 'das', 'den', 'dem'
 }
 
-# Generic words that should not trigger single-token duplicates on their own
+# Generic words and regional terms that should not trigger single-token duplicates on their own
 COMMON_NON_DISTINCTIVE = {
+    # Agricultural nouns & facility types
     'agro', 'vini', 'farm', 'crop', 'land', 'tree', 'seed', 'good', 'best', 'plus', 'gold', 
     'star', 'rose', 'blue', 'sole', 'real', 'nova', 'novo', 'green', 'center', 'garden',
-    'family', 'group', 'select', 'reserve', 'reserva', 'classic', 'modern', 'terroir',
-    'premier', 'grand', 'cru', 'special', 'original', 'nature', 'pura', 'puro'
+    'family', 'group', 'select', 'reserve', 'reserva', 'classic', 'modern', 'terroir', 'terroirs',
+    'premier', 'grand', 'cru', 'special', 'original', 'nature', 'pura', 'puro',
+    'winzerhof', 'rebenhof', 'beerenhof', 'beeren', 'obstgut', 'obstbau', 'baumschule', 'kelterei',
+    'faiskola', 'gyumolcs', 'boraszat', 'pinceszet', 'birtok', 'szolo', 'razsadnik', 'rozovarna',
+    'sadovnjaki', 'sadjarstvo', 'posestvo', 'kmetija', 'vocnjaci', 'plod', 'plantaze', 'szkolka',
+    'winnica', 'sadownictwo', 'livezi', 'crama', 'cramele', 'domeniile', 'almazara', 'frutas',
+    'citricos', 'horticultura', 'vigneti', 'vignobles', 'ampelones', 'elaiwnes', 'fytoria',
+    'holding', 'trading', 'export', 'import', 'solera', 'seleccio', 'seleccion', 'selezione',
+    'selection', 'qualita', 'calidad', 'qualite', 'alta', 'alto', 'baja', 'bajo', 'superior',
+    'valle', 'valles', 'montes', 'colli', 'rive', 'terra', 'terras', 'terres',
+
+    # Common European agricultural regions & terroirs
+    'rioja', 'alentejo', 'douro', 'andalucia', 'catalunya', 'penedes', 'priorat', 'ribera',
+    'mancha', 'valencia', 'murcia', 'aragon', 'navarra', 'galicia', 'toscana', 'piemonte',
+    'veneto', 'sicilia', 'puglia', 'salento', 'campania', 'marche', 'umbria', 'lazio',
+    'abruzzo', 'bordeaux', 'bourgogne', 'rhone', 'provence', 'languedoc', 'alsace', 'loire',
+    'champagne', 'baden', 'mosel', 'pfalz', 'hessen', 'rheingau', 'franken', 'kaiserstuhl',
+    'wachau', 'steiermark', 'burgenland', 'carnuntum', 'thrace', 'plovdiv', 'melnik', 'varna',
+    'burgas', 'attica', 'thessalia', 'peloponnese', 'peloponnisos', 'crete', 'kriti', 'santorini',
+    'nemea', 'naoussa', 'tokaj', 'eger', 'villany', 'balaton', 'szekszard', 'istria', 'dalmacija',
+    'slavonija', 'kutjevo', 'vojvodina', 'sumadija', 'morava', 'brda', 'vipava', 'posavje',
+    'stajerska', 'nitra', 'malopolska', 'mazowsze', 'wielkopolska'
 }
 
 
@@ -240,18 +261,20 @@ class MasterSentRegistry:
             if c_slug and c_slug in self.core_slugs:
                 return True, f"Company core slug '{c_slug}' matches previously contacted company"
 
-            # Substring slug match for brands with 6+ chars
-            if len(c_slug) >= 6:
+            # Substring slug match for significant brand slugs (requiring high similarity ratio)
+            if len(c_slug) >= 8:
                 for sent_slug in self.core_slugs:
-                    if len(sent_slug) >= 6 and (c_slug in sent_slug or sent_slug in c_slug):
-                        return True, f"Company brand slug '{c_slug}' overlaps with contacted '{sent_slug}'"
+                    if len(sent_slug) >= 8 and (c_slug in sent_slug or sent_slug in c_slug):
+                        ratio = min(len(c_slug), len(sent_slug)) / max(len(c_slug), len(sent_slug))
+                        if ratio >= 0.75:
+                            return True, f"Company brand slug '{c_slug}' overlaps with contacted '{sent_slug}'"
 
             # Brand tokens intersection
             c_tokens = clean_tokens(c_name)
             inter = c_tokens & self.distinctive_tokens
             if len(inter) >= 2:
                 return True, f"Brand tokens {inter} match previously contacted company"
-            elif len(inter) == 1:
+            elif len(inter) == 1 and len(c_tokens) == 1:
                 word = list(inter)[0]
                 if len(word) >= 5 and word not in COMMON_NON_DISTINCTIVE:
                     return True, f"Distinctive brand word '{word}' already contacted"
@@ -263,7 +286,9 @@ class MasterSentRegistry:
                     return True, f"Parenthetical group '{paren}' matches previously contacted company"
                 p_toks = clean_tokens(paren)
                 p_inter = p_toks & self.distinctive_tokens
-                if len(p_inter) >= 1:
+                if len(p_inter) >= 2:
+                    return True, f"Parenthetical brand tokens {p_inter} match previously contacted company"
+                elif len(p_inter) == 1 and len(p_toks) == 1:
                     word = list(p_inter)[0]
                     if len(word) >= 5 and word not in COMMON_NON_DISTINCTIVE:
                         return True, f"Parenthetical brand word '{word}' matches previously contacted company"

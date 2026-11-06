@@ -3685,5 +3685,675 @@
     "mx": [
       "securemail02.netx64.cloud"
     ]
+  },
+  "fakinwines.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.fakinwines.com"
+    ]
+  },
+  "adegadefavaios.com.pt": {
+    "has_mx": true,
+    "mx": [
+      "mx2.cleanmx.pt",
+      "mx1.cleanmx.pt"
+    ]
+  },
+  "santomas.si": {
+    "has_mx": true,
+    "mx": [
+      "santomas-si.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasbaigorri.es": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.es",
+      "mx00.ionos.es"
+    ]
+  },
+  "bulgarianrose.bg": {
+    "has_mx": true,
+    "mx": [
+      "mail.bulgarianrose.bg"
+    ]
+  },
+  "agro-moldova.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.yandex.ru"
+    ]
+  },
+  "weingut-gross.at": {
+    "has_mx": true,
+    "mx": [
+      "host41.ssl-net.net"
+    ]
+  },
+  "weingut-emrich-schoenleber.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.weingut-emrich-schoenleber.de"
+    ]
+  },
+  "kabaj.si": {
+    "has_mx": true,
+    "mx": [
+      "SMTP.GOOGLE.COM"
+    ]
+  },
+  "feudisangregorio.it": {
+    "has_mx": false,
+    "reason": "Домен feudisangregorio.it не існує або не має поштових записів"
+  },
+  "klet-krsko.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.klet-krsko.si"
+    ]
+  },
+  "pepinieres-naudet.com": {
+    "has_mx": true,
+    "mx": [
+      "alt1.aspmx.l.google.com",
+      "aspmx3.googlemail.com"
+    ]
+  },
+  "quintadaveiga.pt": {
+    "has_mx": true,
+    "mx": [
+      "mail.quintadaveiga.pt"
+    ]
+  },
+  "guerila.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.petric.si"
+    ]
+  },
+  "pepinieres-viticoles.fr": {
+    "has_mx": true,
+    "mx": [
+      "pepinieres-viticoles.fr"
+    ]
+  },
+  "bodegaseguren.com": {
+    "has_mx": true,
+    "mx": [
+      "correo.bodegaseguren.com",
+      "mail.bodegaseguren.com"
+    ]
+  },
+  "puklavecfamily.com": {
+    "has_mx": true,
+    "mx": [
+      "puklavecfamily-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-bouscaut.com": {
+    "has_mx": true,
+    "mx": [
+      "mx0.mail.ovh.net",
+      "mx2.mail.ovh.net"
+    ]
+  },
+  "venetsanoswinery.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "edisimcic.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.edisimcic.si"
+    ]
+  },
+  "malatinszky.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.ghw.hu"
+    ]
+  },
+  "gaiasense.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.c-gaia.gr"
+    ]
+  },
+  "triebaumer.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.triebaumer.com"
+    ]
+  },
+  "ilocki-podrumi.hr": {
+    "has_mx": true,
+    "mx": [
+      "ilocki-podrumi.hr"
+    ]
+  },
+  "vinarija-dingac.hr": {
+    "has_mx": true,
+    "mx": [
+      "vinarijadingac-hr02b.mail.protection.outlook.com"
+    ]
+  },
+  "fiuza-bright.com": {
+    "has_mx": false,
+    "reason": "Домен fiuza-bright.com не існує або не має поштових записів"
+  },
+  "markus-molitor.com": {
+    "has_mx": false,
+    "reason": "Домен markus-molitor.com не існує або не має поштових записів"
+  },
+  "tsantali.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.tsantali.gr"
+    ]
+  },
+  "valdicava.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.register.it"
+    ]
+  },
+  "perezbarquero.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "vinhosdotejo.pt": {
+    "has_mx": true,
+    "mx": [
+      "vinhosdotejo-pt.mail.protection.outlook.com"
+    ]
+  },
+  "f-x-pichler.at": {
+    "has_mx": false,
+    "reason": "Домен f-x-pichler.at не існує або не має поштових записів"
+  },
+  "pflanzen-koelle.de": {
+    "has_mx": true,
+    "mx": [
+      "ironport03.pflanzen-koelle.de",
+      "ironport02.pflanzen-koelle.de"
+    ]
+  },
+  "monemvasiawinery.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.monemvasiawinery.gr"
+    ]
+  },
+  "royal-tokaji.com": {
+    "has_mx": true,
+    "mx": [
+      "mxavas.forpsi.com"
+    ]
+  },
+  "viveroscalifornia.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.mail.ovh.net",
+      "mx1.mail.ovh.net"
+    ]
+  },
+  "orbeliawinery.bg": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "cellerdelroure.es": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "starosel.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.starosel.com"
+    ]
+  },
+  "robertopaolo.it": {
+    "has_mx": true,
+    "mx": [
+      "m-07b.th.seeweb.it",
+      "smtp-avas-th.seeweb.it"
+    ]
+  },
+  "podrumcilic.rs": {
+    "has_mx": false,
+    "reason": "Домен podrumcilic.rs не існує або не має поштових записів"
+  },
+  "fritz-haag.de": {
+    "has_mx": true,
+    "mx": [
+      "w01b79a2.kasserver.com"
+    ]
+  },
+  "domaineponsot.com": {
+    "has_mx": true,
+    "mx": [
+      "vade-mx-eu-fallback02.hornetsecurity.com",
+      "vade-mx-fr02.hornetsecurity.com"
+    ]
+  },
+  "staatsweingut-freiburg.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.staatsweingut-freiburg.de"
+    ]
+  },
+  "kuehling-gillot.de": {
+    "has_mx": true,
+    "mx": [
+      "kuehlinggillot-de02b.mail.protection.outlook.com"
+    ]
+  },
+  "hirtzberger.com": {
+    "has_mx": true,
+    "mx": [
+      "hirtzberger-com.mail.protection.outlook.com"
+    ]
+  },
+  "mataljvinarija.rs": {
+    "has_mx": true,
+    "mx": [
+      "mataljvinarija.rs"
+    ]
+  },
+  "lovico.bg": {
+    "has_mx": true,
+    "mx": [
+      "lovico.bg"
+    ]
+  },
+  "figula.hu": {
+    "has_mx": true,
+    "mx": [
+      "pmx1.spamzabalo.hu",
+      "smx1.spamzabalo.eu"
+    ]
+  },
+  "klet-brda.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.klet-brda.si"
+    ]
+  },
+  "vinarijatemet.com": {
+    "has_mx": true,
+    "mx": [
+      "srv2.triballi-net.com"
+    ]
+  },
+  "chateau-mouton-rothschild.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaumoutonrothschild-com01i1e.mail.protection.outlook.com"
+    ]
+  },
+  "baumschule-newgarden.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.baumschule-newgarden.de"
+    ]
+  },
+  "alzinger.at": {
+    "has_mx": true,
+    "mx": [
+      "mx.alzinger.at"
+    ]
+  },
+  "weingut-keller.de": {
+    "has_mx": true,
+    "mx": [
+      "weingutkeller-de01i.mail.protection.outlook.com"
+    ]
+  },
+  "dragomir.bg": {
+    "has_mx": true,
+    "mx": [
+      "dragomir-bg.mail.protection.outlook.com"
+    ]
+  },
+  "croftport.com": {
+    "has_mx": true,
+    "mx": [
+      "croftport-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-pichon-longueville.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.te-dns.net"
+    ]
+  },
+  "kloster-eberbach.de": {
+    "has_mx": true,
+    "mx": [
+      "klostereberbach-de01i.mail.protection.outlook.com"
+    ]
+  },
+  "tokajmacik.sk": {
+    "has_mx": true,
+    "mx": [
+      "mx1.prosimsi.top",
+      "mx2.prosimsi.top"
+    ]
+  },
+  "bodegaspablo.com": {
+    "has_mx": false,
+    "reason": "Домен bodegaspablo.com не існує або не має поштових записів"
+  },
+  "dececco.com": {
+    "has_mx": true,
+    "mx": [
+      "dececco-it.mail.protection.outlook.com"
+    ]
+  },
+  "terres-du-sud.fr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt4.aspmx.l.google.com"
+    ]
+  },
+  "polnohospodar.sk": {
+    "has_mx": true,
+    "mx": [
+      "polnohospodar-sk.mail.protection.outlook.com"
+    ]
+  },
+  "agroarm.rs": {
+    "has_mx": true,
+    "mx": [
+      "m1.agroarm.rs"
+    ]
+  },
+  "ramonbilbao.com": {
+    "has_mx": true,
+    "mx": [
+      "A-record (ramonbilbao.com)"
+    ]
+  },
+  "moraitiswines.gr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt4.aspmx.l.google.com"
+    ]
+  },
+  "tascalmerita.it": {
+    "has_mx": false,
+    "reason": "Домен tascalmerita.it не існує або не має поштових записів"
+  },
+  "chateau-bela.com": {
+    "has_mx": true,
+    "mx": [
+      "chateaubela-com01i.mail.protection.outlook.com"
+    ]
+  },
+  "kabola.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.kabola.hr"
+    ]
+  },
+  "grgic-vina.com": {
+    "has_mx": true,
+    "mx": [
+      "grgic-vina.com"
+    ]
+  },
+  "klet-brda.si": {
+    "has_mx": true,
+    "mx": [
+      "mail.klet-brda.si"
+    ]
+  },
+  "lungarotti.it": {
+    "has_mx": true,
+    "mx": [
+      "lungarotti-it.mail.protection.outlook.com"
+    ]
+  },
+  "viverosvalero.com": {
+    "has_mx": true,
+    "mx": [
+      "viverosvalero.com"
+    ]
+  },
+  "takler.com": {
+    "has_mx": true,
+    "mx": [
+      "takler.com"
+    ]
+  },
+  "weingut-salwey.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.weingut-salwey.de"
+    ]
+  },
+  "buergerspital.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.buergerspital.de"
+    ]
+  },
+  "sanfelice.com": {
+    "has_mx": true,
+    "mx": [
+      "d335527.b.ess.de.barracudanetworks.com",
+      "d335527.a.ess.de.barracudanetworks.com"
+    ]
+  },
+  "agrofert.sk": {
+    "has_mx": true,
+    "mx": [
+      "mail40.agrofert.cz",
+      "mail20.agrofert.cz"
+    ]
+  },
+  "vinakoper.si": {
+    "has_mx": true,
+    "mx": [
+      "vinakoper-si.mail.protection.outlook.com"
+    ]
+  },
+  "agrokor.hr": {
+    "has_mx": true,
+    "mx": [
+      "mstartplus.in.tmes.trendmicro.eu"
+    ]
+  },
+  "mrvastanko.sk": {
+    "has_mx": true,
+    "mx": [
+      "mailin2.mrvastanko.sk",
+      "mailin1.mrvastanko.sk"
+    ]
+  },
+  "tornai.hu": {
+    "has_mx": true,
+    "mx": [
+      "posta2.mediacenter.hu",
+      "posta.mediacenter.hu"
+    ]
+  },
+  "fortenovagrupa.hr": {
+    "has_mx": true,
+    "mx": [
+      "mstartplus.in.tmes.trendmicro.eu"
+    ]
+  },
+  "kert-balaton.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.kert-balaton.hu"
+    ]
+  },
+  "korak.hr": {
+    "has_mx": true,
+    "mx": [
+      "korak.hr"
+    ]
+  },
+  "pasqua.it": {
+    "has_mx": true,
+    "mx": [
+      "pasqua-it.mail.protection.outlook.com"
+    ]
+  },
+  "pepinieres-huchet.com": {
+    "has_mx": true,
+    "mx": [
+      "pepiniereshuchet-com02e.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasalion.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasalion-com.mail.protection.outlook.com"
+    ]
+  },
+  "orogel.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.orogel.it",
+      "mail2.orogel.it"
+    ]
+  },
+  "viverosmurcia.com": {
+    "has_mx": true,
+    "mx": [
+      "altair.o2w.es"
+    ]
+  },
+  "agrobio.bg": {
+    "has_mx": true,
+    "mx": [
+      "agrobio.bg"
+    ]
+  },
+  "wines-santorini.com": {
+    "has_mx": true,
+    "mx": [
+      "mail2.wines-santorini.com",
+      "mail.wines-santorini.com"
+    ]
+  },
+  "cramarasova.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.cramarasova.ro"
+    ]
+  },
+  "viverossanchez.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "riojalta.com": {
+    "has_mx": true,
+    "mx": [
+      "riojalta-com.mail.protection.outlook.com"
+    ]
+  },
+  "feiler-artinger.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.feiler-artinger.at"
+    ]
+  },
+  "chateau-haut-brion.com": {
+    "has_mx": true,
+    "mx": [
+      "fb.mail.gandi.net",
+      "spool.mail.gandi.net"
+    ]
+  },
+  "aleksandrovic.rs": {
+    "has_mx": true,
+    "mx": [
+      "mx2.hostinger.com",
+      "mx1.hostinger.com"
+    ]
+  },
+  "vida.hu": {
+    "has_mx": true,
+    "mx": [
+      "ispanel.ikron.hu",
+      "kynareth.ikron.hu"
+    ]
+  },
+  "weingut-barth.de": {
+    "has_mx": true,
+    "mx": [
+      "weingutbarth-de01i.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-sociando-mallet.com": {
+    "has_mx": true,
+    "mx": [
+      ""
+    ]
+  },
+  "roccadellemacie.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.roccadellemacie.com"
+    ]
+  },
+  "jbb.hu": {
+    "has_mx": true,
+    "mx": [
+      "mail.d3.hu"
+    ]
+  },
+  "agromarket.rs": {
+    "has_mx": true,
+    "mx": [
+      "agromarket-rs.mail.protection.outlook.com"
+    ]
+  },
+  "deltaagrar.rs": {
+    "has_mx": true,
+    "mx": [
+      "deltaagrar-rs.mail.protection.outlook.com"
+    ]
+  },
+  "tomac.hr": {
+    "has_mx": true,
+    "mx": [
+      "tomac-hr.mail.protection.outlook.com"
+    ]
+  },
+  "agricover.ro": {
+    "has_mx": true,
+    "mx": [
+      "agricover-ro.mail.protection.outlook.com"
+    ]
+  },
+  "bauer.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.bauer.ro"
+    ]
+  },
+  "gross.at": {
+    "has_mx": true,
+    "mx": [
+      "gross-at.mail.protection.outlook.com"
+    ]
   }
 }
