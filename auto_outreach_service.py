@@ -336,10 +336,27 @@ class AutoOutreachService:
                 logger.info(f"Have {len(uncontacted)} uncontacted leads in cache; searching {needed_discovery} more fresh prospects...")
                 self._update_step(f"🔍 Автоматичний пошук {needed_discovery} нових лідів...")
                 imported = self.finder_service.find_and_import_leads(
-                    count=needed_discovery,
+                    count=needed_discovery + 5,
                     stop_event=self.stop_event
                 )
                 discovered_count = imported
+                sent_registry = self.data_service.get_sent_registry()
+                all_leads = self.data_service.get_all_leads()
+                uncontacted = []
+                for l in all_leads:
+                    st = l.get("status", "")
+                    is_dup, reason = sent_registry.is_duplicate(l)
+                    if is_dup or "✅" in st or "💬" in st:
+                        continue
+                    if "⚪" in st or "NEW" in st.upper():
+                        uncontacted.append(l)
+
+            # Top-up assurance: if still below target_count, perform an immediate top-up discovery
+            if len(uncontacted) < target_count and not self.stop_event.is_set():
+                shortfall = target_count - len(uncontacted)
+                logger.info(f"Top-up pass: searching {shortfall + 3} more leads to fulfill target...")
+                extra = self.finder_service.find_and_import_leads(count=shortfall + 3, stop_event=self.stop_event)
+                discovered_count += extra
                 sent_registry = self.data_service.get_sent_registry()
                 all_leads = self.data_service.get_all_leads()
                 uncontacted = []

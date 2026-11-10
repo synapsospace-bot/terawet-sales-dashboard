@@ -227,7 +227,7 @@
   },
   "kortenwinery.com": {
     "has_mx": false,
-    "reason": "Домен kortenwinery.com не має MX/A записів для пошти"
+    "reason": "No MX"
   },
   "manastira-bg.com": {
     "has_mx": false,
@@ -261,8 +261,8 @@
   "bibliachora.gr": {
     "has_mx": true,
     "mx": [
-      "ALT4.ASPMX.L.GOOGLE.COM",
-      "alt2.ASPMX.L.GOOGLE.COM"
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
     ]
   },
   "alpha-estate.com": {
@@ -1403,10 +1403,8 @@
     ]
   },
   "chateau-ducru-beaucaillou.com": {
-    "has_mx": true,
-    "mx": [
-      "A-record (chateau-ducru-beaucaillou.com)"
-    ]
+    "has_mx": false,
+    "reason": "No MX records found"
   },
   "beychevelle.com": {
     "has_mx": true,
@@ -1437,7 +1435,7 @@
   "domaine-ponsot.com": {
     "has_mx": true,
     "mx": [
-      "vade-mx-fr02.hornetsecurity.com",
+      "vade-mx-eu-fallback02.hornetsecurity.com",
       "vade-mx-eu-fallback01.hornetsecurity.com"
     ]
   },
@@ -1663,7 +1661,7 @@
   },
   "cramaceptura.eu": {
     "has_mx": false,
-    "reason": "NXDOMAIN: cramaceptura.eu does not exist"
+    "reason": "No MX"
   },
   "domeniulcoroanei.com": {
     "has_mx": true,
@@ -2043,8 +2041,8 @@
   "bulagro.com": {
     "has_mx": true,
     "mx": [
-      "aspmx3.googlemail.com",
-      "alt2.aspmx.l.google.com"
+      "alt1.aspmx.l.google.com",
+      "aspmx3.googlemail.com"
     ]
   },
   "agropolychim.bg": {
@@ -2241,8 +2239,8 @@
   "pazodesenorans.com": {
     "has_mx": true,
     "mx": [
-      "alt1.aspmx.l.google.com",
-      "aspmx4.googlemail.com"
+      "aspmx4.googlemail.com",
+      "aspmx5.googlemail.com"
     ]
   },
   "corullon.com": {
@@ -2726,7 +2724,7 @@
   },
   "chateau-gruaud-larose.com": {
     "has_mx": false,
-    "reason": "Домен chateau-gruaud-larose.com не існує або не має поштових записів"
+    "reason": "No MX records found"
   },
   "chateau-d-issan.com": {
     "has_mx": false,
@@ -3093,7 +3091,7 @@
   },
   "winnica-turnau.pl": {
     "has_mx": false,
-    "reason": "Домен winnica-turnau.pl не існує або не має поштових записів"
+    "reason": "No MX"
   },
   "szkolkislaski.pl": {
     "has_mx": true,
@@ -4354,6 +4352,2321 @@
     "has_mx": true,
     "mx": [
       "gross-at.mail.protection.outlook.com"
+    ]
+  },
+  "pitnauer.com": {
+    "has_mx": true,
+    "mx": [
+      "mx03.hornetsecurity.com",
+      "mx04.hornetsecurity.com"
+    ]
+  },
+  "agricolasanisidro.es": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.es",
+      "mx00.ionos.es"
+    ]
+  },
+  "thummerer.hu": {
+    "has_mx": true,
+    "mx": [
+      "mailin2.thummerer.hu",
+      "mailin1.thummerer.hu"
+    ]
+  },
+  "schloss-lieser.de": {
+    "has_mx": true,
+    "mx": [
+      "schloss-lieser.de"
+    ]
+  },
+  "hortifruct.ro": {
+    "has_mx": true,
+    "mx": [
+      "mailx.hortifruct.ro"
+    ]
+  },
+  "chiarli.it": {
+    "has_mx": true,
+    "mx": [
+      "mxb.ovh.net",
+      "mx3.ovh.net"
+    ]
+  },
+  "prager.at": {
+    "has_mx": true,
+    "mx": [
+      "mx1b.cleaner.hxs.at",
+      "mx1a.cleaner.hxs.at"
+    ]
+  },
+  "baumschule-horstmann.de": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "aveleda.com": {
+    "has_mx": true,
+    "mx": [
+      "aveleda-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasyuntero.com": {
+    "has_mx": false,
+    "reason": "Домен bodegasyuntero.com не існує або не має поштових записів"
+  },
+  "bodegasvaldelana.com": {
+    "has_mx": true,
+    "mx": [
+      "antispam01.gazella.es",
+      "antispam02.gazella.es"
+    ]
+  },
+  "quintadosacores.com": {
+    "has_mx": true,
+    "mx": [
+      "mxp.meoempresas.pt",
+      "mxc.meoempresas.pt"
+    ]
+  },
+  "demeterbor.hu": {
+    "has_mx": true,
+    "mx": [
+      "demeterbor.hu"
+    ]
+  },
+  "weingut-polz.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.weingut-polz.at"
+    ]
+  },
+  "tothferencpinceszet.hu": {
+    "has_mx": true,
+    "mx": [
+      "aspmx3.googlemail.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "vajra.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.register.it"
+    ]
+  },
+  "vicasol.com": {
+    "has_mx": true,
+    "mx": [
+      "vicasol-com.mail.protection.outlook.com"
+    ]
+  },
+  "herdadedofreixo.pt": {
+    "has_mx": true,
+    "mx": [
+      "herdadedofreixo-pt.mail.protection.outlook.com"
+    ]
+  },
+  "astoria.it": {
+    "has_mx": true,
+    "mx": [
+      "astoria-it.mail.protection.outlook.com"
+    ]
+  },
+  "baumschule-bruns.de": {
+    "has_mx": true,
+    "mx": [
+      "smtpin.rzone.de"
+    ]
+  },
+  "oliocarli.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.oliocarli.it"
+    ]
+  },
+  "contadicastaldi.it": {
+    "has_mx": true,
+    "mx": [
+      "contadicastaldi-it.mail.protection.outlook.com"
+    ]
+  },
+  "bodegaslecea.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "baumschule-clausen.de": {
+    "has_mx": true,
+    "mx": [
+      "baumschuleclausen-de02e.mail.protection.outlook.com"
+    ]
+  },
+  "campodeelche.com": {
+    "has_mx": true,
+    "mx": [
+      "campodeelche.com"
+    ]
+  },
+  "coosur.com": {
+    "has_mx": true,
+    "mx": [
+      "coosur-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasvalbusenda.com": {
+    "has_mx": true,
+    "mx": [
+      "mailproxy.domain-robot.org"
+    ]
+  },
+  "marjan-simcic.si": {
+    "has_mx": false,
+    "reason": "Домен marjan-simcic.si не існує або не має поштових записів"
+  },
+  "bodegasportia.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasportia-com.mail.protection.outlook.com",
+      "correo.bodegasfaustino.es"
+    ]
+  },
+  "markowitsch.at": {
+    "has_mx": true,
+    "mx": [
+      "mx03.hornetsecurity.com",
+      "mx01.hornetsecurity.com"
+    ]
+  },
+  "domainegros.fr": {
+    "has_mx": false,
+    "reason": "Домен domainegros.fr не існує або не має поштових записів"
+  },
+  "bodegassanroman.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "recaredo.eu": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "bodegaspradorey.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "bodegasprotocoo.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "fincavillacreces.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "bodegascontino.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "bodegassierracantabria.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "garciacarrion.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.eemms.net"
+    ]
+  },
+  "codorniu.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1-eu1.ppe-hosted.com",
+      "mx2-eu1.ppe-hosted.com"
+    ]
+  },
+  "llopart.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.nominalia.com"
+    ]
+  },
+  "cillardesilos.es": {
+    "has_mx": true,
+    "mx": [
+      "mx2.mail.ovh.net",
+      "mx0.mail.ovh.net"
+    ]
+  },
+  "felixsolisavantis.com": {
+    "has_mx": true,
+    "mx": [
+      "felixsolisavantis-com.mail.protection.outlook.com"
+    ]
+  },
+  "castilloperelada.com": {
+    "has_mx": true,
+    "mx": [
+      "castilloperelada-com.mail.protection.outlook.com"
+    ]
+  },
+  "familiatorres.com": {
+    "has_mx": true,
+    "mx": [
+      "familiatorres-com.mail.protection.outlook.com"
+    ]
+  },
+  "aalto.es": {
+    "has_mx": true,
+    "mx": [
+      "aalto-es.mail.protection.outlook.com"
+    ]
+  },
+  "bodegaspintia.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegaspintia-com.mail.protection.outlook.com"
+    ]
+  },
+  "remelluri.com": {
+    "has_mx": true,
+    "mx": [
+      "remelluri-com.mail.protection.outlook.com"
+    ]
+  },
+  "raventos.com": {
+    "has_mx": true,
+    "mx": [
+      "raventos-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasvivanco.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "scalamadei.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "albetinoya.cat": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "aspmx.l.google.com"
+    ]
+  },
+  "canrafolsdelscaus.com": {
+    "has_mx": true,
+    "mx": [
+      "canrafolsdelscaus-com.mail.protection.outlook.com"
+    ]
+  },
+  "freixenet.es": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "colet.cat": {
+    "has_mx": true,
+    "mx": [
+      "mail.colet.cat"
+    ]
+  },
+  "pontedaboga.es": {
+    "has_mx": true,
+    "mx": [
+      "alt1.emea.email.fireeyecloud.com",
+      "primary.emea.email.fireeyecloud.com"
+    ]
+  },
+  "seguraviudas.com": {
+    "has_mx": true,
+    "mx": [
+      "seguraviudas-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasfelixcallejo.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasfelixcallejo.com"
+    ]
+  },
+  "portaldelpriorat.com": {
+    "has_mx": true,
+    "mx": [
+      "server1.evfiltro.net",
+      "server2.evfiltro.net"
+    ]
+  },
+  "paresbalta.com": {
+    "has_mx": true,
+    "mx": [
+      "paresbalta-com.mail.protection.outlook.com"
+    ]
+  },
+  "closerasmus.com": {
+    "has_mx": true,
+    "mx": [
+      "ASPMX5.GOOGLEMAIL.com",
+      "ALT2.ASPMX.L.GOOGLE.com"
+    ]
+  },
+  "vallformosa.com": {
+    "has_mx": true,
+    "mx": [
+      "vallformosa-com.mail.protection.outlook.com"
+    ]
+  },
+  "masmartinet.com": {
+    "has_mx": true,
+    "mx": [
+      "masmartinet-com.mail.protection.outlook.com"
+    ]
+  },
+  "costersdelpriorat.com": {
+    "has_mx": true,
+    "mx": [
+      "costersdelpriorat.com"
+    ]
+  },
+  "dominiodetares.com": {
+    "has_mx": true,
+    "mx": [
+      "dominiodetares-com.mail.protection.outlook.com"
+    ]
+  },
+  "vinanora.com": {
+    "has_mx": true,
+    "mx": [
+      "alt2.aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "godelia.es": {
+    "has_mx": true,
+    "mx": [
+      "mail.godelia.es"
+    ]
+  },
+  "pazobaion.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.pazobaion.com"
+    ]
+  },
+  "godeval.com": {
+    "has_mx": true,
+    "mx": [
+      "godeval-com.mail.protection.outlook.com"
+    ]
+  },
+  "emiliolustau.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "pittacum.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.pittacum.com"
+    ]
+  },
+  "santiagoroma.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.santiagoroma.com"
+    ]
+  },
+  "viveroshernandorena.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vinamein.com": {
+    "has_mx": true,
+    "mx": [
+      "vinamein-com.mail.protection.outlook.com"
+    ]
+  },
+  "pazobarrantes.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.pazobarrantes.com"
+    ]
+  },
+  "viverosvalledeljerte.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "castroventosa.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "aceitesdelsur.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "cooperativatorrent.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "dominiodobibei.com": {
+    "has_mx": true,
+    "mx": [
+      "dominiodobibei-com.mail.protection.outlook.com"
+    ]
+  },
+  "viverosguillen.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "perelada.com": {
+    "has_mx": true,
+    "mx": [
+      "perelada-com.mail.protection.outlook.com"
+    ]
+  },
+  "viverosbarragan.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "valledeljerte.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "cooperativaagraria.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "coopvalencia.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "cotodegomariz.com": {
+    "has_mx": true,
+    "mx": [
+      "cotodegomariz.com"
+    ]
+  },
+  "ferrari-trento.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "castellosondiama.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "frutalia.es": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "copagri.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.copagri.it"
+    ]
+  },
+  "librandi.it": {
+    "has_mx": true,
+    "mx": [
+      "mx1.webme.it",
+      "mx3.webme.it"
+    ]
+  },
+  "leonecalliano.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "zanziplant.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vivaicanneto.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "cirio.it": {
+    "has_mx": true,
+    "mx": [
+      "secondario.cirio.it",
+      "mail.cirio.it"
+    ]
+  },
+  "alvareda.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "col diretti.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "masseto.com": {
+    "has_mx": true,
+    "mx": [
+      "masseto-com.mail.protection.outlook.com"
+    ]
+  },
+  "campoviejo.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "vivaipaternoster.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vivaibarbida.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "casaledelgiglio.it": {
+    "has_mx": true,
+    "mx": [
+      "smtp-avas.seeweb.it",
+      "mail-b.casaledelgiglio.it"
+    ]
+  },
+  "salvatori.it": {
+    "has_mx": true,
+    "mx": [
+      "salvatori-it.mail.protection.outlook.com"
+    ]
+  },
+  "muttiparma.com": {
+    "has_mx": true,
+    "mx": [
+      "muttiparma.com"
+    ]
+  },
+  "tenutasangiovanni.it": {
+    "has_mx": true,
+    "mx": [
+      "mx.tenutasangiovanni.it"
+    ]
+  },
+  "cantinadelsorbo.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "carapelli.it": {
+    "has_mx": true,
+    "mx": [
+      "carapelli-it.mail.protection.outlook.com"
+    ]
+  },
+  "tenutadelletorri.it": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vivaipistoiesi.it": {
+    "has_mx": true,
+    "mx": [
+      "mail.comcentrica.it"
+    ]
+  },
+  "chateau-petrus.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-d-ysquem.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-pichon-baron.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-pontet-canet.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "domaine-dijon.fr": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-branaire-ducru.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-rieussec.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-cos-destournel.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-de-beaucastel.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chanson-pere-et-fils.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-d-esclans.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "domaine-du-vieux-telegraphe.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "pepinieres-darrivere.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-guiraud.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "fruits-et-legumes-france.fr": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "chateau-suduiraut.com": {
+    "has_mx": true,
+    "mx": [
+      "smtp.te-dns.net"
+    ]
+  },
+  "clos-des-papes.com": {
+    "has_mx": true,
+    "mx": [
+      "mxb.ovh.net",
+      "mx2.ovh.net"
+    ]
+  },
+  "vergers-de-france.fr": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "val-de-loire-vegetal.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "graham-port.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "pepinieres-vigneron.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx1.jimdo.com",
+      "mx2.jimdo.com"
+    ]
+  },
+  "bichot.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.mail.ovh.net",
+      "mx2.mail.ovh.net"
+    ]
+  },
+  "frutascabelludo.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vinhosdaponte.pt": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "stender.de": {
+    "has_mx": true,
+    "mx": [
+      "stender-de.mail.protection.outlook.com"
+    ]
+  },
+  "agroponiente.com": {
+    "has_mx": true,
+    "mx": [
+      "agroponiente-com.mail.protection.outlook.com"
+    ]
+  },
+  "warre.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "maximin-gruenhaus.de": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "valdespino.com": {
+    "has_mx": true,
+    "mx": [
+      "park-mx.above.com"
+    ]
+  },
+  "dow-port.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "weingut-diel.de": {
+    "has_mx": true,
+    "mx": [
+      "w0138283.kasserver.com"
+    ]
+  },
+  "donnhoff.com": {
+    "has_mx": true,
+    "mx": [
+      "smtpin.rzone.de"
+    ]
+  },
+  "weingut-haart.de": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "van-volxem.com": {
+    "has_mx": true,
+    "mx": [
+      "mxlb.ispgateway.de"
+    ]
+  },
+  "blandys.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "ramos-pinto.pt": {
+    "has_mx": true,
+    "mx": [
+      "mail-pt.securemail.pro"
+    ]
+  },
+  "sandeman.com": {
+    "has_mx": true,
+    "mx": [
+      "sandeman-com.mail.protection.outlook.com"
+    ]
+  },
+  "gaertnerei-poetschke.de": {
+    "has_mx": true,
+    "mx": [
+      "w02150f0.kasserver.com"
+    ]
+  },
+  "wieninger.at": {
+    "has_mx": true,
+    "mx": [
+      "mxlb.ispgateway.de"
+    ]
+  },
+  "argyrosestate.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "karthaeuserhof.com": {
+    "has_mx": true,
+    "mx": [
+      "mx03.hornetsecurity.com",
+      "mx01.hornetsecurity.com"
+    ]
+  },
+  "hirtzberger.at": {
+    "has_mx": true,
+    "mx": [
+      "mx1.a1.net",
+      "hirtzberger-at.mail.protection.outlook.com"
+    ]
+  },
+  "malat.at": {
+    "has_mx": true,
+    "mx": [
+      "mx1.a1.net"
+    ]
+  },
+  "stadlmann-wein.at": {
+    "has_mx": true,
+    "mx": [
+      "stadlmannwein-at02c.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-leoville-las-cases.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "szkolkaciepłucha.pl": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "jamek.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.jamek.at"
+    ]
+  },
+  "uster.at": {
+    "has_mx": true,
+    "mx": [
+      "uster-at.mail.protection.outlook.com"
+    ]
+  },
+  "zahel.at": {
+    "has_mx": true,
+    "mx": [
+      "zahel-at.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-angélus.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "ferreira.pt": {
+    "has_mx": true,
+    "mx": [
+      "n1.spambusters.email",
+      "a2.spambusters.email"
+    ]
+  },
+  "leberl.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.leberl.at"
+    ]
+  },
+  "glatzer.at": {
+    "has_mx": true,
+    "mx": [
+      "mx1.bon.at"
+    ]
+  },
+  "bura-mrgic.hr": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "plenkovic.hr": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vinexpreslav.bg": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "vinasimonovic.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "keltis.si": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "licorna.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "burja.eu": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "roxanich.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.roxanich.hr"
+    ]
+  },
+  "vilangi.sk": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "pasji-rep.si": {
+    "has_mx": true,
+    "mx": [
+      "pasji-rep.si.mcp.controlpanel.si"
+    ]
+  },
+  "sedlak-vinarstvi.cz": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "balla-geza.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "kurowscy.pl": {
+    "has_mx": true,
+    "mx": [
+      "kurowscy.pl"
+    ]
+  },
+  "vinarstvi-glos.cz": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "znovin.cz": {
+    "has_mx": true,
+    "mx": [
+      "kerio.znovin.cz"
+    ]
+  },
+  "matijevic.rs": {
+    "has_mx": true,
+    "mx": [
+      "matijevic.rs"
+    ]
+  },
+  "vinarijaspasic.com": {
+    "has_mx": true,
+    "mx": [
+      "vinarijaspasic.com"
+    ]
+  },
+  "rojas.si": {
+    "has_mx": true,
+    "mx": [
+      "localhost"
+    ]
+  },
+  "salabka.cz": {
+    "has_mx": true,
+    "mx": [
+      "kikimora.laddobar.cz"
+    ]
+  },
+  "erdevik.com": {
+    "has_mx": true,
+    "mx": [
+      "mailsec.protonmail.ch",
+      "mail.protonmail.ch"
+    ]
+  },
+  "vinarstvisykora.cz": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "kordus.pl": {
+    "has_mx": true,
+    "mx": [
+      "mail.kordus.pl"
+    ]
+  },
+  "vinohruska.cz": {
+    "has_mx": true,
+    "mx": [
+      "mailin2.vinohruska.cz",
+      "mailin1.vinohruska.cz"
+    ]
+  },
+  "vinarskydvur.cz": {
+    "has_mx": true,
+    "mx": [
+      "jaguar.blueboard.cz"
+    ]
+  },
+  "skrabal.cz": {
+    "has_mx": true,
+    "mx": [
+      "imail.ji.cz"
+    ]
+  },
+  "lastar.rs": {
+    "has_mx": true,
+    "mx": [
+      "mail.lastar.rs"
+    ]
+  },
+  "sigalas-estate.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "tajna.sk": {
+    "has_mx": true,
+    "mx": [
+      "posta.gc-system.cz"
+    ]
+  },
+  "domaine-leflaive.com": {
+    "has_mx": false,
+    "reason": "No MX records found"
+  },
+  "bodegastradicion.es": {
+    "has_mx": true,
+    "mx": [
+      "mail.bodegastradicion.es"
+    ]
+  },
+  "viveirosflorestais.pt": {
+    "has_mx": true,
+    "mx": [
+      "viveirosflorestais.pt"
+    ]
+  },
+  "domainemega-spileo.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "barafakaswinery.gr": {
+    "has_mx": true,
+    "mx": [
+      "barafakaswinery-gr.mail.protection.outlook.com"
+    ]
+  },
+  "pavlosestates.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gaia-wines.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "nicolazaridi.gr": {
+    "has_mx": true,
+    "mx": [
+      "nicolazaridi-gr.mail.protection.outlook.com"
+    ]
+  },
+  "thimiopoulosvineyards.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "toplou.com": {
+    "has_mx": true,
+    "mx": [
+      "toplou-com.mail.protection.outlook.com"
+    ]
+  },
+  "vaeni-naoussa.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.vaeni-naoussa.gr"
+    ]
+  },
+  "mitravelas.gr": {
+    "has_mx": true,
+    "mx": [
+      "_dc-mx.5ed19d1fa07c.mitravelas.gr"
+    ]
+  },
+  "fondaswinery.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "markouvineyards.gr": {
+    "has_mx": true,
+    "mx": [
+      "markouvineyards.gr"
+    ]
+  },
+  "moraitisestate.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "zfiraki.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kokotosestate.gr": {
+    "has_mx": true,
+    "mx": [
+      "dedi3255.your-server.de"
+    ]
+  },
+  "avantisestate.gr": {
+    "has_mx": true,
+    "mx": [
+      "avantisestate.gr"
+    ]
+  },
+  "chateau-nico-lazaridi.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "megaspileo.gr": {
+    "has_mx": true,
+    "mx": [
+      "megaspileo-gr.mail.protection.outlook.com"
+    ]
+  },
+  "ktima-gerovassiliou.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "ktima-biblia-chora.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "mylonaswinery.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "diamantakis.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "domaine-costa-lazaridi.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "olivetree-museum.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agronaftiki.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cramaocean.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agris.gr": {
+    "has_mx": true,
+    "mx": [
+      "agris-gr.mail.protection.outlook.com"
+    ]
+  },
+  "dalmarawinery.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cramele-recas.ro": {
+    "has_mx": true,
+    "mx": [
+      "_dc-mx.744436aa3e7a.cramele-recas.ro"
+    ]
+  },
+  "fytoriakostakis.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rotemberg.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "domeniile-sahateni.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "fyto-agora.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cramadepiatră.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "domeniile-tohani.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "budureasca.ro": {
+    "has_mx": true,
+    "mx": [
+      "_dc-mx.0684436a6c87.budureasca.ro",
+      "budureasca-ro.mail.protection.outlook.com"
+    ]
+  },
+  "geoponiki.gr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com"
+    ]
+  },
+  "fytotechniki.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cretan-oliveoil.gr": {
+    "has_mx": true,
+    "mx": [
+      "mail.cretan-oliveoil.gr"
+    ]
+  },
+  "cramavelvet.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agroland.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "senatorwine.ro": {
+    "has_mx": true,
+    "mx": [
+      "spamguard1.mxserver.ro",
+      "spamguard2.mxserver.ro"
+    ]
+  },
+  "agro-est.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cramadelamare.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "pomiculturasud.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "serena.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.serena.ro"
+    ]
+  },
+  "pepinierapomicola.ro": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "koroneikes.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "domainedebrossa.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "levent.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "chateauburgozone.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rusewinery.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "yakovtsi.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "chateau-burgozone.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinaroboti.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "fitofarmacia.ro": {
+    "has_mx": true,
+    "mx": [
+      "mx03.whmpanels.com",
+      "mx01.whmpanels.com"
+    ]
+  },
+  "tohani.com": {
+    "has_mx": true,
+    "mx": [
+      "mx001.register.xion.oxcs.net",
+      "mx002.register.xion.oxcs.net"
+    ]
+  },
+  "cramabauer.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.cramabauer.ro"
+    ]
+  },
+  "pavlidis.com": {
+    "has_mx": true,
+    "mx": [
+      "park-mx.above.com"
+    ]
+  },
+  "vinprom-peshtera.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "orbeluswinery.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "strumawinery.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agropol.ro": {
+    "has_mx": true,
+    "mx": [
+      "mail.agropol.ro"
+    ]
+  },
+  "vinprom-yambol.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "bononiaestate.com": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "zinoviy.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rupel.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sintica.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "villayambol.com": {
+    "has_mx": true,
+    "mx": [
+      "mail2.vp-brands.com",
+      "mail.vp-brands.com"
+    ]
+  },
+  "fourfriends.bg": {
+    "has_mx": true,
+    "mx": [
+      "spamexpert01.host.bg",
+      "spamexpert02.host.bg"
+    ]
+  },
+  "sisanovo.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-milas.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rozovomaslo.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agrochim.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sisanowinery.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "bulgarianherbs.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "viile-metamorfosis.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "lozina.bg": {
+    "has_mx": true,
+    "mx": [
+      "lozina.bg"
+    ]
+  },
+  "minkovbrothers.com": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "degara-vina.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gerzinic.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "pilato-vina.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-fakin.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "titagro.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-damjanic.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "masvin.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-korta.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinprom-karnobat.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-simunovic.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-kabola.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rossi-vina.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "aureliavisinescu.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2.btstelecom.ro",
+      "mx1.btstelecom.ro"
+    ]
+  },
+  "vinarija-frankovic.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "bura-vino.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "grgic-vina.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "ipsha.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "klaudio-ipsha.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "razsadnikelit.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "plantextrakt.ro": {
+    "has_mx": true,
+    "mx": [
+      "mx-66672443.mail.eu.retarus.com"
+    ]
+  },
+  "razsadnik-plovdiv.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "korta-katarina.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "oploplant.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "scurek-vina.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-moric.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-jakoncic.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-lisjak.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-kristancic.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rasadnik-kastela.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "skolka-zadar.hr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "baredine.com": {
+    "has_mx": true,
+    "mx": [
+      "baredine-com.mail.protection.outlook.com"
+    ]
+  },
+  "vina-colja.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-batic.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-cebron.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-scurek.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agri-c.bg": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "milos.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.milos.hr"
+    ]
+  },
+  "posestvo-burja.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-slapshak.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-istrenic.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-kobenter.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "korenika-moskon.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-stoka.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-rodica.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agromehanika.hr": {
+    "has_mx": true,
+    "mx": [
+      "agromehanika.hr"
+    ]
+  },
+  "rizman.com.hr": {
+    "has_mx": true,
+    "mx": [
+      "rizman.com.hr"
+    ]
+  },
+  "costalazaridi.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sadjarstvo-vipava.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-santomas.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "drevesnica-studenec.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-steras.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-korenika.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-brija.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-center.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kmetija-malensek.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-bordon.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "cedrus.hr": {
+    "has_mx": true,
+    "mx": [
+      "mail.cedrus.hr"
+    ]
+  },
+  "vinarstvo-tajna.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kmetija-novak.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sadjarstvo-maribor.si": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vina-zigante.hr": {
+    "has_mx": true,
+    "mx": [
+      "vina-zigante.hr"
+    ]
+  },
+  "kmetijski-zavod.si": {
+    "has_mx": true,
+    "mx": [
+      "kmetijskizavod-si02c.mail.protection.outlook.com"
+    ]
+  },
+  "tajna-vina.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-dubovsky.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-dano.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "dubovsky-grancic.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-chateau-modra.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-trnovsky.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sady-ovocie.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-bognar.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-rariga.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-velke-er.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-rizman.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "ovocinarskesady.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "zahradnictvo-sad.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-zelovoc.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "saints-hills.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinohradnictvo-pavelka.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "chateau-modra.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vino-nitra.sk": {
+    "has_mx": true,
+    "mx": [
+      "mx2.hostcreators.sk",
+      "mx1.hostcreators.sk"
+    ]
+  },
+  "vinarstvo-simak.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "bognar-vino.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-zeliska.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-chichateau.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvo-hrvatic.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-bikicki.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-mackov-podrum.co.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-quis.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rariga.sk": {
+    "has_mx": true,
+    "mx": [
+      "mailin2.rariga.sk",
+      "mailin1.rariga.sk"
+    ]
+  },
+  "vinarija-botic.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-plavinci.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "plantex-skolka.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-jagodinska.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-tarpos.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinanza.sk": {
+    "has_mx": true,
+    "mx": [
+      "srv.dufrex.sk"
+    ]
+  },
+  "vinarija-erdevik.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "zamockevinarstvo.sk": {
+    "has_mx": true,
+    "mx": [
+      "mail.zamokpezinok.sk",
+      "mail2.zamokpezinok.sk"
+    ]
+  },
+  "vinarija-despotika.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "zeleny-domov.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "stromceky-sady.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-amador.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-ivancic.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-patkov-vinograd.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sadnice-vocaka.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-spasic.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vocnjaci-cacak.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-nover.sk": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-djordjevic.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rasadnik-lepo-polje.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarija-stemina.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "rasadnik-antic.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-ekonomik.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agromarket-srbija.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-fokus.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "mackovpodrum.co.rs": {
+    "has_mx": true,
+    "mx": [
+      "mail.mackovpodrum.co.rs"
+    ]
+  },
+  "bikicki.rs": {
+    "has_mx": true,
+    "mx": [
+      "mailcluster.loopia.se",
+      "mail2.loopia.se"
+    ]
+  },
+  "despotika.rs": {
+    "has_mx": true,
+    "mx": [
+      "despotika.rs"
+    ]
+  },
+  "vinarija-budimir.rs": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "disznoko-tokaj.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "grof-degenfeld.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "bock-boraszat.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gunzer-tamas.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "hegyi-kalo.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gere-villany.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "fitofarmacija.rs": {
+    "has_mx": true,
+    "mx": [
+      "smtp.fitofarmacija.rs"
+    ]
+  },
+  "sauska-tokaj.com": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szepsy.hu": {
+    "has_mx": true,
+    "mx": [
+      "szepsy.loginssl.com"
+    ]
+  },
+  "georgiadiswines.gr": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kovacs-nimrod.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "malatinszky-kuria.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vylyan-pinceszet.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agrar-unio.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "tuja-faiskola.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "st-andrea.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-hungaria.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gyumolcs-kert.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "faiskola-hungaria.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kristinus.hu": {
+    "has_mx": true,
+    "mx": [
+      "mx02.hornetsecurity.com",
+      "mx03.hornetsecurity.com"
+    ]
+  },
+  "holdvolgy.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.dentsu.hu"
+    ]
+  },
+  "bolyki.hu": {
+    "has_mx": true,
+    "mx": [
+      "mxavas.forpsi.com"
+    ]
+  },
+  "kite-mezogazdasag.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "tibor-gal.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "gilvesy.hu": {
+    "has_mx": true,
+    "mx": [
+      "gilvesy-hu.mail.protection.outlook.com"
+    ]
+  },
+  "barta-pince.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-srebrnagora.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-kresy.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "almaplant.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-adsoria.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-jaworek.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "badacsony-bor.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-dworzno.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-kurowscy.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-drzew-kordus.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-de-lourse.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "kert-szovetseg.hu": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-chodorowa.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-sonberk.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-bielicze.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-golesz.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-valihrach.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-marczynski.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-cieplucha.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-mikrosvini.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-sedlak.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sady-lubelskie.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sadowniczy-raj.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-modla.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-galant.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-silesian.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-reisten.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-jarmark.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "sady-grojeckie.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-volarik.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "skolky-litomysl.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "plantpress.pl": {
+    "has_mx": true,
+    "mx": [
+      "plantpress-pl.mail.protection.outlook.com"
+    ]
+  },
+  "vinarstvi-madl.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-krasna-hora.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "skolka-stromecky.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-u-kaplicky.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "winnica-lochow.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-gotberg.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "szkolka-roze.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-pieler.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "ceske-sady.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "agro-morava.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "grupa-sadownicza.pl": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "vinarstvi-thaya.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "thaya.cz": {
+    "has_mx": true,
+    "mx": [
+      "mail.endora.cz"
+    ]
+  },
+  "gotberg.cz": {
+    "has_mx": true,
+    "mx": [
+      "gotberg-cz.mail.protection.outlook.com"
+    ]
+  },
+  "vinarstvi-stapleton.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "zahradnictvi-morava.cz": {
+    "has_mx": true,
+    "mx": [
+      "p.banan.cz"
+    ]
+  },
+  "ovocna-skolka.cz": {
+    "has_mx": true,
+    "mx": [
+      "mailin2.ovocna-skolka.cz",
+      "mailin1.ovocna-skolka.cz"
+    ]
+  },
+  "volarik.cz": {
+    "has_mx": false,
+    "reason": "No MX"
+  },
+  "konyari.hu": {
+    "has_mx": true,
+    "mx": [
+      "konyari.hu"
+    ]
+  },
+  "chateau-minuty.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-minuty.com не існує або не має поштових записів"
+  },
+  "weingut-zilliken.de": {
+    "has_mx": true,
+    "mx": [
+      "mx3.agenturserver.de",
+      "mx4.agenturserver.de"
+    ]
+  },
+  "quintadascarvalhas.pt": {
+    "has_mx": true,
+    "mx": [
+      "prtcs2.hashtag.pt"
+    ]
+  },
+  "chateau-miraval.com": {
+    "has_mx": false,
+    "reason": "Домен chateau-miraval.com не існує або не має поштових записів"
+  },
+  "agricolalavega.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "weingut-heger.de": {
+    "has_mx": true,
+    "mx": [
+      "mx156.hostedmxserver.com"
+    ]
+  },
+  "santamargherita.com": {
+    "has_mx": true,
+    "mx": [
+      "alt3.aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "erdbeerhof-glantz.de": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.de",
+      "mx00.ionos.de"
+    ]
+  },
+  "bodegasproelio.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasproelio-com.mail.protection.outlook.com"
+    ]
+  },
+  "mezzacorona.it": {
+    "has_mx": true,
+    "mx": [
+      "mezzacorona-it.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-grand-puy-lacoste.com": {
+    "has_mx": true,
+    "mx": [
+      "redirect.ovh.net"
     ]
   }
 }

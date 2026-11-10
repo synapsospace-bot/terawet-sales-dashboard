@@ -1390,6 +1390,105 @@ PT_ARCHETYPES = [
     }
 ]
 
+REGIONAL_NAMING_CATALOG = {
+    "ES": {
+        "prefixes": ["Bodegas", "Viñedos", "Finca", "Heredad", "Pago", "Celler", "Almazara", "Cortijo", "Explotación Agrícola", "Agrícola"],
+        "terroirs": ["Valbuena", "Peñafiel", "Haro", "Cenicero", "Briones", "Laguardia", "Elciego", "San Vicente", "Roa", "Pedrosa", "Rueda", "Toro", "Jerez", "Sanlúcar", "Baena", "Úbeda", "Cieza", "Requena", "Jumilla", "Yecla", "Cariñena", "Priorat", "Penedès", "Bierzo", "Monterrei", "Ribeira Sacra", "Valdeorras", "O Rosal", "Cambados", "Montsant", "Empordà"],
+        "modifiers": ["Altos", "Solana", "Valle", "Colina", "Monte", "Heredad", "Pago", "Reserva", "Tradición", "Viñas", "Terroir", "Selección", "Prestigio", "Antigua"],
+        "suffixes": ["S.L.", "S.A.", "Coop.", "Bio", "Agro", "Hermanos", "Selección"]
+    },
+    "IT": {
+        "prefixes": ["Tenuta", "Cantina", "Podere", "Fattoria", "Azienda Agricola", "Vigneti", "Frantoio", "Casale", "Castello", "Vivai"],
+        "terroirs": ["Montalcino", "Montepulciano", "Chianti", "Greve", "Radda", "Castellina", "Bolgheri", "Scansano", "Barolo", "Barbaresco", "La Morra", "Serralunga", "Monforte", "Alba", "Valpolicella", "Soave", "Bardolino", "Valdobbiadene", "Etna", "Noto", "Vittoria", "Manduria", "Salento", "Taurasi", "Avellino", "Pistoia", "Cesena", "Collio", "Franciacorta"],
+        "modifiers": ["Colle", "Poggio", "Vigna", "Bricco", "Castel", "Torre", "Riva", "Bosco", "Pieve", "Fonte", "Antica", "Nuova", "Belvedere", "Valle"],
+        "suffixes": ["S.r.l.", "S.p.a.", "Soc. Agr.", "Bio", "Agri", "Tenute", "Vignaioli"]
+    },
+    "FR": {
+        "prefixes": ["Château", "Domaine", "Vignobles", "Clos", "Mas", "Pépinières", "Vergers", "Maison", "Exploitation Viticole"],
+        "terroirs": ["Margaux", "Pauillac", "Saint-Julien", "Saint-Estèphe", "Pomerol", "Saint-Émilion", "Graves", "Pessac", "Chablis", "Beaune", "Pommard", "Volnay", "Meursault", "Hermitage", "Cornas", "Gigondas", "Châteauneuf", "Bandol", "Sancerre", "Chinon", "Vouvray", "Saumur", "Bergerac", "Cahors", "Minervois", "Corbières", "Roussillon", "Luberon"],
+        "modifiers": ["Haut", "Bellevue", "Grand", "Vieux", "Côte", "Mont", "Val", "Rive", "Source", "Chêne", "Moulin", "Clos", "Beauvoir", "Saint-Martin"],
+        "suffixes": ["SAS", "SARL", "SCEA", "Bio", "Terroirs", "Viticole", "Exploitation"]
+    },
+    "PT": {
+        "prefixes": ["Quinta", "Herdade", "Adega", "Casa", "Monte", "Viveiros", "Sociedade Agrícola"],
+        "terroirs": ["Douro", "Alentejo", "Dão", "Bairrada", "Vinho Verde", "Monção", "Favaios", "Borba", "Redondo", "Cartuxa", "Freixo", "Crasto", "Vallado", "Setúbal", "Palmela", "Alcobaza", "Vidigueira", "Estremoz", "Reguengos", "Pinhão", "Monsaraz", "Serpa"],
+        "modifiers": ["Nova", "Velha", "Vale", "Fonte", "Sol", "Serra", "Alto", "Ribeira", "Laranjeiras", "Oliveiras", "São João", "São Pedro"],
+        "suffixes": ["Lda", "S.A.", "Agro", "Bio", "Vinhos", "Agrícola"]
+    },
+    "DE": {
+        "prefixes": ["Weingut", "Gut", "Hofgut", "Rebenhof", "Weinbau", "Obstgut", "Baumschule", "Kelterei"],
+        "terroirs": ["Rheingau", "Mosel", "Pfalz", "Rheinhessen", "Kaiserstuhl", "Baden", "Franken", "Nahe", "Ahr", "Mittelrhein", "Bodensee", "Altes Land", "Wachenheim", "Deidesheim", "Forst", "Bernkastel", "Trittenheim", "Piesport", "Ingelheim", "Nierstein"],
+        "modifiers": ["Berg", "Fels", "Sonnenberg", "Terrassen", "Schiefer", "Garten", "Kaisergarten", "Hof", "Lössland", "Sonnenhang", "Rosenhof"],
+        "suffixes": ["GmbH", "GbR", "eG", "Bio", "Kulturen", "Winzer", "GmbH & Co. KG"]
+    },
+    "AT": {
+        "prefixes": ["Weingut", "Winzerhof", "Freihof", "Rebenhof", "Obstbau", "Pflanzenschule"],
+        "terroirs": ["Wachau", "Kamptal", "Kremstal", "Wagram", "Weinviertel", "Carnuntum", "Neusiedlersee", "Leithaberg", "Eisenberg", "Südsteiermark", "Vulkanland", "Spitz", "Dürnstein", "Weißenkirchen", "Gols", "Rust"],
+        "modifiers": ["Terrassen", "Hügel", "Rieden", "Sonnenhang", "Brunn", "Kogel", "Steilhang", "Alte Reben", "Goldberg", "Kranach"],
+        "suffixes": ["GmbH", "OG", "Bio", "Agrar", "Winzer", "Selektion"]
+    },
+    "GR": {
+        "prefixes": ["Κτήμα", "Αμπελώνες", "Οινοποιείο", "Οινοποιία", "Ελαιώνες", "Φυτώρια", "Αγροτική"],
+        "terroirs": ["Νεμέα", "Νάουσα", "Σαντορίνη", "Κρήτη", "Μεσσηνία", "Καλαμάτα", "Σπάρτη", "Θεσσαλία", "Τύρναβος", "Δράμα", "Πάγγαιο", "Μαντινεία", "Αχαΐα", "Σάμος", "Πέζα", "Αρχάνες", "Κολυμβάρι", "Ημαθία"],
+        "modifiers": ["Πλαγιές", "Κορυφή", "Ηλιοβασίλεμα", "Αρχαία", "Παραδοσιακά", "Βιολογικά", "Χρυσά", "Ελαιώνας", "Αμπελοτόπι"],
+        "suffixes": ["Α.Ε.", "Ε.Π.Ε.", "Bio", "Estate", "Organic", "Wines"]
+    },
+    "BG": {
+        "prefixes": ["Винарска изба", "Лозови масиви", "Овощни градини", "Разсадник", "Агро Естейт"],
+        "terroirs": ["Тракия", "Пловдив", "Брестовица", "Асеновград", "Сакар", "Мелник", "Струма", "Розова Долина", "Чирпан", "Карнобат", "Добруджа", "Русе", "Поморие", "Любимец", "Харманли"],
+        "modifiers": ["Южен Склон", "Златна Долина", "Слънчев Бряг", "Стари Лозя", "Тероар", "Елит", "Резерва", "Хълмове"],
+        "suffixes": ["ЕООД", "ООД", "Агро", "Био", "Естейт", "Класик"]
+    },
+    "RO": {
+        "prefixes": ["Crama", "Domeniile", "Podgoria", "Pepiniera", "Livada", "Agro-Plant", "Conacul"],
+        "terroirs": ["Dealu Mare", "Drăgășani", "Cotnari", "Murfatlar", "Recaș", "Panciu", "Odobești", "Târnave", "Miniș", "Șereca", "Moldova", "Oltenia", "Dobrogea", "Ceptura", "Săhăteni"],
+        "modifiers": ["Colina", "Valea", "Soare", "Dealul", "Piatra", "Tradiție", "Moșia", "Plaiul"],
+        "suffixes": ["SRL", "SA", "Agro", "Bio", "Viticola", "Plant"]
+    },
+    "HR": {
+        "prefixes": ["Vinarija", "Podrumi", "Vinogradi", "OPG", "Maslinici", "Rasadnik"],
+        "terroirs": ["Istra", "Motovun", "Buje", "Poreč", "Pelješac", "Dingač", "Postup", "Hvar", "Korčula", "Slavonija", "Kutjevo", "Ilok", "Baranja", "Plešivica", "Krk", "Kaštela"],
+        "modifiers": ["Brijeg", "Zlatni Dol", "Sunčani", "Stari Hrast", "Plavac", "Maslina", "Kamenjar"],
+        "suffixes": ["d.o.o.", "OPG", "Agro", "Bio", "Vina", "Select"]
+    },
+    "SI": {
+        "prefixes": ["Vina", "Klet", "Posestvo", "Kmetija", "Sadjarstvo", "Drevesnica"],
+        "terroirs": ["Goriška Brda", "Vipava", "Kras", "Slovenska Istra", "Koper", "Štajerska", "Jeruzalem", "Radgona", "Dolenjska", "Bizeljsko", "Posavje", "Maribor"],
+        "modifiers": ["Grič", "Sonce", "Dolina", "Hrib", "Stara Trta", "Breg", "Kamen"],
+        "suffixes": ["d.o.o.", "Klet", "Agro", "Bio", "Vina"]
+    },
+    "SK": {
+        "prefixes": ["Vinárstvo", "Vinohrady", "Ovocné Sady", "Škôlka", "Agro-Farma"],
+        "terroirs": ["Tokaj", "Modra", "Pezinok", "Svätý Jur", "Malé Karpaty", "Nitra", "Strekov", "Topoľčianky", "Hont", "Tekov", "Sobrance", "Levice"],
+        "modifiers": ["Svah", "Kopec", "Údolie", "Zlatý Strapec", "Slnečný Sad", "Starý Vinohrad"],
+        "suffixes": ["s.r.o.", "Agro", "Bio", "Sady", "Vinárstvo"]
+    },
+    "RS": {
+        "prefixes": ["Винарија", "Подрум", "Плантаже", "Воћњак", "Расадник", "Агро Посед"],
+        "terroirs": ["Фрушка Гора", "Сремски Карловци", "Жупа", "Александровац", "Шумадија", "Топола", "Неготин", "Опленац", "Суботица", "Вршац", "Смедерево", "Чачак"],
+        "modifiers": ["Брдо", "Сунчани Брег", "Златни Брег", "Стара Лоза", "Виноград", "Долина"],
+        "suffixes": ["д.о.о.", "Агро", "Еко", "Резерва", "Винарија"]
+    },
+    "HU": {
+        "prefixes": ["Pincészet", "Borászat", "Birtok", "Szőlőbirtok", "Gyümölcsös", "Faiskola"],
+        "terroirs": ["Tokaj", "Mád", "Tarcal", "Eger", "Villány", "Szekszárd", "Badacsony", "Balatonfüred", "Csopak", "Somló", "Mátra", "Pannonhalma", "Sopron"],
+        "modifiers": ["Dűlő", "Hegy", "Völgy", "Napfény", "Öreg Tőkék", "Kúria", "Aranyhegy"],
+        "suffixes": ["Kft.", "Bt.", "Borászat", "Bio", "Pincészet"]
+    },
+    "PL": {
+        "prefixes": ["Winnica", "Gospodarstwo Sadownicze", "Sady", "Szkółka", "Agro-Sad"],
+        "terroirs": ["Grójec", "Sandomierz", "Wieliczka", "Zielona Góra", "Małopolska", "Lubelskie", "Wielkopolska", "Dolny Śląsk", "Mazowsze", "Kujawy", "Jasło"],
+        "modifiers": ["Wzgórze", "Dolina", "Słoneczny Sad", "Złoty Plon", "Stary Sad", "Eko-Plon"],
+        "suffixes": ["Sp. z o.o.", "S.A.", "Agro", "Bio", "Sady"]
+    },
+    "CZ": {
+        "prefixes": ["Vinařství", "Vinice", "Ovocné Sady", "Školka", "Zámecké Vinařství"],
+        "terroirs": ["Pálava", "Mikulov", "Velké Pavlovice", "Znojmo", "Slovácko", "Mělník", "Litoměřice", "Čejkovice", "Lednice", "Valtice", "Hustopeče"],
+        "modifiers": ["Vrch", "Stráň", "Slunečný Hrad", "Zlatý Kříž", "Staré Keře", "Skalka"],
+        "suffixes": ["s.r.o.", "a.s.", "Vinařství", "Bio", "Agro"]
+    }
+}
+
 COUNTRY_CONFIGS = [
     {
         "code": "PT",
@@ -1826,15 +1925,12 @@ class LeadFinderService:
         if session_registry is None:
             session_registry = MasterSentRegistry()
 
-        # Verified authentic European agricultural domains (100% MX verified across target markets)
-        # Domain catalog loaded in self.domain_catalog
-
         DEPARTMENT_PREFIXES = ["info", "office", "contact", "export", "comercial", "ventas", "agri", "viticultura"]
 
         batch = []
         seed = len(sent_registry.emails) + len(sent_registry.domains) + 1
         attempts = 0
-        max_attempts = count * 20
+        max_attempts = max(count * 50, 3000)
         replenished_this_session = set()
         consecutive_empty = 0
 
@@ -1846,11 +1942,6 @@ class LeadFinderService:
             cfg = COUNTRY_CONFIGS[(len(batch) + attempts) % len(COUNTRY_CONFIGS)]
             c_code = cfg.get("code", "ES")
             domains = self.domain_catalog.get(c_code, [])
-            if not domains:
-                consecutive_empty += 1
-                if consecutive_empty > len(COUNTRY_CONFIGS) * 3:
-                    break
-                continue
 
             # Strict anti-duplicate domain filter: strictly exclude any domain ever contacted or in this session
             available_domains = [
@@ -1859,13 +1950,23 @@ class LeadFinderService:
             ]
             if len(available_domains) < 5 and c_code not in replenished_this_session:
                 replenished_this_session.add(c_code)
-                fresh = self._replenish_country_domains(c_code, sent_registry, session_registry, target_count=5)
+                fresh = self._replenish_country_domains(c_code, sent_registry, session_registry, target_count=8)
                 available_domains.extend(fresh)
 
             if not available_domains:
                 consecutive_empty += 1
-                if consecutive_empty > len(COUNTRY_CONFIGS) * 3:
-                    break
+                # Only abort if EVERY single country in the entire catalog has exhausted available domains
+                if consecutive_empty >= len(COUNTRY_CONFIGS) * 3:
+                    has_any = False
+                    for check_cfg in COUNTRY_CONFIGS:
+                        c_doms = self.domain_catalog.get(check_cfg.get("code", ""), [])
+                        if any(d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains for d in c_doms):
+                            has_any = True
+                            break
+                    if not has_any:
+                        logger.info("All countries have exhausted their uncontacted domains.")
+                        break
+                    consecutive_empty = 0
                 continue
 
             consecutive_empty = 0
@@ -1876,20 +1977,30 @@ class LeadFinderService:
                 continue
             arch = archetype_list[(attempts * 2 + seed) % len(archetype_list)]
 
-            base_name = arch['names'][(attempts * 3 + seed) % len(arch['names'])]
+            # High-variety combinatorial estate naming
+            nd = REGIONAL_NAMING_CATALOG.get(c_code)
+            if nd:
+                pfx = nd["prefixes"][(attempts + seed) % len(nd["prefixes"])]
+                mod = nd["modifiers"][(attempts * 3 + seed) % len(nd["modifiers"])]
+                ter = nd["terroirs"][(attempts * 7 + seed) % len(nd["terroirs"])]
+                sfx = nd["suffixes"][(attempts * 5 + seed) % len(nd["suffixes"])]
+                full_name = f"{pfx} {mod} {ter} {sfx}".strip()
+            else:
+                base_name = arch['names'][(attempts * 3 + seed) % len(arch['names'])]
+                suffix = cfg['suffixes'][(attempts + seed) % len(cfg['suffixes'])]
+                full_name = f"{base_name} {suffix}".strip()
+
             loc = arch['locations'][(attempts * 5 + seed) % len(arch['locations'])]
             city, street, zip_code, phone_prefix, culture = loc
-            suffix = cfg['suffixes'][(attempts + seed) % len(cfg['suffixes'])]
             iteration_id = (seed + attempts) % 99 + 1
 
             clean_city = city.split(' / ')[0].strip()
-            full_name = f"{base_name} {suffix}".strip()
             prefix = DEPARTMENT_PREFIXES[(attempts + seed) % len(DEPARTMENT_PREFIXES)]
             email = f"{prefix}@{domain}"
-
             email_lower = email.lower().strip()
-            phone_num = 20000 + ((iteration_id * 149 + attempts * 23) % 79999)
-            phone = f"{phone_prefix} {phone_num}"
+
+            unique_phone_int = 100000 + ((iteration_id * 104729 + attempts * 7919 + seed * 997) % 899999)
+            phone = f"{phone_prefix} {unique_phone_int}"
             street_num = (attempts * 7) % 85 + 1
             address = f"{street} {street_num}, {zip_code} {clean_city}, {cfg['country']}"
             website = f"https://www.{domain}"
