@@ -2104,8 +2104,8 @@ class DashboardHandler(BaseHTTPRequestHandler):
         logger.info(f"{self.client_address[0]} - {msg}")
 
 def _daily_lead_search_scheduler():
-    """Background scheduler that automatically searches 20-30 leads every day at 09:00 AM Kyiv time."""
-    logger.info("Daily lead search scheduler initialized (runs automatically every morning at 09:00 AM Kyiv time).")
+    """Background scheduler that automatically searches 50 fresh leads every day at 08:30 AM Kyiv time."""
+    logger.info("Daily lead search scheduler initialized (runs automatically every morning at 08:30 AM Kyiv time).")
 
     while True:
         try:
@@ -2113,13 +2113,13 @@ def _daily_lead_search_scheduler():
             today_str = now.strftime("%Y-%m-%d")
             last_run_date = DashboardHandler.data_service.state.get("last_search_date", "")
 
-            # Trigger if it's 9:00 AM or later Kyiv time and hasn't run today yet
-            if now.hour >= 9 and last_run_date != today_str:
-                logger.info(f"⏰ [09:00 AM KYIV TRIGGER] Running daily automated lead search (50 leads) for {today_str}...")
+            # Trigger if it's 08:30 AM or later Kyiv time and hasn't run today yet
+            if (now.hour > 8 or (now.hour == 8 and now.minute >= 30)) and last_run_date != today_str:
+                logger.info(f"⏰ [08:30 AM KYIV TRIGGER] Running daily automated lead search (50 leads) for {today_str}...")
                 with DashboardHandler.search_controller.lock:
                     DashboardHandler.search_controller.is_running = True
                     DashboardHandler.search_controller.last_status = "running"
-                    DashboardHandler.search_controller.message = f"Автоматичний ранковий пошук 50 нових лідів (09:00)..."
+                    DashboardHandler.search_controller.message = f"Автоматичний ранковий пошук 50 нових лідів (08:30)..."
                     DashboardHandler.search_controller.target_count = 50
 
                 imported = 0
@@ -2148,7 +2148,7 @@ def _daily_lead_search_scheduler():
                     from telegram_notifier import telegram_notifier
                     total_all = len(DashboardHandler.data_service.get_all_leads())
                     telegram_notifier.send_alert(
-                        "РАНКОВИЙ ПОШУК ЛІДІВ (09:00 КИЇВ)",
+                        "РАНКОВИЙ ПОШУК ЛІДІВ (08:30 КИЇВ)",
                         f"🔍 <b>Щоденний автоматичний пошук 50 нових лідів виконано!</b>\n\n"
                         f"📥 <b>Нових верифікованих лідів додано:</b> {imported}\n"
                         f"🛡️ <b>Контроль дублів:</b> 100% захист (перевірено за доменами, телефонами, брендами та DNS MX).\n"

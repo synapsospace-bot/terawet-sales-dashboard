@@ -1939,7 +1939,33 @@ class LeadFinderService:
                 break
 
             attempts += 1
-            cfg = COUNTRY_CONFIGS[(len(batch) + attempts) % len(COUNTRY_CONFIGS)]
+
+            # Only select from countries that currently have available uncontacted domains
+            eligible_cfgs = [
+                c for c in COUNTRY_CONFIGS
+                if any(
+                    d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains
+                    for d in self.domain_catalog.get(c.get("code", ""), [])
+                )
+            ]
+
+            if not eligible_cfgs:
+                # If all catalog domains exhausted across all countries, dynamically replenish
+                replenished_any = False
+                for r_cfg in COUNTRY_CONFIGS:
+                    r_code = r_cfg.get("code", "")
+                    if r_code not in replenished_this_session and r_code in REPLENISHMENT_PATTERNS:
+                        replenished_this_session.add(r_code)
+                        fresh = self._replenish_country_domains(r_code, sent_registry, session_registry, target_count=8)
+                        if fresh:
+                            replenished_any = True
+                            eligible_cfgs.append(r_cfg)
+                            break
+                if not replenished_any:
+                    logger.info("All countries have exhausted their uncontacted domains.")
+                    break
+
+            cfg = eligible_cfgs[(len(batch) + attempts) % len(eligible_cfgs)]
             c_code = cfg.get("code", "ES")
             domains = self.domain_catalog.get(c_code, [])
 
@@ -1948,28 +1974,9 @@ class LeadFinderService:
                 d.lower().strip() for d in domains 
                 if d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains
             ]
-            if len(available_domains) < 5 and c_code not in replenished_this_session:
-                replenished_this_session.add(c_code)
-                fresh = self._replenish_country_domains(c_code, sent_registry, session_registry, target_count=8)
-                available_domains.extend(fresh)
 
             if not available_domains:
-                consecutive_empty += 1
-                # Only abort if EVERY single country in the entire catalog has exhausted available domains
-                if consecutive_empty >= len(COUNTRY_CONFIGS) * 3:
-                    has_any = False
-                    for check_cfg in COUNTRY_CONFIGS:
-                        c_doms = self.domain_catalog.get(check_cfg.get("code", ""), [])
-                        if any(d.lower().strip() not in sent_registry.domains and d.lower().strip() not in session_registry.domains for d in c_doms):
-                            has_any = True
-                            break
-                    if not has_any:
-                        logger.info("All countries have exhausted their uncontacted domains.")
-                        break
-                    consecutive_empty = 0
                 continue
-
-            consecutive_empty = 0
 
             domain = available_domains[(attempts + seed) % len(available_domains)]
             archetype_list = cfg.get("archetypes", [])

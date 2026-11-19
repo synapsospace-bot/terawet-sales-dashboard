@@ -6668,5 +6668,370 @@
     "mx": [
       "redirect.ovh.net"
     ]
+  },
+  "bio-drama.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.dondominio.com"
+    ]
+  },
+  "radgonske-gorice.si": {
+    "has_mx": true,
+    "mx": [
+      "rg-mail.radgonske-gorice.si"
+    ]
+  },
+  "coop-agricole.fr": {
+    "has_mx": true,
+    "mx": [
+      "smtp3.reseller-lti.com"
+    ]
+  },
+  "chateau-d-armailhac.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.chateau-d-armailhac.com"
+    ]
+  },
+  "weingut-st-antony.de": {
+    "has_mx": false,
+    "reason": "Домен weingut-st-antony.de не існує або не має поштових записів"
+  },
+  "bodegasnodus.com": {
+    "has_mx": true,
+    "mx": [
+      "bodegasnodus-com.mail.protection.outlook.com"
+    ]
+  },
+  "bodegasmontecillo.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.nominalia.com"
+    ]
+  },
+  "juliusspital.de": {
+    "has_mx": true,
+    "mx": [
+      "mail.juliusspital.de"
+    ]
+  },
+  "parparoussis.com": {
+    "has_mx": true,
+    "mx": [
+      "mail2.parparoussis.com",
+      "mail.parparoussis.com"
+    ]
+  },
+  "vupik.hr": {
+    "has_mx": true,
+    "mx": [
+      "vupik-hr.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-mercier.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.chateau-mercier.com"
+    ]
+  },
+  "chateau-margaux.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx2.ovh.net",
+      "mx1.ovh.net"
+    ]
+  },
+  "viverosjimenez.es": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "terraparna.sk": {
+    "has_mx": true,
+    "mx": [
+      "mailin1.terraparna.sk",
+      "mailin2.terraparna.sk"
+    ]
+  },
+  "chatzivaritis.gr": {
+    "has_mx": true,
+    "mx": [
+      "chatzivaritis-gr.mail.protection.outlook.com"
+    ]
+  },
+  "vinakras.si": {
+    "has_mx": true,
+    "mx": [
+      "mailhub.siol.net"
+    ]
+  },
+  "baumschule-hartmann.de": {
+    "has_mx": true,
+    "mx": [
+      "mail038.webhosting.manitu.net"
+    ]
+  },
+  "cartuxa.pt": {
+    "has_mx": true,
+    "mx": [
+      "mail.cartuxa.pt",
+      "mail2.cartuxa.pt"
+    ]
+  },
+  "vinarstvoruban.sk": {
+    "has_mx": true,
+    "mx": [
+      "mailin.mx-hub.eu",
+      "mailin.mx-hub.sk"
+    ]
+  },
+  "gerzinic.com": {
+    "has_mx": true,
+    "mx": [
+      "sm3.mojsite.com"
+    ]
+  },
+  "offley.pt": {
+    "has_mx": true,
+    "mx": [
+      "offley-pt.mail.protection.outlook.com"
+    ]
+  },
+  "farchioni1780.com": {
+    "has_mx": true,
+    "mx": [
+      "farchioni1780-com.mail.protection.outlook.com"
+    ]
+  },
+  "agrothraki.gr": {
+    "has_mx": true,
+    "mx": [
+      "agrothraki.gr"
+    ]
+  },
+  "inrae.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx1.relay.renater.fr",
+      "mx2.relay.renater.fr"
+    ]
+  },
+  "agroserres.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.mail.ovh.net",
+      "mx3.mail.ovh.net"
+    ]
+  },
+  "cantinenicosia.it": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt2.aspmx.l.google.com"
+    ]
+  },
+  "pepinieres-renaud.fr": {
+    "has_mx": true,
+    "mx": [
+      "mx4.mail.ovh.net",
+      "mx3.mail.ovh.net"
+    ]
+  },
+  "bodegasrioja.com": {
+    "has_mx": true,
+    "mx": [
+      "ASPMX3.GOOGLEMAIL.com",
+      "ALT2.ASPMX.L.GOOGLE.com"
+    ]
+  },
+  "bujdoso.com": {
+    "has_mx": true,
+    "mx": [
+      "posta.mediacenter.hu",
+      "posta3.mediacenter.hu"
+    ]
+  },
+  "fincabravo.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.co.uk",
+      "mx00.ionos.co.uk"
+    ]
+  },
+  "sauska.com": {
+    "has_mx": true,
+    "mx": [
+      "mx2-us1.ppe-hosted.com",
+      "mx1-us1.ppe-hosted.com"
+    ]
+  },
+  "zilliken-vdp.de": {
+    "has_mx": true,
+    "mx": [
+      "zillikenvdp-de02b.mail.protection.outlook.com"
+    ]
+  },
+  "globalwines.pt": {
+    "has_mx": true,
+    "mx": [
+      "globalwines-pt.mail.protection.outlook.com"
+    ]
+  },
+  "vergers-ecoresponsables.fr": {
+    "has_mx": true,
+    "mx": [
+      "srv05.haisoft.net"
+    ]
+  },
+  "chateau-bernard.fr": {
+    "has_mx": true,
+    "mx": [
+      "chateaubernard-fr01i.mail.protection.outlook.com"
+    ]
+  },
+  "viverosmontes.es": {
+    "has_mx": true,
+    "mx": [
+      "smtp-02.servidoresdns.net"
+    ]
+  },
+  "obsthof-mueller.de": {
+    "has_mx": true,
+    "mx": [
+      "w01cc802.kasserver.com"
+    ]
+  },
+  "kellereibozen.com": {
+    "has_mx": true,
+    "mx": [
+      "kellereibozen-com.mail.protection.outlook.com"
+    ]
+  },
+  "weingutweber.de": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.de",
+      "mx00.ionos.de"
+    ]
+  },
+  "agromessinia.com": {
+    "has_mx": true,
+    "mx": [
+      "park-mx.above.com"
+    ]
+  },
+  "weingut-koller.at": {
+    "has_mx": true,
+    "mx": [
+      "mail.weingut-koller.at"
+    ]
+  },
+  "agrosava.com": {
+    "has_mx": true,
+    "mx": [
+      "mailgw.mts.rs"
+    ]
+  },
+  "euralis.fr": {
+    "has_mx": true,
+    "mx": [
+      "aspmx.l.google.com",
+      "alt1.aspmx.l.google.com"
+    ]
+  },
+  "weingut-klein.com": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.de",
+      "mx01.ionos.de"
+    ]
+  },
+  "adegaportalegre.pt": {
+    "has_mx": true,
+    "mx": [
+      "adegaportalegre-pt.mail.protection.outlook.com"
+    ]
+  },
+  "weingutebner.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.rolmail.net",
+      "mx2.rolmail.net"
+    ]
+  },
+  "damilano.com": {
+    "has_mx": true,
+    "mx": [
+      "damilano-com.mail.protection.outlook.com"
+    ]
+  },
+  "vinoscigales.es": {
+    "has_mx": true,
+    "mx": [
+      "mx00.ionos.es",
+      "mx01.ionos.es"
+    ]
+  },
+  "weingutschaeffer.de": {
+    "has_mx": true,
+    "mx": [
+      "w011fbba.kasserver.com"
+    ]
+  },
+  "mionetto.com": {
+    "has_mx": true,
+    "mx": [
+      "mionetto-com.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-saumur.com": {
+    "has_mx": true,
+    "mx": [
+      "mail-fr.securemail.pro"
+    ]
+  },
+  "viveroscastro.com": {
+    "has_mx": true,
+    "mx": [
+      "poolmx.dsmail.es",
+      "mta02.dsmail.es"
+    ]
+  },
+  "weingut-simon.de": {
+    "has_mx": true,
+    "mx": [
+      "smtpin.rzone.de"
+    ]
+  },
+  "baumschule-schroeder.com": {
+    "has_mx": true,
+    "mx": [
+      "mx01.ionos.de",
+      "mx00.ionos.de"
+    ]
+  },
+  "monte-da-ravasqueira.com": {
+    "has_mx": false,
+    "reason": "Домен monte-da-ravasqueira.com не існує або не має поштових записів"
+  },
+  "tenutagiordano.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.tenutagiordano.com"
+    ]
+  },
+  "domaine-moulin.com": {
+    "has_mx": true,
+    "mx": [
+      "mx1.ovh.net",
+      "mx2.ovh.net"
+    ]
+  },
+  "bodegasgallardo.com": {
+    "has_mx": true,
+    "mx": [
+      "mail.bodegasgallardo.com"
+    ]
   }
 }
