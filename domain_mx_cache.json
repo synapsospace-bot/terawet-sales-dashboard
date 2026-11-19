@@ -7033,5 +7033,29 @@
     "mx": [
       "mail.bodegasgallardo.com"
     ]
+  },
+  "massolino.it": {
+    "has_mx": true,
+    "mx": [
+      "massolino-it.mail.protection.outlook.com"
+    ]
+  },
+  "chateau-mercier.fr": {
+    "has_mx": true,
+    "mx": [
+      "mail.chateau-mercier.fr"
+    ]
+  },
+  "fincasantiago.com": {
+    "has_mx": true,
+    "mx": [
+      "mx.serviciodecorreo.es"
+    ]
+  },
+  "weingut-roth.de": {
+    "has_mx": true,
+    "mx": [
+      "weingutroth-de01i.mail.protection.outlook.com"
+    ]
   }
 }

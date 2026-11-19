@@ -1773,11 +1773,13 @@ class DashboardHandler(BaseHTTPRequestHandler):
         path = parsed.path
 
         if path in ("/healthz", "/ping", "/api/health"):
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            self.wfile.write(b'{"status":"ok","uptime":"running"}')
+            total_catalog = sum(len(v) for v in self.finder_service.domain_catalog.values()) if hasattr(self, "finder_service") and hasattr(self.finder_service, "domain_catalog") else 0
+            self.send_json({
+                "status": "ok",
+                "uptime": "running",
+                "version": "2.2.0",
+                "catalog_domains": total_catalog
+            })
             return
 
         elif path in ("/api/search/status", "/api/search_status"):
